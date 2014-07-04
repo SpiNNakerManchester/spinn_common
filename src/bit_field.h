@@ -114,12 +114,12 @@ static inline void set_bit_field  (bit_field_t b, size_t s)
 
 static inline bool empty_bit_field (bit_field_t b, size_t s)
 {
-  bool empty = true;
+    bool empty = true;
 
-  for ( ; s > 0; s--)
-    empty = empty && (b [s-1] == 0);
+    for ( ; s > 0; s--)
+	empty = empty && (b [s-1] == 0);
 
-  return (empty);
+    return (empty);
 }
 
 static inline bool nonempty_bit_field  (bit_field_t b, size_t s)

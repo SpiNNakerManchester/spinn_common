@@ -47,11 +47,11 @@ static inline void skip (void) { return; }
 #include <stdlib.h>
 #include <stdio.h>
 
-#define spin1_dma_transfer(tag,s,t,d,l) \
-  do log_info("spin1_dma_transfer (%u, %u)",(s),(t)); while(0)
+#define spin1_dma_transfer(tag,s,t,d,l)					\
+    do log_info("spin1_dma_transfer (%u, %u)",(s),(t)); while(0)
 
-#define spin1_trigger_user_event(a,b)   \
-  do log_info("spin1_trigger_user_event (%d, %d)",(a),(b)); while(0)
+#define spin1_trigger_user_event(a,b)					\
+    do log_info("spin1_trigger_user_event (%d, %d)",(a),(b)); while(0)
 
 #define c_main c_main(void); int main(void) { c_main(); return (0); } void c_main
 

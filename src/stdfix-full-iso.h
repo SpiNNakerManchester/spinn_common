@@ -161,77 +161,77 @@ static inline u3232 ulkbits (const uint_ulk_t n)
 
 static inline int32_t __stdfix_sat_hr (const int32_t x)
 {
-  if (x > INT8_MAX) return (INT8_MAX);
-  if (x < INT8_MIN) return (INT8_MIN);
+    if (x > INT8_MAX) return (INT8_MAX);
+    if (x < INT8_MIN) return (INT8_MIN);
 
-  return (x);
+    return (x);
 }
 
 static inline int32_t __stdfix_sat_r (const int32_t x)
 {
-  if (x > INT16_MAX) return (INT16_MAX);
-  if (x < INT16_MIN) return (INT16_MIN);
+    if (x > INT16_MAX) return (INT16_MAX);
+    if (x < INT16_MIN) return (INT16_MIN);
 
-  return (x);
+    return (x);
 }
 
 static inline int32_t __stdfix_sat_lr (const int64_t x)
 {
-  if (x > INT32_MAX) return (INT32_MAX);
-  if (x < INT32_MIN) return (INT32_MIN);
+    if (x > INT32_MAX) return (INT32_MAX);
+    if (x < INT32_MIN) return (INT32_MIN);
 
-  return ((int32_t)x);
+    return ((int32_t)x);
 }
 
 static inline int32_t __stdfix_sat_hk   (const int32_t x)
 {
-  if (x > INT16_MAX) return (INT16_MAX);
-  if (x < INT16_MIN) return (INT16_MIN);
+    if (x > INT16_MAX) return (INT16_MAX);
+    if (x < INT16_MIN) return (INT16_MIN);
 
-  return (x);
+    return (x);
 }
 
 static inline int32_t __stdfix_sat_k (const int64_t x)
 {
-  if (x > INT32_MAX) return (INT32_MAX);
-  if (x < INT32_MIN) return (INT32_MIN);
+    if (x > INT32_MAX) return (INT32_MAX);
+    if (x < INT32_MIN) return (INT32_MIN);
 
-  return ((int32_t)x);
+    return ((int32_t)x);
 }
 
 static inline uint32_t __stdfix_sat_uhr (const uint32_t x)
 {
-  if (x > UINT8_MAX) return (UINT8_MAX);
+    if (x > UINT8_MAX) return (UINT8_MAX);
 
-  return (x);
+    return (x);
 }
 
 static inline uint32_t __stdfix_sat_ur (const uint32_t x)
 {
-  if (x > UINT16_MAX) return (UINT16_MAX);
+    if (x > UINT16_MAX) return (UINT16_MAX);
 
-  return (x);
+    return (x);
 }
 
 static inline uint32_t __stdfix_sat_ulr (const uint64_t x)
 {
-  if (x > UINT32_MAX) return (UINT32_MAX);
+    if (x > UINT32_MAX) return (UINT32_MAX);
 
-  return ((uint32_t)x);
+    return ((uint32_t)x);
 }
 
 static inline uint32_t __stdfix_sat_uhk   (const uint32_t x)
 {
-  if (x > UINT16_MAX) return (UINT16_MAX);
+    if (x > UINT16_MAX) return (UINT16_MAX);
 
-  return (x);
+    return (x);
 }
 
 static inline uint32_t __stdfix_sat_uk (const uint64_t x)
 {
-  if (x > UINT32_MAX) return (UINT32_MAX);
+    if (x > UINT32_MAX) return (UINT32_MAX);
 
-  return ((uint32_t)x);
+    return ((uint32_t)x);
 }
 
 // software simulation of basic saturating arithmetic
@@ -287,37 +287,37 @@ int64_t __stdfix_sneg_lk (int64_t x);
 
 static inline int32_t __stdfix_smul_hr (int32_t x, int32_t y)
 {
-  if (x == INT8_MIN && y == INT8_MIN) return (INT8_MAX);  // special case for -1.0*-1.0
+    if (x == INT8_MIN && y == INT8_MIN) return (INT8_MAX);  // special case for -1.0*-1.0
 
-  return ((int32_t)__stdfix_sat_hr (((int32_t)x * (int32_t)y) >> 7));
+    return ((int32_t)__stdfix_sat_hr (((int32_t)x * (int32_t)y) >> 7));
 }
 
 static inline int32_t __stdfix_smul_r (int32_t x, int32_t y)
 {
-  if (x == INT16_MIN && y == INT16_MIN) return (INT16_MAX); // special case for -1.0*-1.0
+    if (x == INT16_MIN && y == INT16_MIN) return (INT16_MAX); // special case for -1.0*-1.0
 
-  return ((int32_t)__stdfix_sat_r (((int32_t)x * (int32_t)y) >> 15));
+    return ((int32_t)__stdfix_sat_r (((int32_t)x * (int32_t)y) >> 15));
 }
 
 static inline int32_t __stdfix_smul_lr (int32_t x, int32_t y)
 {
-  if (x == INT32_MIN && y == INT32_MIN) return (INT32_MAX);  // special case for -1.0*-1.0
+    if (x == INT32_MIN && y == INT32_MIN) return (INT32_MAX);  // special case for -1.0*-1.0
 
-  return (__stdfix_sat_lr (((int64_t)x * (int64_t)y) >> 31));
+    return (__stdfix_sat_lr (((int64_t)x * (int64_t)y) >> 31));
 }
 
 static inline int32_t __stdfix_smul_hk (int32_t x, int32_t y)
 {
-  if (x == INT16_MIN && y == INT16_MIN) return (INT16_MAX); // special case for -1.0*-1.0
+    if (x == INT16_MIN && y == INT16_MIN) return (INT16_MAX); // special case for -1.0*-1.0
 
-  return (__stdfix_sat_hk (((int32_t)x * (int32_t)y) >> 7));
+    return (__stdfix_sat_hk (((int32_t)x * (int32_t)y) >> 7));
 }
 
 static inline int32_t __stdfix_smul_k (int32_t x, int32_t y)
 {
-  if (x == INT32_MIN && y == INT32_MIN) return (INT32_MAX); // special case for -1.0*-1.0
+    if (x == INT32_MIN && y == INT32_MIN) return (INT32_MAX); // special case for -1.0*-1.0
 
-  return (__stdfix_sat_k (((int64_t)x * (int64_t)y) >> 15));
+    return (__stdfix_sat_k (((int64_t)x * (int64_t)y) >> 15));
 }
 
 int64_t __stdfix_smul_lk (int64_t x, int64_t y);
@@ -382,11 +382,11 @@ static inline int      mulik  (int n, s1615 x)
 { return ((int)(((int64_t)(n) * (int64_t)(bitsk  (x)))  >> 15)); }
 static inline long int mulilk (long int n, s3231 x)
 {
-  int64_t r = bitslk (x);
-  int64_t k = (int64_t)(n) * (r >> 31);
-  int64_t c = ((int64_t)(n) * (r & INT64_C(0x7FFFFFF))) >> 31;
+    int64_t r = bitslk (x);
+    int64_t k = (int64_t)(n) * (r >> 31);
+    int64_t c = ((int64_t)(n) * (r & INT64_C(0x7FFFFFF))) >> 31;
 
-  return ((long int)(k + c));
+    return ((long int)(k + c));
 }
 
 static inline int      divir  (int n, s015 x)
@@ -425,11 +425,11 @@ static inline unsigned int      muliuk  (unsigned int n, u1616 x)
 { return ((unsigned int)( ((uint64_t)(n) << 16) / bitsuk  (x))); }
 static inline unsigned long int muliulk (unsigned long int n, u3232 x)
 {
-  uint64_t r = bitsulk (x);
-  uint64_t k = (uint64_t)(n) * (r >> 32);
-  uint64_t c = ((uint64_t)(n) * (r & INT64_C(0xFFFFFFF))) >> 32;
+    uint64_t r = bitsulk (x);
+    uint64_t k = (uint64_t)(n) * (r >> 32);
+    uint64_t c = ((uint64_t)(n) * (r & INT64_C(0xFFFFFFF))) >> 32;
 
-  return ((unsigned long int)(k + c));
+    return ((unsigned long int)(k + c));
 }
 
 static inline unsigned int      diviur (unsigned int n, u016 x)
@@ -476,65 +476,65 @@ static inline unsigned long int idivulk (u3232 x, u3232 y)
 
 static inline s07   abshr (s07   f)
 {
-  int_hr_t r = bitshr (f);
+    int_hr_t r = bitshr (f);
 
-  if (r < 0)
-    r = (r == INT8_MIN)? INT8_MAX: -r;
+    if (r < 0)
+	r = (r == INT8_MIN)? INT8_MAX: -r;
 
-  return (hrbits (r));
+    return (hrbits (r));
 }
 
 
 static inline s015  absr  (s015  f)
 {
-  int_r_t r = bitsr (f);
+    int_r_t r = bitsr (f);
 
-  if (r < 0)
-    r = (r == INT16_MIN)? INT16_MAX: -r;
+    if (r < 0)
+	r = (r == INT16_MIN)? INT16_MAX: -r;
 
-  return (rbits (r));
+    return (rbits (r));
 }
 
 static inline s031  abslr (s031  f)
 {
-  int_lr_t r = bitslr (f);
+    int_lr_t r = bitslr (f);
 
-  if (r < 0)
-    r = (r == INT32_MIN)? INT32_MAX: -r;
+    if (r < 0)
+	r = (r == INT32_MIN)? INT32_MAX: -r;
 
-  return (lrbits (r));
+    return (lrbits (r));
 }
 
 
 static inline s87   abshk (s87   f)
 {
-  int_hk_t r = bitshk (f);
+    int_hk_t r = bitshk (f);
 
-  if (r < 0)
-    r = (r == INT16_MIN)? INT16_MAX: -r;
+    if (r < 0)
+	r = (r == INT16_MIN)? INT16_MAX: -r;
 
-  return (hkbits (r));
+    return (hkbits (r));
 }
 
 static inline s1615 absk  (s1615 f)
 {
-  int_k_t r = bitsk (f);
+    int_k_t r = bitsk (f);
 
-  if (r < 0)
-    r = (r == INT32_MIN)? INT32_MAX: -r;
+    if (r < 0)
+	r = (r == INT32_MIN)? INT32_MAX: -r;
 
-  return (kbits (r));
+    return (kbits (r));
 }
 
 
 static inline s3231 abslk (s3231 f)
 {
-  int_lk_t r = bitslk (f);
+    int_lk_t r = bitslk (f);
 
-  if (r < 0)
+    if (r < 0)
     r = (r == INT64_MIN)? INT64_MAX: -r;
 
-  return (lkbits (r));
+    return (lkbits (r));
 }
 
 
@@ -582,110 +582,110 @@ u3232 roundulk (u3232 f, int n);
 
 static inline int countlshr  (s07   f)
 {
-  int32_t n = (int32_t)(bitshr (f));
+    int32_t n = (int32_t)(bitshr (f));
 
-  if (n == 0) return (7);
+    if (n == 0) return (7);
 
-  return (__builtin_clrsb (n) - 24);
+    return (__builtin_clrsb (n) - 24);
 }
 
 static inline int countlsr   (s015  f)
 {
-  int32_t n = (int32_t)(bitsr (f));
+    int32_t n = (int32_t)(bitsr (f));
 
-  if (n == 0) return (15);
+    if (n == 0) return (15);
 
-  return (__builtin_clrsb (n) - 16);
+    return (__builtin_clrsb (n) - 16);
 }
 
 static inline int countlslr  (s031  f)
 {
-  int_lr_t n = bitslr (f);
+    int_lr_t n = bitslr (f);
 
-  if (n == 0) return (31);
+    if (n == 0) return (31);
 
-  return (__builtin_clrsb (n));
+    return (__builtin_clrsb (n));
 }
 
 static inline int countlshk  (s87   f)
 {
-  int32_t n = (int32_t)(bitshk (f));
+    int32_t n = (int32_t)(bitshk (f));
 
-  if (n == 0) return (15);
+    if (n == 0) return (15);
 
-  return (__builtin_clrsb (n) - 16);
+    return (__builtin_clrsb (n) - 16);
 }
 
 static inline int countlsk   (s1615 f)
 {
-  int_k_t n = bitsk (f);
+    int_k_t n = bitsk (f);
 
-  if (n == 0) return (31);
+    if (n == 0) return (31);
 
-  return (__builtin_clrsb (n));
+    return (__builtin_clrsb (n));
 }
 
 static inline int countlslk  (s3231 f)
 {
-  int64_t n = (int64_t)(bitslk (f));
+    int64_t n = (int64_t)(bitslk (f));
 
-  if (n == 0) return (63);
+    if (n == 0) return (63);
 
-  return (__builtin_clrsbll (n));
+    return (__builtin_clrsbll (n));
 }
 
 static inline int countlsuhr (u08   f)
 {
-  uint32_t n = (uint32_t)(bitsuhr (f));
+    uint32_t n = (uint32_t)(bitsuhr (f));
 
-  if (n == 0) return (8);
+    if (n == 0) return (8);
 
-  return (__builtin_clz (n) - 24);
+    return (__builtin_clz (n) - 24);
 }
 
 static inline int countlsur  (u016  f)
 {
-  uint32_t n = (uint32_t)(bitsur (f));
+    uint32_t n = (uint32_t)(bitsur (f));
 
-  if (n == 0) return (16);
+    if (n == 0) return (16);
 
-  return (__builtin_clz (n) - 16);
+    return (__builtin_clz (n) - 16);
 }
 
 static inline int countlsulr (u032  f)
 {
-  uint_ulr_t n = bitsulr (f);
+    uint_ulr_t n = bitsulr (f);
 
-  if (n == 0) return (32);
+    if (n == 0) return (32);
 
-  return (__builtin_clz (n));
+    return (__builtin_clz (n));
 }
 
 static inline int countlsuhk (u88   f)
 {
-  uint32_t n = (uint32_t)(bitsuhk (f));
+    uint32_t n = (uint32_t)(bitsuhk (f));
 
-  if (n == 0) return (16);
+    if (n == 0) return (16);
 
-  return (__builtin_clz (n) - 16);
+    return (__builtin_clz (n) - 16);
 }
 
 static inline int countlsuk  (u1616 f)
 {
-  uint_uk_t n = (uint_uk_t)(bitsuk (f));
+    uint_uk_t n = (uint_uk_t)(bitsuk (f));
 
-  if (n == 0) return (32);
+    if (n == 0) return (32);
 
-  return (__builtin_clz (n));
+    return (__builtin_clz (n));
 }
 
 static inline int countlsulk (u3232 f)
 {
-  uint_ulk_t n = (uint_ulk_t)(bitsulk (f));
+    uint_ulk_t n = (uint_ulk_t)(bitsulk (f));
 
-  if (n == 0) return (64);
+    if (n == 0) return (64);
 
-  return (__builtin_clzll (n));
+    return (__builtin_clzll (n));
 }
 
 // Description
@@ -721,88 +721,88 @@ static inline int countlsulk (u3232 f)
 // behavior is undefined
 
 #define absfx(f)						      \
-  ({								      \
-    __typeof__ (f) tmp = (f);					      \
-    if      (__builtin_types_compatible_p (__typeof__(f), s07))	      \
-      tmp = abshr (f);						      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s015))      \
-      tmp = absr (f);						      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s031))      \
-      tmp = abslr (f);						      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s87))	      \
-      tmp = abshk (f);						      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s1615))     \
-      tmp = absk (f);						      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s3231))     \
-      tmp = abslk (f);						      \
-    else							      \
-      abort ();							      \
-    tmp;							      \
-})
+    ({								      \
+	__typeof__ (f) tmp = (f);				      \
+	if      (__builtin_types_compatible_p (__typeof__(f), s07))   \
+	    tmp = abshr (f);					      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s015))  \
+	    tmp = absr (f);					      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s031))  \
+	    tmp = abslr (f);					      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s87))   \
+	    tmp = abshk (f);					      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s1615)) \
+	    tmp = absk (f);					      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s3231)) \
+	    tmp = abslk (f);					      \
+	else							      \
+	    abort ();						      \
+	tmp;							      \
+    })
 
 #define roundfx(f,n)						      \
-  ({								      \
-    __typeof__ (f) tmp = (f);					      \
-    if      (__builtin_types_compatible_p (__typeof__(f), s07))	      \
-      tmp = roundhr (f, n);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s015))      \
-      tmp = roundr (f, n);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s031))      \
-      tmp = roundlr (f, n);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s87))	      \
-      tmp = roundhk (f, n);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s1615))     \
-      tmp = roundk (f, n);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s3231))     \
-      tmp = roundlk (f, n);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u08))	      \
-      tmp = rounduhr (f, n);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u016))      \
-      tmp = roundur (f, n);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u032))      \
-      tmp = roundulr (f, n);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u88))	      \
-      tmp = rounduhk (f, n);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u1616))     \
-      tmp = rounduk (f, n);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u3232))     \
-      tmp = roundulk (f, n);					      \
-    else							      \
-      abort ();							      \
-    tmp;							      \
-})
+    ({								      \
+	__typeof__ (f) tmp = (f);				      \
+	if      (__builtin_types_compatible_p (__typeof__(f), s07))   \
+	    tmp = roundhr (f, n);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s015))  \
+	    tmp = roundr (f, n);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s031))  \
+	    tmp = roundlr (f, n);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s87))   \
+	    tmp = roundhk (f, n);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s1615)) \
+	    tmp = roundk (f, n);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s3231)) \
+	    tmp = roundlk (f, n);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u08))   \
+	    tmp = rounduhr (f, n);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u016))  \
+	    tmp = roundur (f, n);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u032))  \
+	    tmp = roundulr (f, n);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u88))   \
+	    tmp = rounduhk (f, n);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u1616)) \
+	    tmp = rounduk (f, n);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u3232)) \
+	    tmp = roundulk (f, n);				      \
+	else							      \
+	    abort ();						      \
+	tmp;							      \
+    })
 
 #define countlsfx(f)						      \
-  ({								      \
-    int tmp = 0;						      \
-    if      (__builtin_types_compatible_p (__typeof__(f), s07))	      \
-      tmp = countlshr (f);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s015))      \
-      tmp = countlsr (f);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s031))      \
-      tmp = countlslr (f);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s87))	      \
-      tmp = countlshk (f);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s1615))     \
-      tmp = countlsk (f);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), s3231))     \
-      tmp = countlslk (f);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u08))	      \
-      tmp = countlsuhr (f);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u016))      \
-      tmp = countlsur (f);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u032))      \
-      tmp = countlsulr (f);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u88))	      \
-      tmp = countlsuhk (f);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u1616))     \
-      tmp = countlsuk (f);					      \
-    else if (__builtin_types_compatible_p (__typeof__(f), u3232))     \
-      tmp = countlsulk (f);					      \
-    else							      \
-      abort ();							      \
-    tmp;							      \
-})
+    ({								      \
+	int tmp = 0;						      \
+	if      (__builtin_types_compatible_p (__typeof__(f), s07))   \
+	    tmp = countlshr (f);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s015))  \
+	    tmp = countlsr (f);					      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s031))  \
+	    tmp = countlslr (f);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s87))   \
+	    tmp = countlshk (f);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s1615)) \
+	    tmp = countlsk (f);					      \
+	else if (__builtin_types_compatible_p (__typeof__(f), s3231)) \
+	    tmp = countlslk (f);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u08))   \
+	    tmp = countlsuhr (f);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u016))  \
+	    tmp = countlsur (f);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u032))  \
+	    tmp = countlsulr (f);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u88))   \
+	    tmp = countlsuhk (f);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u1616)) \
+	    tmp = countlsuk (f);				      \
+	else if (__builtin_types_compatible_p (__typeof__(f), u3232)) \
+	    tmp = countlsulk (f);				      \
+	else							      \
+	    abort ();						      \
+	tmp;							      \
+    })
 
 // 7.18a.6.8 Numeric conversion functions
 

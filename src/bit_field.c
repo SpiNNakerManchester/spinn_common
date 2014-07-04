@@ -63,22 +63,20 @@
 
 #include "bit_field.h"
 
-size_t get_bit_field_size(size_t bits)
+size_t get_bit_field_size (size_t bits)
 {
-  // **NOTE** in floating point terms this is ceil(num_neurons / 32)
-  const uint32_t bits_to_words_shift = 5;
-  const uint32_t bits_to_words_remainder = (1 << bits_to_words_shift) - 1;
+    // **NOTE** in floating point terms this is ceil(num_neurons / 32)
+    const uint32_t bits_to_words_shift = 5;
+    const uint32_t bits_to_words_remainder = (1 << bits_to_words_shift) - 1;
   
-  // Down shift number of bits to words
-  uint32_t words = bits >> bits_to_words_shift;
+    // Down shift number of bits to words
+    uint32_t words = bits >> bits_to_words_shift;
   
-  // If there was a remainder, add an extra word
-  if((bits & bits_to_words_remainder) != 0)
-  {
-    words++;
-  }
-  
-  return words;
+    // If there was a remainder, add an extra word
+    if ((bits & bits_to_words_remainder) != 0)
+	words++;
+
+    return (words);
 }
 
 #ifdef DEBUG
@@ -86,37 +84,38 @@ size_t get_bit_field_size(size_t bits)
 
 static inline void print_bit_field_entry (uint32_t e)
 {
-  counter_t i = 32;
+    counter_t i = 32;
 
-  for ( ; i > 0; i--) {
-    io_printf (IO_BUF, "%c", ((e & 0x1) == 0)? ' ': '1');
-    e = e >> 1;
-  }
-  io_printf (IO_BUF, "\n");
+    for ( ; i > 0; i--) {
+	io_printf (IO_BUF, "%c", ((e & 0x1) == 0)? ' ': '1');
+	e = e >> 1;
+    }
+
+    io_printf (IO_BUF, "\n");
 }
 
 void print_bit_field_bits (bit_field_t b, size_t s)
 {
-  index_t i;
+    index_t i;
 
-  for (i = 0; i < s; i++)
-    print_bit_field_entry (b [i]);
+    for (i = 0; i < s; i++)
+	print_bit_field_entry (b [i]);
 }
 
 void print_bit_field (bit_field_t b, size_t s)
 {
-  index_t i;
+    index_t i;
 
-  for (i = 0; i < s; i++)
-    io_printf (IO_BUF, "%08x\n", b [i]);
+    for (i = 0; i < s; i++)
+	io_printf (IO_BUF, "%08x\n", b [i]);
 }
 
 void random_bit_field (bit_field_t b, size_t s)
 {
-  index_t i;
+    index_t i;
 
-  for (i = 0; i < s; i++)
-    b [i] = sark_rand();
+    for (i = 0; i < s; i++)
+	b [i] = sark_rand();
 }
 #else /*DEBUG*/
 void print_bit_field_bits (bit_field_t b, size_t s) { use(b); use(s); return; }

@@ -55,56 +55,56 @@ static uint32_t STATE[R];
 
 
 // the initialiser function that MUST BE CALLED before WELL1024a_simp() is used
-void init_WELL1024a_simp( void )
+void init_WELL1024a_simp (void)
 {
-	//   state_i = 0;
-	for ( int j = 0; j < R; j++ ) {
-		STATE[j] = mars_kiss64_simp();  // init state vector with good generator
-// io_printf( IO_STD, " %u , ", STATE[j] );	
-		}
+    //   state_i = 0;
+    for (int j = 0; j < R; j++) {
+	STATE[j] = mars_kiss64_simp();  // init state vector with good generator
+// io_printf( IO_STD, " %u , ", STATE[j]);	
+    }
 // io_printf( IO_STD, "\n");	
 }
 
 
 // the WELL generator itself
-uint32_t WELL1024a_simp( void )
+uint32_t WELL1024a_simp (void)
 {
-	static uint32_t state_i = 0;
-	uint32_t 			z0, z1, z2;
+    static uint32_t state_i = 0;
+    uint32_t 	    z0, z1, z2;
 	
-	z0    = VRm1;
-	z1    = Identity(V0)       ^ MAT0POS (8, VM1);
-	z2    = MAT0NEG (-19, VM2) ^ MAT0NEG(-14,VM3);
-	newV1 = z1                 ^ z2; 
-	newV0 = MAT0NEG (-11,z0)   ^ MAT0NEG(-7,z1)    ^ MAT0NEG(-13,z2);
-	state_i = (state_i + 31) & 0x0000001fU;
+    z0    = VRm1;
+    z1    = Identity (V0)      ^ MAT0POS (  8, VM1);
+    z2    = MAT0NEG (-19, VM2) ^ MAT0NEG (-14, VM3);
+    newV1 = z1                 ^ z2; 
+    newV0 = MAT0NEG (-11,z0)   ^ MAT0NEG(-7, z1)    ^ MAT0NEG(-13, z2);
+    state_i = (state_i + 31) & 0x0000001fU;
 	
-  	return STATE[state_i];
+    return (STATE [state_i]);
 }
 
 
 // MUST USE THIS before working with proposed seed for the first time
-void		validate_WELL1024a_seed( WELL1024a_seed_t seed )
+void validate_WELL1024a_seed (WELL1024a_seed_t seed)
 {
-	seed[33] = 0;
+    seed[33] = 0;
 }
 
 #define state_i STATE[33] // need to store original static variable as extra element of seed 
 
 // the WELL generator for custom seed - STATE in function argument replaces file static version
-uint32_t WELL1024a_seed( WELL1024a_seed_t STATE )
+uint32_t WELL1024a_seed (WELL1024a_seed_t STATE)
 {
 //	static uint32_t 	state_i = 0;  // now stored in 33rd element of seed
-	uint32_t 			z0, z1, z2;
+    uint32_t 			z0, z1, z2;
 	
-	z0    = VRm1;
-	z1    = Identity(V0)       ^ MAT0POS (8, VM1);
-	z2    = MAT0NEG (-19, VM2) ^ MAT0NEG(-14,VM3);
-	newV1 = z1                 ^ z2; 
-	newV0 = MAT0NEG (-11,z0)   ^ MAT0NEG(-7,z1)    ^ MAT0NEG(-13,z2);
-	state_i = (state_i + 31) & 0x0000001fU;
+    z0    = VRm1;
+    z1    = Identity (V0)      ^ MAT0POS (  8, VM1);
+    z2    = MAT0NEG (-19, VM2) ^ MAT0NEG (-14, VM3);
+    newV1 = z1                 ^ z2; 
+    newV0 = MAT0NEG (-11,z0)   ^ MAT0NEG(-7,z1)    ^ MAT0NEG(-13,z2);
+    state_i = (state_i + 31) & 0x0000001fU;
 	
-  	return STATE[state_i];
+    return (STATE [state_i]);
 }
 
 #undef state_i
@@ -137,19 +137,19 @@ uint32_t WELL1024a_seed( WELL1024a_seed_t STATE )
    209.9 nanosecs (i.e. 42 ticks) per call
    
 */ 
-uint32_t mars_kiss32( void )
+uint32_t mars_kiss32 (void)
 {
-	static uint32_t x = 123456789, y = 234567891, z = 345678912, w = 456789123, c = 0; /* Seed variables */ 
-	int32_t t; 
+    static uint32_t x = 123456789, y = 234567891, z = 345678912, w = 456789123, c = 0; /* Seed variables */ 
+    int32_t t; 
 
-	y ^= ( y << 5 ); y ^= ( y >> 7 ); y ^= ( y << 22 ); 
-	t = z + w + c; 
-	z = w; 
-	c = t < 0; 
-	w =  t & 2147483647; 
-	x += 1411392427; 
+    y ^= ( y << 5); y ^= ( y >> 7); y ^= ( y << 22); 
+    t = z + w + c; 
+    z = w; 
+    c = t < 0; 
+    w =  t & 2147483647; 
+    x += 1411392427; 
 
-	return (uint32_t) x + y + w; 
+    return ((uint32_t)x + y + w); 
 }
 
 
@@ -159,18 +159,18 @@ uint32_t mars_kiss32( void )
 	219.9 nanosecs (i.e. 44 ticks) per call
 	
 */ 
-uint32_t mars_kiss64_simp( void )
+uint32_t mars_kiss64_simp (void)
 {
-	static uint32_t x = 123456789, y = 987654321, z = 43219876, c = 6543217; /* Seed variables */ 
-	uint64_t t; 
+    static uint32_t x = 123456789, y = 987654321, z = 43219876, c = 6543217; /* Seed variables */ 
+    uint64_t t; 
 
-	x = 314527869 * x + 1234567; 
-	y ^= y << 5; y ^= y >> 7; y ^= y << 22; 
-	t = 4294584393ULL * z + c; 
-	c = t >> 32; 
-	z = t; 
+    x = 314527869 * x + 1234567; 
+    y ^= y << 5; y ^= y >> 7; y ^= y << 22; 
+    t = 4294584393ULL * z + c; 
+    c = t >> 32; 
+    z = t; 
 
-	return (uint32_t) x + y + z; 
+    return ((uint32_t)x + y + z); 
 }
 
 
@@ -181,17 +181,17 @@ uint32_t mars_kiss64_simp( void )
 /* 
 	Custom seed version of above - need to create & validate 128 bit seed before use
 */ 
-uint32_t mars_kiss64_seed( mars_kiss64_seed_t seed )
+uint32_t mars_kiss64_seed (mars_kiss64_seed_t seed)
 {
-	uint64_t t; 
+    uint64_t t; 
 
-	x = 314527869 * x + 1234567; 
-	y ^= y << 5; y ^= y >> 7; y ^= y << 22; 
-	t = 4294584393ULL * z + c; 
-	c = t >> 32; 
-	z = t; 
+    x = 314527869 * x + 1234567; 
+    y ^= y << 5; y ^= y >> 7; y ^= y << 22; 
+    t = 4294584393ULL * z + c; 
+    c = t >> 32; 
+    z = t; 
 
-	return (uint32_t) x + y + z; 
+    return ((uint32_t)x + y + z); 
 }
 #undef x
 #undef y
@@ -200,9 +200,9 @@ uint32_t mars_kiss64_seed( mars_kiss64_seed_t seed )
 
 
 // validate seed for Marsaglia KISS 64 before it is first used
-void		validate_mars_kiss64_seed( mars_kiss64_seed_t seed )
+void validate_mars_kiss64_seed (mars_kiss64_seed_t seed)
 {
- 	if( seed[1] == 0 ) seed[1] = 13031301;  	// y (<- seed[2]) can't be zero so set to arbitrary non-zero if so
+    if (seed[1] == 0) seed[1] = 13031301;  	// y (<- seed[2]) can't be zero so set to arbitrary non-zero if so
  	
  	seed[3] = seed[3] % 698769068 + 1;			// avoid z=c=0 and make < 698769069
 }
@@ -226,90 +226,84 @@ void		validate_mars_kiss64_seed( mars_kiss64_seed_t seed )
  * 
  * 	I have been lazy and copied the GOTOs, sorry!
  */
-accum exponential_dist_variate( uniform_rng uni_rng, uint32_t* seed_arg  )
+accum exponential_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg)
 {
-	accum 		A = 0.0k;
-	uint32_t	U, U0, USTAR;
+    accum 	A = 0.0k;
+    uint32_t	U, U0, USTAR;
 
-outer:	
-	U = uni_rng( seed_arg ); 		
-	U0 = U;
+outer:
+    U = uni_rng (seed_arg); 		
+    U0 = U;
 
 inner:
-	USTAR = uni_rng( seed_arg );  
-	if ( U < USTAR ) return  A + (accum) ulrbits( U0 );  // accum + (accum)[ unsigned long fract <= uint32_t ]
+    USTAR = uni_rng (seed_arg);  
+    if (U < USTAR) return  A + (accum) ulrbits (U0);  // accum + (accum)[ unsigned long fract <= uint32_t ]
 
-	U = uni_rng( seed_arg ); 
-	if ( U < USTAR ) goto inner;	
+    U = uni_rng (seed_arg); 
+    if (U < USTAR) goto inner;	
 	
-	A += 1.0k;
-	goto outer;	
+    A += 1.0k;
+    goto outer;	
 }
 
 
 
 // Returns standard gaussian deviate - my translation of NR in C
 // 2 for the price of one (kind of)
-accum gaussian_dist_variate( uniform_rng uni_rng, uint32_t* seed_arg )
+accum gaussian_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg)
 {
-	static 			bool set = false;
-	static float 	gset;
-	float 			fac, rsq, v1, v2;
+    static bool         set = false;
+    static float 	gset;
+    float 		fac, rsq, v1, v2;
 
-	if  ( !set ) {
-		do {
-
-			v1 = ( uni_rng( seed_arg ) / 2147483648.0f ) - 1.0f;   // U(0,1) * 2 - 1
-			v2 = ( uni_rng( seed_arg ) / 2147483648.0f ) - 1.0f;
-			
-			rsq = v1*v1 + v2*v2;
-			
-			} while ( rsq >= 1.0f || rsq == 0.0f );
-
-		fac = sqrtf( -2.0f * logf( rsq ) / rsq );
+    if (!set) {
+	do {
+	    v1 =  (uni_rng (seed_arg) / 2147483648.0f) - 1.0f;   // U(0,1) * 2 - 1
+	    v2 =  (uni_rng (seed_arg) / 2147483648.0f) - 1.0f;
 		
-		gset = v1 * fac;
-		set = true;
-		return (accum) v2 * fac;
-		} 
-	else {
+	    rsq = v1*v1 + v2*v2;		
+	} while  (rsq >= 1.0f || rsq == 0.0f);
 
-		set = false;
-		return (accum) gset;
-
-		}
+	fac = sqrtf (-2.0f * logf (rsq) / rsq);
+		
+	gset = v1 * fac;
+	set = true;
+	return ((accum) v2 * fac);
+    } 
+    else {
+	set = false;
+	return ((accum) gset);
+    }
 }
 
 
 // Returns Poisson variate using Knuth's method
 // O(n) for returned value so don't use for large lambda
-uint32_t poisson_dist_variate( uniform_rng uni_rng, uint32_t* seed_arg, accum lambda )
+uint32_t poisson_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg,
+			       accum lambda)
 {
-	unsigned long fract exp_minus_lambda = (unsigned long fract) expk( -lambda );
+    unsigned long fract exp_minus_lambda = (unsigned long fract) expk (-lambda);
 	
-	return poisson_dist_variate_exp_minus_lambda( uni_rng, seed_arg, exp_minus_lambda );
+    return (poisson_dist_variate_exp_minus_lambda (uni_rng, seed_arg, exp_minus_lambda));
 }
 
 
-// when one can pre-calculate exp( -lambda ) once, use this version to save time
-uint32_t poisson_dist_variate_exp_minus_lambda( uniform_rng uni_rng, uint32_t* seed_arg, 
-																 unsigned long fract exp_minus_lambda )
+// when one can pre-calculate exp (-lambda) once, use this version to save time
+uint32_t poisson_dist_variate_exp_minus_lambda
+    (uniform_rng         uni_rng,
+     uint32_t*           seed_arg,
+     unsigned long fract exp_minus_lambda)
 {
-	uint32_t 				k = 0, unif;
-	unsigned long fract 	p = 1.0ulr, u;
+    uint32_t 			k = 0, unif;
+    unsigned long fract 	p = 1.0ulr, u;
 	
-	do {
+    do {		
+	k++;
+	unif = uni_rng (seed_arg);  	// unif is uint32_t
+	u = ulrbits (unif);		// u is unsigned long fract
+	p *= u;
+    } while (p > exp_minus_lambda);
 		
-		k++;
-		
-		unif = uni_rng( seed_arg );  	// unif is uint32_t
-		
-		u = ulrbits( unif );				// u is unsigned long fract
-		
-		p *= u;
-		
-		} while ( p > exp_minus_lambda );
-		
-	return k - 1;
+    return (k - 1);
 }
 
