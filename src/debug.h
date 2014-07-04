@@ -1,20 +1,30 @@
-/****h* debug.h/debug.h
- *  NAME
- *    debug.h
+/*! \file
  *
- *  SUMMARY
- *    SpiNNaker debug header file
+ *  \brief SpiNNaker debug header file
  *
- *  AUTHOR
+ *  \author
  *    Dave Lester (david.r.lester@manchester.ac.uk)
  *
- *  COPYRIGHT
- *    Copyright (c) Dave Lester and The University of Manchester, 2013. All rights reserved.
+ *  \copyright
+ *    Copyright (c) Dave Lester and The University of Manchester, 2013.
+ *    All rights reserved.
  *    SpiNNaker Project
  *    Advanced Processor Technologies Group
  *    School of Computer Science
  *    The University of Manchester
  *    Manchester M13 9PL, UK
+ *
+ *  \date 12 December, 2013
+ *
+ *  DETAILS
+ *    Created on       : 12 December 2013
+ *    Version          : $Revision$
+ *    Last modified on : $Date$
+ *    Last modified by : $Author$
+ *    $Id$
+ *
+ *    $Log$
+ *
  *
  *  DESCRIPTION
  *    A header file that can be used to incorporate and control debug information.
@@ -28,8 +38,6 @@
  *  EXAMPLES
  *
  *    To use, you must `hash-include' debug.h:
- *
- *      #include "debug.h"
  *
  *    Assertions:
  *
@@ -72,96 +80,168 @@
  *
  *    By default all information is printed.
  *
- *    There is no way to switch off [ASSERT]s except by using the compilation flag:
+ *    There is no way to switch off [ASSERT]s except by using the compilation
+ *    flag:
  *
  *      -DPRODUCTION_CODE
  *
- *  DETAILS
- *    Created on       : 27 July 2013
- *    Version          : $Revision: 1.1 $
- *    Last modified on : $Date: 2013/08/06 15:11:34 $
- *    Last modified by : $Author: dave $
- *    $Id: debug.h,v 1.1 2013/08/06 15:11:34 dave Exp $
- *
- *    $Log: debug.h,v $
- *    Revision 1.1  2013/08/06 15:11:34  dave
- *    Initial revision
- *
- *
- *********/
+ */
+
 #ifndef __DEBUG_H__
 #define __DEBUG_H__
 
 #include "spin-print.h"
 
 #ifndef DEBUG_ERROR
+//! \brief If DEBUG_ERROR is undefined, then it defaults to 1, which
+//! forces the logging of all errors.
+
 #define DEBUG_ERROR(n) (1)
-#endif /* DEBUG_ERROR: defaults to logging all errors */
+#endif /*DEBUG_ERROR*/
 
 #ifndef DEBUG_WARN
-#define DEBUG_WARN(n) (1)
-#endif /* DEBUG_WARN: defaults to logging all warnings */
+//! \brief If DEBUG_WARN is undefined, then it defaults to 1, which
+//! forces the logging of all warnings.
 
-/****d* debug.h/abort
- *  NAME
- *    abort
- *  SOURCE
-*/
+#define DEBUG_WARN(n) (1)
+#endif /*DEBUG_WARN*/
+
+//! \brief This macro is intended to mimic the behaviour of 'C's exit
+//! system call.
+
 #define abort(n) do { exit(n); } while (0)
 
 #ifndef PRODUCTION_CODE
+//! \brief This macro prints out an error message to the log file.
+//! \param[in] m1 The kind of fault detected.
+//! \param[in] m2 The user-defined part of a message.
+
 #define __debug_message(m1, m2, ...)					\
   do { fprintf(stderr, m1 "(%s:%4d): " m2 "\n",				\
 	       __FILE__, __LINE__, ##__VA_ARGS__); } while (0)
 
+//! \brief This macro prints out a check message to the log file.
+//! \param[in] a The condition being tested.
+//! \param[in] s The message to be printed if the condition a is false
+
 #define check(a, s, ...)						\
   do { if (!(a)) __debug_message("[CHECK]    ", s, ##__VA_ARGS__);	\
      } while (0)
+
+//! \brief This macro prints out a sentinel message to the log file.
+//! \param[in] s The message to be printed if execution reaches this point.
 
 #define sentinel(s, ...)						\
   do { __debug_message("[SENTINEL] ", s, ##__VA_ARGS__); abort(0);	\
      } while (0)
 
 #else  /* PRODUCTION_CODE */
+
+//! \brief This macro prints out an error message to the log file.
+//! \param[in] m1 The kind of fault detected.
+//! \param[in] m2 The user-defined part of a message.
+
 #define __debug_message(m1, m2, ...) skip ()
+
+//! \brief This macro prints out a check message to the log file.
+//! \param[in] a The condition being tested.
+//! \param[in] s The message to be printed if the condition a is false
+
 #define check(a, s, ...)             skip ()
+
+//! \brief This macro prints out a sentinel message to the log file.
+//! \param[in] s The message to be printed if execution reaches this point.
+
 #define sentinel(s, ...)             skip ()
 #endif /* PRODUCTION_CODE */
 
+//! \brief This macro performs an assertion check on condition a
+//! \param[in] a The condition being tested.
+
 #define assert(a) __debug_maybe((!(a)), "[ASSERT]   ", "assertion check fails")
 
-#define assert_info(a, s, ...)\
-do { if (!(a)) { __debug_message("[ASSERT]   ", s, ##__VA_ARGS__); }} while (0)
+//! \brief This macro performs an assertion check on condition a
+//! \param[in] a The condition being tested.
+//! \param[in] s The message to be printed if the condition a is false
+
+#define assert_info(a, s, ...)						\
+    do { if (!(a)) __debug_message("[ASSERT]   ", s, ##__VA_ARGS__);	\
+    } while (0)
+
+//! \brief This macro prints a debug message.
+//! \param[in] m The user-defined part of the debug message.
 
 #define debug(m, ...) __debug_message("[DEBUG]    ", m, ##__VA_ARGS__)
 
-#define __debug_maybe(c,m, ...) do { if ((c)) __debug_message(m, ##__VA_ARGS__); } while(0)
+//! \brief This macro prints a debug message if c is true.
+//! \param[in] c The condition being tested.
+//! \param[in] m The user-defined part of the debug message.
 
-#define log_error(n,e, ...)						\
+#define __debug_maybe(c,m, ...)					\
+    do { if ((c)) __debug_message(m, ##__VA_ARGS__); } while(0)
+
+//! \brief This macro logs errors.
+//! \param[in] n The level of this error.
+//! \param[in] e The user-defined part of the error message.
+
+#define log_error(n,e, ...)					\
   __debug_maybe(DEBUG_ERROR(n), "[ERROR]   ", e, ##__VA_ARGS__)
+
+//! \brief This macro logs warnings.
+//! \param[in] n The level of this warning.
+//! \param[in] w The user-defined part of the error message.
 
 #define log_warning(n, w, ...)						\
   __debug_maybe(DEBUG_WARN(n),  "[WARNING] ", w, ##__VA_ARGS__)
 
 #ifndef NO_DEBUG_INFO
+
+//! \brief This macro logs information.
+//! \param[in] i The user-defined part of the information message.
+
 #define log_info(i, ...) __debug_message("[INFO]     ", i, ##__VA_ARGS__)
-#else  /* NO_DEBUG_INFO */
+#else  /*NO_DEBUG_INFO*/
+
+//! \brief This macro logs information.
+//! \param[in] i The user-defined part of the information message.
+
 #define log_info(i, ...) skip ()
-#endif /* NO_DEBUG_INFO */
+#endif /*NO_DEBUG_INFO*/
+
+//! \brief This function returns the unsigned integer associated with a pointer
+//! address.
+//! \param[in] ptr The pointer whose address is required.
+//! \return The value as an unsigned integer.
 
 static inline unsigned int __addr__ (void* ptr) { return ((unsigned int)(ptr)); }
 
+//! \brief This macro tests whether a pointer returned by malloc is null.
+//! \param[in] a The address returned by malloc.
+
 #define check_memory(a) check((a), "Out of memory")
 
+
 #ifndef DEBUG_ON_HOST
+//! \brief This macro tests whether a pointer's address lies in itcm.
+//! \param[in] a The pointer.
+
 #define check_itcm(a)   check((ITCM_BASE   <= __addr__(a) && __addr__(a) < ITCM_TOP),   \
 			      "%x is not in ITCM", (a))
+
+//! \brief This macro tests whether a pointer's address lies in dtcm.
+//! \param[in] a The pointer.
 
 #define check_dtcm(a)   check((DTCM_BASE   <= __addr__(a) && __addr__(a) < DTCM_TOP),   \
 			      "%x is not in DTCM", (a))
 
+//! \brief This macro tests whether a pointer's address lies in sysram.
+//! \param[in] a The pointer.
+
 #define check_sysram(a) check((SYSRAM_BASE <= __addr__(a) && __addr__(a) < SYSRAM_TOP), \
 			      "%x is not in sysRAM", (a))
+
+//! \brief This macro tests whether a pointer's address lies in sdram.
+//! \param[in] a The pointer.
 
 #define check_sdram(a)  check((SDRAM_BASE  <= __addr__(a) && __addr__(a) < SDRAM_TOP),  \
 			      "%x is not in sdram", (a))
