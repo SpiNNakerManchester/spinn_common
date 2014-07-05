@@ -116,24 +116,24 @@
 //! \param[in] m1 The kind of fault detected.
 //! \param[in] m2 The user-defined part of a message.
 
-#define __debug_message(m1, m2, ...)					\
-  do { fprintf(stderr, m1 "(%s:%4d): " m2 "\n",				\
-	       __FILE__, __LINE__, ##__VA_ARGS__); } while (0)
+#define __debug_message(m1, m2, ...)                                    \
+    do { fprintf(stderr, m1 "(%s:%4d): " m2 "\n",                       \
+                 __FILE__, __LINE__, ##__VA_ARGS__); } while (0)
 
 //! \brief This macro prints out a check message to the log file.
 //! \param[in] a The condition being tested.
 //! \param[in] s The message to be printed if the condition a is false
 
-#define check(a, s, ...)						\
-  do { if (!(a)) __debug_message("[CHECK]    ", s, ##__VA_ARGS__);	\
-     } while (0)
+#define check(a, s, ...)                                                \
+    do { if (!(a)) __debug_message("[CHECK]    ", s, ##__VA_ARGS__);	\
+    } while (0)
 
 //! \brief This macro prints out a sentinel message to the log file.
 //! \param[in] s The message to be printed if execution reaches this point.
 
-#define sentinel(s, ...)						\
-  do { __debug_message("[SENTINEL] ", s, ##__VA_ARGS__); abort(0);	\
-     } while (0)
+#define sentinel(s, ...)                                                \
+    do { __debug_message("[SENTINEL] ", s, ##__VA_ARGS__); abort(0);	\
+    } while (0)
 
 #else  /* PRODUCTION_CODE */
 
@@ -164,8 +164,8 @@
 //! \param[in] a The condition being tested.
 //! \param[in] s The message to be printed if the condition a is false
 
-#define assert_info(a, s, ...)						\
-    do { if (!(a)) __debug_message("[ASSERT]   ", s, ##__VA_ARGS__);	\
+#define assert_info(a, s, ...)                                          \
+    do { if (!(a)) __debug_message("[ASSERT]   ", s, ##__VA_ARGS__);    \
     } while (0)
 
 //! \brief This macro prints a debug message.
@@ -177,15 +177,15 @@
 //! \param[in] c The condition being tested.
 //! \param[in] m The user-defined part of the debug message.
 
-#define __debug_maybe(c,m, ...)					\
-    do { if ((c)) __debug_message(m, ##__VA_ARGS__); } while(0)
+#define __debug_maybe(c,m, ...)                                         \
+    do { if ((c)) __debug_message(m, ##__VA_ARGS__); } while (0)
 
 //! \brief This macro logs errors.
 //! \param[in] n The level of this error.
 //! \param[in] e The user-defined part of the error message.
 
-#define log_error(n,e, ...)					\
-  __debug_maybe(DEBUG_ERROR(n), "[ERROR]   ", e, ##__VA_ARGS__)
+#define log_error(n,e, ...)                                             \
+    __debug_maybe(DEBUG_ERROR(n), "[ERROR]   ", e, ##__VA_ARGS__)
 
 //! \brief This macro logs warnings.
 //! \param[in] n The level of this warning.
@@ -213,7 +213,8 @@
 //! \param[in] ptr The pointer whose address is required.
 //! \return The value as an unsigned integer.
 
-static inline unsigned int __addr__ (void* ptr) { return ((unsigned int)(ptr)); }
+static inline unsigned int __addr__ (void* ptr)
+{ return ((unsigned int)(ptr)); }
 
 //! \brief This macro tests whether a pointer returned by malloc is null.
 //! \param[in] a The address returned by malloc.
@@ -225,26 +226,31 @@ static inline unsigned int __addr__ (void* ptr) { return ((unsigned int)(ptr)); 
 //! \brief This macro tests whether a pointer's address lies in itcm.
 //! \param[in] a The pointer.
 
-#define check_itcm(a)   check((ITCM_BASE   <= __addr__(a) && __addr__(a) < ITCM_TOP),   \
-			      "%x is not in ITCM", (a))
+#define check_itcm(a)                                                   \
+    check((ITCM_BASE   <= __addr__(a) && __addr__(a) < ITCM_TOP),       \
+          "%x is not in ITCM", (a))
 
 //! \brief This macro tests whether a pointer's address lies in dtcm.
 //! \param[in] a The pointer.
 
-#define check_dtcm(a)   check((DTCM_BASE   <= __addr__(a) && __addr__(a) < DTCM_TOP),   \
-			      "%x is not in DTCM", (a))
+#define check_dtcm(a)                                                   \
+    check((DTCM_BASE   <= __addr__(a) && __addr__(a) < DTCM_TOP),       \
+          "%x is not in DTCM", (a))
 
 //! \brief This macro tests whether a pointer's address lies in sysram.
 //! \param[in] a The pointer.
 
-#define check_sysram(a) check((SYSRAM_BASE <= __addr__(a) && __addr__(a) < SYSRAM_TOP), \
-			      "%x is not in sysRAM", (a))
+#define check_sysram(a)                                                 \
+    check((SYSRAM_BASE <= __addr__(a) && __addr__(a) < SYSRAM_TOP),     \
+          "%x is not in sysRAM", (a))
 
 //! \brief This macro tests whether a pointer's address lies in sdram.
 //! \param[in] a The pointer.
 
-#define check_sdram(a)  check((SDRAM_BASE  <= __addr__(a) && __addr__(a) < SDRAM_TOP),  \
-			      "%x is not in sdram", (a))
+#define check_sdram(a)                                                  \
+    check((SDRAM_BASE  <= __addr__(a) && __addr__(a) < SDRAM_TOP),      \
+          "%x is not in sdram", (a))
+
 #else  /* DEBUG_ON_HOST */
 #define check_itcm(a)   skip ()
 #define check_dtcm(a)   skip ()

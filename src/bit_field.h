@@ -162,7 +162,7 @@ static inline bool empty_bit_field (bit_field_t b, size_t s)
     bool empty = true;
 
     for ( ; s > 0; s--)
-	empty = empty && (b [s-1] == 0);
+        empty = empty && (b [s-1] == 0);
 
     return (empty);
 }
@@ -192,7 +192,7 @@ static inline size_t get_bit_field_size (size_t bits)
   
     // If there was a remainder, add an extra word
     if ((bits & bits_to_words_remainder) != 0)
-	words++;
+        words++;
 
     return (words);
 }
