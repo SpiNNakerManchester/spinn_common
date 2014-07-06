@@ -1,14 +1,12 @@
 /*! \file
  *
- * spin-print.h
- *
- *  SUMMARY
+ *  \brief
  *    For quick changing between host-side and spinnaker side C code printing
  *
- *  AUTHOR
+ *  \author
  *    Dave Lester (david.r.lester@manchester.ac.uk)
  *
- *  COPYRIGHT
+ *  \copyright
  *    Copyright (c) Dave Lester and The University of Manchester, 2013.
  *    All rights reserved.
  *    SpiNNaker Project
@@ -17,12 +15,7 @@
  *    The University of Manchester
  *    Manchester M13 9PL, UK
  *
- *  DESCRIPTION
- *    A header file that can be used as with SpiNNaker to make IO more
- *    seamless.
- *
- *
- *  CREATION DATE
+ *  \date
  *    29 July, 2013
  *
  *  HISTORY

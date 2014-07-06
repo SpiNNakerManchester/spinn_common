@@ -29,10 +29,12 @@
  *     - randomly setting up a bit field
  *
  *  \author
- *    Dave Lester (david.r.lester@manchester.ac.uk)
+ *    Dave Lester (david.r.lester@manchester.ac.uk),
+ *    Jamie Knight (knightj@cs.man.ac.uk)
  *
  *  \copyright
- *    Copyright (c) Dave Lester and The University of Manchester, 2013.
+ *    Copyright (c) Dave Lester, Jamie Knight and The University of Manchester,
+ *    2013.
  *    All rights reserved.
  *    SpiNNaker Project
  *    Advanced Processor Technologies Group

@@ -1,15 +1,11 @@
-/*
- * stdfix-full-iso.h
+/*! \file
  *
+ *  \brief  Additions to the stdfix.h file to support full Draft ISO/IEC
+ *   standards compliance.
  *
- *  SUMMARY
- *    Additions to the stdfix.h file to support full
- *    Draft ISO/IEC standards compliance.
+ *  \author Dave Lester (david.r.lester@manchester.ac.uk)
  *
- *  AUTHOR
- *    Dave Lester (david.r.lester@manchester.ac.uk)
- *
- *  COPYRIGHT
+ *  \copyright
  *    Copyright (c) Dave Lester and The University of Manchester, 2013.
  *    All rights reserved.
  *    SpiNNaker Project
@@ -18,14 +14,9 @@
  *    The University of Manchester
  *    Manchester M13 9PL, UK
  *
- *  DESCRIPTION
- *    
+ *  \date 12 December, 2013
  *
- *  CREATION DATE
- *    12 December, 2013
- *
- *  HISTORY
- * *  DETAILS
+ *  DETAILS
  *    Created on       : 12 December 2013
  *    Version          : $Revision$
  *    Last modified on : $Date$
@@ -42,47 +33,161 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+//! \brief Returns the minimum of two arguments.
+//! \param[in] a First argument
+//! \param[in] b Second argument
+//! \return The minimum of a and b.
+
 #define __stdfix_min(a,b) (((a)<(b))? (a): (b))
+
+//! \brief Returns the maximum of two arguments.
+//! \param[in] a First argument
+//! \param[in] b Second argument
+//! \return The maximum of a and b.
+
 #define __stdfix_max(a,b) (((a)<(b))? (b): (a))
+
+//! \brief An macro definition which pretends to use variable a.
+//! \param[in] a First argument
+
 #define __stdfix_use(a)   do {} while ((a)!=(a))
+
+//! \brief Returns the absolute value of its argument.
+//! \param[in] a First argument.
+//! \return The absolute value of a.
+
 #define __stdfix_abs(a)   (((a)<0)? -(a): (a))
 
+//! \brief Returns the most significant 32-bits of a 64-bit argument.
+//! \param[in] x A 64-bit value.
+//! \return The most significant 32-bits of x.
+
 #define __ms_u32(x) ((x) >> 32)
+
+//! \brief Returns the least significant 32-bits of a 64-bit argument.
+//! \param[in] x A 64-bit value.
+//! \return The least significant 32-bits of x.
+
 #define __ls_u32(x) ((x) & UINT32_MAX)
 
-#define STATIC_INLINE static __inline__ __attribute__((__always_inline__))
+//! \brief Multiplies two 64-bit unsigned integers returning a 128-bit result
+//! in hi and lo.
+//! \param[out] hi First argument
+//! \param[out] lo Second argument
+//! \param[in] x First argument
+//! \param[in] y Second argument
+//! \return [hi:lo] = x*y
 
-void __64x64_128 (uint64_t *hi, uint64_t *lo, uint64_t x, uint64_t y);
+void __64x64_128 (uint64_t *hi, uint64_t *lo, uint64_t x,
+                  uint64_t y);
+
+//! \brief This is the integer type into which signed short fract can be
+//! converted.
 
 typedef int8_t  int_hr_t;
+
+//! \brief This is the integer type into which signed fract can be converted.
+
 typedef int16_t int_r_t;
+
+//! \brief This is the integer type into which signed long fract can be
+//! converted.
+
 typedef int32_t int_lr_t;
+
+//! \brief This is the integer type into which signed short accum can be
+//! converted.
+
 typedef int16_t int_hk_t;
+
+//! \brief This is the integer type into which signed accum can be converted.
+
 typedef int32_t int_k_t;
+
+//! \brief This is the integer type into which signed long accum can be
+//! converted.
+
 typedef int64_t int_lk_t;
 
+//! \brief This is the unsigned integer type into which unsigned short accum
+//! can be converted.
+
 typedef uint8_t  uint_uhr_t;
+
+//! \brief This is the unsigned integer type into which unsigned fract can be
+//! converted.
+
 typedef uint16_t uint_ur_t;
+
+//! \brief This is the unsigned integer type into which unsigned long fract can
+//! be converted.
+
 typedef uint32_t uint_ulr_t;
+
+//! \brief This is the unsigned integer type into which unsigned short accum
+//! can be converted.
+
 typedef uint16_t uint_uhk_t;
+
+//! \brief This is the unsigned integer type into which unsigned accum can be
+//! converted.
+
 typedef uint32_t uint_uk_t;
+
+//! \brief This is the unsigned integer type into which unsigned long accum can
+//! be converted.
+
 typedef uint64_t uint_ulk_t;
 
 #ifdef __arm__
 #include <stdfix.h>
 
+//! \brief An alternative name for the signed short fract type.
+
 typedef  short fract s07;
+
+//! \brief An alternative name for the signed fract type.
+
 typedef        fract s015;
+
+//! \brief An alternative name for the signed long fract type.
+
 typedef  long  fract s031;
+
+//! \brief An alternative name for the signed short accum type.
+
 typedef  short accum s87;
+
+//! \brief An alternative name for the signed accum type.
+
 typedef        accum s1615;
+
+//! \brief An alternative name for the signed long accum type.
+
 typedef  long  accum s3231;
 
+//! \brief An alternative name for the unsigned short fract type.
+
 typedef unsigned short fract u08;
+
+//! \brief An alternative name for the unsigned fract type.
+
 typedef unsigned       fract u016;
+
+//! \brief An alternative name for the unsigned long fract type.
+
 typedef unsigned long  fract u032;
+
+//! \brief An alternative name for the unsigned short accum type.
+
 typedef unsigned short accum u88;
+
+//! \brief An alternative name for the unsigned accum type.
+
 typedef unsigned       accum u1616;
+
+//! \brief An alternative name for the unsigned long accum type.
+
 typedef unsigned long  accum u3232;
 
 #else /* ! __arm__ */
@@ -105,55 +210,173 @@ typedef uint64_t u3232;
 
 // 7.18a.6.5 The bitwise fixed-point to integer conversion functions
 
+//! \brief Converts a short fract into an integer.
+//! \param[in] f A short fract
+//! \return The integer representation.
+
 static inline int_hr_t   bitshr  (const s07   f)
 { union { int_hr_t   r; s07   fx;} x; x.fx = f; return (x.r); }
+
+//! \brief Converts a fract into an integer.
+//! \param[in] f A fract
+//! \return The integer representation.
+
 static inline int_r_t    bitsr   (const s015  f)
 { union { int_r_t    r; s015  fx;} x; x.fx = f; return (x.r); }
+
+//! \brief Converts a long fract into an integer.
+//! \param[in] f A long fract
+//! \return The integer representation.
+
 static inline int_lr_t   bitslr  (const s031  f)
 { union { int_lr_t   r; s031  fx;} x; x.fx = f; return (x.r); }
+
+//! \brief Converts a short accum into an integer.
+//! \param[in] f A short accum
+//! \return The integer representation.
+
 static inline int_hk_t   bitshk  (const s87   f)
 { union { int_hk_t   r; s87   fx;} x; x.fx = f; return (x.r); }
+
+//! \brief Converts a accum into an integer.
+//! \param[in] f A accum
+//! \return The integer representation.
+
 static inline int_k_t    bitsk   (const s1615 f)
 { union { int_k_t    r; s1615 fx;} x; x.fx = f; return (x.r); }
+
+//! \brief Converts a long accum into an integer.
+//! \param[in] f A long accum
+//! \return The integer representation.
+
 static inline int_lk_t   bitslk  (const s3231 f)
 { union { int_lk_t   r; s3231 fx;} x; x.fx = f; return (x.r); }
+
+//! \brief Converts an unsigned  short fract into an integer.
+//! \param[in] f An unsigned short fract
+//! \return The integer representation.
+
 static inline uint_uhr_t bitsuhr (const u08   f)
 { union { uint_uhr_t r; u08   fx;} x; x.fx = f; return (x.r); }
+
+//! \brief Converts a unsigned fract into an integer.
+//! \param[in] f An unsigned fract
+//! \return The integer representation.
+
 static inline uint_ur_t  bitsur  (const u016  f)
 { union { uint_ur_t  r; u016  fx;} x; x.fx = f; return (x.r); }
+
+//! \brief Converts an unsigned long fract into an integer.
+//! \param[in] f An unsigned long fract
+//! \return The integer representation.
+
 static inline uint_ulr_t bitsulr (const u032  f)
 { union { uint_ulr_t r; u032  fx;} x; x.fx = f; return (x.r); }
+
+//! \brief Converts an unsigned short accum into an integer.
+//! \param[in] f An unsigned short accum
+//! \return The integer representation.
+
 static inline uint_uhk_t bitsuhk (const u88   f)
 { union { uint_uhk_t r; u88   fx;} x; x.fx = f; return (x.r); }
+
+//! \brief Converts an unsigned accum  into an integer.
+//! \param[in] f An unsigned accum
+//! \return The integer representation.
+
 static inline uint_uk_t  bitsuk  (const u1616 f)
 { union { uint_uk_t  r; u1616 fx;} x; x.fx = f; return (x.r); }
+
+//! \brief Converts an unsigned long accum into an integer.
+//! \param[in] f An unsigned long accum
+//! \return The integer representation.
+
 static inline uint_ulk_t bitsulk (const u3232 f)
 { union { uint_ulk_t r; u3232 fx;} x; x.fx = f; return (x.r); }
 
 // 7.18a.6.6 The bitwise integer to fixed-point conversion functions
 
+//! \brief Converts an signed integer into an signed short fract.
+//! \param[in] n An signed integer
+//! \return The signed short fract represented by n.
+
 static inline s07   hrbits  (const int_hr_t   n)
 { union { int_hr_t   r; s07   fx;} x; x.r = n; return (x.fx); }
+
+//! \brief Converts an signed integer into an signed fract.
+//! \param[in] n An signed integer
+//! \return The signed fract represented by n.
+
 static inline s015  rbits   (const int_r_t    n)
 { union { int_r_t    r; s015  fx;} x; x.r = n; return (x.fx); }
+
+//! \brief Converts an signed integer into an signed long fract.
+//! \param[in] n An signed integer
+//! \return The signed long fract represented by n.
+
 static inline s031  lrbits  (const int_lr_t   n)
 { union { int_lr_t   r; s031  fx;} x; x.r = n; return (x.fx); }
+
+//! \brief Converts an signed integer into an signed short accum.
+//! \param[in] n An signed integer
+//! \return The signed short accum represented by n.
+
 static inline s87   hkbits  (const int_hk_t   n)
 { union { int_hk_t   r; s87   fx;} x; x.r = n; return (x.fx); }
+
+//! \brief Converts an signed integer into an signed accum.
+//! \param[in] n An signed integer
+//! \return The signed accum represented by n.
+
 static inline s1615 kbits   (const int_k_t    n)
 { union { int_k_t    r; s1615 fx;} x; x.r = n; return (x.fx); }
+
+//! \brief Converts an signed integer into an signed long accum.
+//! \param[in] n An signed integer
+//! \return The signed long accum represented by n.
+
 static inline s3231 lkbits  (const int_lk_t   n)
 { union { int_lk_t   r; s3231 fx;} x; x.r = n; return (x.fx); }
+
+//! \brief Converts an unsigned integer into an unsigned short fract.
+//! \param[in] n An unsigned integer
+//! \return The unsigned short fract represented by n.
+
 static inline u08   uhrbits (const uint_uhr_t n)
 { union { uint_uhr_t r; u08   fx;} x; x.r = n; return (x.fx); }
+
+//! \brief Converts an unsigned integer into an unsigned fract.
+//! \param[in] n An unsigned integer
+//! \return The unsigned fract represented by n.
+
 static inline u016  urbits  (const uint_ur_t  n)
 { union { uint_ur_t  r; u016  fx;} x; x.r = n; return (x.fx); }
+
+//! \brief Converts an unsigned integer into an unsigned long fract.
+//! \param[in] n An unsigned integer
+//! \return The unsigned long fract represented by n.
+
 static inline u032  ulrbits (const uint_ulr_t n)
 { union { uint_ulr_t r; u032  fx;} x; x.r = n; return (x.fx); }
+
+//! \brief Converts an unsigned integer into an unsigned short accum.
+//! \param[in] n An unsigned integer
+//! \return The unsigned short accum represented by n.
+
 static inline u88   uhkbits (const uint_uhk_t n)
 { union { uint_uhk_t r; u88   fx;} x; x.r = n; return (x.fx); }
+
+//! \brief Converts an unsigned integer into an unsigned accum.
+//! \param[in] n An unsigned integer
+//! \return The unsigned accum represented by n.
+
 static inline u1616 ukbits  (const uint_uk_t  n)
 { union { uint_uk_t  r; u1616 fx;} x; x.r = n; return (x.fx); }
+
+//! \brief Converts an unsigned integer into an unsigned long accum.
+//! \param[in] n An unsigned integer
+//! \return The unsigned long accum represented by n.
+
 static inline u3232 ulkbits (const uint_ulk_t n)
 { union { uint_ulk_t r; u3232 fx;} x; x.r = n; return (x.fx); }
 
@@ -720,6 +943,11 @@ static inline int countlsulk (u3232 f)
 // If the type of the first generic argument is not a fixed-point type, the
 // behavior is undefined
 
+//! \brief This macro provides type-generic access to the absolute value
+//! functions.
+//! \param[in] f A fixed-point value.
+//! \return The absolute value of f.
+
 #define absfx(f)						      \
     ({								      \
 	__typeof__ (f) tmp = (f);				      \
@@ -739,6 +967,12 @@ static inline int countlsulk (u3232 f)
 	    abort ();						      \
 	tmp;							      \
     })
+
+//! \brief This macro provides type-generic access to the rounding
+//! functions.
+//! \param[in] f A fixed-point value.
+//! \param[in] n The number of bits to be rounded off.
+//! \return The rounded value of f.
 
 #define roundfx(f,n)						      \
     ({								      \
@@ -771,6 +1005,11 @@ static inline int countlsulk (u3232 f)
 	    abort ();						      \
 	tmp;							      \
     })
+
+//! \brief This macro provides type-generic access to the functions for
+//! counting leading sign-bits.
+//! \param[in] f A fixed-point value.
+//! \return The number of leading sign-bits in f.
 
 #define countlsfx(f)						      \
     ({								      \

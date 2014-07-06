@@ -12,14 +12,7 @@
 #define __ARM_ACLE 200
 
 //! This value is defined to indicate we are not using the ARM ACLE
-#define __ARM_ACLE_LESTER
-//! An internal part of stringization
-#define __ARM_ACLE_STRINGIZE_NX(a) #a
-//! A part of stringization
-#define __ARM_ACLE_STRINGIZE(a) __ARM_ACLE_STRINGIZE_NX(a)
-
-//#define __ARM_ACLE_CONCAT2(a,b) a##b
-//#define __ARM_ACLE_CONCAT(a,b)  __ARM_ACLE_CONCAT2(a,b)
+#define __ARM_ACLE_EXTRAS
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -37,8 +30,6 @@
 //#undef __ARM_FEATURE_UNALIGNED       // hardware support for unaligned access
 //#undef __ARM_PCS                     // ARM procedure call standard
 //#undef __ARM_PCS_VFP                 // ARM PCS hardware FP variant in use
-
-
 
 //     Macro name                       Meaning
 #undef __ARM_32BIT_STATE             // code is for 32-bit state (new in 1.1)
@@ -1680,7 +1671,7 @@ static inline int32_t __qdbl (int32_t x)
     return (r);
 }
 
-#ifdef __ARM_ACLE_LESTER
+#ifdef __ARM_ACLE_EXTRAS
 
 //! This function adds two 32-bit signed integers, saturating the result.
 //! \param[in] x first argument.
@@ -1711,17 +1702,25 @@ static inline int32_t __qdsub (int32_t x, int32_t y)
 
     return (r);
 }
-#endif /*__ARM_ACLE_LESTER*/
+#endif /*__ARM_ACLE_EXTRAS*/
 #endif /*__ARM_FEATURE_DSP*/
 
 // 9.4.3 Accumulating multiplications 
 #ifdef __ARM_FEATURE_DSP
 
-// Multiplies two 16-bit signed integers, the low halfwords of the first two
-// operands, and adds to the third operand. Sets the Q flag if the addition
-// overflows. (Note that the addition is the usual 32-bit modulo addition which
-// wraps on overflow, not a saturating addition. The multiplication cannot
-// overflow.) 
+
+//! This function performs a 16x16 multiply-accumulate, saturating the addition.
+//!
+//! Multiplies two 16-bit signed integers, the low halfwords of the first two
+//! operands, and adds to the third operand. Sets the Q flag if the addition
+//! overflows. (Note that the addition is the usual 32-bit modulo addition which
+//! wraps on overflow, not a saturating addition. The multiplication cannot
+//! overflow.) 
+//!
+//! \param[in] x first argument.
+//! \param[in] y second argument.
+//! \param[in] acc accumulation argument.
+//! \return x*y+acc.
 
 static inline int32_t __smlabb (int32_t x, int32_t y, int32_t acc)
 {
@@ -1733,8 +1732,16 @@ static inline int32_t __smlabb (int32_t x, int32_t y, int32_t acc)
     return (r);
 }
 
-// Multiplies the low halfword of the first operand and the high halfword of
+
+//! This function performs a 16x16 multiply-accumulate, saturating the addition.
+//!
+//! Multiplies the low halfword of the first operand and the high halfword of
 // the second operand, and adds to the third operand, as for __smlabb. 
+//!
+//! \param[in] x first argument.
+//! \param[in] y second argument.
+//! \param[in] acc accumulation argument.
+//! \return x*y+acc.
 
 static inline int32_t __smlabt (int32_t x, int32_t y, int32_t acc)
 {
@@ -1746,8 +1753,15 @@ static inline int32_t __smlabt (int32_t x, int32_t y, int32_t acc)
     return (r);
 }
 
-// Multiplies the high halfword of the first operand and the low halfword of
-// the second operand, and adds to the third operand, as for __smlabb. 
+//! This function performs a 16x16 multiply-accumulate, saturating the addition.
+//!
+//! Multiplies the high halfword of the first operand and the low halfword of
+//! the second operand, and adds to the third operand, as for __smlabb. 
+//!
+//! \param[in] x first argument.
+//! \param[in] y second argument.
+//! \param[in] acc accumulation argument.
+//! \return x*y+acc.
 
 static inline  int32_t __smlatb (int32_t x, int32_t y, int32_t acc)
 {
@@ -1759,8 +1773,15 @@ static inline  int32_t __smlatb (int32_t x, int32_t y, int32_t acc)
     return (r);
 }
 
-// Multiplies the high halfwords of the first two operands and adds to the
-// third operand, as for __smlabb.. 
+//! This function performs a 16x16 multiply-accumulate, saturating the addition.
+//!
+//! Multiplies the high halfwords of the first two operands and adds to the
+//! third operand, as for __smlabb.
+//!
+//! \param[in] x first argument.
+//! \param[in] y second argument.
+//! \param[in] acc accumulation argument.
+//! \return x*y+acc.
 
 static inline  int32_t __smlatt (int32_t x, int32_t y, int32_t acc)
 {
@@ -1772,10 +1793,17 @@ static inline  int32_t __smlatt (int32_t x, int32_t y, int32_t acc)
     return (r);
 }
 
-// Multiplies the 32-bit signed first operand with the low halfword (as a
-// 16-bit signed integer) of the second operand. Adds the top 32 bits of the
-// 48-bit product to the third operand. Sets the Q flag if the addition
-// overflows. (See note for __smlabb.) 
+//! This function performs a 32x16 multiply-accumulate, saturating the addition.
+//!
+//! Multiplies the 32-bit signed first operand with the low halfword (as a
+//! 16-bit signed integer) of the second operand. Adds the top 32 bits of the
+//! 48-bit product to the third operand. Sets the Q flag if the addition
+//! overflows. (See note for __smlabb.)
+//!
+//! \param[in] x first argument.
+//! \param[in] y second argument.
+//! \param[in] acc accumulation argument.
+//! \return x*y+acc.
 
 static inline  int32_t __smlawb (int32_t x, int32_t y, int32_t acc)
 {
@@ -1787,9 +1815,16 @@ static inline  int32_t __smlawb (int32_t x, int32_t y, int32_t acc)
     return (r);
 }
 
-// Multiplies the 32-bit signed first operand with the high halfword (as a
-// 16-bit signed integer) of the second operand and adds the top 32 bits of
-// the 48-bit result to the third operand as for __smlawb. 
+//! This function performs a 32x16 multiply-accumulate, saturating the addition.
+//!
+//! Multiplies the 32-bit signed first operand with the high halfword (as a
+//! 16-bit signed integer) of the second operand and adds the top 32 bits of
+//! the 48-bit result to the third operand as for __smlawb.
+//!
+//! \param[in] x first argument.
+//! \param[in] y second argument.
+//! \param[in] acc accumulation argument.
+//! \return x*y+acc.
 
 static inline  int32_t __smlawt (int32_t x, int32_t y, int32_t acc)
 {
@@ -1801,12 +1836,22 @@ static inline  int32_t __smlawt (int32_t x, int32_t y, int32_t acc)
     return (r);
 }
 
-#ifdef __ARM_ACLE_LESTER
-// HACK!! Need the other three intrinsics.
+#ifdef __ARM_ACLE_EXTRAS
+
+//! This function performs a 32x32 multiply-accumulate.
+//!
+//! Multiplies the low halfwords (each treated as a 16-bit signed integer) of
+//! the second and third operands and adds to the accumulator held in the first
+//! argument.
+//!
+//! \param[in] acc accumulation argument.
+//! \param[in] x second argument.
+//! \param[in] y third argument.
+//! \return x*y+acc.
+
 static inline int64_t __smlalbb (int64_t acc, int32_t x, int32_t y)
 {
     register union { struct {uint32_t lo; uint32_t hi; } s_rep; int64_t i_rep; } r;
-    // HACK!! CHECK Order above!!!
 
     r.i_rep = acc;
 
@@ -1818,7 +1863,84 @@ static inline int64_t __smlalbb (int64_t acc, int32_t x, int32_t y)
     return (r.i_rep);
 }
 
-#endif /*__ARM_ACLE_LESTER*/
+//! This function performs a 32x32 multiply-accumulate.
+//!
+//! Multiplies the two halfwords (each treated as a 16-bit signed integer) of
+//! the second and third operands and adds to the accumulator held in the first
+//! argument. The low part of the second argument, and high part of the third
+//! argument are used.
+//!
+//! \param[in] acc accumulation argument.
+//! \param[in] x second argument.
+//! \param[in] y third argument.
+//! \return x*y+acc.
+
+static inline int64_t __smlalbt (int64_t acc, int32_t x, int32_t y)
+{
+    register union { struct {uint32_t lo; uint32_t hi; } s_rep; int64_t i_rep; } r;
+
+    r.i_rep = acc;
+
+    asm volatile ("smlalbt %[r_lo], %[r_hi], %[x], %[y]"
+                  : [r_lo] "+r" ((r.s_rep).lo),
+		    [r_hi] "+r" ((r.s_rep).hi)
+                  : [x] "r" (x), [y] "r" (y) : );
+
+    return (r.i_rep);
+}
+
+//! This function performs a 32x32 multiply-accumulate.
+//!
+//! Multiplies the two halfwords (each treated as a 16-bit signed integer) of
+//! the second and third operands and adds to the accumulator held in the first
+//! argument. The high part of the second argument, and low part of the third
+//! argument are used.
+//!
+//! \param[in] acc accumulation argument.
+//! \param[in] x second argument.
+//! \param[in] y third argument.
+//! \return x*y+acc.
+
+static inline int64_t __smlalbb (int64_t acc, int32_t x, int32_t y)
+{
+    register union { struct {uint32_t lo; uint32_t hi; } s_rep; int64_t i_rep; } r;
+
+    r.i_rep = acc;
+
+    asm volatile ("smlalbb %[r_lo], %[r_hi], %[x], %[y]"
+                  : [r_lo] "+r" ((r.s_rep).lo),
+		    [r_hi] "+r" ((r.s_rep).hi)
+                  : [x] "r" (x), [y] "r" (y) : );
+
+    return (r.i_rep);
+}
+
+//! This function performs a 32x32 multiply-accumulate.
+//!
+//! Multiplies the high halfwords (each treated as a 16-bit signed integer) of
+//! the second and third operands and adds to the accumulator held in the first
+//! argument
+//!
+//! \param[in] acc accumulation argument.
+//! \param[in] x second argument.
+//! \param[in] y third argument.
+//! \return x*y+acc.
+
+static inline int64_t __smlaltt (int64_t acc, int32_t x, int32_t y)
+{
+    register union { struct {uint32_t lo; uint32_t hi; } s_rep; int64_t i_rep; } r;
+
+    r.i_rep = acc;
+
+    asm volatile ("smlaltt %[r_lo], %[r_hi], %[x], %[y]"
+                  : [r_lo] "+r" ((r.s_rep).lo),
+		    [r_hi] "+r" ((r.s_rep).hi)
+                  : [x] "r" (x), [y] "r" (y) : );
+
+    return (r.i_rep);
+}
+
+#endif /*__ARM_ACLE_EXTRAS*/
 #endif /*__ARM_FEATURE_DSP*/
 
 // 9.5   32-bit SIMD intrinsics
@@ -1843,228 +1965,228 @@ typedef uint32_t uint8x4_t;
 
 static inline int16x2_t __ssat16_c (int16x2_t x, uint32_t n)
 {
-  register int16x2_t r;
+    register int16x2_t r;
 
-  if (__builtin_constant_p (n)) {
-    switch (n) {
-    case 0x00:
-      r = x;
-      break;
-    case 0x01:
-      asm volatile ("ssat16 %[r], #0x01, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x02:
-      asm volatile ("ssat16 %[r], #0x02, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x03:
-      asm volatile ("ssat16 %[r], #0x03, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x04:
-      asm volatile ("ssat16 %[r], #0x04, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x05:
-      asm volatile ("ssat16 %[r], #0x05, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x06:
-      asm volatile ("ssat16 %[r], #0x06, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x07:
-      asm volatile ("ssat16 %[r], #0x07, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x08:
-      asm volatile ("ssat16 %[r], #0x08, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x09:
-      asm volatile ("ssat16 %[r], #0x09, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0A:
-      asm volatile ("ssat16 %[r], #0x0A, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0B:
-      asm volatile ("ssat16 %[r], #0x0B, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0C:
-      asm volatile ("ssat16 %[r], #0x0C, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0D:
-      asm volatile ("ssat16 %[r], #0x0D, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0E:
-      asm volatile ("ssat16 %[r], #0x0E, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0F:
-      asm volatile ("ssat16 %[r], #0x0F, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x10:
-      asm volatile ("ssat16 %[r], #0x10, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x11:
-      asm volatile ("ssat16 %[r], #0x11, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x12:
-      asm volatile ("ssat16 %[r], #0x12, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x13:
-      asm volatile ("ssat16 %[r], #0x13, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x14:
-      asm volatile ("ssat16 %[r], #0x14, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x15:
-      asm volatile ("ssat16 %[r], #0x15, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x16:
-      asm volatile ("ssat16 %[r], #0x16, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x17:
-      asm volatile ("ssat16 %[r], #0x17, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x18:
-      asm volatile ("ssat16 %[r], #0x18, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x19:
-      asm volatile ("ssat16 %[r], #0x19, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1A:
-      asm volatile ("ssat16 %[r], #0x1A, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1B:
-      asm volatile ("ssat16 %[r], #0x1B, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1C:
-      asm volatile ("ssat16 %[r], #0x1C, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1D:
-      asm volatile ("ssat16 %[r], #0x1D, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1E:
-      asm volatile ("ssat16 %[r], #0x1E, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1F:
-      asm volatile ("ssat16 %[r], #0x1F, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    default:
-      r = x;
-      break;
+    if (__builtin_constant_p (n)) {
+        switch (n) {
+        case 0x00:
+            r = x;
+            break;
+        case 0x01:
+            asm volatile ("ssat16 %[r], #0x01, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x02:
+            asm volatile ("ssat16 %[r], #0x02, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x03:
+            asm volatile ("ssat16 %[r], #0x03, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x04:
+            asm volatile ("ssat16 %[r], #0x04, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x05:
+            asm volatile ("ssat16 %[r], #0x05, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x06:
+            asm volatile ("ssat16 %[r], #0x06, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x07:
+            asm volatile ("ssat16 %[r], #0x07, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x08:
+            asm volatile ("ssat16 %[r], #0x08, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x09:
+            asm volatile ("ssat16 %[r], #0x09, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0A:
+            asm volatile ("ssat16 %[r], #0x0A, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0B:
+            asm volatile ("ssat16 %[r], #0x0B, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0C:
+            asm volatile ("ssat16 %[r], #0x0C, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0D:
+            asm volatile ("ssat16 %[r], #0x0D, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0E:
+            asm volatile ("ssat16 %[r], #0x0E, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0F:
+            asm volatile ("ssat16 %[r], #0x0F, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x10:
+            asm volatile ("ssat16 %[r], #0x10, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x11:
+            asm volatile ("ssat16 %[r], #0x11, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x12:
+            asm volatile ("ssat16 %[r], #0x12, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x13:
+            asm volatile ("ssat16 %[r], #0x13, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x14:
+            asm volatile ("ssat16 %[r], #0x14, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x15:
+            asm volatile ("ssat16 %[r], #0x15, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x16:
+            asm volatile ("ssat16 %[r], #0x16, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x17:
+            asm volatile ("ssat16 %[r], #0x17, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x18:
+            asm volatile ("ssat16 %[r], #0x18, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x19:
+            asm volatile ("ssat16 %[r], #0x19, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1A:
+            asm volatile ("ssat16 %[r], #0x1A, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1B:
+            asm volatile ("ssat16 %[r], #0x1B, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1C:
+            asm volatile ("ssat16 %[r], #0x1C, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1D:
+            asm volatile ("ssat16 %[r], #0x1D, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1E:
+            asm volatile ("ssat16 %[r], #0x1E, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1F:
+            asm volatile ("ssat16 %[r], #0x1F, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        default:
+            r = x;
+            break;
+        }
     }
-  }
-  else
-    r = x;
+    else
+        r = x;
 
-  return (r);
+    return (r);
 }
 
 static inline int16x2_t __usat16_c (int16x2_t x, uint32_t n)
 {
-  register int16x2_t r;
+    register int16x2_t r;
 
-  if (__builtin_constant_p (n)) {
-    switch (n) {
-    case 0x00:
-      r = x;
-      break;
-    case 0x01:
-      asm volatile ("usat16 %[r], #0x01, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x02:
-      asm volatile ("usat16 %[r], #0x02, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x03:
-      asm volatile ("usat16 %[r], #0x03, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x04:
-      asm volatile ("usat16 %[r], #0x04, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x05:
-      asm volatile ("usat16 %[r], #0x05, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x06:
-      asm volatile ("usat16 %[r], #0x06, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x07:
-      asm volatile ("usat16 %[r], #0x07, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x08:
-      asm volatile ("usat16 %[r], #0x08, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x09:
-      asm volatile ("usat16 %[r], #0x09, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0A:
-      asm volatile ("usat16 %[r], #0x0A, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0B:
-      asm volatile ("usat16 %[r], #0x0B, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0C:
-      asm volatile ("usat16 %[r], #0x0C, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0D:
-      asm volatile ("usat16 %[r], #0x0D, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0E:
-      asm volatile ("usat16 %[r], #0x0E, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x0F:
-      asm volatile ("usat16 %[r], #0x0F, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x10:
-      asm volatile ("usat16 %[r], #0x10, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x11:
-      asm volatile ("usat16 %[r], #0x11, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x12:
-      asm volatile ("usat16 %[r], #0x12, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x13:
-      asm volatile ("usat16 %[r], #0x13, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x14:
-      asm volatile ("usat16 %[r], #0x14, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x15:
-      asm volatile ("usat16 %[r], #0x15, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x16:
-      asm volatile ("usat16 %[r], #0x16, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x17:
-      asm volatile ("usat16 %[r], #0x17, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x18:
-      asm volatile ("usat16 %[r], #0x18, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x19:
-      asm volatile ("usat16 %[r], #0x19, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1A:
-      asm volatile ("usat16 %[r], #0x1A, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1B:
-      asm volatile ("usat16 %[r], #0x1B, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1C:
-      asm volatile ("usat16 %[r], #0x1C, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1D:
-      asm volatile ("usat16 %[r], #0x1D, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1E:
-      asm volatile ("usat16 %[r], #0x1E, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    case 0x1F:
-      asm volatile ("usat16 %[r], #0x1F, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-      break;
-    default:
-      r = x;
-      break;
+    if (__builtin_constant_p (n)) {
+        switch (n) {
+        case 0x00:
+            r = x;
+            break;
+        case 0x01:
+            asm volatile ("usat16 %[r], #0x01, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x02:
+            asm volatile ("usat16 %[r], #0x02, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x03:
+            asm volatile ("usat16 %[r], #0x03, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x04:
+            asm volatile ("usat16 %[r], #0x04, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x05:
+            asm volatile ("usat16 %[r], #0x05, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x06:
+            asm volatile ("usat16 %[r], #0x06, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x07:
+            asm volatile ("usat16 %[r], #0x07, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x08:
+            asm volatile ("usat16 %[r], #0x08, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x09:
+            asm volatile ("usat16 %[r], #0x09, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0A:
+            asm volatile ("usat16 %[r], #0x0A, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0B:
+            asm volatile ("usat16 %[r], #0x0B, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0C:
+            asm volatile ("usat16 %[r], #0x0C, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0D:
+            asm volatile ("usat16 %[r], #0x0D, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0E:
+            asm volatile ("usat16 %[r], #0x0E, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x0F:
+            asm volatile ("usat16 %[r], #0x0F, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x10:
+            asm volatile ("usat16 %[r], #0x10, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x11:
+            asm volatile ("usat16 %[r], #0x11, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x12:
+            asm volatile ("usat16 %[r], #0x12, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x13:
+            asm volatile ("usat16 %[r], #0x13, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x14:
+            asm volatile ("usat16 %[r], #0x14, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x15:
+            asm volatile ("usat16 %[r], #0x15, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x16:
+            asm volatile ("usat16 %[r], #0x16, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x17:
+            asm volatile ("usat16 %[r], #0x17, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x18:
+            asm volatile ("usat16 %[r], #0x18, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x19:
+            asm volatile ("usat16 %[r], #0x19, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1A:
+            asm volatile ("usat16 %[r], #0x1A, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1B:
+            asm volatile ("usat16 %[r], #0x1B, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1C:
+            asm volatile ("usat16 %[r], #0x1C, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1D:
+            asm volatile ("usat16 %[r], #0x1D, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1E:
+            asm volatile ("usat16 %[r], #0x1E, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        case 0x1F:
+            asm volatile ("usat16 %[r], #0x1F, %[x]" : [r] "=r" (r) : [x] "r" (x) : );
+            break;
+        default:
+            r = x;
+            break;
+        }
     }
-  }
-  else
-    r = x;
+    else
+        r = x;
 
-  return (r);
+    return (r);
 }
 
 #define __ssat16(x,n) __ssat16_c(x,n)
@@ -2080,16 +2202,16 @@ static inline int16x2_t __usat16_c (int16x2_t x, uint32_t n)
 
 // 9.5.5 Packing and unpacking 
 #ifdef __ARM_FEATURE_SIMD32
- int16x2_t __sxtab16(int16x2_t, int8x4_t); 
- int16x2_t __sxtb16(int8x4_t); 
- uint16x2_t __uxtab16(uint16x2_t, uint8x4_t); 
- uint16x2_t __uxtb16(uint8x4_t);
+int16x2_t  __sxtab16 (int16x2_t, int8x4_t); 
+int16x2_t  __sxtb16  (int8x4_t); 
+uint16x2_t __uxtab16 (uint16x2_t, uint8x4_t); 
+uint16x2_t __uxtb16  (uint8x4_t);
 #endif /*__ARM_FEATURE_SIMD32*/
 
 
 // 9.5.6 Parallel selection 
 #ifdef __ARM_FEATURE_SIMD32
- uint8x4_t __sel(uint8x4_t, uint8x4_t); 
+uint8x4_t __sel (uint8x4_t, uint8x4_t); 
 #endif /*__ARM_FEATURE_SIMD32*/
 
 
@@ -2100,18 +2222,18 @@ static inline int16x2_t __usat16_c (int16x2_t x, uint32_t n)
 // the result may be halved or saturated.
 
 #ifdef __ARM_FEATURE_SIMD32
- int8x4_t __qadd8(int8x4_t, int8x4_t); 
- int8x4_t __qsub8(int8x4_t, int8x4_t); 
- int8x4_t __sadd8(int8x4_t, int8x4_t); 
- int8x4_t __shadd8(int8x4_t, int8x4_t); 
- int8x4_t __shsub8(int8x4_t, int8x4_t); 
- int8x4_t __ssub8(int8x4_t, int8x4_t); 
- uint8x4_t __uadd8(uint8x4_t, uint8x4_t); 
- uint8x4_t __uhadd8(uint8x4_t, uint8x4_t); 
- uint8x4_t __uhsub8(uint8x4_t, uint8x4_t); 
- uint8x4_t __uqadd8(uint8x4_t, uint8x4_t); 
- uint8x4_t __uqsub8(uint8x4_t, uint8x4_t); 
- uint8x4_t __usub8(uint8x4_t, uint8x4_t); 
+int8x4_t __qadd8(int8x4_t, int8x4_t); 
+int8x4_t __qsub8(int8x4_t, int8x4_t); 
+int8x4_t __sadd8(int8x4_t, int8x4_t); 
+int8x4_t __shadd8(int8x4_t, int8x4_t); 
+int8x4_t __shsub8(int8x4_t, int8x4_t); 
+int8x4_t __ssub8(int8x4_t, int8x4_t); 
+uint8x4_t __uadd8(uint8x4_t, uint8x4_t); 
+uint8x4_t __uhadd8(uint8x4_t, uint8x4_t); 
+uint8x4_t __uhsub8(uint8x4_t, uint8x4_t); 
+uint8x4_t __uqadd8(uint8x4_t, uint8x4_t); 
+uint8x4_t __uqsub8(uint8x4_t, uint8x4_t); 
+uint8x4_t __usub8(uint8x4_t, uint8x4_t); 
 #endif /*__ARM_FEATURE_SIMD32*/
 
 // 9.5.8 Sum of 8-bit absolute differences
@@ -2125,57 +2247,57 @@ static inline int16x2_t __usat16_c (int16x2_t x, uint32_t n)
 // Performs 4x8-bit unsigned subtraction, and adds the absolute values of the
 // differences together, returning the result as a single unsigned integer. 
 
- uint32_t __usad8(uint8x4_t, uint8x4_t); 
+uint32_t __usad8(uint8x4_t, uint8x4_t); 
 
 // Performs 4x8-bit unsigned subtraction, adds the absolute values of the
 // differences together, and adds the result to the third operand. 
 
- uint32_t __usada8(uint8x4_t, uint8x4_t, uint32_t);
+uint32_t __usada8(uint8x4_t, uint8x4_t, uint32_t);
 
 #endif /*__ARM_FEATURE_SIMD32*/
 
 // 9.5.9 Parallel 16-bit addition and subtraction 
 #ifdef __ARM_FEATURE_SIMD32
- int16x2_t __qadd16(int16x2_t, int16x2_t); 
- int16x2_t __qasx(int16x2_t, int16x2_t); 
- int16x2_t __qsax(int16x2_t, int16x2_t); 
- int16x2_t __qsub16(int16x2_t, int16x2_t); 
- int16x2_t __sadd16(int16x2_t, int16x2_t); 
- int16x2_t __sasx(int16x2_t, int16x2_t); 
- int16x2_t __shadd16(int16x2_t, int16x2_t); 
- int16x2_t __shasx(int16x2_t, int16x2_t); 
- int16x2_t __shsax(int16x2_t, int16x2_t); 
- int16x2_t __shsub16(int16x2_t, int16x2_t); 
- int16x2_t __ssax(int16x2_t, int16x2_t); 
- int16x2_t __ssub16(int16x2_t, int16x2_t); 
- uint16x2_t __uadd16(uint16x2_t, uint16x2_t); 
- uint16x2_t __uasx(uint16x2_t, uint16x2_t); 
- uint16x2_t __uhadd16(uint16x2_t, uint16x2_t); 
- uint16x2_t __uhasx(uint16x2_t, uint16x2_t);
- uint16x2_t __uhsax(uint16x2_t, uint16x2_t); 
- uint16x2_t __uhsub16(uint16x2_t, uint16x2_t); 
- uint16x2_t __uqadd16(uint16x2_t, uint16x2_t); 
- uint16x2_t __uqasx(uint16x2_t, uint16x2_t); 
- uint16x2_t __uqsax(uint16x2_t, uint16x2_t); 
- uint16x2_t __uqsub16(uint16x2_t, uint16x2_t); 
- uint16x2_t __usax(uint16x2_t, uint16x2_t); 
- uint16x2_t __usub16(uint16x2_t, uint16x2_t); 
+int16x2_t __qadd16(int16x2_t, int16x2_t); 
+int16x2_t __qasx(int16x2_t, int16x2_t); 
+int16x2_t __qsax(int16x2_t, int16x2_t); 
+int16x2_t __qsub16(int16x2_t, int16x2_t); 
+int16x2_t __sadd16(int16x2_t, int16x2_t); 
+int16x2_t __sasx(int16x2_t, int16x2_t); 
+int16x2_t __shadd16(int16x2_t, int16x2_t); 
+int16x2_t __shasx(int16x2_t, int16x2_t); 
+int16x2_t __shsax(int16x2_t, int16x2_t); 
+int16x2_t __shsub16(int16x2_t, int16x2_t); 
+int16x2_t __ssax(int16x2_t, int16x2_t); 
+int16x2_t __ssub16(int16x2_t, int16x2_t); 
+uint16x2_t __uadd16(uint16x2_t, uint16x2_t); 
+uint16x2_t __uasx(uint16x2_t, uint16x2_t); 
+uint16x2_t __uhadd16(uint16x2_t, uint16x2_t); 
+uint16x2_t __uhasx(uint16x2_t, uint16x2_t);
+uint16x2_t __uhsax(uint16x2_t, uint16x2_t); 
+uint16x2_t __uhsub16(uint16x2_t, uint16x2_t); 
+uint16x2_t __uqadd16(uint16x2_t, uint16x2_t); 
+uint16x2_t __uqasx(uint16x2_t, uint16x2_t); 
+uint16x2_t __uqsax(uint16x2_t, uint16x2_t); 
+uint16x2_t __uqsub16(uint16x2_t, uint16x2_t); 
+uint16x2_t __usax(uint16x2_t, uint16x2_t); 
+uint16x2_t __usub16(uint16x2_t, uint16x2_t); 
 #endif /*__ARM_FEATURE_SIMD32*/
 
 // 9.5.10 Parallel 16-bit multiplication 
 #ifdef __ARM_FEATURE_SIMD32
- int32_t __smlad(int16x2_t, int16x2_t, int32_t); 
- int32_t __smladx(int16x2_t, int16x2_t, int32_t); 
- int64_t __smlald(int16x2_t, int16x2_t, int64_t); 
- int64_t __smlaldx(int16x2_t, int16x2_t, int64_t); 
- int32_t __smlsd(int16x2_t, int16x2_t, int32_t); 
- int32_t __smlsdx(int16x2_t, int16x2_t, int32_t); 
- int64_t __smlsld(int16x2_t, int16x2_t, int64_t); 
- int64_t __smlsldx(int16x2_t, int16x2_t, int64_t); 
- int32_t __smuad(int16x2_t, int16x2_t); 
- int32_t __smuadx(int16x2_t, int16x2_t); 
- int32_t __smusd(int16x2_t, int16x2_t); 
- int32_t __smusdx(int16x2_t, int16x2_t);
+int32_t __smlad(int16x2_t, int16x2_t, int32_t); 
+int32_t __smladx(int16x2_t, int16x2_t, int32_t); 
+int64_t __smlald(int16x2_t, int16x2_t, int64_t); 
+int64_t __smlaldx(int16x2_t, int16x2_t, int64_t); 
+int32_t __smlsd(int16x2_t, int16x2_t, int32_t); 
+int32_t __smlsdx(int16x2_t, int16x2_t, int32_t); 
+int64_t __smlsld(int16x2_t, int16x2_t, int64_t); 
+int64_t __smlsldx(int16x2_t, int16x2_t, int64_t); 
+int32_t __smuad(int16x2_t, int16x2_t); 
+int32_t __smuadx(int16x2_t, int16x2_t); 
+int32_t __smusd(int16x2_t, int16x2_t); 
+int32_t __smusdx(int16x2_t, int16x2_t);
 #endif /*__ARM_FEATURE_SIMD32*/
 
 // 9.6 Floating-point data-processing intrinsics
