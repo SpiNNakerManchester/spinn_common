@@ -857,6 +857,11 @@ static inline int countlslk  (s3231 f)
     return (__builtin_clrsbll (n));
 }
 
+//! \brief This function counts the number of leading zeros of an unsigned
+//! short fract.
+//! \param[in] f An unsigned short fract.
+//! \return The number of leading zeros in f.
+
 static inline int countlsuhr (u08   f)
 {
     uint32_t n = (uint32_t)(bitsuhr (f));
@@ -865,6 +870,11 @@ static inline int countlsuhr (u08   f)
 
     return (__builtin_clz (n) - 24);
 }
+
+//! \brief This function counts the number of leading zeros of an unsigned
+//! fract.
+//! \param[in] f An unsigned fract.
+//! \return The number of leading zeros in f.
 
 static inline int countlsur  (u016  f)
 {
@@ -875,6 +885,11 @@ static inline int countlsur  (u016  f)
     return (__builtin_clz (n) - 16);
 }
 
+//! \brief This function counts the number of leading zeros of an unsigned long
+//! fract.
+//! \param[in] f An unsigned long fract.
+//! \return The number of leading zeros in f.
+
 static inline int countlsulr (u032  f)
 {
     uint_ulr_t n = bitsulr (f);
@@ -883,6 +898,11 @@ static inline int countlsulr (u032  f)
 
     return (__builtin_clz (n));
 }
+
+//! \brief This function counts the number of leading zeros of an unsigned
+//! short accum.
+//! \param[in] f An unsigned short accum.
+//! \return The number of leading zeros in f.
 
 static inline int countlsuhk (u88   f)
 {
@@ -893,6 +913,11 @@ static inline int countlsuhk (u88   f)
     return (__builtin_clz (n) - 16);
 }
 
+//! \brief This function counts the number of leading zeros of an unsigned
+//! accum.
+//! \param[in] f An unsigned accum.
+//! \return The number of leading zeros in f.
+
 static inline int countlsuk  (u1616 f)
 {
     uint_uk_t n = (uint_uk_t)(bitsuk (f));
@@ -901,6 +926,11 @@ static inline int countlsuk  (u1616 f)
 
     return (__builtin_clz (n));
 }
+
+//! \brief This function counts the number of leading zeros of an unsigned long
+//! accum.
+//! \param[in] f An unsigned long accum.
+//! \return The number of leading zeros in f.
 
 static inline int countlsulk (u3232 f)
 {
@@ -945,8 +975,8 @@ static inline int countlsulk (u3232 f)
 
 //! \brief This macro provides type-generic access to the absolute value
 //! functions.
-//! \param[in] f A fixed-point value.
-//! \return The absolute value of f.
+//! \param[in] f A signed fixed-point value.
+//! \return The absolute value of f (with the same type as f).
 
 #define absfx(f)						      \
     ({								      \
@@ -972,7 +1002,7 @@ static inline int countlsulk (u3232 f)
 //! functions.
 //! \param[in] f A fixed-point value.
 //! \param[in] n The number of bits to be rounded off.
-//! \return The rounded value of f.
+//! \return The rounded value of f(with the same type as f).
 
 #define roundfx(f,n)						      \
     ({								      \
