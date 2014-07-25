@@ -1,5 +1,11 @@
-//! \file
-//! \brief These built-in functions are available for the ARM family of processors
+/*! \file
+ * \brief These built-in functions are available for the ARM family of processors
+ *
+ * This header file implements the ARM C Language Extension 2.0, available at:
+ *
+ *      http://infocenter.arm.com/help/topic/com.arm.doc.ihi0053c/IHI0053C_acle_2_0.pdf
+ */
+
 
 // 6.2 Testing for ARM C Language Extensions 
 
@@ -58,22 +64,18 @@
 #undef __ARM_SIZEOF_WCHAR_T          // size of wchar_t: 2 or 4
 #undef __ARM_WMMX                    // Wireless MMX extension 
 
-//! \def __ARM_32BIT_STATE
-//! \brief code is for 32-bit state (new in 1.1)
+
 //! \def __ARM_ALIGN_MAX_PWR
 //! \brief log of maximum alignment of static object
+
+#define __ARM_ALIGN_MAX_PWR 2
+
 //! \def __ARM_ALIGN_MAX_STACK_PWR
 //! \brief log of maximum alignment of stack object
-//! \def __ARM_ARCH
-//! \brief ARM architecture level
-//! \def __ARM_ARCH_ISA_ARM
-//! \brief ARM instruction set present
-//! \def __ARM_ARCH_ISA_THUMB
-//! \brief Thumb instruction set present
-//! \def __ARM_ARCH_PROFILE
-//! \brief architecture profile
-//! \def __ARM_BIG_ENDIAN
-//! \brief memory is big-endian
+
+#define __ARM_ALIGN_MAX_STACK_PWR 2
+
+
 //! \def __ARM_FEATURE_CLZ
 //! \brief CLZ instruction
 //! \def __ARM_FEATURE_FMA
@@ -282,8 +284,6 @@
 
 // Only ARM 8A currently has 64 bit instruction set
 
-
-
 // 6.3 Endianness
 //
 // __ARM_BIG_ENDIAN is defined as 1 if data is stored by default in big-endian
@@ -292,6 +292,7 @@
 // very old ARM FPU implementations, is not supported by ACLE or the ARM ABI.) 
 
 #if     defined (__BYTE_ORDER__) && (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
+//! \brief Memory is big-endian
 #define __ARM_BIG_ENDIAN 1
 #endif
 
@@ -322,36 +323,126 @@
 
 // 6.4.1 ARM/Thumb instruction set architecture 
 
-// __ARM_ARCH is defined as an integer value indicating the current ARM
-// instruction set architecture (e.g. 7 for the ARM v7-A architecture
-// implemented by Cortex-A8 or the ARM v7-M architecture implemented by
-// Cortex-M3). Since ACLE only supports the ARM architecture, this macro would
-// always be defined in an ACLE implementation.
-//
-// Note that the __ARM_ARCH macro is defined even for cores which only support
-// the Thumb instruction set.
-//
-// __ARM_ARCH_ISA_ARM is defined to 1 if the core supports the ARM instruction
-// set. It is not defined for M-profile cores. 
-//
-// __ARM_ARCH_ISA_THUMB is defined to 1 if the core supports the original Thumb
-// instruction set (including the v6-M architecture) and 2 if it supports the
-// Thumb-2 instruction set as found in the v6T2 architecture and all v7 
-// architectures. 
-//
-// __ARM_32BIT_STATE is defined to 1 if code is being generated for a 32-bit
-// instruction set such as ARM or Thumb. This macro was introduced in ACLE 1.1.
+//! \brief __ARM_ARCH is defined as an integer value indicating the current ARM
+//! instruction set architecture (e.g. 7 for the ARM v7-A architecture
+//! implemented by Cortex-A8 or the ARM v7-M architecture implemented by
+//! Cortex-M3). Since ACLE only supports the ARM architecture, this macro would
+//! always be defined in an ACLE implementation.
+//!
+//! Note that the __ARM_ARCH macro is defined even for cores which only support
+//! the Thumb instruction set.
+
+
+#if     defined(__ARM_ARCH_2__)
+#define  __ARM_ARCH 2
+#else
+#if     defined(__ARM_ARCH_3__) || defined(__ARM_ARCH_3M__)
+#define  __ARM_ARCH 3
+#else
+#if     defined(__ARM_ARCH_4__) || defined(__ARM_ARCH_4T__)
+#define  __ARM_ARCH 4
+#else
+#if defined(__ARM_ARCH_5__)    || defined(__ARM_ARCH_5T__)  ||     \
+    defined(__ARM_ARCH_5E__)   || defined(__ARM_ARCH_5TE__) ||     \
+    defined(__ARM_ARCH_5TEJ__)
+#define  __ARM_ARCH 5
+#else
+#if defined(__ARM_ARCH_6__)    || defined(__ARM_ARCH_6T__)  ||     \
+    defined(__ARM_ARCH_6J__)   || defined(__ARM_ARCH_6K__)  ||     \
+    defined(__ARM_ARCH_6Z__)   || defined(__ARM_ARCH_6ZK__) ||     \
+    defined(__ARM_ARCH_6T2__)
+#define  __ARM_ARCH 6
+#else
+#if defined(__ARM_ARCH_7__)    || defined(__ARM_ARCH_7A__)  ||     \
+    defined(__ARM_ARCH_7R__)   || defined(__ARM_ARCH_7M__)  ||     \
+    defined(__ARM_ARCH_7S__)
+#define  __ARM_ARCH 7
+#else
+#if defined(__ARM_ARCH_8__)
+#define  __ARM_ARCH 8
+#else
+static_assert(false, "ARM architecture not recognized");
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+
+//! \brief __ARM_ARCH_ISA_ARM is defined to 1 if the core supports the ARM instruction
+//! set. It is not defined for M-profile cores.
+
+#if defined(__ARM_ARCH_7M__)
+#undef __ARM_ARCH_ISA_ARM
+#else
+#define  __ARM_ARCH_ISA_ARM 1
+#endif
+
+//! \brief __ARM_ARCH_ISA_THUMB is defined to 1 if the core supports the original Thumb
+//! instruction set (including the v6-M architecture) and 2 if it supports the
+//! Thumb-2 instruction set as found in the v6T2 architecture and all v7 
+//! architectures. 
+
+#if defined(__ARM_ARCH_5T__)    || defined(__ARM_ARCH_5TE__) ||     \
+    defined(__ARM_ARCH_5TEJ__)  || defined(__ARM_ARCH_6T__)
+#define  __ARM_ARCH_ISA_THUMB 1
+#else
+#if defined(__ARM_ARCH_6T2__)   || defined(__ARM_ARCH_7__)   || \
+    defined(__ARM_ARCH_7A__)    || defined(__ARM_ARCH_7R__)  || \
+    defined(__ARM_ARCH_7M__)    || defined(__ARM_ARCH_7S__)
+#define  __ARM_ARCH_ISA_THUMB 2
+#else
+#define  __ARM_ARCH_ISA_THUMB 0
+#endif
+#endif
+
+//! \brief __ARM_32BIT_STATE is defined to 1 if code is being generated for a 32-bit
+//! instruction set such as ARM or Thumb. This macro was introduced in ACLE 1.1.
+
+#if defined(__ARM_ARCH_8__)
+#define  __ARM_32BIT_STATE 0
+#else
+#define  __ARM_32BIT_STATE 1
+#endif
 
 // 6.4.2 Architectural profile (A, R, M or pre-Cortex) 
 
-// __ARM_ARCH_PROFILE is defined as "A", "R", "M" or "S", or unset, according
-// to the architectural profile of the target. "S" indicates the common subset
-// of "A" and "R".
-//
-// This macro corresponds to the Tag_CPU_arch_profile object build attribute.
-// It may be useful to writers of system code. It is expected in most cases
-// programmers will use more feature-specific tests. The macro is undefined for
-// architectural targets which predate the use of architectural profiles. 
+#if (__ARM_ARCH >= 7)
+
+//! \brief __ARM_ARCH_PROFILE is defined as "A", "R", "M" or "S", or unset, according
+//! to the architectural profile of the target. "S" indicates the common subset
+//! of "A" and "R".
+//!
+//! This macro corresponds to the Tag_CPU_arch_profile object build attribute.
+//! It may be useful to writers of system code. It is expected in most cases
+//! programmers will use more feature-specific tests. The macro is undefined for
+//! architectural targets which predate the use of architectural profiles. 
+
+#if defined(__ARM_ARCH_7__)    || defined(__ARM_ARCH_7S__)
+#define  __ARM_ARCH_PROFILE "S"
+#else
+#ifdef __ARM_ARCH_7A__
+#define  __ARM_ARCH_PROFILE "A"
+#else
+#ifdef __ARM_ARCH_7R__
+#define  __ARM_ARCH_PROFILE "R"
+#else
+#ifdef __ARM_ARCH_7M__
+#define  __ARM_ARCH_PROFILE "M"
+#else
+#ifdef __ARM_ARCH_8__
+#define  __ARM_ARCH_PROFILE "??"
+#else
+static_assert(false, "ARM profile not recognized");
+#endif
+#endif
+#endif
+#endif
+#endif
+
+#undef __ARM_ARCH_PROFILE
+#endif
 
 // 6.4.3 Unaligned access supported in hardware 
 
@@ -523,7 +614,7 @@ void __sevl (void);
 
 //! This function implements the ARM yield instruction.
 
-void __yield(void); 
+void __yield (void); 
 
 // Generates a YIELD hint instruction. This enables multithreading software to
 // indicate to the hardware that it is performing a task, for example a
@@ -531,7 +622,7 @@ void __yield(void);
 
 //! This function implements the ARM dbg instruction.
 
-void __dbg(/*constant*/ unsigned int);
+void __dbg (/*constant*/ unsigned int);
 
 // Generates a DBG instruction. This provides a hint to debugging and related
 // systems. The argument must be a constant integer from 0 to 15 inclusive. See
@@ -548,7 +639,14 @@ void __dbg(/*constant*/ unsigned int);
 static inline uint32_t __swp_word (uint32_t x, volatile void* addr)
 #ifdef __ARM_FEATURE_LDREX
 {
-    // following needs changing for ldrex...
+    register uint32_t r;
+
+    do r = *p; while (!__sync_bool_compare_and_swap (addr, r, x));
+
+    return (r);
+}
+#else  /*!__ARM_FEATURE_LDREX*/
+{
     register uint32_t r = 0;
 
     asm volatile ("swp %[r], %[x], [ %[addr] ]"
@@ -556,22 +654,14 @@ static inline uint32_t __swp_word (uint32_t x, volatile void* addr)
 
     return (r);
 }
-#else  /*!__ARM_FEATURE_LDREX*/
-{
-    register uint32_t r = 0;
-
-    return (__arm_swp(r,x,addr));
-}
 #endif /*__ARM_FEATURE_LDREX*/
 
 static inline uint32_t __swp_byte (uint32_t x, volatile void* addr)
 #ifdef __ARM_FEATURE_LDREX
 {
-    // following needs changing for ldrex...
-    register uint32_t r = 0;
+    register uint32_t r;
 
-    asm volatile ("swpb %[r], %[x], [ %[addr] ]"
-                  : [r] "+r" (r) : [x] "r" (x), [addr] "r" (addr) : );
+    do r = *p; while (!__sync_bool_compare_and_swap (addr, r, x));
 
     return (r);
 }
@@ -579,8 +669,10 @@ static inline uint32_t __swp_byte (uint32_t x, volatile void* addr)
 {
     register uint32_t r = 0;
 
-    return (__arm_swpb(r,x,addr));
+    asm volatile ("swpb %[r], %[x], [ %[addr] ]"
+                  : [r] "+r" (r) : [x] "r" (x), [addr] "r" (addr) : );
 
+    return (r);
 }
 #endif /*__ARM_FEATURE_LDREX*/
 
@@ -1676,7 +1768,7 @@ static inline int32_t __qdbl (int32_t x)
 //! This function adds two 32-bit signed integers, saturating the result.
 //! \param[in] x first argument.
 //! \param[in] y second argument.
-//! \return x+y.
+//! \return x+2*y.
 
 static inline int32_t __qdadd (int32_t x, int32_t y)
 {
@@ -1691,7 +1783,7 @@ static inline int32_t __qdadd (int32_t x, int32_t y)
 //! This function subtracts two 32-bit signed integers, saturating the result.
 //! \param[in] x first argument.
 //! \param[in] y second argument.
-//! \return x-y.
+//! \return x-2*y.
 
 static inline int32_t __qdsub (int32_t x, int32_t y)
 {
@@ -2222,18 +2314,18 @@ uint8x4_t __sel (uint8x4_t, uint8x4_t);
 // the result may be halved or saturated.
 
 #ifdef __ARM_FEATURE_SIMD32
-int8x4_t __qadd8(int8x4_t, int8x4_t); 
-int8x4_t __qsub8(int8x4_t, int8x4_t); 
-int8x4_t __sadd8(int8x4_t, int8x4_t); 
-int8x4_t __shadd8(int8x4_t, int8x4_t); 
-int8x4_t __shsub8(int8x4_t, int8x4_t); 
-int8x4_t __ssub8(int8x4_t, int8x4_t); 
-uint8x4_t __uadd8(uint8x4_t, uint8x4_t); 
-uint8x4_t __uhadd8(uint8x4_t, uint8x4_t); 
-uint8x4_t __uhsub8(uint8x4_t, uint8x4_t); 
-uint8x4_t __uqadd8(uint8x4_t, uint8x4_t); 
-uint8x4_t __uqsub8(uint8x4_t, uint8x4_t); 
-uint8x4_t __usub8(uint8x4_t, uint8x4_t); 
+int8x4_t  __qadd8  (int8x4_t, int8x4_t); 
+int8x4_t  __qsub8  (int8x4_t, int8x4_t); 
+int8x4_t  __sadd8  (int8x4_t, int8x4_t); 
+int8x4_t  __shadd8 (int8x4_t, int8x4_t); 
+int8x4_t  __shsub8 (int8x4_t, int8x4_t); 
+int8x4_t  __ssub8  (int8x4_t, int8x4_t); 
+uint8x4_t __uadd8  (uint8x4_t, uint8x4_t); 
+uint8x4_t __uhadd8 (uint8x4_t, uint8x4_t); 
+uint8x4_t __uhsub8 (uint8x4_t, uint8x4_t); 
+uint8x4_t __uqadd8 (uint8x4_t, uint8x4_t); 
+uint8x4_t __uqsub8 (uint8x4_t, uint8x4_t); 
+uint8x4_t __usub8  (uint8x4_t, uint8x4_t); 
 #endif /*__ARM_FEATURE_SIMD32*/
 
 // 9.5.8 Sum of 8-bit absolute differences
@@ -2247,74 +2339,74 @@ uint8x4_t __usub8(uint8x4_t, uint8x4_t);
 // Performs 4x8-bit unsigned subtraction, and adds the absolute values of the
 // differences together, returning the result as a single unsigned integer. 
 
-uint32_t __usad8(uint8x4_t, uint8x4_t); 
+uint32_t __usad8 (uint8x4_t, uint8x4_t); 
 
 // Performs 4x8-bit unsigned subtraction, adds the absolute values of the
 // differences together, and adds the result to the third operand. 
 
-uint32_t __usada8(uint8x4_t, uint8x4_t, uint32_t);
+uint32_t __usada8 (uint8x4_t, uint8x4_t, uint32_t);
 
 #endif /*__ARM_FEATURE_SIMD32*/
 
 // 9.5.9 Parallel 16-bit addition and subtraction 
 #ifdef __ARM_FEATURE_SIMD32
-int16x2_t __qadd16(int16x2_t, int16x2_t); 
-int16x2_t __qasx(int16x2_t, int16x2_t); 
-int16x2_t __qsax(int16x2_t, int16x2_t); 
-int16x2_t __qsub16(int16x2_t, int16x2_t); 
-int16x2_t __sadd16(int16x2_t, int16x2_t); 
-int16x2_t __sasx(int16x2_t, int16x2_t); 
-int16x2_t __shadd16(int16x2_t, int16x2_t); 
-int16x2_t __shasx(int16x2_t, int16x2_t); 
-int16x2_t __shsax(int16x2_t, int16x2_t); 
-int16x2_t __shsub16(int16x2_t, int16x2_t); 
-int16x2_t __ssax(int16x2_t, int16x2_t); 
-int16x2_t __ssub16(int16x2_t, int16x2_t); 
-uint16x2_t __uadd16(uint16x2_t, uint16x2_t); 
-uint16x2_t __uasx(uint16x2_t, uint16x2_t); 
-uint16x2_t __uhadd16(uint16x2_t, uint16x2_t); 
-uint16x2_t __uhasx(uint16x2_t, uint16x2_t);
-uint16x2_t __uhsax(uint16x2_t, uint16x2_t); 
-uint16x2_t __uhsub16(uint16x2_t, uint16x2_t); 
-uint16x2_t __uqadd16(uint16x2_t, uint16x2_t); 
-uint16x2_t __uqasx(uint16x2_t, uint16x2_t); 
-uint16x2_t __uqsax(uint16x2_t, uint16x2_t); 
-uint16x2_t __uqsub16(uint16x2_t, uint16x2_t); 
-uint16x2_t __usax(uint16x2_t, uint16x2_t); 
-uint16x2_t __usub16(uint16x2_t, uint16x2_t); 
+int16x2_t  __qadd16  (int16x2_t, int16x2_t); 
+int16x2_t  __qasx    (int16x2_t, int16x2_t); 
+int16x2_t  __qsax    (int16x2_t, int16x2_t); 
+int16x2_t  __qsub16  (int16x2_t, int16x2_t); 
+int16x2_t  __sadd16  (int16x2_t, int16x2_t); 
+int16x2_t  __sasx    (int16x2_t, int16x2_t); 
+int16x2_t  __shadd16 (int16x2_t, int16x2_t); 
+int16x2_t  __shasx   (int16x2_t, int16x2_t); 
+int16x2_t  __shsax   (int16x2_t, int16x2_t); 
+int16x2_t  __shsub16 (int16x2_t, int16x2_t); 
+int16x2_t  __ssax    (int16x2_t, int16x2_t); 
+int16x2_t  __ssub16  (int16x2_t, int16x2_t); 
+uint16x2_t __uadd16  (uint16x2_t, uint16x2_t); 
+uint16x2_t __uasx    (uint16x2_t, uint16x2_t); 
+uint16x2_t __uhadd16 (uint16x2_t, uint16x2_t); 
+uint16x2_t __uhasx   (uint16x2_t, uint16x2_t);
+uint16x2_t __uhsax   (uint16x2_t, uint16x2_t); 
+uint16x2_t __uhsub16 (uint16x2_t, uint16x2_t); 
+uint16x2_t __uqadd16 (uint16x2_t, uint16x2_t); 
+uint16x2_t __uqasx   (uint16x2_t, uint16x2_t); 
+uint16x2_t __uqsax   (uint16x2_t, uint16x2_t); 
+uint16x2_t __uqsub16 (uint16x2_t, uint16x2_t); 
+uint16x2_t __usax    (uint16x2_t, uint16x2_t); 
+uint16x2_t __usub16  (uint16x2_t, uint16x2_t); 
 #endif /*__ARM_FEATURE_SIMD32*/
 
 // 9.5.10 Parallel 16-bit multiplication 
 #ifdef __ARM_FEATURE_SIMD32
-int32_t __smlad(int16x2_t, int16x2_t, int32_t); 
-int32_t __smladx(int16x2_t, int16x2_t, int32_t); 
-int64_t __smlald(int16x2_t, int16x2_t, int64_t); 
-int64_t __smlaldx(int16x2_t, int16x2_t, int64_t); 
-int32_t __smlsd(int16x2_t, int16x2_t, int32_t); 
-int32_t __smlsdx(int16x2_t, int16x2_t, int32_t); 
-int64_t __smlsld(int16x2_t, int16x2_t, int64_t); 
-int64_t __smlsldx(int16x2_t, int16x2_t, int64_t); 
-int32_t __smuad(int16x2_t, int16x2_t); 
-int32_t __smuadx(int16x2_t, int16x2_t); 
-int32_t __smusd(int16x2_t, int16x2_t); 
-int32_t __smusdx(int16x2_t, int16x2_t);
+int32_t __smlad   (int16x2_t, int16x2_t, int32_t); 
+int32_t __smladx  (int16x2_t, int16x2_t, int32_t); 
+int64_t __smlald  (int16x2_t, int16x2_t, int64_t); 
+int64_t __smlaldx (int16x2_t, int16x2_t, int64_t); 
+int32_t __smlsd   (int16x2_t, int16x2_t, int32_t); 
+int32_t __smlsdx  (int16x2_t, int16x2_t, int32_t); 
+int64_t __smlsld  (int16x2_t, int16x2_t, int64_t); 
+int64_t __smlsldx (int16x2_t, int16x2_t, int64_t); 
+int32_t __smuad   (int16x2_t, int16x2_t); 
+int32_t __smuadx  (int16x2_t, int16x2_t); 
+int32_t __smusd   (int16x2_t, int16x2_t); 
+int32_t __smusdx  (int16x2_t, int16x2_t);
 #endif /*__ARM_FEATURE_SIMD32*/
 
 // 9.6 Floating-point data-processing intrinsics
 
 #if (__ARM_FP & 0x08) != 0 
-double __sqrt(double x); 
+double __sqrt (double x); 
 #endif /*__ARM_FP*/
 #if (__ARM_FP & 0x04) != 0 
-float __sqrtf(float x); 
+float __sqrtf (float x); 
 #endif /*__ARM_FP*/
 
 #ifdef __ARM_FEATURE_FMA
 #if (__ARM_FP & 0x08) != 0 
-double __fma(double x, double y, double z); 
+double __fma (double x, double y, double z); 
 #endif /*__ARM_FP*/
 #if (__ARM_FP & 0x04) != 0 
-float __fmaf(float x, float y, float z); 
+float __fmaf (float x, float y, float z); 
 #endif /*__ARM_FP*/
 #endif /*__ARM_FEATURE_FMA*/
 
