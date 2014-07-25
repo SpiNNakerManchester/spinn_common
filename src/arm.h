@@ -38,7 +38,7 @@
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns x+y.
 
-static inline uint32_t __arm_add (uint32_t x, uint32_t y)
+static inline uint32_t __add (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -53,7 +53,7 @@ static inline uint32_t __arm_add (uint32_t x, uint32_t y)
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns x+y+carry.
 
-static inline uint32_t __arm_adc (uint32_t x, uint32_t y)
+static inline uint32_t __adc (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -69,7 +69,7 @@ static inline uint32_t __arm_adc (uint32_t x, uint32_t y)
 //! \return The function returns x+y, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __arm_adds (uint32_t x, uint32_t y)
+static inline uint32_t __adds (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -85,7 +85,7 @@ static inline uint32_t __arm_adds (uint32_t x, uint32_t y)
 //! \return The function returns x+y+carry, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __arm_adcs (uint32_t x, uint32_t y)
+static inline uint32_t __adcs (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -100,7 +100,7 @@ static inline uint32_t __arm_adcs (uint32_t x, uint32_t y)
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns x-y.
 
-static inline uint32_t __arm_sub (uint32_t x, uint32_t y)
+static inline uint32_t __sub (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -115,7 +115,7 @@ static inline uint32_t __arm_sub (uint32_t x, uint32_t y)
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns x-y-carry.
 
-static inline uint32_t __arm_sbc (uint32_t x, uint32_t y)
+static inline uint32_t __sbc (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -131,7 +131,7 @@ static inline uint32_t __arm_sbc (uint32_t x, uint32_t y)
 //! \return The function returns x-y, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __arm_subs (uint32_t x, uint32_t y)
+static inline uint32_t __subs (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -147,7 +147,7 @@ static inline uint32_t __arm_subs (uint32_t x, uint32_t y)
 //! \return The function returns x-y-carry, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __arm_sbcs (uint32_t x, uint32_t y)
+static inline uint32_t __sbcs (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -162,7 +162,7 @@ static inline uint32_t __arm_sbcs (uint32_t x, uint32_t y)
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns y-x
 
-static inline uint32_t __arm_rsb (uint32_t x, uint32_t y)
+static inline uint32_t __rsb (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -177,7 +177,7 @@ static inline uint32_t __arm_rsb (uint32_t x, uint32_t y)
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns y-x-carry.
 
-static inline uint32_t __arm_rsc (uint32_t x, uint32_t y)
+static inline uint32_t __rsc (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -193,7 +193,7 @@ static inline uint32_t __arm_rsc (uint32_t x, uint32_t y)
 //! \return The function returns y-x-carry, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __arm_rsbs (uint32_t x, uint32_t y)
+static inline uint32_t __rsbs (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -209,7 +209,7 @@ static inline uint32_t __arm_rsbs (uint32_t x, uint32_t y)
 //! \return The function returns y-x-carry, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __arm_rscs (uint32_t x, uint32_t y)
+static inline uint32_t __rscs (uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
@@ -218,67 +218,6 @@ static inline uint32_t __arm_rscs (uint32_t x, uint32_t y)
 
     return (r);
 }
-
-
-
-
-
-//
-// \example
-//
-// #define MUTEX_LOCKED   ((uint32_t)true )
-// #define MUTEX_UNLOCKED ((uint32_t)false)
-//
-// typedef uint32_t* mutex_t;
-//
-// void lock_mutex (mutex_t mutex)
-// {
-//   uint32_t lock, check;
-//
-//   do {
-//     lock = MUTEX_LOCKED;
-//     __arm_swp (check, lock, (uint32_t*)mutex);
-//   } while (check == lock);
-//
-// }
-//
-// void unlock_mutex (mutex_t mutex)
-// {
-//   *((uint32_t*)mutex) = MUTEX_UNLOCKED;
-// }
-
-
-//! \brief This function gives access to the ARM swp instruction.
-//! \param[in,out] x The 
-//! \param[in] y The 
-//! \param[in] address The address of the mutex word.
-
-static inline void __arm_swp  (uint32_t x, uint32_t y,
-                               volatile uint32_t* address)
-{
-    asm volatile ("swp %[x], %[y] [%[a]]"
-                  : [x] "+r" (x), [y] "r" (y) : [a] "r" (address) : );
-}
-
-//! \brief This function gives access to the ARM swpb instruction.
-//! \param[in,out] x The read value of the mutex byte.
-//! \param[in] y The byte value to be checked against.
-//! \param[in] address The address of the mutex byte.
-
-static inline void __arm_swpb (uint8_t x, uint8_t y,
-                               volatile uint8_t* address)
-{
-    asm volatile ("swpb %[x], %[y] [%[a]]"
-                  : [x] "+r" (x), [y] "r" (y) : [a] "r" (address) : );
-}
-
-/*
-static inline void __builtin_arm_wfi  (void)
-{ asm volatile ("wfi"  :  :  : "cc");}
-
-static inline void __builtin_arm_wfe  (void)
-{ asm volatile ("wfe"  :  :  : "cc");}
-*/
 
 #else  /*__arm__*/
 #include <static_assert.h>
