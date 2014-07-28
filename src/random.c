@@ -1,4 +1,9 @@
-
+/*! \file random.c
+ *  \brief pseudo-random number generators
+ *  \author Michael Hopkins
+ *  \date February 2014
+ *
+ */
 
 #include "random.h"
 
@@ -11,29 +16,31 @@
 
 /*
 	
-	By Michael Hopkins, Manchester University
+  By Michael Hopkins, Manchester University
 	
-	For all of these, to get a high resolution fixed-point number in (0,1) that uses the entire 
-	generator space use ulrbits() around return value to give a 32-bit unsigned long fract
+  For all of these, to get a high resolution fixed-point number in (0,1) that
+  uses the entire generator space use ulrbits() around return value to give a
+  32-bit unsigned long fract
 	
-	Also other options to get a 16-bit unsigned fract by taking 16 MSBs of result and urbits()
+  Also other options to get a 16-bit unsigned fract by taking 16 MSBs of result
+  and urbits()
 	
-	If floating point available then multiply by 2.32830643653869628906e-10
+  If floating point is available then multiply by 2.32830643653869628906e-10
 	
-	spin1_rand() takes 134.9 nanosecs (i.e. 27 ticks) per call
-	
-*/
-/*
-   WELL 1024a long cycle generator (2^1024 - 1) from L'Ecuyer & Panneton
+  spin1_rand() takes 134.9 nanosecs (i.e. 27 ticks) per call
+
+  WELL 1024a long cycle generator (2^1024 - 1) from L'Ecuyer & Panneton
    
-   Better equi-distribution and warm-up performance than Mersenne Twister, and faster
+  Better equi-distribution and warm-up performance than Mersenne Twister, and
+  faster
    
-   294.9 nanosecs (i.e. 59 ticks) per call
+  294.9 nanosecs (i.e. 59 ticks) per call
    
 */
 #define R 32
 
-// NB the global state vector for WELL1024a_simp() is defined here as a file static
+// NB the global state vector for WELL1024a_simp() is defined here as a file
+// static
 static uint32_t STATE[R];
 
 #define W 32
@@ -55,11 +62,13 @@ static uint32_t STATE[R];
 
 
 // the initialiser function that MUST BE CALLED before WELL1024a_simp() is used
+
 void init_WELL1024a_simp (void)
 {
     //   state_i = 0;
     for (int j = 0; j < R; j++) {
-	STATE[j] = mars_kiss64_simp();  // init state vector with good generator
+	STATE[j] = mars_kiss64_simp();
+                         // init state vector with good generator
 // io_printf( IO_STD, " %u , ", STATE[j]);	
     }
 // io_printf( IO_STD, "\n");	
@@ -76,7 +85,7 @@ uint32_t WELL1024a_simp (void)
     z1    = Identity (V0)      ^ MAT0POS (  8, VM1);
     z2    = MAT0NEG (-19, VM2) ^ MAT0NEG (-14, VM3);
     newV1 = z1                 ^ z2; 
-    newV0 = MAT0NEG (-11,z0)   ^ MAT0NEG(-7, z1)    ^ MAT0NEG(-13, z2);
+    newV0 = MAT0NEG (-11,z0)   ^ MAT0NEG (-7, z1)    ^ MAT0NEG(-13, z2);
     state_i = (state_i + 31) & 0x0000001fU;
 	
     return (STATE [state_i]);
@@ -84,6 +93,7 @@ uint32_t WELL1024a_simp (void)
 
 
 // MUST USE THIS before working with proposed seed for the first time
+
 void validate_WELL1024a_seed (WELL1024a_seed_t seed)
 {
     seed[33] = 0;
@@ -94,7 +104,6 @@ void validate_WELL1024a_seed (WELL1024a_seed_t seed)
 // the WELL generator for custom seed - STATE in function argument replaces file static version
 uint32_t WELL1024a_seed (WELL1024a_seed_t STATE)
 {
-//	static uint32_t 	state_i = 0;  // now stored in 33rd element of seed
     uint32_t 			z0, z1, z2;
 	
     z0    = VRm1;
@@ -132,21 +141,29 @@ uint32_t WELL1024a_seed (WELL1024a_seed_t STATE)
 
 
 /* 
-	Implementation of a Marsaglia 32-bit KISS generator which uses no multiply instructions
+   Implementation of a Marsaglia 32-bit KISS generator which uses no multiply
+   instructions
 	
    209.9 nanosecs (i.e. 42 ticks) per call
    
 */ 
 uint32_t mars_kiss32 (void)
 {
-    static uint32_t x = 123456789, y = 234567891, z = 345678912, w = 456789123, c = 0; /* Seed variables */ 
+    static uint32_t
+        x = 123456789,
+        y = 234567891,
+        z = 345678912,
+        w = 456789123,
+        c = 0; /* Seed variables */ 
     int32_t t; 
 
-    y ^= ( y << 5); y ^= ( y >> 7); y ^= ( y << 22); 
-    t = z + w + c; 
-    z = w; 
-    c = t < 0; 
-    w =  t & 2147483647; 
+    y ^= ( y << 5);
+    y ^= ( y >> 7);
+    y ^= ( y << 22); 
+    t  = z + w + c; 
+    z  = w; 
+    c  = t < 0; 
+    w  = t & 2147483647; 
     x += 1411392427; 
 
     return ((uint32_t)x + y + w); 
@@ -154,18 +171,25 @@ uint32_t mars_kiss32 (void)
 
 
 /* 
-	Implementation of Marsaglia JKISS RNG uses 64-bit value and 2x multiplies
+   Implementation of Marsaglia JKISS RNG uses 64-bit value and 2x multiplies
 	
-	219.9 nanosecs (i.e. 44 ticks) per call
+   219.9 nanosecs (i.e. 44 ticks) per call
 	
 */ 
+
 uint32_t mars_kiss64_simp (void)
 {
-    static uint32_t x = 123456789, y = 987654321, z = 43219876, c = 6543217; /* Seed variables */ 
+    static uint32_t
+        x = 123456789,
+        y = 987654321,
+        z = 43219876,
+        c = 6543217; /* Seed variables */ 
     uint64_t t; 
 
     x = 314527869 * x + 1234567; 
-    y ^= y << 5; y ^= y >> 7; y ^= y << 22; 
+    y ^= y << 5;
+    y ^= y >> 7;
+    y ^= y << 22; 
     t = 4294584393ULL * z + c; 
     c = t >> 32; 
     z = t; 
@@ -179,14 +203,18 @@ uint32_t mars_kiss64_simp (void)
 #define z seed[2]
 #define c seed[3]
 /* 
-	Custom seed version of above - need to create & validate 128 bit seed before use
+   Custom seed version of above - need to create & validate 128 bit seed
+   before use
 */ 
+
 uint32_t mars_kiss64_seed (mars_kiss64_seed_t seed)
 {
     uint64_t t; 
 
     x = 314527869 * x + 1234567; 
-    y ^= y << 5; y ^= y >> 7; y ^= y << 22; 
+    y ^= y << 5;
+    y ^= y >> 7;
+    y ^= y << 22; 
     t = 4294584393ULL * z + c; 
     c = t >> 32; 
     z = t; 
@@ -202,9 +230,12 @@ uint32_t mars_kiss64_seed (mars_kiss64_seed_t seed)
 // validate seed for Marsaglia KISS 64 before it is first used
 void validate_mars_kiss64_seed (mars_kiss64_seed_t seed)
 {
-    if (seed[1] == 0) seed[1] = 13031301;  	// y (<- seed[2]) can't be zero so set to arbitrary non-zero if so
+    if (seed[1] == 0)
+        seed[1] = 13031301;
+           // y (<- seed[2]) can't be zero so set to arbitrary non-zero if so
  	
- 	seed[3] = seed[3] % 698769068 + 1;			// avoid z=c=0 and make < 698769069
+    seed[3] = seed[3] % 698769068 + 1;
+           // avoid z=c=0 and make < 698769069
 }
 
 
@@ -237,7 +268,8 @@ outer:
 
 inner:
     USTAR = uni_rng (seed_arg);  
-    if (U < USTAR) return  A + (accum) ulrbits (U0);  // accum + (accum)[ unsigned long fract <= uint32_t ]
+    if (U < USTAR) return  A + (accum) ulrbits (U0);
+                   // accum + (accum)[ unsigned long fract <= uint32_t ]
 
     U = uni_rng (seed_arg); 
     if (U < USTAR) goto inner;	
@@ -250,6 +282,7 @@ inner:
 
 // Returns standard gaussian deviate - my translation of NR in C
 // 2 for the price of one (kind of)
+
 accum gaussian_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg)
 {
     static bool         set = false;
@@ -258,7 +291,8 @@ accum gaussian_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg)
 
     if (!set) {
 	do {
-	    v1 =  (uni_rng (seed_arg) / 2147483648.0f) - 1.0f;   // U(0,1) * 2 - 1
+	    v1 =  (uni_rng (seed_arg) / 2147483648.0f) - 1.0f;
+                                                            // U(0,1) * 2 - 1
 	    v2 =  (uni_rng (seed_arg) / 2147483648.0f) - 1.0f;
 		
 	    rsq = v1*v1 + v2*v2;		
@@ -276,32 +310,50 @@ accum gaussian_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg)
     }
 }
 
+//! \brief A poisson distributed random variable, given exp (-lambda). This is
+//! Knuth's method, and is \f$O(n)\f$, so don't use for large lambda
+//! \param[in] uni_rng A uniformly distributed random number generator.
+//! \param[in] seed_arg The seed state for the random number sequence.
+//! \param[in] lambda The parameter \f$\lambda\f$ of the distribution.
+//! \return An unsigned integer which is poisson-distributed.
 
-// Returns Poisson variate using Knuth's method
-// O(n) for returned value so don't use for large lambda
-uint32_t poisson_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg,
-			       accum lambda)
+uint32_t poisson_dist_variate (uniform_rng uni_rng,
+                               uint32_t*   seed_arg,
+			       accum       lambda)
 {
     unsigned long fract exp_minus_lambda = (unsigned long fract) expk (-lambda);
-	
+
+//! \remark DRL thinks the above cast (from s16.15 to u0.32) might be wasteful.
+
     return (poisson_dist_variate_exp_minus_lambda (uni_rng, seed_arg, exp_minus_lambda));
 }
 
+//! \brief A poisson distributed random variable, given exp (-lambda).
+//! \param[in] uni_rng A uniformly distributed random number generator.
+//! \param[in] seed_arg The seed state for the random number sequence.
+//! \param[in] exp_minus_lambda \f$\exp(-\lambda)\f$.
+//! \return An unsigned integer which is poisson-distributed.
 
-// when one can pre-calculate exp (-lambda) once, use this version to save time
 uint32_t poisson_dist_variate_exp_minus_lambda
     (uniform_rng         uni_rng,
      uint32_t*           seed_arg,
      unsigned long fract exp_minus_lambda)
 {
-    uint32_t 			k = 0, unif;
-    unsigned long fract 	p = 1.0ulr, u;
-	
+    unsigned long fract  p = 1.0ulr;
+    uint32_t 	     	 k = 0;
+
+//! \remark DRL thinks this can be simplified to the following code:
+
+//!     while (p > exp_minus_lambda) {
+//!         p *= ulrbits (uni_rng (seed_arg));
+//!         k++;
+//!     }
+//!
+//!     return (k);
+
     do {		
 	k++;
-	unif = uni_rng (seed_arg);  	// unif is uint32_t
-	u = ulrbits (unif);		// u is unsigned long fract
-	p *= u;
+	p *= ulrbits (uni_rng (seed_arg));
     } while (p > exp_minus_lambda);
 		
     return (k - 1);

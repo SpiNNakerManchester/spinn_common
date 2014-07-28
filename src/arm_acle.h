@@ -486,6 +486,10 @@ static_assert(false, "ARM profile not recognized");
 // Note that platforms may choose to make SWP unavailable in user mode and
 // emulate it through a trap to a platform routine, or fault it. 
 
+
+
+
+
 // 6.4.5 CLZ 
 //
 // __ARM_FEATURE_CLZ is defined to 1 if the CLZ (count leading zeroes)
