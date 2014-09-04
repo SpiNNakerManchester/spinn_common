@@ -201,46 +201,34 @@ static_assert (false,
 
 #if     defined(__ARM_ARCH_2__)
 #define  __ARM_ARCH 2
-#else
-#if     defined(__ARM_ARCH_3__) || defined(__ARM_ARCH_3M__)
+#elif   defined(__ARM_ARCH_3__) || defined(__ARM_ARCH_3M__)
 #define  __ARM_ARCH 3
-#else
-#if     defined(__ARM_ARCH_4__) || defined(__ARM_ARCH_4T__)
+#elif   defined(__ARM_ARCH_4__) || defined(__ARM_ARCH_4T__)
 #define  __ARM_ARCH 4
-#else
-#if defined(__ARM_ARCH_5__)    || defined(__ARM_ARCH_5T__)  ||     \
-    defined(__ARM_ARCH_5E__)   || defined(__ARM_ARCH_5TE__) ||     \
-    defined(__ARM_ARCH_5TEJ__)
+#elif defined(__ARM_ARCH_5__)    || defined(__ARM_ARCH_5T__)  ||   \
+      defined(__ARM_ARCH_5E__)   || defined(__ARM_ARCH_5TE__) ||   \
+      defined(__ARM_ARCH_5TEJ__)
 #define  __ARM_ARCH 5
-#else
-#if defined(__ARM_ARCH_6__)    || defined(__ARM_ARCH_6T__)  ||     \
-    defined(__ARM_ARCH_6J__)   || defined(__ARM_ARCH_6K__)  ||     \
-    defined(__ARM_ARCH_6Z__)   || defined(__ARM_ARCH_6ZK__) ||     \
-    defined(__ARM_ARCH_6T2__)
+#elif defined(__ARM_ARCH_6__)    || defined(__ARM_ARCH_6T__)  ||   \
+      defined(__ARM_ARCH_6J__)   || defined(__ARM_ARCH_6K__)  ||   \
+      defined(__ARM_ARCH_6Z__)   || defined(__ARM_ARCH_6ZK__) ||   \
+      defined(__ARM_ARCH_6T2__)
 #define  __ARM_ARCH 6
-#else
-#if defined(__ARM_ARCH_7__)    || defined(__ARM_ARCH_7A__)  ||     \
-    defined(__ARM_ARCH_7R__)   || defined(__ARM_ARCH_7M__)  ||     \
-    defined(__ARM_ARCH_7S__)
+#elif defined(__ARM_ARCH_7__)    || defined(__ARM_ARCH_7A__)  ||   \
+      defined(__ARM_ARCH_7R__)   || defined(__ARM_ARCH_7M__)  ||   \
+      defined(__ARM_ARCH_7S__)
 #define  __ARM_ARCH 7
-#else
-#if defined(__ARM_ARCH_8__)
+#elif defined(__ARM_ARCH_8__)
 #define  __ARM_ARCH 8
 #else
 static_assert(false, "ARM architecture not recognized");
-#endif
-#endif
-#endif
-#endif
-#endif
-#endif
 #endif
 
 //! \brief __ARM_ARCH_ISA_ARM is defined to 1 if the core supports the ARM
 //! instruction set. It is not defined for M-profile cores.
 
 #if defined(__ARM_ARCH_7M__)
-#undef __ARM_ARCH_ISA_ARM
+#undef   __ARM_ARCH_ISA_ARM
 #else
 #define  __ARM_ARCH_ISA_ARM 1
 #endif
@@ -250,17 +238,15 @@ static_assert(false, "ARM architecture not recognized");
 //! Thumb-2 instruction set as found in the v6T2 architecture and all v7 
 //! architectures. 
 
-#if defined(__ARM_ARCH_5T__)    || defined(__ARM_ARCH_5TE__) ||     \
-    defined(__ARM_ARCH_5TEJ__)  || defined(__ARM_ARCH_6T__)
+#if   defined(__ARM_ARCH_5T__)    || defined(__ARM_ARCH_5TE__) || \
+      defined(__ARM_ARCH_5TEJ__)  || defined(__ARM_ARCH_6T__)
 #define  __ARM_ARCH_ISA_THUMB 1
-#else
-#if defined(__ARM_ARCH_6T2__)   || defined(__ARM_ARCH_7__)   || \
-    defined(__ARM_ARCH_7A__)    || defined(__ARM_ARCH_7R__)  || \
-    defined(__ARM_ARCH_7M__)    || defined(__ARM_ARCH_7S__)
+#elif defined(__ARM_ARCH_6T2__)   || defined(__ARM_ARCH_7__)   || \
+      defined(__ARM_ARCH_7A__)    || defined(__ARM_ARCH_7R__)  || \
+      defined(__ARM_ARCH_7M__)    || defined(__ARM_ARCH_7S__)
 #define  __ARM_ARCH_ISA_THUMB 2
 #else
 #define  __ARM_ARCH_ISA_THUMB 0
-#endif
 #endif
 
 //! \brief __ARM_32BIT_STATE is defined to 1 if code is being generated for a 32-bit
@@ -285,26 +271,18 @@ static_assert(false, "ARM architecture not recognized");
 //! programmers will use more feature-specific tests. The macro is undefined for
 //! architectural targets which predate the use of architectural profiles. 
 
-#if defined(__ARM_ARCH_7__)    || defined(__ARM_ARCH_7S__)
+#if   defined(__ARM_ARCH_7__)    || defined(__ARM_ARCH_7S__)
 #define  __ARM_ARCH_PROFILE "S"
-#else
-#ifdef __ARM_ARCH_7A__
+#elif defined(__ARM_ARCH_7A__)
 #define  __ARM_ARCH_PROFILE "A"
-#else
-#ifdef __ARM_ARCH_7R__
+#elif defined(__ARM_ARCH_7R__)
 #define  __ARM_ARCH_PROFILE "R"
-#else
-#ifdef __ARM_ARCH_7M__
+#elif defined(__ARM_ARCH_7M__)
 #define  __ARM_ARCH_PROFILE "M"
-#else
-#ifdef __ARM_ARCH_8__
+#elif defined(__ARM_ARCH_8__)
 #define  __ARM_ARCH_PROFILE "??"
 #else
 static_assert(false, "ARM profile not recognized");
-#endif
-#endif
-#endif
-#endif
 #endif
 
 #undef __ARM_ARCH_PROFILE
@@ -354,20 +332,16 @@ static_assert(false, "ARM profile not recognized");
 // Note that platforms may choose to make SWP unavailable in user mode and
 // emulate it through a trap to a platform routine, or fault it. 
 
-#if  defined(__ARM_ARCH_6K__)  || defined(__ARM_ARCH_6ZK__) ||     \
-     defined(__ARM_ARCH_7A__)  || defined(__ARM_ARCH_7R__)
+#if    defined(__ARM_ARCH_6K__)  || defined(__ARM_ARCH_6ZK__) ||   \
+       defined(__ARM_ARCH_7A__)  || defined(__ARM_ARCH_7R__)
 //! \brief Indicates that LDREX/STREX instructions are available.
 #define __ARM_FEATURE_LDREX 0x0F
-#else
-#if  defined(__ARM_ARCH_7M__)
+#elif  defined(__ARM_ARCH_7M__)
 //! \brief Indicates that LDREX/STREX instructions are available.
 #define __ARM_FEATURE_LDREX 0x07
-#else
-#if (__ARM_ARCH >=6) && !defined(__ARM_ARCH_6M__)
+#elif (__ARM_ARCH >=6) && !defined(__ARM_ARCH_6M__)
 //! \brief Indicates that LDREX/STREX instructions are available.
 #define __ARM_FEATURE_LDREX 0x04
-#endif
-#endif
 #endif
 
 // 6.4.5 CLZ 
@@ -404,12 +378,24 @@ static_assert(false, "ARM profile not recognized");
 // instructions include QADD, SMULBB etc. This feature also implies support for
 // the Q flag.
 
+#if (( defined(__ARM_ARCH_5TE__)  ||  defined(__ARM_ARCH_5TEJ__) || \
+       (__ARM_ARCH == 6) && defined(__arm__)) ||                    \
+     ( defined(__ARM_ARCH_7M__)   && defined(__thumb__)))
+//! \brief Indicates that the DSP Instructions are available
+#define __ARM_FEATURE_DSP
+#endif
 
 // 6.4.8 Saturation instructions 
 //
 // __ARM_FEATURE_SAT is defined to 1 if the SSAT and USAT instructions are
 // supported and the intrinsics defined in 9.4.1 are available. This feature
-// also implies support for the Q flag. 
+// also implies support for the Q flag.
+
+#if ((__ARM_ARCH == 6) && defined(__arm__)) ||                  \
+     ( defined(__ARM_ARCH_7M__)   && defined(__thumb__)))
+//! \brief Indicates that the SSAT and USAT Instructions are available
+#define __ARM_FEATURE_SAT
+#endif
 
 // 6.4.9 32-bit SIMD instructions 
 //
@@ -468,8 +454,13 @@ static_assert(false, "ARM profile not recognized");
 
 //! This function implements the ARM wfi instruction.
 
+#if defined(__ARM_ARCH_5TE__)
 static inline void __wfi (void)
-{ asm volatile ("mcr p15, 0, r0, c7, c0, 4" : : : "cc"); } // valid for v5te
+{ asm volatile ("mcr p15, 0, r0, c7, c0, 4" : : : "cc"); }
+#else
+static inline void __wfi (void)
+{ assert("wfi not available"); }
+#endif
 
 // MCR p15, 0, <Rd>, c7, c0, 4 also arm11 see
 // http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0360f/I1014942.html
@@ -531,7 +522,6 @@ void __dbg (/*constant*/ unsigned int);
 
 // __swp is available for all targets. This intrinsic expands to a sequence
 // equivalent to the deprecated (and possibly unavailable) SWP instruction. 
-
 
 static inline uint32_t __swp_word (uint32_t x, volatile void* addr)
 #ifdef __ARM_FEATURE_LDREX
