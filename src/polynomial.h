@@ -117,6 +117,7 @@ static inline int __horner_int_t (int* a, int x, int n)
 //! \param[in] n The number of coeficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 
+<<<<<<< HEAD
 static inline int __horner_int_b (int* a, int x, int n)
 {
     register int64_t t  = *a++;
@@ -124,6 +125,14 @@ static inline int __horner_int_b (int* a, int x, int n)
 
     for ( ; n > 0; n--)
         t = (t * dx >> 16) + *a++;
+=======
+static inline int __horner_r_b (int* a, int x, int n)
+{
+    register int64_t t = *a++;
+
+    for ( ; n > 0; n--)
+        t = (t * (x & 0xFFFF) >> 15) + *a++;
+>>>>>>> 794d528662f4a5ce363b290d6c2078a478cde192
 
     return ((int)(t & 0xFFFFFFFF));
 }
@@ -138,6 +147,7 @@ static inline int __horner_int_b (int* a, int x, int n)
 //! \param[in] n The number of coeficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 
+<<<<<<< HEAD
 static inline int __horner_int_t (int* a, int x, int n)
 {
     register int64_t t = *a++;
@@ -146,6 +156,14 @@ static inline int __horner_int_t (int* a, int x, int n)
 
     for ( ; n > 0; n--)
         t = (t * dx >> 16) + *a++;
+=======
+static inline int __horner_r_t (int* a, int x, int n)
+{
+    register int64_t t = *a++;
+
+    for ( ; n > 0; n--)
+        t = (t * (x >> 16) >> 15) + *a++;
+>>>>>>> 794d528662f4a5ce363b290d6c2078a478cde192
 
     return ((int)(t & 0xFFFFFFFF));
 }
