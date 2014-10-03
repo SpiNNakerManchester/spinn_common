@@ -21,6 +21,9 @@ endif
 
 include $(SPINN_DIRS)/Makefile.common
 
+# Include our own include directory
+CFLAGS += -I $(SPINN_COMMON_INCLUDE)
+
 # General tool setup
 CAT = cat
 LS  = ls -l
@@ -54,4 +57,4 @@ $(SPINN_COMMON_BUILD):
 	$(MKDIR) $@
 
 clean:
-	$(RM) $(SPINN_COMMON_LIBS)/libspinn_common.a $(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o) $(HEADERS:%.h=$(SPINN_COMMON_INCLUDE)/%.h)
+	$(RM) $(SPINN_COMMON_LIBS)/libspinn_common.a $(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o)
