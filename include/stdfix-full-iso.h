@@ -32,6 +32,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "arm_acle.h"
+#include "debug.h"
 
 //! \brief Returns the minimum of two arguments.
 //! \param[in] a First argument
@@ -66,14 +68,14 @@
 //! \param[in] x A 64-bit value.
 //! \return The most significant 32-bits of x.
 
-#define __ms_u32(x)                             \
+#define __stdfix_ms_u32(x)                      \
     ((x) >> 32)
 
 //! \brief Returns the least significant 32-bits of a 64-bit argument.
 //! \param[in] x A 64-bit value.
 //! \return The least significant 32-bits of x.
 
-#define __ls_u32(x)                             \
+#define __stdfix_ls_u32(x)                      \
     ((x) & UINT32_MAX)
 
 //! \brief Multiplies two 64-bit unsigned integers returning a 128-bit result
@@ -84,8 +86,7 @@
 //! \param[in] y Second argument
 //! \return [hi:lo] = x*y
 
-void __64x64_128 (uint64_t *hi, uint64_t *lo, uint64_t x,
-                  uint64_t y);
+void __stdfix_64x64_128 (uint64_t *hi, uint64_t *lo, uint64_t x, uint64_t y);
 
 //! \brief This is the integer type into which signed short fract can be
 //! converted.
@@ -603,7 +604,11 @@ static inline int32_t   __stdfix_sneg_hk (int32_t x)
 //! \return The value of x+y saturated to 32 bits.
 
 static inline int32_t __stdfix_sadd_k (int32_t x, int32_t y)
+#ifdef   __ARM_FEATURE_DSP
+{ return (__qadd (x, y)); }
+#else  /*__ARM_FEATURE_DSP*/
 { return (__stdfix_sat_k ((int64_t)x + (int64_t)y)); }
+#endif /*__ARM_FEATURE_DSP*/
 
 //! \brief Saturated subtraction of the underlying integer representations
 //! \param[in] x An 32-bit integer
@@ -611,14 +616,22 @@ static inline int32_t __stdfix_sadd_k (int32_t x, int32_t y)
 //! \return The value of x-y saturated to 32 bits.
 
 static inline int32_t __stdfix_ssub_k (int32_t x, int32_t y)
+#ifdef   __ARM_FEATURE_DSP
+{ return (__qsub (x, y)); }
+#else  /*__ARM_FEATURE_DSP*/
 { return (__stdfix_sat_k ((int64_t)x - (int64_t)y)); }
+#endif /*__ARM_FEATURE_DSP*/
 
 //! \brief Saturated negation of the underlying integer representations
 //! \param[in] x An 32-bit integer
 //! \return The value of -x saturated to 32 bits.
 
 static inline int32_t __stdfix_sneg_k (int32_t x)
+#ifdef   __ARM_FEATURE_DSP
+{ return (__qsub (0, x)); }
+#else  /*__ARM_FEATURE_DSP*/
 { return (__stdfix_sat_k ((int64_t)-x)); }
+#endif /*__ARM_FEATURE_DSP*/
 
 //! \brief Saturated addition of the underlying integer representations
 //! \param[in] x An 64-bit integer
@@ -640,7 +653,7 @@ int64_t __stdfix_ssub_lk (int64_t x, int64_t y);
 
 int64_t __stdfix_sneg_lk (int64_t x);
 
-//! \brief Saturated multiplicaion of the underlying integer representations
+//! \brief Saturated multiplication of the underlying integer representations
 //! \param[in] x A 32-bit integer representing of a short fract.
 //! \param[in] y A 32-bit integer representing of a short fract.
 //! \return The value of x*y saturated to 8 bits representing of a short fract.
@@ -652,7 +665,7 @@ static inline int32_t __stdfix_smul_hr (int32_t x, int32_t y)
     return ((int32_t)__stdfix_sat_hr (((int32_t)x * (int32_t)y) >> 7));
 }
 
-//! \brief Saturated multiplicaion of the underlying integer representations
+//! \brief Saturated multiplication of the underlying integer representations
 //! \param[in] x A 32-bit integer representing of a fract.
 //! \param[in] y A 32-bit integer representing of a fract.
 //! \return The value of x*y saturated to 16 bits representing of a fract.
@@ -664,7 +677,7 @@ static inline int32_t __stdfix_smul_r (int32_t x, int32_t y)
     return ((int32_t)__stdfix_sat_r (((int32_t)x * (int32_t)y) >> 15));
 }
 
-//! \brief Saturated multiplicaion of the underlying integer representations
+//! \brief Saturated multiplication of the underlying integer representations
 //! \param[in] x A 32-bit integer representing of a long fract.
 //! \param[in] y A 32-bit integer representing of a long fract.
 //! \return The value of x*y saturated to 32 bits representing of a long fract.
@@ -676,7 +689,7 @@ static inline int32_t __stdfix_smul_lr (int32_t x, int32_t y)
     return (__stdfix_sat_lr (((int64_t)x * (int64_t)y) >> 31));
 }
 
-//! \brief Saturated multiplicaion of the underlying integer representations
+//! \brief Saturated multiplication of the underlying integer representations
 //! \param[in] x A 32-bit integer representing of a short accum.
 //! \param[in] y A 32-bit integer representing of a short accum.
 //! \return The value of x*y saturated to 16 bits representing of a short accum.
@@ -801,7 +814,7 @@ uint64_t __stdfix_sadd_ulk (uint64_t x, uint64_t y);
 
 uint64_t __stdfix_ssub_ulk (uint64_t x, uint64_t y);
 
-//! \brief Saturated multiplicaion of the underlying unsigned integer representations
+//! \brief Saturated multiplication of the underlying unsigned integer representations
 //! \param[in] x A 32-bit unsigned integer representing of an unsigned short fract.
 //! \param[in] y A 32-bit unsigned integer representing of an unsigned short fract.
 //! \return The value of x*y saturated to 8 bits representing of an unsigned short fract.
@@ -1241,13 +1254,102 @@ static inline s3231 abslk (s3231 f)
 
 // 7.18a.6.3 The fixed-point rounding functions
 
+static inline uint8_t __stdfix_round_u8 (uint8_t x, int n)
+{
+    register uint8_t r, c;
+
+    c = (x >> (n-1)) & 0x1;
+    r = x >> n;
+    r = (r + c) << n;
+
+    return (r);
+}
+
+static inline uint16_t __stdfix_round_u16 (uint16_t x, int n)
+{
+    register uint16_t r, c;
+
+    c = (x >> (n-1)) & 0x1;
+    r = x >> n;
+    r = (r + c) << n;
+
+    return (r);
+}
+
+static inline uint32_t __stdfix_round_u32 (uint32_t x, int n)
+{
+    register uint32_t r, c;
+
+    c = (x >> (n-1)) & 0x1;
+    r = x >> n;
+    r = (r + c) << n;
+
+    return (r);
+}
+
+static inline uint64_t __stdfix_round_u64 (uint64_t x, int n)
+{
+    register uint64_t r, c;
+
+    c = (x >> (n-1)) & 0x1;
+    r = x >> n;
+    r = (r + c) << n;
+
+    return (r);
+}
+
+static inline int8_t __stdfix_round_s8 (int8_t x, int n)
+{
+    register int8_t r, c;
+
+    c = (x >> (n-1)) & 0x1;
+    r = x >> n;
+    r = (r + c) << n;
+
+    return (r);
+}
+
+static inline int16_t __stdfix_round_s16 (int16_t x, int n)
+{
+    register int16_t r, c;
+
+    c = (x >> (n-1)) & 0x1;
+    r = x >> n;
+    r = (r + c) << n;
+
+    return (r);
+}
+
+static inline int32_t __stdfix_round_s32 (int32_t x, int n)
+{
+    register int32_t r, c;
+
+    c = (x >> (n-1)) & 0x1;
+    r = x >> n;
+    r = (r + c) << n;
+
+    return (r);
+}
+
+static inline int64_t __stdfix_round_s64 (int64_t x, int n)
+{
+    register int64_t r, c;
+
+    c = (x >> (n-1)) & 0x1;
+    r = x >> n;
+    r = (r + c) << n;
+
+    return (r);
+}
+
 //! \brief This function rounds the input short fract to a number of bits, returning a
 //! short fract.
 //! \param[in] f A short fract.
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-s07   roundhr  (s07   f, int n);
+static inline s07   roundhr  (s07   f, int n)
+{   return (hrbits (__stdfix_round_s8 (bitshr (f), n))); }
 
 //! \brief This function rounds the input fract to a number of bits, returning a
 //! fract.
@@ -1255,7 +1357,8 @@ s07   roundhr  (s07   f, int n);
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-s015  roundr   (s015  f, int n);
+static inline s015  roundr   (s015  f, int n)
+{   return (rbits (__stdfix_round_s16 (bitsr (f), n))); }
 
 //! \brief This function rounds the input long fract to a number of bits, returning a
 //! long fract.
@@ -1263,7 +1366,8 @@ s015  roundr   (s015  f, int n);
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-s031  roundlr  (s031  f, int n);
+static inline s031  roundlr  (s031  f, int n)
+{   return (lrbits (__stdfix_round_s32 (bitslr (f), n))); }
 
 //! \brief This function rounds the input short accum to a number of bits, returning a
 //! short accum.
@@ -1271,14 +1375,16 @@ s031  roundlr  (s031  f, int n);
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-s87   roundhk  (s87   f, int n);
+static inline s87   roundhk  (s87   f, int n)
+{   return (hkbits (__stdfix_round_s16 (bitshk (f), n))); }
 
 //! \brief This function rounds the input accum to a number of bits, returning a accum.
 //! \param[in] f A accum.
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-s1615 roundk   (s1615 f, int n);
+static inline s1615 roundk   (s1615 f, int n)
+{   return (kbits (__stdfix_round_s32 (bitsk (f), n))); }
 
 //! \brief This function rounds the input long accum to a number of bits, returning a
 //! long accum.
@@ -1286,7 +1392,8 @@ s1615 roundk   (s1615 f, int n);
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-s3231 roundlk  (s3231 f, int n);
+static inline s3231 roundlk  (s3231 f, int n)
+{   return (lkbits (__stdfix_round_s64 (bitslk (f), n))); }
 
 //! \brief This function rounds the input unsigned short fract to a number of
 //! bits, returning an unsigned short fract.
@@ -1294,7 +1401,8 @@ s3231 roundlk  (s3231 f, int n);
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-u08   rounduhr (u08   f, int n);
+static inline u08   rounduhr (u08   f, int n)
+{   return (uhrbits (__stdfix_round_u8 (bitsuhr (f), n))); }
 
 //! \brief This function rounds the input unsigned fract to a number of
 //! bits, returning an unsigned fract.
@@ -1302,7 +1410,8 @@ u08   rounduhr (u08   f, int n);
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-u016  roundur  (u016  f, int n);
+static inline u016  roundur  (u016  f, int n)
+{   return (urbits (__stdfix_round_u16 (bitsur (f), n))); }
 
 //! \brief This function rounds the input unsigned long fract to a number of
 //! bits, returning an unsigned long fract.
@@ -1310,7 +1419,8 @@ u016  roundur  (u016  f, int n);
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-u032  roundulr (u032  f, int n);
+static inline u032  roundulr (u032  f, int n)
+{   return (ulrbits (__stdfix_round_u32 (bitsulr (f), n))); }
 
 //! \brief This function rounds the input unsigned short accum to a number of
 //! bits, returning an unsigned short accum.
@@ -1318,7 +1428,8 @@ u032  roundulr (u032  f, int n);
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-u88   rounduhk (u88   f, int n);
+static inline u88   rounduhk (u88   f, int n)
+{   return (uhkbits (__stdfix_round_u16 (bitsuhk (f), n))); }
 
 //! \brief This function rounds the input unsigned accum to a number of bits,
 //! returning a unsigned accum.
@@ -1326,7 +1437,8 @@ u88   rounduhk (u88   f, int n);
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-u1616 rounduk  (u1616 f, int n);
+static inline u1616 rounduk  (u1616 f, int n)
+{   return (ukbits (__stdfix_round_u32 (bitsuk (f), n))); }
 
 //! \brief This function rounds the input unsigned long accum to a number of
 //! bits, returning an unsigned long accum.
@@ -1334,7 +1446,8 @@ u1616 rounduk  (u1616 f, int n);
 //! \param[in] n An int.
 //! \return The f rounded to the nearest n bits.
 
-u3232 roundulk (u3232 f, int n);
+static inline u3232 roundulk (u3232 f, int n)
+{   return (ulkbits (__stdfix_round_u64 (bitsulk (f), n))); }
 
 // Description
 //

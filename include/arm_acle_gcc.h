@@ -1297,9 +1297,7 @@ static inline int32_t __smulbb (int32_t x, int32_t y)
     register int32_t r;
 
     asm volatile ("smulbb %[r], %[x], %[y]"
-                  : [r] "=r" (r) 
-                  : [x] "r" (x), [y] "r" (y) 
-                  : );
+                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
 
     return (r);
 }
