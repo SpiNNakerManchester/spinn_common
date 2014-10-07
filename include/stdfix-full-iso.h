@@ -33,7 +33,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "arm_acle.h"
-#include "debug.h"
 
 //! \brief Returns the minimum of two arguments.
 //! \param[in] a First argument
