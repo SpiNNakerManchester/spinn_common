@@ -1254,6 +1254,12 @@ static inline s3231 abslk (s3231 f)
 
 // 7.18a.6.3 The fixed-point rounding functions
 
+//! \brief This function rounds the input unsigned 8-bit integer to a number of bits, returning an
+//! 8-bit integer.
+//! \param[in] f An 8-bit number to be rounded.
+//! \param[in] n An int.
+//! \return The f rounded to the nearest n bits.
+
 static inline uint8_t __stdfix_round_u8 (uint8_t x, int n)
 {
     register uint8_t r, c;
@@ -1264,6 +1270,12 @@ static inline uint8_t __stdfix_round_u8 (uint8_t x, int n)
 
     return (r);
 }
+
+//! \brief This function rounds the input unsigned 16-bit integer to a number of bits, returning a
+//! 16-bit integer.
+//! \param[in] f An 16-bit number to be rounded.
+//! \param[in] n An int.
+//! \return The f rounded to the nearest n bits.
 
 static inline uint16_t __stdfix_round_u16 (uint16_t x, int n)
 {
@@ -1276,6 +1288,12 @@ static inline uint16_t __stdfix_round_u16 (uint16_t x, int n)
     return (r);
 }
 
+//! \brief This function rounds the input unsigned 32-bit integer to a number of bits, returning an
+//! 32-bit integer.
+//! \param[in] f An 32-bit number to be rounded.
+//! \param[in] n An int.
+//! \return The f rounded to the nearest n bits.
+
 static inline uint32_t __stdfix_round_u32 (uint32_t x, int n)
 {
     register uint32_t r, c;
@@ -1286,6 +1304,12 @@ static inline uint32_t __stdfix_round_u32 (uint32_t x, int n)
 
     return (r);
 }
+
+//! \brief This function rounds the input unsigned 64-bit integer to a number of bits, returning a
+//! 64-bit integer.
+//! \param[in] f A 64-bit number to be rounded.
+//! \param[in] n An int.
+//! \return The f rounded to the nearest n bits.
 
 static inline uint64_t __stdfix_round_u64 (uint64_t x, int n)
 {
@@ -1298,6 +1322,12 @@ static inline uint64_t __stdfix_round_u64 (uint64_t x, int n)
     return (r);
 }
 
+//! \brief This function rounds the input signed 8-bit integer to a number of bits, returning an
+//! 8-bit integer.
+//! \param[in] f An 8-bit number to be rounded.
+//! \param[in] n An int.
+//! \return The f rounded to the nearest n bits.
+
 static inline int8_t __stdfix_round_s8 (int8_t x, int n)
 {
     register int8_t r, c;
@@ -1308,6 +1338,12 @@ static inline int8_t __stdfix_round_s8 (int8_t x, int n)
 
     return (r);
 }
+
+//! \brief This function rounds the input signed 16-bit integer to a number of bits, returning a
+//! 16-bit integer.
+//! \param[in] f An 16-bit number to be rounded.
+//! \param[in] n An int.
+//! \return The f rounded to the nearest n bits.
 
 static inline int16_t __stdfix_round_s16 (int16_t x, int n)
 {
@@ -1320,6 +1356,12 @@ static inline int16_t __stdfix_round_s16 (int16_t x, int n)
     return (r);
 }
 
+//! \brief This function rounds the input signed 32-bit integer to a number of bits, returning an
+//! 32-bit integer.
+//! \param[in] f An 32-bit number to be rounded.
+//! \param[in] n An int.
+//! \return The f rounded to the nearest n bits.
+
 static inline int32_t __stdfix_round_s32 (int32_t x, int n)
 {
     register int32_t r, c;
@@ -1330,6 +1372,12 @@ static inline int32_t __stdfix_round_s32 (int32_t x, int n)
 
     return (r);
 }
+
+//! \brief This function rounds the input signed 64-bit integer to a number of bits, returning a
+//! 64-bit integer.
+//! \param[in] f A 64-bit number to be rounded.
+//! \param[in] n An int.
+//! \return The f rounded to the nearest n bits.
 
 static inline int64_t __stdfix_round_s64 (int64_t x, int n)
 {
