@@ -77,14 +77,9 @@ static inline int32_t sin_pi4 (int32_t x, int32_t cos_x, int break_point)
 
     assert (0 <= break_point && break_point <= 13);
 
-    //log_info ("sin (%d/16) = %d, cos(%d/16) = %d",
-    //          break_point, sin_table [break_point],
-    //          break_point, cos_table [break_point]);
-    //log_info ("x = %d, cos_x = %d, bp = %d", x, cos_x, break_point);
-
-    r = __smlawt (sin_table [break_point], cos_x,
-                  sin_table [break_point] + (x >> 5));
-    r = __smlawt (cos_table [break_point], x >> 5, r);
+    r = sin_table [break_point];
+    r = __smlawt (sin_table [break_point], -(cos_x << 1), r);
+    r = __smlawt (cos_table [break_point], x >> 4, r + (x >> 5));
 
     return (r);
 }
@@ -95,23 +90,31 @@ static inline int32_t sin_pi4 (int32_t x, int32_t cos_x, int break_point)
 //! param [in] break_point A value in the range 0..13
 //! return 1 - cos (x + break_point / 16) as s0.31
 
+// We are using the identity: cos(x+b) = cos(x)*cos(b) - sin(x)*sin(b)
+//
+// However, we return 1-cos(x+b)
+//         = 1 - cos(x)*cos(b) + sin(x)*sin(b)
+//
+// Let cx = 1-cos(x), and cb = 1-cos(b)
+//
+// Then cx * cb = 1 + cos(x)*cos(b) - cos(x) - cos(b)
+//
+// Thus 1 - cos(x)*cos(b)
+//    = -(cx*cb) + cx + cb
+
 static inline int32_t cos_pi4 (int32_t x, int32_t cos_x, int break_point)
 {
     register int32_t r;
 
-     assert (0 <= break_point && break_point <= 13);
+    assert (0 <= break_point && break_point <= 13);
 
-    log_info ("sin (%d/16) = %d, cos(%d/16) = %d",
-              break_point, sin_table [break_point],
-              break_point, cos_table [break_point]);
-    log_info ("x = %d, cos_x = %d, bp = %d", x, cos_x, break_point);
-
-    r = __smlawt (cos_table [break_point], cos_x,
-                  -(cos_table [break_point] + cos_x));
-    r = __smlawt (sin_table [break_point], -(x >> 5), r);
+    r = cos_x - cos_table [break_point];
+    r = __smlawt (cos_table [break_point], cos_x << 1, r);
+    r = __smlawt (sin_table [break_point], (x >> 4), r);
 
     return (r);
 }
+
 
 
 /*uint64_t sincos_range_reduction (int32_t x)
@@ -126,35 +129,44 @@ static inline int32_t cos_pi4 (int32_t x, int32_t cos_x, int break_point)
 */
 
 
+ // check list:
+ //                cos_x _is_ correctly calculated.
+ //                x is correctly scaled.
+ //                break point is correctly calculated.
+
 static inline int32_t sinkbits (int32_t x)
 {
-    register int break_point  = __stdfix_round_s32 (x, 10);
+    register int break_point = __stdfix_round_s32 (x, 11);
     register int32_t r, cos_x;
 
-    x           -= break_point;
-    x            = x << 21;
-    break_point  = break_point >> 10;
-    cos_x        = cos_approx (x);
+    x -= break_point;
+    x  = x << 21;
+    break_point
+       = break_point >> 11;
+    cos_x
+       = cos_approx (x);
 
-    r            = sin_pi4 (x, cos_x, break_point);
-    r            = __stdfix_round_s32 (r, 16) >> 16;
+    r  = sin_pi4 (x, cos_x, break_point);
+    r  = __stdfix_round_s32 (r, 16) >> 16;
 
     return (r);
 }
 
 static inline int32_t coskbits (int32_t x)
 {
-    register int break_point
-        = __stdfix_round_s32 (x, 10);
+    register int break_point = __stdfix_round_s32 (x, 11);
     register int32_t r, cos_x;
 
-    x           -= break_point;
-    x            = x << 21;
-    break_point  = break_point >> 10;
-    cos_x        = cos_approx (x);
+    x -= break_point;
+    x  = x << 21;
+    break_point
+       = break_point >> 11;
 
-    r            = cos_pi4 (x, cos_x, break_point);
-    r            = __stdfix_round_s32 (r, 16) >> 16;
+    cos_x
+       = cos_approx (x);
+
+    r  = cos_pi4 (x, cos_x, break_point);
+    r  = __stdfix_round_s32 (r, 16) >> 16;
 
     return (32768 - r);
 }
