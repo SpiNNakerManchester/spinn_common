@@ -177,8 +177,7 @@
 #define assert(assertion)                                             \
     do {                                                              \
         if (!(assertion)) {                                           \
-            __log(LOG_DEBUG, "[ASSERT]   ", "assertion check fails!", \
-                  ##__VA_ARGS__);                                     \
+            __log(LOG_DEBUG, "[ASSERT]   ", "assertion check fails!");\
             abort(0);                                                 \
         }                                                             \
     } while (0)
