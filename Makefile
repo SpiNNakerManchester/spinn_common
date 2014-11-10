@@ -1,28 +1,10 @@
-# If SPINN_COMMON_LIBS is not defined, this is an error!
-ifndef SPINN_COMMON_LIBS
-    $(error SPINN_COMMON_LIBS is not set.  Please define SPINN_COMMON_LIBS (possibly by running "source setup" in the root of this package))
-endif
-
-# If SPINN_COMMON_INCLUDE is not defined, this is an error!
-ifndef SPINN_COMMON_INCLUDE
-    $(error SPINN_COMMON_INCLUDE is not set.  Please define SPINN_COMMON_INCLUDE (possibly by running "source setup" in the root of this package))
-endif
-
-# If SPINN_COMMON_BUILD is not defined, this is an error!
-ifndef SPINN_COMMON_BUILD
-    $(error SPINN_COMMON_BUILD is not set.  Please define SPINN_COMMON_BUILD (possibly by running "source setup" in the root of this package))
-endif
-
-
 # If SPINN_DIRS is not defined, this is an error!
 ifndef SPINN_DIRS
     $(error SPINN_DIRS is not set.  Please define SPINN_DIRS (possibly by running "source setup" in the spinnaker tools folder))
 endif
 
+SPINN_COMMON_BUILD = build
 include $(SPINN_DIRS)/Makefile.common
-
-# Include our own include directory
-CFLAGS += -I $(SPINN_COMMON_INCLUDE)
 
 # General tool setup
 CAT = cat
@@ -37,18 +19,21 @@ else
     LIBS = $(SPINN_LIB_DIR)/spin1_api.a
 endif
 
+# Include our own include directory
+CFLAGS += -I include
+
 # Objects
 OBJS = bit_field.o random.o stdfix-exp.o
+BUILD_OBJS = $(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o)
 
 # Headers
-HEADERS = arm_acle.h arm.h bit_field.h cmsis.h debug.h random.h spin-print.h static-assert.h stdfix-exp.h stdfix-full-iso.h utils.h
+HEADERS = arm_acle_gcc.h arm_acle.h arm.h bit_field.h cmsis.h core_v5te.h debug.h log.h pair.h polynomial.h random.h sincos.h spin-print.h static-assert.h stdfix-exp.h stdfix-full-iso.h utils.h
+INSTALL_HEADERS = $(HEADERS:%.h=$(SPINN_INC_DIR)/%.h)
 
-$(SPINN_COMMON_LIBS)/libspinn_common.a:	$(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o) $(HEADERS:%.h=$(SPINN_COMMON_INCLUDE)/%.h)
+# Build rules (default)
+$(SPINN_COMMON_BUILD)/libspinn_common.a: $(BUILD_OBJS) 
 	$(RM) $@
-	$(AR) $@ $(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o)
-
-$(SPINN_COMMON_INCLUDE)/%.h: src/%.h
-	$(CP) $< $@
+	$(AR) $@ $(BUILD_OBJS)
 
 $(SPINN_COMMON_BUILD)/%.o: src/%.c $(SPINN_COMMON_BUILD)
 	$(CC) $(CFLAGS) -o $@ $<
@@ -56,5 +41,14 @@ $(SPINN_COMMON_BUILD)/%.o: src/%.c $(SPINN_COMMON_BUILD)
 $(SPINN_COMMON_BUILD):
 	$(MKDIR) $@
 
+# Installing rules
+install: $(SPINN_LIB_DIR)/libspinn_common.a $(INSTALL_HEADERS)
+
+$(SPINN_LIB_DIR)/libspinn_common.a: $(SPINN_COMMON_BUILD)/libspinn_common.a
+	$(CP) $< $@
+
+$(SPINN_INC_DIR)/%.h: include/%.h
+	$(CP) $< $@
+
 clean:
-	$(RM) $(SPINN_COMMON_LIBS)/libspinn_common.a $(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o)
+	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS)
