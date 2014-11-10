@@ -1,7 +1,7 @@
 #ifndef __SINCOS_H__
 #define __SINCOS_H__
 
-#include "stdfix-full-iso.h"
+#include <stdfix.h>
 
 accum    sink     (accum x);
 accum    cosk     (accum x);
