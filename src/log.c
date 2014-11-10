@@ -109,8 +109,6 @@ static inline int32_t divide_ck (int32_t x, uint32_t k)
 
 static inline uint32_t uint32_round (uint32_t r, uint32_t n)
 {
-    // r = (n > 0)? ((r >> n) + ((r >> (n-1)) & 0x1)): r;
-
     r = (r >> n) + ((r >> (n-1)) & 0x1);
 
     return (r);
@@ -139,7 +137,8 @@ static inline int32_t subtract_mult_log2_arm (int32_t r, int32_t x)
 
 static inline int32_t subtract_mult_log2 (int32_t r, int32_t x)
 #ifdef   __ARM_FEATURE_DSP
-{   return (subtract_mult_log2_arm (r, x)); }
+{   return (subtract_mult_log2_default (r, x)); }
+//{   return (subtract_mult_log2_arm (r, x)); }
 #else  /*__ARM_FEATURE_DSP*/
 {   return (subtract_mult_log2_default (r, x)); }
 #endif /*__ARM_FEATURE_DSP*/
@@ -226,21 +225,24 @@ static inline uint32_t log_1_2 (uint32_t x)
 static inline int32_t logkbits (int32_t x)
 {
     register int32_t  r;
-    register uint32_t shift = __clz (x);
+    register int      shift = __clz (x);
     register uint32_t z     = ((uint32_t)(x)) << (shift + 1);
 
     assert (x > 0);
 
+    //log_info ("shift = %u, z = %R (%u), x = %k (%d)", shift, z >> 16, z, x, x);
+
     r  = (int32_t)(log_1_2 (z));
+
+    //log_info ("r before: %k (%d)", r >> 12, r);
 
     r  = subtract_mult_log2 (r, shift - 16);
 
-     r  = uint32_round (r, 12);            // round result from u5.27 to s16.15
+    //log_info ("r shifted: %k (%d)", r >> 12, r);
 
-     /*    log_info ("r before: %k (%d)", r, r);
-    r  = bitsk (roundk (kbits (r), 12));
-    r  = r >> 12;                         // round result from u5.27 to s16.15
-    log_info ("r after:  %k (%d)", r, r); */
+    r  = uint32_round (r, 12);            // round result from u5.27 to s16.15
+
+    //log_info ("r after:  %k (%d)", r, r);
 
     r -= 393216;                          // subtract 12 * 2^15
 
