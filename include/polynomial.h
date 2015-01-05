@@ -1,9 +1,59 @@
-//! \file
+/*! \file
+ *
+ *  \brief Fast polynomial evaluation, using ARM DSP instructions. 
+ *
+ *    Each function takes three arguments: the polynomial coefficients,
+ *    the point at which we are evaluating the polynomial, and the order
+ *    of the polynomial.
+ *
+ *    Assume that we have (note the "reverse order"):
+ *
+ *       int a [] = { a_4, a_3, a_2, a_1, a_0 };
+ *
+ *    This represents the function:
+ *
+ *       a_0 + x * (a_1 + x * (a_2 + x * (a_3 + x * a_4)))
+ *
+ *    To use the fast DSP instructions we use an "odd" representation
+ *    of x: s0.16. If we are using the usual s0.15 fract type, then
+ *    we are restricted to x lying in the range [0.5, 0.5).
+ *
+ *    In the above example (because we have a quartic polynomial) n = 4.
+ *
+ *    The other point to note is that the addition in the evaluation
+ *    may overflow. In the code that follows, we use the Q-bit to
+ *    detect if this has happened. One sure-fire case in which there
+ *    is no overflow is if the polynomial is alternating.
+ *
+ *  \author Dave Lester (david.r.lester@manchester.ac.uk)
+ *
+ *  \copyright
+ *    Copyright (c) Dave Lester and The University of Manchester, 2014.
+ *    All rights reserved.
+ *    SpiNNaker Project
+ *    Advanced Processor Technologies Group
+ *    School of Computer Science
+ *    The University of Manchester
+ *    Manchester M13 9PL, UK
+ *
+ *  \date 13 December, 2014
+ *
+ *  DETAILS
+ *    Created on       : 13 December 2014
+ *    Version          : $Revision$
+ *    Last modified on : $Date$
+ *    Last modified by : $Author$
+ *    $Id$
+ *
+ *    $Log$
+ *
+ */
 
 #ifndef __POLYNOMIAL_H__
 #define __POLYNOMIAL_H__
 
 #include "arm_acle.h"
+#include "debug.h"
 
 #ifdef __ARM_FEATURE_DSP
 
@@ -11,79 +61,27 @@
 //! a point given by the lower (signed) 16-bits of x.
 //! \param[in] a The 32-bit signed polynomial coefficients. These can
 //! be treated as either accum or long fract (or any other signed 32-bit
-//! quantity.
+//! quantity).
 //! \param[in] x The point at which the polynomial is to be evaluated
-//! is given by treating the lower 16-bits as a signed fract.
+//! is given by treating the lower 16-bits of the argument as s0.16.
+//! Note this is not a fract (s0.15), thus, if we are using a fract here,
+//! we must treat the fract value of -1.0 as if it were only -0.5.
 //! \param[in] n The number of coeficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 
 static inline int __horner_int_b (int* a, int x, int n)
 {
-    register int r, t;
-
-    asm volatile ("ldr %[r], [%[a]], #4" 
-                  : [r] "=r" (r), [a] "+r" (a) : : );
- 
-   do {
-        asm volatile ("ldr %[t], [%[a]], #4" 
-                      : [t] "=r" (t), [a] "+r" (a) : : );
-        r = __smlawb (r, x, t);
-        n--;
-    } while (n > 0);
-
-    return (r);
-}
-
-/* Above generates:
-
-00000000 <expk>:
-   0:	e59f3024 	ldr	r3, [pc, #36]	; 2c <expk+0x2c>
-   4:	e4932004 	ldr	r2, [r3], #4
-   8:	e4931004 	ldr	r1, [r3], #4
-   c:	e1221082 	smlawb	r2, r2, r0, r1
-  10:	e4931004 	ldr	r1, [r3], #4
-  14:	e1221082 	smlawb	r2, r2, r0, r1
-  18:	e4931004 	ldr	r1, [r3], #4
-  1c:	e1221082 	smlawb	r2, r2, r0, r1
-  20:	e4931004 	ldr	r1, [r3], #4
-  24:	e1201082 	smlawb	r0, r2, r0, r1
-  28:	e12fff1e 	bx	lr
-  2c:	00000000 	andeq	r0, r0, r0
-			2c: R_ARM_ABS32	.data
-*/
-
-
-/*
-
-static inline int __horner_int_b (int* a, int x, int n)
-{
     register int r = *a++;
+
+    assert (!__reset_and_saturation_occurred ());
 
     for ( ; n > 0; n--)
         r = __smlawb (r, x, *a++);
 
+    assert (!__saturation_occurred ());
+
     return (r);
 }
-
-
-00000000 <expk>:
-   0:	e59f302c 	ldr	r3, [pc, #44]	; 34 <expk+0x34>
-   4:	e893000c 	ldm	r3, {r2, r3}
-   8:	e1233082 	smlawb	r3, r2, r0, r3
-   c:	e59f2020 	ldr	r2, [pc, #32]	; 34 <expk+0x34>
-  10:	e5922008 	ldr	r2, [r2, #8]
-  14:	e1232083 	smlawb	r3, r3, r0, r2
-  18:	e59f2014 	ldr	r2, [pc, #20]	; 34 <expk+0x34>
-  1c:	e592200c 	ldr	r2, [r2, #12]
-  20:	e1232083 	smlawb	r3, r3, r0, r2
-  24:	e59f2008 	ldr	r2, [pc, #8]	; 34 <expk+0x34>
-  28:	e5922010 	ldr	r2, [r2, #16]
-  2c:	e1202083 	smlawb	r0, r3, r0, r2
-  30:	e12fff1e 	bx	lr
-  34:	00000000 	andeq	r0, r0, r0
-			34: R_ARM_ABS32	.data
-
-*/
 
 //! \brief Horner evaluation of a polynomial of signed accum at
 //! a point given by the upper (signed) 16-bits of x.
@@ -91,7 +89,9 @@ static inline int __horner_int_b (int* a, int x, int n)
 //! be treated as either accum or long fract (or any other signed 32-bit
 //! quantity.
 //! \param[in] x The point at which the polynomial is to be evaluated
-//! is given by treating the upper 16-bits as a signed fract.
+//! is given by treating the upper 16-bits of the argument as s0.16.
+//! Note this is not a fract (s0.15), thus, if we are using a fract here,
+//! we must treat the fract value of -1.0 as if it were only -0.5.
 //! \param[in] n The number of coeficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 
@@ -99,8 +99,12 @@ static inline int __horner_int_t (int* a, int x, int n)
 {
     register int r = *a++;
 
+    assert (!__reset_and_saturation_occurred ());
+
     for ( ; n > 0; n--)
         r = __smlawt (r, x, *a++);
+
+    assert (!__saturation_occurred ());
 
     return (r);
 }

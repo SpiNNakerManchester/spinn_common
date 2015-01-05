@@ -17,12 +17,12 @@ static inline uint32_t __get_CONTROL (void)
 {
     uint32_t r;
 
-    asm volatile ("mrs %[r], cprs" : [r] "=r" (r) : : "cc");
+    asm volatile ("mrs %[r], cpsr" : [r] "=r" (r) : : "cc");
 
     return (r);
 }
 
 static inline void     __set_CONTROL (uint32_t r)
-{   asm volatile ("msr cpsr, %[r]" : : [r] "r" (r) : "cc"); }
+{   asm volatile ("msr cpsr_f, %[r]" : : [r] "r" (r) : "cc"); }
 
 #endif /*__CMSIS_H__*/
