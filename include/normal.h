@@ -91,7 +91,7 @@ static inline accum norminv_ulr (unsigned long fract x)
                  (__typeof__(f), unsigned long fract))                  \
 	    tmp = norminv_ulr (f);                                      \
 	else                                                            \
-	    abort ();                                                   \
+	    abort (1);                                                   \
 	tmp;                                                            \
     })
 
