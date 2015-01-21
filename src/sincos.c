@@ -28,11 +28,6 @@
 #include "arm_acle.h"
 #include "pair.h"
 
-pair_t dp (int x, int y) { return (pair (x, y)); }
-int df (pair_t p) { return ((int)(fst (p))); }
-int ds (pair_t p) { return ((int)(snd (p))); }
-
-
 //! \brief This function calculates the sin function approximation.
 //! \param[in] x is an s0.31 representing a number in the interval
 //! [-1/32, 1/32); i.e. INT32_MIN represents -1/32
@@ -66,8 +61,10 @@ static int32_t cos_table [16]
       -576193767, -670690148, -770953377, -876591926};
 
 //! This function calculates the sin function for the interval [0, pi/4)
-//! param [in] x A value in the range [-1/32,1/32)
+//! param [in] x An s0.31 representing a value in the range [-1/32,1/32),
+//! with INT32_MIN representing -1/32.
 //! param [in] cos_x The value of cos_x (= (1 - cos (x)) * 2^31)
+//! represented as an s0.31
 //! param [in] break_point A value in the range 0..13
 //! return sin (x + break_point / 16) as s0.31
 
@@ -85,11 +82,16 @@ static inline int32_t sin_pi4 (int32_t x, int32_t cos_x, int break_point)
 }
 
 //! This function calculates the cos function for the interval [0, pi/4)
-//! param [in] x A value in the range [-1/32,1/32)
+//! param [in] x An s0.31 representing a value in the range [-1/32,1/32),
+//! with INT32_MIN representing -1/32.
 //! param [in] cos_x The value of cos_x (= (1 - cos (x)) * 2^31)
+//! represented as an s0.31
 //! param [in] break_point A value in the range 0..13
 //! return 1 - cos (x + break_point / 16) as s0.31
 
+//------------------------------------------------------------------------
+// Implementation notes
+//
 // We are using the identity: cos(x+b) = cos(x)*cos(b) - sin(x)*sin(b)
 //
 // However, we return 1-cos(x+b)
@@ -101,6 +103,7 @@ static inline int32_t sin_pi4 (int32_t x, int32_t cos_x, int break_point)
 //
 // Thus 1 - cos(x)*cos(b)
 //    = -(cx*cb) + cx + cb
+//------------------------------------------------------------------------
 
 static inline int32_t cos_pi4 (int32_t x, int32_t cos_x, int break_point)
 {
@@ -108,67 +111,332 @@ static inline int32_t cos_pi4 (int32_t x, int32_t cos_x, int break_point)
 
     assert (0 <= break_point && break_point <= 13);
 
+    //log_info ("x = %d (%r), 1 - cos (x) = %d, bp = %d",
+    //          x, x >> 21, cos_x, break_point);
+
     r = cos_x - cos_table [break_point];
     r = __smlawt (cos_table [break_point], cos_x << 1, r);
     r = __smlawt (sin_table [break_point], (x >> 4), r);
 
+    //log_info ("r = 1 - cos (%r + %d/16) = %r (%d)",
+    //          x >> 21, break_point, r >> 16, r);
+
     return (r);
 }
 
+//! \brief This function multiplies it's signed argument by
+//! sqrt(0.5).
+//! \param[in] x is a signed 32-bit quantity.
+//! \return x * sqrt (0.5) in the same format as x.
 
+//------------------------------------------------------------------------
+// Implementation notes
+//
+// Consider experimenting with smlawt/b instructions.
+//
+// The calculation
+//
+//   r = (x * 1518500250) >> 31;
+//
+// is equivalent to:
+//
+//   r = smulwt (x, 23170);
+//   r = smlawb (x, 31130, r) << 1; // n.b. two constants in same register
+// 
+//------------------------------------------------------------------------
 
-/*uint64_t sincos_range_reduction (int32_t x)
+int32_t mul_sqrt_half (int32_t x)
 {
-    register union {uint64_t r; int32_t[2] v;} t;
+    register int64_t tmp = (int64_t)(x);
 
-    t.v[0] = x;
-    t.v[1] = 0;
+    tmp = (tmp * 1518500250) >> 31;
 
-    return (t.r);
+    return ((int32_t)(tmp));
 }
-*/
 
+//! This function calculates the sin function for the interval [0, pi/4)
+//! divided by sqrt (0.5).
+//! param [in] s An s0.31 representing the value of sin (x).
+//! return An s0.31 representing sin (x) * sqrt (0.5).
 
- // check list:
- //                cos_x _is_ correctly calculated.
- //                x is correctly scaled.
- //                break point is correctly calculated.
+static inline int32_t sin_pi4_x_sqrt_half (int32_t s)
+{   return (mul_sqrt_half (s)); }
+
+//! This function calculates the cos function for the interval [0, pi/4)
+//! divided by sqrt (0.5).
+//! param [in] c An s0.31 representing the value of 1 - cos (x).
+//! return An s0.31 representing cos (x) * sqrt (0.5).
+
+//------------------------------------------------------------------------
+// Implementation notes
+//
+// Note that we have taken the opportunity to fold the subtraction back into
+// the calculation. The reasonis that we no longer have to represent 1.0000
+// as an s0.31.
+// 
+//------------------------------------------------------------------------
+
+static inline int32_t cos_pi4_x_sqrt_half (int32_t c)
+{   return (1518500250 - mul_sqrt_half (c)); }
+
+//! \brief This function returns the range-reduced argument
+//! and the quadrant.
+//! \param[in] x is an s16.15.
+//! \return A pair of values (accessible by use of fst and snd).
+//! The first component is the range reduced value of x represented by
+//! an s0.31 in the range [0,pi/4). The second is a quadrant, in the range
+//! 0..7
+
+static inline int reduced (pair_t p)
+{   return ((int)(fst (p))); }
+
+static inline int quadrant (pair_t p)
+{   return ((int)(snd (p))); }
+
+pair_t sincos_range_reduction (int32_t x)
+{
+    register int n = __smulwb (x, 20861) >> 13;
+    register int q = n & 7;
+    register int d;
+
+    //log_info ("n = %d", n);
+    assert (-83444 <= n && n < 83444);
+    assert (0 <= q && q < 8);
+
+    // At this point n = floor (x * 4/pi)
+
+    // We now need to _accurately_ subtract n * (pi/4) from x,
+    // and we will have range reduced to [0, pi/4).
+
+    // We use Cody & Waites' "accurate constant" method, by subtracting
+    // multiples of 7358 from n. This has the effect of subtracting
+    // 189364951 from x. 189364951/2^15 is extremely close to 7358 * pi/4.
+    // In fact the approximation is a mere 0.87e-9 away from the correct
+    // value.
+
+    while (n < 0) {
+        n += 7358;
+        x += 189364951;
+    }
+
+    while (7358 <= n) {
+        n -= 7358;
+        x -= 189364951;
+    }
+
+    // DRL HACK!!! Replace above with multiply by reciprocal of 7358!!!
+    // This will improve efficiency.
+
+    assert (0 <= n && n < 7358);
+    assert (0 <= x && x < 189364951);
+
+    //log_info ("n = %d, x = %d", n, x); // correct to here...
+
+    // At this point, we can now scale x, so that further range reductions
+    // can be carried out at higher precision.
+
+    x = x << 3;
+
+    // Another iteration of Cody & Waites' method, this time subtracting
+    // multiples of 12 gives (12 * pi/4 ~= 2470649/2^18):
+
+    // This is sufficiently accurate that it could be used from the outset.
+
+    d = __smulwb (n, 21845) >> 2;
+    //log_info ("d = %d", d);
+    n = __smlawb ( -786432, d, n);
+    x -= 2470649 * d;
+
+    assert (0 <= n && n < 12);
+    assert (0 <= x && x < 3145728);
+
+    //log_info ("n = %d, x = %d", n, x);
+
+    // At this point, we can now scale x, so that further range reductions
+    // can be carried out at higher precision.
+
+    x = x << 9;
+
+    x -= 105414357 * n;
+
+    //log_info ("x = %d, q = %d", x, q);
+
+    if (x < 0) { // inadvertently selected n too large.
+        x += 105414357;
+        q = (q + 7) % 8;
+    }
+
+    //log_info ("x = %d, q = %d", x, q);
+
+    x = x << 4;
+    check (0 <= x && x <= 1686629713, "0 <= %d <= 1686629713 (n = %d)", x, n);
+
+    //log_info ("x = %d, q = %d", x, q);
+
+    return (pair (x, q));
+}
+
+static inline bool even (int x) { return ((x & 1) == 0); }
 
 static inline int32_t sinkbits (int32_t x)
 {
-    register int break_point = __stdfix_round_s32 (x, 11);
-    register int32_t r, cos_x;
+    register pair_t p = sincos_range_reduction (x);
+    register int break_point;
+    register int32_t r, cos_x, q;
+
+    x = reduced  (p);
+    q = quadrant (p);
+
+    break_point = __stdfix_round_s32 (x, 27);
 
     x -= break_point;
-    x  = x << 21;
+    x  = x << 5;
     break_point
-       = break_point >> 11;
+       = break_point >> 27;
     cos_x
        = cos_approx (x);
 
-    r  = sin_pi4 (x, cos_x, break_point);
-    r  = __stdfix_round_s32 (r, 16) >> 16;
+    if (even (q)) {
+        switch (q) {
+        case 0:
+            r  =  sin_pi4 (x, cos_x, break_point);
+            r  = __stdfix_round_s32 (r, 16) >> 16;
+            break;
+        case 2:
+            r  =  cos_pi4 (x, cos_x, break_point);
+            r  = __stdfix_round_s32 (r, 16) >> 16;
+            r  = 32768 - r;
+            break;
+        case 4:
+            r  = -sin_pi4 (x, cos_x, break_point);
+            r  = __stdfix_round_s32 (r, 16) >> 16;
+            break;
+        case 6:
+            r  =  cos_pi4 (x, cos_x, break_point);
+            r  = __stdfix_round_s32 (r, 16) >> 16;
+            r  = r - 32768;
+            break;
+        default:
+            r = 0;
+            assert (false);
+            break;
+        }
+    }
+    else {
+        register int32_t
+            s = sin_pi4_x_sqrt_half (sin_pi4 (x, cos_x, break_point));
+        register int32_t
+            c = cos_pi4_x_sqrt_half (cos_pi4 (x, cos_x, break_point));
+
+        switch (q) {
+        case 1:
+            r =   (c + s);
+            break;
+        case 3:
+            r =   (c - s);
+            break;
+        case 5:
+            r = - (c + s);
+            break;
+        case 7:
+            r = - (c - s);
+            break;
+        default:
+            r = 0;
+            assert (false);
+            break;
+        }
+        r  = __stdfix_round_s32 (r, 16) >> 16;
+    }
+
+    assert (-32768 <= r && r <= 32768);
 
     return (r);
 }
 
 static inline int32_t coskbits (int32_t x)
 {
-    register int break_point = __stdfix_round_s32 (x, 11);
-    register int32_t r, cos_x;
+    register pair_t p = sincos_range_reduction (x);
+    register int break_point;
+    register int32_t r, cos_x, q;
+
+    //log_info ("x = %d, (%k)", x, x);
+
+    x = reduced  (p);
+    q = quadrant (p);
+
+    //log_info ("x  = %d (%r), q = %d", x, x >> 16, q);
+
+    break_point = __stdfix_round_s32 (x, 27);
+
+    //log_info ("bp = %d (%r)", break_point, break_point >> 16);
 
     x -= break_point;
-    x  = x << 21;
+    x  = x << 5;
     break_point
-       = break_point >> 11;
+       = break_point >> 27;
 
     cos_x
        = cos_approx (x);
 
-    r  = cos_pi4 (x, cos_x, break_point);
-    r  = __stdfix_round_s32 (r, 16) >> 16;
+    //log_info ("x' = %d (%r), q = %d, bp = %d", x, x >> 16, q, break_point);
 
-    return (32768 - r);
+    if (even (q)) {
+        switch (q) {
+        case 0:
+            r  =  cos_pi4 (x, cos_x, break_point);
+            r  = __stdfix_round_s32 (r, 16) >> 16;
+            r  = 32768 - r;
+            break;
+        case 2:
+            r  = -sin_pi4 (x, cos_x, break_point);
+            r  = __stdfix_round_s32 (r, 16) >> 16;
+            break;
+        case 4:
+            r  =  cos_pi4 (x, cos_x, break_point);
+            r  = __stdfix_round_s32 (r, 16) >> 16;
+            r  = r - 32768;
+            break;
+         case 6:
+            r  =  sin_pi4 (x, cos_x, break_point);
+            r  = __stdfix_round_s32 (r, 16) >> 16;
+            break;
+       default:
+            r = 0;
+            assert (false);
+            break;
+        }
+    }
+    else {
+        register int32_t
+            s = sin_pi4_x_sqrt_half (sin_pi4 (x, cos_x, break_point));
+        register int32_t
+            c = cos_pi4_x_sqrt_half (cos_pi4 (x, cos_x, break_point));
+
+        switch (q) {
+        case 1:
+            r =   (c - s);
+            break;
+        case 3:
+            r = - (c + s);
+            break;
+        case 5:
+            r = - (c - s);
+            break;
+        case 7:
+            r =   (c + s);
+            break;
+        default:
+            r = 0;
+            assert (false);
+            break;
+        }
+        r  = __stdfix_round_s32 (r, 16) >> 16;
+    }
+
+    assert (-32768 <= r && r <= 32768);
+
+    return (r);
 }
 
 //! \brief This function calculates the sin function for the

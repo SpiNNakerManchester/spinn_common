@@ -691,7 +691,7 @@ static inline uint32_t __swp_byte (uint32_t x, volatile void* addr)
 //! false (=0) otherwise.
 
 static inline int  __saturation_occurred     (void)
-{ return (__get_CONTROL () & (1 << __ARM_Q_FLAG)); }
+{ return ((__get_CONTROL () & (1 << __ARM_Q_FLAG)) != 0); }
 
 // Sets or resets the Q flag according to the LSB of the value.
 // __set_saturation_occurred(0) might be used before performing a sequence of
@@ -720,6 +720,16 @@ static inline void __set_saturation_occurred (int q)
 //! This function is a hint and may be ignored.
 
 static inline void __ignore_saturation (void) {}
+
+//! This function is an addition which resets the Q-bit to 0, and then
+//! returns the value of the Q-bit (which ought to be 0).
+
+static inline int __reset_and_saturation_occurred (void)
+{
+    __set_saturation_occurred (0);
+
+    return (__saturation_occurred ());
+}
 
 #endif //__ARM_FEATURE_QBIT
 
