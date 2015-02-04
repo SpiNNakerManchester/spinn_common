@@ -24,7 +24,7 @@
  *         Requires size.
  *
  *    There are also support functions for:
- *     
+ *
  *     - printing
  *     - randomly setting up a bit field
  *
@@ -57,69 +57,67 @@
 
 #include "bit_field.h"
 #include "sark.h"
+#include "debug.h"
 
 //! \brief This function prints out an individual word of a bit_field,
 // as a sequence of ones and zeros.
 //! \param[in] e The word of a bit_field to be printed.
-
-static inline void print_bit_field_entry (uint32_t e)
+static inline void print_bit_field_entry(uint32_t e)
 {
     counter_t i = 32;
 
     for ( ; i > 0; i--) {
-	io_printf (IO_BUF, "%c", ((e & 0x1) == 0)? ' ': '1');
-	e = e >> 1;
+	    log_debug("%c", ((e & 0x1) == 0)? ' ': '1');
+	    e = e >> 1;
     }
 
-    io_printf (IO_BUF, "\n");
+    log_debug("\n");
 }
 
 //! \brief This function prints out an entire bit_field,
 // as a sequence of ones and zeros.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
-
-void print_bit_field_bits (bit_field_t b, size_t s)
-#ifdef DEBUG
+void print_bit_field_bits(bit_field_t b, size_t s)
 {
+    use(b);
+    use(s);
+#if LOG_LEVEL >= LOG_DEBUG
     index_t i; //!< For indexing through the bit field
 
     for (i = 0; i < s; i++)
-	print_bit_field_entry (b [i]);
+	    print_bit_field_entry(b [i]);
+#endif // LOG_LEVEL >= LOG_DEBUG
 }
-#else  /*DEBUG*/
-{ use(b); use(s); }
-#endif /*DEBUG*/
 
 //! \brief This function prints out an entire bit_field,
 // as a sequence of hexadecimal numbers, one per line.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
-
-void print_bit_field (bit_field_t b, size_t s)
-#ifdef DEBUG
+void print_bit_field(bit_field_t b, size_t s)
 {
+    use(b);
+    use(s);
+#if LOG_LEVEL >= LOG_DEBUG
     index_t i; //!< For indexing through the bit field
 
     for (i = 0; i < s; i++)
-	io_printf (IO_BUF, "%08x\n", b [i]);
+	    log_debug("%08x\n", b [i]);
+#endif // LOG_LEVEL >= LOG_DEBUG
 }
-#else  /*DEBUG*/
-{ use(b); use(s); }
-#endif /*DEBUG*/
 
 //! \brief This function generates a random bit_field.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
 
-void random_bit_field (bit_field_t b, size_t s)
-#ifdef DEBUG
+void random_bit_field(bit_field_t b, size_t s)
 {
+    use(b);
+    use(s);
+#if LOG_LEVEL >= LOG_DEBUG
     index_t i; //!< For indexing through the bit field
 
     for (i = 0; i < s; i++)
-	b [i] = sark_rand();
+	    b[i] = sark_rand();
+#endif // LOG_LEVEL >= LOG_DEBUG
 }
-#else  /*DEBUG*/
-{ use(b); use(s); }
-#endif /*DEBUG*/

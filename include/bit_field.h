@@ -24,7 +24,7 @@
  *         Requires size.
  *
  *    There are also support functions for:
- *     
+ *
  *     - printing
  *     - randomly setting up a bit field
  *
@@ -188,10 +188,10 @@ static inline size_t get_bit_field_size (size_t bits)
     // **NOTE** in floating point terms this is ceil(num_neurons / 32)
     const uint32_t bits_to_words_shift = 5;
     const uint32_t bits_to_words_remainder = (1 << bits_to_words_shift) - 1;
-  
+
     // Down shift number of bits to words
     uint32_t words = bits >> bits_to_words_shift;
-  
+
     // If there was a remainder, add an extra word
     if ((bits & bits_to_words_remainder) != 0)
         words++;
@@ -199,24 +199,20 @@ static inline size_t get_bit_field_size (size_t bits)
     return (words);
 }
 
-#ifdef DEBUG
 //! \brief Prints a bit_field as ones and zeros.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
-
-void print_bit_field_bits  (bit_field_t b, size_t s);
+void print_bit_field_bits(bit_field_t b, size_t s);
 
 //! \brief Prints a bit_field as a sequence of hexadecimal characters.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
 
-void print_bit_field       (bit_field_t b, size_t s);
+void print_bit_field(bit_field_t b, size_t s);
 
 //! \brief Generates a random bit_field for testing purposes.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
+void random_bit_field(bit_field_t b, size_t s);
 
-void random_bit_field      (bit_field_t b, size_t s);
-
-#endif /*DEBUG*/
 #endif /*__BIT_FIELD_H__*/
