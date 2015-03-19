@@ -38,9 +38,9 @@
 //! \param[in] a First argument
 //! \param[in] b Second argument
 //! \return The minimum of a and b.
-
-#define __stdfix_min(a,b)                       \
-    (((a)<(b))? (a): (b))
+#ifndef min
+#define min(a,b) (((a)<(b))? (a): (b))
+#endif
 
 //! \brief Returns the maximum of two arguments.
 //! \param[in] a First argument
@@ -53,6 +53,8 @@
 //! \brief An macro definition which pretends to use variable a.
 //! \param[in] a First argument
 
+// note that this is a use of the semicolon swallowing as defined in:
+// https://gcc.gnu.org/onlinedocs/cpp/Swallowing-the-Semicolon.html
 #define __stdfix_use(a)                         \
     do {} while ((a)!=(a))
 
