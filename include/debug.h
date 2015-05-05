@@ -32,6 +32,10 @@
  *
  *      -DPRODUCTION_CODE
  *
+ *    or
+ *
+ *      -DNDEBUG
+ *
  *    By default it is used for SpiNNaker ARM code; it can also  be used in host-side C,
  *    by compiling with -DDEBUG_ON_HOST
  *
@@ -80,10 +84,10 @@
  *
  *    By default all information is printed.
  *
- *    There is no way to switch off [ASSERT]s except by using the compilation
- *    flag:
+ *    There is no way to switch off [ASSERT]s except by using either of the
+ *    compilation flags:
  *
- *      -DPRODUCTION_CODE
+ *      -DPRODUCTION_CODE or -DNDEBUG
  *
  */
 
@@ -110,7 +114,7 @@
 
 // Define the log level if not already defined
 #ifndef LOG_LEVEL
-#ifdef PRODUCTION_CODE
+#if (defined(PRODUCTION_CODE) || defined(NDEBUG))
 #define LOG_LEVEL LOG_INFO
 #else // PRODUCTION_CODE
 #define LOG_LEVEL LOG_DEBUG
@@ -154,7 +158,7 @@
     __log(LOG_DEBUG, "[DEBUG]   ", message, ##__VA_ARGS__)
 
 
-#ifndef PRODUCTION_CODE
+#if !(defined(PRODUCTION_CODE) || defined(NDEBUG))
 
 //! \brief This macro prints out a check message to the log file.
 //! \param[in] condition The condition being tested.
@@ -162,7 +166,7 @@
 #define check(condition, message, ...)                                 \
     do {                                                               \
         if (!(condition))                                              \
-        	__log(LOG_DEBUG, "[CHECK]    ", message, ##__VA_ARGS__);   \
+            __log(LOG_DEBUG, "[CHECK]    ", message, ##__VA_ARGS__);   \
     } while (0)
 
 //! \brief This macro prints out a sentinel message to the log file and aborts
@@ -186,12 +190,12 @@
 //!        the condition is not met
 //! \param[in] assertion The condition being tested.
 //! \param[in] message The message to be printed if the condition is false
-#define assert_info(assertioan, message, ...)                         \
-    do {                                                              \
-        if (!(assertion)) {                                           \
-        	__log(LOG_DEBUG, "[ASSERT]   ", message, ##__VA_ARGS__);  \
-        	abort(0);                                                 \
-        }                                                             \
+#define assert_info(assertioan, message, ...)                           \
+    do {                                                                \
+        if (!(assertion)) {                                             \
+            __log(LOG_DEBUG, "[ASSERT]   ", message, ##__VA_ARGS__);    \
+            abort(0);                                                   \
+        }                                                               \
     } while (0)
 
 #else  /* PRODUCTION_CODE */
