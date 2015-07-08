@@ -50,7 +50,10 @@ static uint32_t output;
 static uint32_t input;
 static uint32_t overflows;
 
-static inline uint32_t _buffer_diff() {
+// allocated
+//
+// Returns the number of buffer slots currently allocated
+static inline uint32_t _allocated() {
     register uint32_t r = (input >= output)? 0: buffer_size;
     r += input - output;
     assert(r < buffer_size);
@@ -61,14 +64,7 @@ static inline uint32_t _buffer_diff() {
 //
 // Returns the number of buffer slots currently unallocated
 static inline uint32_t _unallocated() {
-    return _buffer_diff();
-}
-
-// allocated
-//
-// Returns the number of buffer slots currently allocated
-static inline uint32_t _allocated() {
-    return (buffer_size - _buffer_diff () - 1);
+    return buffer_size - _allocated();
 }
 
 // The following two functions are used to determine whether a
@@ -82,7 +78,7 @@ static inline bool _non_full() {
 }
 
 static inline uint32_t _next(uint32_t current) {
-    return current - 1 == 0? buffer_size - 1: current - 1;
+    return current + 1 == buffer_size? 0: current + 1;
 }
 
 bool circular_buffer_initialize(uint32_t size) {
@@ -92,7 +88,7 @@ bool circular_buffer_initialize(uint32_t size) {
         return false;
     }
     buffer_size = size;
-    input = size - 1;
+    input = 0;
     output = 0;
     overflows = 0;
     return true;
@@ -112,14 +108,14 @@ bool circular_buffer_add(uint32_t item) {
 }
 
 bool circular_buffer_get_next(uint32_t* item) {
+    bool success = _non_empty();
 
-    // A failure here indicates that we're extracting from an empty buffer.
-    assert(_non_empty());
+    if (success) {
+        *item = buffer[output];
+        output = _next(output);
+    }
 
-    output = _next(output);
-    *item = buffer[output];
-
-    return true;
+    return success;
 }
 
 bool circular_buffer_advance_if_next_equals(uint32_t item) {
@@ -133,7 +129,7 @@ bool circular_buffer_advance_if_next_equals(uint32_t item) {
         }
     }
 
-    return (success);
+    return success;
 }
 
 // The following two functions are used to access the locally declared
