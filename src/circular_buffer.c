@@ -43,89 +43,100 @@
 
 #include <debug.h>
 
-static uint32_t* buffer;
-static uint32_t buffer_size;
+typedef struct _circular_buffer {
 
-static uint32_t output;
-static uint32_t input;
-static uint32_t overflows;
+    uint32_t* buffer;
+    uint32_t buffer_size;
+
+    uint32_t output;
+    uint32_t input;
+    uint32_t overflows;
+} _circular_buffer;
 
 // allocated
 //
 // Returns the number of buffer slots currently allocated
-static inline uint32_t _allocated() {
-    register uint32_t r = (input >= output)? 0: buffer_size;
-    r += input - output;
-    assert(r < buffer_size);
+static inline uint32_t _circular_buffer_allocated(circular_buffer buffer) {
+    register uint32_t r = (buffer->input >= buffer->output)? 0:
+            buffer->buffer_size;
+    r += buffer->input - buffer->output;
+    assert(r < buffer->buffer_size);
     return r;
 }
 
 // unallocated
 //
 // Returns the number of buffer slots currently unallocated
-static inline uint32_t _unallocated() {
-    return buffer_size - _allocated();
+static inline uint32_t _circular_buffer_unallocated(circular_buffer buffer) {
+    return buffer->buffer_size - _circular_buffer_allocated(buffer);
 }
 
 // The following two functions are used to determine whether a
 // buffer can have an element extracted/inserted respectively.
-static inline bool _non_empty() {
-    return (_allocated() > 0);
+static inline bool _circular_buffer_non_empty(circular_buffer buffer) {
+    return (_circular_buffer_allocated(buffer) > 0);
 }
 
-static inline bool _non_full() {
-    return (_unallocated() > 0);
+static inline bool _circular_buffer_non_full(circular_buffer buffer) {
+    return (_circular_buffer_unallocated(buffer) > 0);
 }
 
-static inline uint32_t _next(uint32_t current) {
-    return current + 1 == buffer_size? 0: current + 1;
+static inline uint32_t _circular_buffer_next(circular_buffer buffer,
+                                             uint32_t current) {
+    return current + 1 == buffer->buffer_size? 0: current + 1;
 }
 
-bool circular_buffer_initialize(uint32_t size) {
-    buffer = (uint32_t *) sark_alloc(1, size * sizeof(uint32_t));
+circular_buffer circular_buffer_initialize(uint32_t size) {
+    circular_buffer buffer = sark_alloc(1, sizeof(struct _circular_buffer));
     if (buffer == NULL) {
-        log_error("Cannot allocate in circular buffer");
-        return false;
+        log_error("Cannot allocate space for buffer structure");
+        return NULL;
     }
-    buffer_size = size;
-    input = 0;
-    output = 0;
-    overflows = 0;
-    return true;
+    buffer->buffer = (uint32_t *) sark_alloc(1, size * sizeof(uint32_t));
+    if (buffer->buffer == NULL) {
+        log_error("Cannot allocate space for buffer in circular buffer");
+        return NULL;
+    }
+    buffer->buffer_size = size;
+    buffer->input = 0;
+    buffer->output = 0;
+    buffer->overflows = 0;
+    return buffer;
 }
 
-bool circular_buffer_add(uint32_t item) {
-    bool success = _non_full();
+bool circular_buffer_add(circular_buffer buffer, uint32_t item) {
+    bool success = _circular_buffer_non_full(buffer);
 
     if (success) {
-        buffer[input] = item;
-        input = _next(input);
+        buffer->buffer[buffer->input] = item;
+        buffer->input = _circular_buffer_next(buffer, buffer->input);
     } else {
-        overflows++;
+        buffer->overflows++;
     }
 
     return success;
 }
 
-bool circular_buffer_get_next(uint32_t* item) {
-    bool success = _non_empty();
+bool circular_buffer_get_next(circular_buffer buffer, uint32_t* item) {
+    bool success = _circular_buffer_non_empty(buffer);
 
     if (success) {
-        *item = buffer[output];
-        output = _next(output);
+        *item = buffer->buffer[buffer->output];
+        buffer->output = _circular_buffer_next(buffer, buffer->output);
     }
 
     return success;
 }
 
-bool circular_buffer_advance_if_next_equals(uint32_t item) {
-    bool success = _non_empty();
+bool circular_buffer_advance_if_next_equals(circular_buffer buffer,
+                                            uint32_t item) {
+    bool success = _circular_buffer_non_empty(buffer);
     if (success) {
-        uint32_t next = _next(output);
-        success = (buffer[next] == item);
+        uint32_t next = _circular_buffer_next(buffer, buffer->output);
+        success = (buffer->buffer[next] == item);
 
         if (success) {
-            output = next;
+            buffer->output = next;
         }
     }
 
@@ -134,21 +145,21 @@ bool circular_buffer_advance_if_next_equals(uint32_t item) {
 
 // The following two functions are used to access the locally declared
 // variables.
-uint32_t circular_buffer_get_n_buffer_overflows() {
-    return overflows;
+uint32_t circular_buffer_get_n_buffer_overflows(circular_buffer buffer) {
+    return buffer->overflows;
 }
 
-void circular_buffer_print_buffer() {
-    uint32_t n = _allocated();
+void circular_buffer_print_buffer(circular_buffer buffer) {
+    uint32_t n = _circular_buffer_allocated(buffer);
     uint32_t a;
 
     io_printf(IO_BUF, "buffer: input = %3u, output = %3u elements = %3u\n",
-              input, output, n);
+              buffer->input, buffer->output, n);
     io_printf(IO_BUF, "------------------------------------------------\n");
 
     for (; n > 0; n--) {
-        a = (input + n) % buffer_size;
-        io_printf(IO_BUF, "    %3u: %08x\n", a, buffer[a]);
+        a = (buffer->input + n) % buffer->buffer_size;
+        io_printf(IO_BUF, "    %3u: %08x\n", a, buffer->buffer[a]);
     }
 
     io_printf(IO_BUF, "------------------------------------------------\n");

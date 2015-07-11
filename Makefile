@@ -20,7 +20,7 @@ else
 endif
 
 # Include our own include directory
-CFLAGS += -I include
+CFLAGS += -I include -Ofast -DPRODUCTION_CODE
 
 # Objects
 OBJS = bit_field.o circular_buffer.o normal.o random.o stdfix-exp.o

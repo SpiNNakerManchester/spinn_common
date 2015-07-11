@@ -4,27 +4,22 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// initialize_spike_buffer
+typedef struct _circular_buffer* circular_buffer;
+
+// initialize_circular_buffer
 //
-// This function initializes the input spike buffer.
-// It configures:
-//    buffer:     the buffer to hold the spikes (initialized with size spaces)
-//    input:      index for next spike inserted into buffer
-//    output:     index for next spike extracted from buffer
-//    overflows:  a counter for the number of times the buffer overflows
-//    underflows: a counter for the number of times the buffer underflows
-//
-// If underflows is ever non-zero, then there is a problem with this code.
-bool circular_buffer_initialize(uint32_t size);
+// This function initializes a circular buffer.
+circular_buffer circular_buffer_initialize(uint32_t size);
 
-bool circular_buffer_add(uint32_t item);
+bool circular_buffer_add(circular_buffer buffer, uint32_t item);
 
-bool circular_buffer_get_next(uint32_t* item);
+bool circular_buffer_get_next(circular_buffer buffer, uint32_t* item);
 
-bool circular_buffer_advance_if_next_equals(uint32_t item);
+bool circular_buffer_advance_if_next_equals(circular_buffer buffer,
+                                            uint32_t item);
 
-uint32_t circular_buffer_get_n_buffer_overflows();
+uint32_t circular_buffer_get_n_buffer_overflows(circular_buffer buffer);
 
-void circular_buffer_print_buffer();
+void circular_buffer_print_buffer(circular_buffer buffer);
 
 #endif // _CIRCULAR_BUFFER_H_
