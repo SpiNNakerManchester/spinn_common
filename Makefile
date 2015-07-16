@@ -23,7 +23,7 @@ endif
 CFLAGS += -I include
 
 # Objects
-OBJS = bit_field.o normal.o random.o stdfix-exp.o
+OBJS = bit_field.o normal.o random.o stdfix-exp.o log.o sincos.o sqrt.o
 BUILD_OBJS = $(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o)
 
 # Headers
