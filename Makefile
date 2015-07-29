@@ -20,14 +20,14 @@ else
 endif
 
 # Include our own include directory
-CFLAGS += -I include
+CFLAGS += -I include -Ofast -DPRODUCTION_CODE
 
 # Objects
-OBJS = bit_field.o normal.o random.o stdfix-exp.o log.o sincos.o sqrt.o
+OBJS = bit_field.o circular_buffer.o normal.o random.o stdfix-exp.o log.o sincos.o sqrt.o
 BUILD_OBJS = $(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o)
 
 # Headers
-HEADERS = arm_acle_gcc.h arm_acle.h arm.h bit_field.h cmsis.h core_v5te.h debug.h log.h normal.h pair.h polynomial.h random.h sincos.h spin-print.h static-assert.h stdfix-exp.h stdfix-full-iso.h utils.h
+HEADERS = arm_acle_gcc.h arm_acle.h arm.h bit_field.h circular_buffer.h cmsis.h core_v5te.h debug.h log.h normal.h pair.h polynomial.h random.h sincos.h spin-print.h static-assert.h stdfix-exp.h stdfix-full-iso.h utils.h
 INSTALL_HEADERS = $(HEADERS:%.h=$(SPINN_INC_DIR)/%.h)
 
 # Build rules (default)
