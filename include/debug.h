@@ -158,7 +158,7 @@
     __log(LOG_DEBUG, "[DEBUG]   ", message, ##__VA_ARGS__)
 
 
-#if !(defined(PRODUCTION_CODE) || defined(NDEBUG))
+//#if !(defined(PRODUCTION_CODE) || defined(NDEBUG))
 
 //! \brief This macro prints out a check message to the log file.
 //! \param[in] condition The condition being tested.
@@ -198,7 +198,8 @@
         }                                                               \
     } while (0)
 
-#else  /* PRODUCTION_CODE */
+/*
+#else   PRODUCTION_CODE */
 #define check(a, s, ...)             skip ()
 #define sentinel(s, ...)             skip ()
 #define assert(a)                    skip ()
