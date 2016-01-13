@@ -6,13 +6,10 @@
  */
 
 #include "random.h"
+#include "normal.h"
 
 #include "stdfix-full-iso.h"
 #include "stdfix-exp.h"
-
-//#include "sark.h"
-
-#include "math.h"
 
 /*
 
@@ -280,34 +277,12 @@ inner:
 
 
 
-// Returns standard gaussian deviate - my translation of NR in C
-// 2 for the price of one (kind of)
-
+// Returns standard gaussian deviate
 accum gaussian_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg)
 {
-    static bool         set = false;
-    static float 	gset;
-    float 		fac, rsq, v1, v2;
 
-    if (!set) {
-    do {
-        v1 =  (uni_rng (seed_arg) / 2147483648.0f) - 1.0f;
-                                                            // U(0,1) * 2 - 1
-        v2 =  (uni_rng (seed_arg) / 2147483648.0f) - 1.0f;
-
-        rsq = v1*v1 + v2*v2;
-    } while  (rsq >= 1.0f || rsq == 0.0f);
-
-    fac = sqrtf (-2.0f * logf (rsq) / rsq);
-
-    gset = v1 * fac;
-    set = true;
-    return ((accum) v2 * fac);
-    }
-    else {
-    set = false;
-    return ((accum) gset);
-    }
+    uint32_t U = uni_rng(seed_arg);
+    return norminv_urt(U);
 }
 
 //! \brief A poisson distributed random variable, given exp (-lambda). This is

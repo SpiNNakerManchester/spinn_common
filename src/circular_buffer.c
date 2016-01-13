@@ -158,7 +158,7 @@ void circular_buffer_print_buffer(circular_buffer buffer) {
     io_printf(IO_BUF, "------------------------------------------------\n");
 
     for (; n > 0; n--) {
-        a = (buffer->input + n) % buffer->buffer_size;
+        a = (buffer->input + n);
         io_printf(IO_BUF, "    %3u: %08x\n", a, buffer->buffer[a]);
     }
 
