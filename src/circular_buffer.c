@@ -143,6 +143,10 @@ bool circular_buffer_advance_if_next_equals(circular_buffer buffer,
     return success;
 }
 
+uint32_t circular_buffer_size(circular_buffer buffer) {
+    return _circular_buffer_allocated(buffer);
+}
+
 // The following two functions are used to access the locally declared
 // variables.
 uint32_t circular_buffer_get_n_buffer_overflows(circular_buffer buffer) {
