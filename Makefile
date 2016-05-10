@@ -4,7 +4,7 @@ ifndef SPINN_DIRS
 endif
 
 SPINN_COMMON_BUILD = build
-include $(SPINN_DIRS)/Makefile.common
+include $(SPINN_DIRS)/make/Makefile.common
 
 # General tool setup
 CAT = cat
