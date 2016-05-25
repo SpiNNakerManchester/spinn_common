@@ -44,7 +44,6 @@
 #include <debug.h>
 
 typedef struct _circular_buffer {
-
     uint32_t* buffer;
     uint32_t buffer_size;
     uint32_t output;
@@ -52,6 +51,7 @@ typedef struct _circular_buffer {
     uint32_t overflows;
 } _circular_buffer;
 
+// Returns the next highest power of 2 of a value
 static inline uint32_t _next_power_of_two(uint32_t v) {
     v--;
     v |= v >> 1;
@@ -63,10 +63,12 @@ static inline uint32_t _next_power_of_two(uint32_t v) {
     return v;
 }
 
+// Returns True if the value is a power of 2
 static inline bool _is_power_of_2(uint32_t v) {
     return (v & (v - 1)) == 0;
 }
 
+// Returns the index of the next position in the buffer from the given value
 static inline uint32_t _circular_buffer_next(
         circular_buffer buffer, uint32_t current) {
     return (current + 1) & buffer->buffer_size;
@@ -143,8 +145,25 @@ bool circular_buffer_advance_if_next_equals(
     return success;
 }
 
-// The following two functions are used to access the locally declared
-// variables.
+uint32_t circular_buffer_size(circular_buffer buffer) {
+    return buffer->input >= buffer->output?
+        buffer->input - buffer->output:
+        (buffer->input + buffer->buffer_size + 1) - buffer->output;
+}
+
 uint32_t circular_buffer_get_n_buffer_overflows(circular_buffer buffer) {
     return buffer->overflows;
+}
+
+void circular_buffer_print_buffer(circular_buffer buffer) {
+    uint32_t i = buffer->output;
+    io_printf(IO_BUF, "[");
+    while (i != buffer->input) {
+        io_printf(IO_BUF, "%u", buffer->buffer[i]);
+        i = (i + 1) & buffer->buffer_size;
+        if (i != buffer->input) {
+            io_printf(IO_BUF, ", ");
+        }
+    }
+    io_printf(IO_BUF, "]\n");
 }
