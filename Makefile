@@ -12,15 +12,8 @@ LS  = ls -l
 MKDIR = mkdir -p
 CP  = cp
 
-# Libraries
-ifneq ($(GNU), 1)
-    LIBS = $(SPINN_LIB_DIR)/libspin1_api.a
-else
-    LIBS = $(SPINN_LIB_DIR)/spin1_api.a
-endif
-
 # Include our own include directory
-CFLAGS += -I include -Ofast -DPRODUCTION_CODE
+CFLAGS += -I include $(OTIME) -DPRODUCTION_CODE
 
 # Objects
 OBJS = bit_field.o circular_buffer.o normal.o random.o stdfix-exp.o log.o sincos.o sqrt.o
