@@ -53,14 +53,7 @@ typedef struct _circular_buffer {
 
 // Returns the next highest power of 2 of a value
 static inline uint32_t _next_power_of_two(uint32_t v) {
-    v--;
-    v |= v >> 1;
-    v |= v >> 2;
-    v |= v >> 4;
-    v |= v >> 8;
-    v |= v >> 16;
-    v++;
-    return v;
+    return 1 << (32 - __builtin_clz(v));
 }
 
 // Returns True if the value is a power of 2
