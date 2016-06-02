@@ -4,17 +4,12 @@ ifndef SPINN_DIRS
 endif
 
 SPINN_COMMON_BUILD = build
-LIB := 1
 include $(SPINN_DIRS)/make/Makefile.common
 
-# General tool setup
-CAT = cat
-LS  = ls -l
-MKDIR = mkdir -p
-CP  = cp
+SPINN_COMMON_DEBUG := PRODUCTION_CODE
 
 # Include our own include directory
-CFLAGS += -I include $(OTIME) -DPRODUCTION_CODE
+CFLAGS += -I include $(OTIME) -D$(SPINN_COMMON_DEBUG)
 
 # Objects
 OBJS = bit_field.o circular_buffer.o normal.o random.o stdfix-exp.o log.o sincos.o sqrt.o
