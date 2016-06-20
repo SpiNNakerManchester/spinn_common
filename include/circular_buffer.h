@@ -42,6 +42,10 @@ uint32_t circular_buffer_size(circular_buffer buffer);
 //! \return The number of times add was called and returned False
 uint32_t circular_buffer_get_n_buffer_overflows(circular_buffer buffer);
 
+//! \brief clears the circular buffer
+//! \param[in] buffer The buffer to clear
+void circular_buffer_clear(circular_buffer buffer);
+
 //! \brief Prints the contents of the buffer
 //! \param[in] The buffer to print
 void circular_buffer_print_buffer(circular_buffer buffer);

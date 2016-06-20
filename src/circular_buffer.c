@@ -148,6 +148,11 @@ uint32_t circular_buffer_get_n_buffer_overflows(circular_buffer buffer) {
     return buffer->overflows;
 }
 
+void circular_buffer_clear(circular_buffer buffer) {
+    buffer->input = 0;
+    buffer->output = 0;
+}
+
 void circular_buffer_print_buffer(circular_buffer buffer) {
     uint32_t i = buffer->output;
     io_printf(IO_BUF, "[");
