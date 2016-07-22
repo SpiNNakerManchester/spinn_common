@@ -73,7 +73,7 @@ static_assert (false,
 #undef __ARM_FEATURE_SIMD32          // 32-bit SIMD instructions (ARM v6)
 #undef __ARM_FP                      // hardware floating-point
 #undef __ARM_FP_FAST                 // accuracy-losing optimizations
-#undef __ARM_FP_FENV_ROUNDING        // rounding is configurable at runtiume
+#undef __ARM_FP_FENV_ROUNDING        // rounding is configurable at runtime
 #undef __ARM_FP16_FORMAT_ALTERNATIVE // 16-bit floating-point, alternative format
 #undef __ARM_FP16_FORMAT_IEEE        // 16-bit floating-point, IEEE format
 #undef __ARM_NEON                    // Advanced SIMD (NEON) extension
@@ -234,10 +234,10 @@ static_assert(false, "ARM architecture not recognized");
 #define  __ARM_ARCH_ISA_ARM 1
 #endif
 
-//! \brief __ARM_ARCH_ISA_THUMB is defined to 1 if the core supports the original Thumb
-//! instruction set (including the v6-M architecture) and 2 if it supports the
-//! Thumb-2 instruction set as found in the v6T2 architecture and all v7 
-//! architectures. 
+//! \brief __ARM_ARCH_ISA_THUMB is defined to 1 if the core supports the
+//! original Thumb instruction set (including the v6-M architecture) and 2 if
+//! it supports the Thumb-2 instruction set as found in the v6T2 architecture
+//! and all v7 architectures. 
 
 #if   defined(__ARM_ARCH_5T__)    || defined(__ARM_ARCH_5TE__) || \
       defined(__ARM_ARCH_5TEJ__)  || defined(__ARM_ARCH_6T__)
@@ -250,8 +250,9 @@ static_assert(false, "ARM architecture not recognized");
 #define  __ARM_ARCH_ISA_THUMB 0
 #endif
 
-//! \brief __ARM_32BIT_STATE is defined to 1 if code is being generated for a 32-bit
-//! instruction set such as ARM or Thumb. This macro was introduced in ACLE 1.1.
+//! \brief __ARM_32BIT_STATE is defined to 1 if code is being generated for a
+//! 32-bit instruction set such as ARM or Thumb.
+//! This macro was introduced in ACLE 1.1.
 
 #if defined(__ARM_ARCH_8__)
 #define  __ARM_32BIT_STATE 0
@@ -356,7 +357,7 @@ static_assert(false, "ARM profile not recognized");
 #if (__ARM_ARCH >= 4 && defined(__arm__))
 //! \brief Indicates that CLZ instruction is available.
 #ifndef __ARM_FEATURE_CLZ
-#define __ARM_FEATURE_CLZ
+#define __ARM_FEATURE_CLZ 1
 #endif
 #endif
 
@@ -492,7 +493,7 @@ static inline void __wfi (void)
 //! This function implements the ARM wfe instruction.
 
 static inline void __wfe (void)
-{ __ARM_ACLE_nop(); }
+{ __ARM_ACLE_nop (); }
 
 // Generates a WFE (wait for event) hint instruction, or nothing. The WFE
 // instruction allows (but does not require) the processor to enter a low-power

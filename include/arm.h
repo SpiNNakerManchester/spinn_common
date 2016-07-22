@@ -203,7 +203,7 @@ static inline uint32_t __rsbs (uint32_t x, uint32_t y)
     return (r);
 }
 
-//! \brief This function gives access to the ARM adcs instruction.
+//! \brief This function gives access to the ARM rscs instruction.
 //! \param[in] x An unsigned 32-bit integer.
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns y-x-carry, and sets the flag bits
