@@ -54,6 +54,7 @@ static_assert (false,
 //#undef __ARM_FEATURE_UNALIGNED       // hardware support for unaligned access
 //#undef __ARM_PCS                     // ARM procedure call standard
 //#undef __ARM_PCS_VFP                 // ARM PCS hardware FP variant in use
+//#undef __ARM_FEATURE_CLZ             // CLZ instruction
 
 //     Macro name                       Meaning
 #undef __ARM_32BIT_STATE             // code is for 32-bit state (new in 1.1)
@@ -64,7 +65,6 @@ static_assert (false,
 #undef __ARM_ARCH_ISA_THUMB          // Thumb instruction set present
 #undef __ARM_ARCH_PROFILE            // architecture profile
 #undef __ARM_BIG_ENDIAN              // memory is big-endian
-#undef __ARM_FEATURE_CLZ             // CLZ instruction
 #undef __ARM_FEATURE_FMA             // floating-point fused multiply-accumulate
 #undef __ARM_FEATURE_IDIV            // integer divide in hardware (new in 1.1)
 #undef __ARM_FEATURE_LDREX           // load/store exclusive instructions
@@ -353,13 +353,6 @@ static_assert(false, "ARM profile not recognized");
 // __ARM_FEATURE_CLZ is defined to 1 if the CLZ (count leading zeroes)
 // instruction is supported in hardware. Note that ACLE provides the __clz()
 // family of intrinsics (see 9.2) even when __ARM_FEATURE_CLZ is not defined.
-
-#if (__ARM_ARCH >= 4 && defined(__arm__))
-//! \brief Indicates that CLZ instruction is available.
-#ifndef __ARM_FEATURE_CLZ
-#define __ARM_FEATURE_CLZ 1
-#endif
-#endif
 
 // 6.4.6 Q (saturation) flag 
 //
