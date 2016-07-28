@@ -121,13 +121,16 @@
 #endif // PRODUCTION_CODE
 #endif // LOG_LEVEL
 
+#ifndef __FILENAME__
+#define __FILENAME__ __FILE__
+#endif
 
 //! \brief This macro prints out a message to the log file.
 //! \param[in] type The kind of fault detected.
 //! \param[in] message The user-defined part of a message.
 #define __log_message(type, message, ...) \
     do { fprintf(stderr, type "(%s:%4d): " message "\n", \
-                 __FILE__, __LINE__, ##__VA_ARGS__); } while (0)
+                 __FILENAME__, __LINE__, ##__VA_ARGS__); } while (0)
 
 //! \brief This macro prints a debug message if level is less than or equal
 //!        to the LOG_LEVEL
