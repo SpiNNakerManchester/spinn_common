@@ -3,6 +3,7 @@ ifndef SPINN_DIRS
     $(error SPINN_DIRS is not set.  Please define SPINN_DIRS (possibly by running "source setup" in the spinnaker tools folder))
 endif
 
+override LIB = 1
 SPINN_COMMON_BUILD = build
 include $(SPINN_DIRS)/make/Makefile.common
 
