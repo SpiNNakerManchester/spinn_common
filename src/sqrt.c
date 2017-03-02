@@ -33,8 +33,16 @@
 
 #define __SQRT_HALF UINT32_C(3037000500)
 
-static inline int even (int x) { return ((x & 1) == 0); }
-static inline int odd  (int x) { return ((x & 1) == 1); }
+static inline int even(
+		int x)
+{
+	return (x & 1) == 0;
+}
+static inline int odd(
+		int x)
+{
+	return (x & 1) == 1;
+}
 
 //! \brief This function multiplies a 64 bit unsigned quantity, by a
 //! u0.32.
@@ -43,17 +51,19 @@ static inline int odd  (int x) { return ((x & 1) == 1); }
 //! \return x * y >> 32
 
 //static inline
- uint64_t __x_u64_ulr (uint64_t x, uint32_t y)
+uint64_t __x_u64_ulr(
+		uint64_t x,
+		uint32_t y)
 {
     register uint64_t result;
 
-    result  = (x & UINT64_C(0xFFFFFFFF)) * ((uint64_t)(y));
+    result  = (x & UINT64_C(0xFFFFFFFF)) * ((uint64_t) y);
                                        // least significant multiplication.
     result  = (result >> 32) + ((result & UINT64_C(0x80000000)) >> 31);
                                        // rounding of least significant bit
-    result += (x >> 32) * ((uint64_t)(y));
+    result += (x >> 32) * ((uint64_t) y);
 
-    return (result);
+    return result;
 }
 
 //-----------------------------------------------------------------------
@@ -86,13 +96,14 @@ static inline int odd  (int x) { return ((x & 1) == 1); }
 //! number R = 1-r/2^33, i.e. 2^31 represents 0.75.
 //! \return A 64-bit representation of 1 - R^2
 
-static inline uint64_t r_squared (uint32_t r)
+static inline uint64_t r_squared(
+		uint32_t r)
 {
-    uint64_t t = (uint64_t)(r) << 32;
+    uint64_t t = ((uint64_t) r) << 32;
 
     t -= ((uint64_t)(r >> 1)) * ((uint64_t)(r >> 1));
 
-    return (t);
+    return t;
 }
 
 //! \brief This function calculates an improved value of r, the reciprocal
@@ -101,13 +112,15 @@ static inline uint64_t r_squared (uint32_t r)
 //! \param[in] r The current approximation R = 1 - r/2 (r is in u0.32)
 //! \return x * r in u1.63 format
 
-static inline uint64_t newton_xr (uint32_t x, uint32_t r)
+static inline uint64_t newton_xr(
+		uint32_t x,
+		uint32_t r)
 {
-    register uint64_t t = ((uint64_t)(x))*((uint64_t)(r));
+    register uint64_t t = ((uint64_t) x)*((uint64_t) r);
 
     t = ((uint64_t)(x) << 32) - (t >> 1);
 
-    return (t);
+    return t;
 }
 
 //! \brief This function calculates an improved value of r, the reciprocal
@@ -116,13 +129,15 @@ static inline uint64_t newton_xr (uint32_t x, uint32_t r)
 //! \param[in] r The current approximation R = 1 - r/2 (r is in u0.32)
 //! \return x * r in u1.63 format
 
-static inline uint64_t newton_xlr (uint32_t x, uint64_t r)
+static inline uint64_t newton_xlr(
+		uint32_t x,
+		uint64_t r)
 {
-    register uint64_t t = __x_u64_ulr (r, x);
+    register uint64_t t = __x_u64_ulr(r, x);
 
     t = ((uint64_t)(x) << 32) - (t >> 1);
 
-    return (t);
+    return t;
 }
 
 //! \brief This function calculates an improved value of r, the reciprocal
@@ -132,10 +147,16 @@ static inline uint64_t newton_xlr (uint32_t x, uint64_t r)
 //! \return x * R in u1.63 format
 
 //static inline 
-uint64_t newton_lxr (uint64_t x, uint32_t r)
-{   return (x - __x_u64_ulr (x, r >> 1)); }
+uint64_t newton_lxr(
+		uint64_t x,
+		uint32_t r)
+{
+	return x - __x_u64_ulr(x, r >> 1);
+}
 
-uint64_t newton_lxlr (uint64_t x, uint64_t r)
+uint64_t newton_lxlr(
+		uint64_t x,
+		uint64_t r)
 {
     register uint64_t result, tmp;
 
@@ -156,7 +177,7 @@ uint64_t newton_lxlr (uint64_t x, uint64_t r)
 
     result += (x >> 32) * (r >> 32);
 
-    return (x - result);
+    return x - result;
 }
 
 //! \brief This function calculates an improved value of r, the reciprocal
@@ -165,26 +186,30 @@ uint64_t newton_lxlr (uint64_t x, uint64_t r)
 //! \param[in] r The current approximation R = 1 - r/2 (r is in u0.32)
 //! \return (x * R^2 - 1) in u1.63 format
 
-uint64_t newton_xr2 (uint32_t x, uint32_t r)
+uint64_t newton_xr2(
+		uint32_t x,
+		uint32_t r)
 {
     register uint64_t t;
 
-    t  = newton_xr (x, r);     // x*R   in u1.63 format
-    t  = newton_lxr (t, r);    // x*R^2 in u1.63 format
-    t -= (UINT64_C(1) << 63);  // (x*R^2 - 1) in u1.63 format
+    t  = newton_xr(x, r);     // x*R   in u1.63 format
+    t  = newton_lxr(t, r);    // x*R^2 in u1.63 format
+    t -= UINT64_C(1) << 63;   // (x*R^2 - 1) in u1.63 format
 
-    return (t);
+    return t;
 }
 
-uint64_t newton_xlr2 (uint32_t x, uint64_t r)
+uint64_t newton_xlr2(
+		uint32_t x,
+		uint64_t r)
 {
     register uint64_t t;
 
-    t  = newton_xlr (x, r);    // x*R   in u1.63 format
-    t  = newton_lxlr (t, r);    // x*R^2 in u1.63 format
-    t -= (UINT64_C(1) << 63);  // (x*R^2 - 1) in u1.63 format
+    t  = newton_xlr(x, r);    // x*R   in u1.63 format
+    t  = newton_lxlr(t, r);   // x*R^2 in u1.63 format
+    t -= UINT64_C(1) << 63;   // (x*R^2 - 1) in u1.63 format
 
-    return (t);
+    return t;
 }
 
 //-----------------------------------------------------------------------
@@ -204,64 +229,74 @@ uint64_t newton_xlr2 (uint32_t x, uint64_t r)
 //
 //-----------------------------------------------------------------------
 
-uint64_t __attribute__ ((noinline))
-         square_root_improve (uint32_t x, uint32_t r)
+uint64_t __attribute__ ((noinline)) square_root_improve(
+		uint32_t x,
+		uint32_t r)
 {
     register union { uint64_t u; int64_t s;} tmp;
     register uint64_t t;
     register bool neg;
 
-    tmp.u  = newton_xr2 (x, r); // tmp.u has Z = (x*R^2 - 1) in s0.63 format.
+    tmp.u  = newton_xr2(x, r); // tmp.u has Z = (x*R^2 - 1) in s0.63 format.
 
-    neg    = (tmp.s < 0);
-    if (neg) tmp.s = -tmp.s;
+    neg = tmp.s < 0;
+    if (neg) {
+    	tmp.s = -tmp.s;
+    }
 
-    t = __x_u64_ulr (tmp.u, r >> 1); // t has |Z|*r/2 in s0.63 format
+    t = __x_u64_ulr(tmp.u, r >> 1); // t has |Z|*r/2 in s0.63 format
 
     tmp.u -= t;
 
-    if (neg) tmp.s = -tmp.s;
+    if (neg) {
+    	tmp.s = -tmp.s;
+    }
 
     tmp.s = tmp.s << 1;
 
-    tmp.u += (uint64_t)(r) << 32;
+    tmp.u += ((uint64_t) r) << 32;
 
-    return (tmp.u);
+    return tmp.u;
 }
 
-uint64_t __attribute__ ((noinline))
-         square_root_ximprove (uint32_t x, uint64_t r)
+uint64_t __attribute__ ((noinline)) square_root_ximprove(
+		uint32_t x,
+		uint64_t r)
 {
     register union { uint64_t u; int64_t s;} tmp;
     register uint64_t t;
     register bool neg;
 
-    //log_info ("x = %u, r = (%u:%u)\n",
-    //          x,
-    //          (uint32_t)(r >> 32),
-    //          (uint32_t)(r & UINT32_C(0xFFFFFFFF)));
+    //log_info("x = %u, r = (%u:%u)\n",
+    //         x,
+    //         (uint32_t)(r >> 32),
+    //         (uint32_t)(r & UINT32_C(0xFFFFFFFF)));
 
-    tmp.u  = newton_xlr2 (x, r); // tmp.u has (x*r^2 - 1) in s0.63 format.
+    tmp.u = newton_xlr2(x, r); // tmp.u has (x*r^2 - 1) in s0.63 format.
 
-    neg    = (tmp.s < 0);
-    if (neg) tmp.s = -tmp.s;
+    neg = tmp.s < 0;
+    if (neg) {
+    	tmp.s = -tmp.s;
+    }
 
-    t  = __x_u64_ulr (tmp.u, (uint32_t)(r >> 33));
-    t += __x_u64_ulr (tmp.u, (uint32_t)((r >> 1) & UINT32_C(0xFFFFFFFF))) >> 32;
+    t  = __x_u64_ulr(tmp.u, (uint32_t)(r >> 33));
+    t += __x_u64_ulr(tmp.u, (uint32_t)((r >> 1) & UINT32_C(0xFFFFFFFF))) >> 32;
                                   // t has |Z|*r/2 in s0.63 format
     tmp.u -= t;
 
-    if (neg) tmp.s = -tmp.s;
+    if (neg) {
+    	tmp.s = -tmp.s;
+    }
 
     tmp.s = tmp.s << 1;
 
-    //log_info ("tmp = (%u:%u)\n",
-    //          (uint32_t)(tmp.u >> 32),
-    //          (uint32_t)(tmp.u & UINT32_C(0xFFFFFFFF)));
+    //log_info("tmp = (%u:%u)\n",
+    //         (uint32_t)(tmp.u >> 32),
+    //         (uint32_t)(tmp.u & UINT32_C(0xFFFFFFFF)));
 
     tmp.u += r;
 
-    return (tmp.u);
+    return tmp.u;
 }
 
 //! This function calculates the reciprocal square-root of the argument
@@ -269,36 +304,40 @@ uint64_t __attribute__ ((noinline))
 //! \return An unsigned 64-bit integer representing the reciprocal square-root
 //! of x, as a u0.64. INCORRECT FORMAT DOCUMENTATION. FIX THIS!
 
-uint64_t __attribute__ ((noinline)) recip_normalized_root (uint32_t x)
+uint64_t __attribute__ ((noinline)) recip_normalized_root(
+		uint32_t x)
 {
     uint64_t result;
     uint32_t initial = (x & 0x7FFFFFFF) >> 1;
 
-    assert (x > INT32_MAX);
-    //log_info ("x = (%u), initial = (%u)", x, initial, initial);
+    assert(x > INT32_MAX);
+    //log_info("x = (%u), initial = (%u)", x, initial, initial);
 
-    result = square_root_improve  (x, initial);
-    //log_info ("result = %u %u", (uint32_t)(result >> 32),
-    //          (uint32_t)(result & 0xFFFFFFFF));
-    result = square_root_improve (x, (uint32_t)(result >> 32));
-    //log_info ("result = %u %u", (uint32_t)(result >> 32),
-    //          (uint32_t)(result & 0xFFFFFFFF));
-    result = square_root_improve (x, (uint32_t)(result >> 32));
-    //log_info ("result = %u %u", (uint32_t)(result >> 32),
-    //          (uint32_t)(result & 0xFFFFFFFF));
-    result = square_root_ximprove (x, result);
-    //log_info ("result = %u %u", (uint32_t)(result >> 32),
-    //          (uint32_t)(result & 0xFFFFFFFF));
+    result = square_root_improve(x, initial);
+    //log_info("result = %u %u", (uint32_t)(result >> 32),
+    //         (uint32_t)(result & 0xFFFFFFFF));
 
-    result = square_root_ximprove (x, result);
-    //log_info ("result = %u %u", (uint32_t)(result >> 32),
-    //          (uint32_t)(result & 0xFFFFFFFF));
+    result = square_root_improve(x, (uint32_t)(result >> 32));
+    //log_info("result = %u %u", (uint32_t)(result >> 32),
+    //         (uint32_t)(result & 0xFFFFFFFF));
+
+    result = square_root_improve(x, (uint32_t)(result >> 32));
+    //log_info("result = %u %u", (uint32_t)(result >> 32),
+    //         (uint32_t)(result & 0xFFFFFFFF));
+    result = square_root_ximprove(x, result);
+
+    //log_info("result = %u %u", (uint32_t)(result >> 32),
+    //         (uint32_t)(result & 0xFFFFFFFF));
+
+    result = square_root_ximprove(x, result);
+    //log_info("result = %u %u", (uint32_t)(result >> 32),
+    //         (uint32_t)(result & 0xFFFFFFFF));
 
     // DRL HACK!!! The following result = -(result >> 1);
-    //log_info ("result = %u %u", (uint32_t)(result >> 32),
-    //          (uint32_t)(result & 0xFFFFFFFF));
+    //log_info("result = %u %u", (uint32_t)(result >> 32),
+    //         (uint32_t)(result & 0xFFFFFFFF));
 
-    return (result);    
+    return result;
 }
 
 //! This function calculates the square-root of the argument
@@ -306,40 +345,42 @@ uint64_t __attribute__ ((noinline)) recip_normalized_root (uint32_t x)
 //! \return A signed integer representing the square-root of x,
 //! as an s16.15.
 
-int32_t sqrtk_bits (int32_t x)
+int32_t sqrtk_bits(
+		int32_t x)
 {
     uint64_t tmp;
-    int32_t  n;
-    union {uint32_t u; int32_t s;} r;
+    int32_t n;
+    union { uint32_t u; int32_t s; } r;
 
-    assert (x >= 0);
+    assert(x >= 0);
 
-    if ((x == 0) || x == 32768)
-        return (x); // x is zero or one.
+    if ((x == 0) || x == 32768) {
+        return x; // x is zero or one.
+    }
 
-    n     = __builtin_clz (x);
-    r.s   = x;
-    r.u   = x << n;
-                  // if x = 0.25, then n = 18
+    n = __builtin_clz(x);
+    r.s = x;
+    r.u = x << n; // if x = 0.25, then n = 18
                   // if x == 1.0, then n = 16
                   // if x == 4.0, then n = 14
                   // if x == 2^14, then n = 16 - 14 = 2
 
-    //log_info ("x = %k (%d), normalised = %u, n = %d", x, x, r.u, n);
+    //log_info("x = %k (%d), normalised = %u, n = %d", x, x, r.u, n);
 
-    tmp = recip_normalized_root (r.u);
+    tmp = recip_normalized_root(r.u);
 
-    tmp = newton_xlr (r.u, tmp);
+    tmp = newton_xlr(r.u, tmp);
     tmp = tmp >> (16 + ((n - 16) >> 1));
             // if x was 0.25, tmp = 1.0 (in u1.63), n = 17
             // if x was 1.0, tmp = 1.0 (in u1.63), n = 16
             // if x was 4.0, tmp = 1.0, n = 15
             // if x was 2^14, tmp = 1.0, n = 16 + (n-16)/2 = 9
 
-    if (odd (n))
-        tmp = __x_u64_ulr (tmp, __SQRT_HALF);
+    if (odd(n)) {
+        tmp = __x_u64_ulr(tmp, __SQRT_HALF);
+    }
 
-    return ((int32_t)(tmp >> 32));
+    return (int32_t) (tmp >> 32);
 }
 
 //! This function calculates the square-root of the argument
@@ -347,56 +388,119 @@ int32_t sqrtk_bits (int32_t x)
 //! \return An unsigned integer representing the square-root of x,
 //! as an u16.16.
 
-uint32_t sqrtuk_bits (uint32_t x)
+uint32_t sqrtuk_bits(
+		uint32_t x)
 {
     //uint64_t tmp;
-    //uint32_t r, n = __builtin_clz (x);
+    //uint32_t r, n = __builtin_clz(x);
 
-    
-
-    return (x);
+    return x;
 }
 
-short fract sqrthr (short fract x)
-{ return (x); }
-
-fract sqrtr (fract x)
-{ return (x); }
-
-long fract sqrtlr (long fract x)
-{ return (x); }
-
-short accum sqrthk (short accum x)
-{ return (x); }
-
-accum sqrtk (accum x)
+short fract sqrthr(
+		short fract x)
 {
-    int32_t rx = bitsk (x);
+    log_info("This function is not yet implemented");
+    assert(false);
 
-    if (rx < 0) rx = 0;
-
-    return (kbits (sqrtk_bits (rx)));
+	return x;
 }
 
-long accum sqrtlk (long accum x)
-{ return (x); }
-
-unsigned short fract sqrtuhr (unsigned short fract x)
-{ return (x); }
-
-unsigned fract sqrtur (unsigned fract x)
-{ return (x); }
-
-unsigned long fract sqrtulr (unsigned long fract x)
-{ return (x); }
-
-short accum sqrtuhk (short accum x)
-{ return (x); }
-
-unsigned accum sqrtuk (unsigned accum x)
+fract sqrtr(
+		fract x)
 {
-    return (ukbits (sqrtuk_bits (bitsuk (x))));
+    log_info("This function is not yet implemented");
+    assert(false);
+
+	return x;
 }
 
-unsigned long accum sqrtulk (unsigned long accum x)
-{ return (x); }
+long fract sqrtlr(
+		long fract x)
+{
+    log_info("This function is not yet implemented");
+    assert(false);
+
+	return x;
+}
+
+short accum sqrthk(
+		short accum x)
+{
+    log_info("This function is not yet implemented");
+    assert(false);
+
+	return x;
+}
+
+accum sqrtk(
+		accum x)
+{
+    int32_t rx = bitsk(x);
+
+    if (rx < 0) {
+    	rx = 0;
+    }
+
+    return kbits(sqrtk_bits(rx));
+}
+
+long accum sqrtlk(
+		long accum x)
+{
+    log_info("This function is not yet implemented");
+    assert(false);
+
+	return x;
+}
+
+unsigned short fract sqrtuhr(
+		unsigned short fract x)
+{
+    log_info("This function is not yet implemented");
+    assert(false);
+
+	return x;
+}
+
+unsigned fract sqrtur(
+		unsigned fract x)
+{
+    log_info("This function is not yet implemented");
+    assert(false);
+
+	return x;
+}
+
+unsigned long fract sqrtulr(
+		unsigned long fract x)
+{
+    log_info("This function is not yet implemented");
+    assert(false);
+
+	return x;
+}
+
+short accum sqrtuhk(
+		short accum x)
+{
+    log_info("This function is not yet implemented");
+    assert(false);
+
+	return x;
+}
+
+unsigned accum sqrtuk(
+		unsigned accum x)
+{
+    return ukbits(sqrtuk_bits(bitsuk(x)));
+}
+
+unsigned long accum sqrtulk(
+		unsigned long accum x)
+{
+    log_info("This function is not yet implemented");
+    assert(false);
+
+	return x;
+}

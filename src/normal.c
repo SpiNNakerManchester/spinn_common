@@ -10,8 +10,8 @@
 #include "polynomial.h"
 
 
-static int32_t low_values []
-   = {229376,  // 7.0
+static int32_t low_values[] = {
+      229376,  // 7.0
       136628,  // 4.1695693238150016769941586303372689400327
       131359,  // 4.0087725930708411881818210320355889243017
       128187,  // 3.9119529919160001670722249101622708468998
@@ -43,22 +43,27 @@ static int32_t low_values []
       108945,  // 3.3247401500889482748951156834115456732761
       108635,  // 3.3152758383613645595159532094185121136837
       108334,  // 3.3060994805746625271460790219577049724580
-      108042}; // 3.2971933424171863645116941846338065473089]
+      108042   // 3.2971933424171863645116941846338065473089
+};
 
 
+static int offset[6] = {
+	7200, 6272, 4608, 2048, 0, 0
+};
+static int multiplier[6] = {
+	32,   16,   8,    6,    6, 0
+};
 
-static int offset     [6] = { 7200, 6272, 4608, 2048, 0, 0};
-static int multiplier [6] = {   32,   16,    8,    6, 6, 0};
-
-static int leading_terms [11]
-   = { 98304, 98304, 65536, 65536, 65536, 16, 14, 13, 11, 10, 0};
+static int leading_terms[11] = {
+	98304, 98304, 65536, 65536, 65536, 16, 14, 13, 11, 10, 0
+};
 
 
 /*static int new_poly [5]
   = {*/
 
-static int polynomials [11][5]
-   = {{   489693536,  //  0.22803132236003875732421875
+static int polynomials[11][5] = {
+      {   489693536,  //  0.22803132236003875732421875
          -966086639,  // -0.4498691479675471782684326171875
          1048652819,  //  0.4883170216344296932220458984375
         -1202555181,  // -0.5599833936430513858795166015625
@@ -112,25 +117,28 @@ static int polynomials [11][5]
                   0,  //
                   0,  //
                   0,  //
-                  0}};//
+                  0}  //
+};
 
 //! \brief Access to the tail approximation functions
 //! \param[in] approx The number of the approximation.
 //! \param[in] x The point at which the function is approximated.
 //! \return ???
 
-int lo_approx (unsigned int approx, int x)
+int lo_approx(
+		unsigned int approx,
+		int x)
 {
     int r;
 
-    assert (approx <= 4);
-    assert (0 <= x);
+    assert(approx <= 4);
+    assert(0 <= x);
 
-    r = __horner_int_b (polynomials [approx], x, 4);
-    r = __stdfix_round_s32 (r, 15);
-    r = leading_terms [approx] + (r >> 16);
+    r = __horner_int_b(polynomials[approx], x, 4);
+    r = __stdfix_round_s32(r, 15);
+    r = leading_terms[approx] + (r >> 16);
 
-    return (r);
+    return r;
 }
 
 
@@ -139,66 +147,72 @@ int lo_approx (unsigned int approx, int x)
 //! \param[in] x The point at which the function is approximated.
 //! \return ???
 
-int mid_approx (unsigned int approx, int x)
+int mid_approx(
+		unsigned int approx,
+		int x)
 {
     int r;
 
-    assert (approx <= 5);
-    assert (0 <= x);
+    assert(approx <= 5);
+    assert(0 <= x);
 
-    r  = __horner_int_b (polynomials [approx+5], x, 4);
+    r = __horner_int_b(polynomials[approx+5], x, 4);
     r += x << 14; // DRL Mod for overflow prevention
 
-    return (r);
+    return r;
 }
 
 #ifndef abs
-#define abs(x) (((x)<0)? -(x): (x))
+#define abs(x)      ((x) < 0 ? -(x) : (x))
 #endif
 
 #ifndef negative
-#define negative(x) ((x)<0)
+#define negative(x) ((x) < 0)
 #endif
 
-int tail_approx (unsigned int approx, int p)
+int tail_approx(
+		unsigned int approx,
+		int p)
 {
     int r;
 
-    assert (32 <= p && p < 2048);
+    assert(32 <= p && p < 2048);
 
     p = p - (1 << (14 - approx));
     p = p << (approx + 1);
-    r = lo_approx (9 - approx, p);
+    r = lo_approx(9 - approx, p);
 
-    return (r);
+    return r;
 }
 
-int central_approx (unsigned int approx, int p)
+int central_approx(
+		unsigned int approx,
+		int p)
 {
     int r, z;
 
-    assert (0 <= p && p <= INT16_MAX);
+    assert(0 <= p && p <= INT16_MAX);
 
     z = p;
-    z = __smulbb (z, z) >> 17;               // DRL HACK rounding???
+    z = __smulbb(z, z) >> 17;          // DRL HACK rounding???
 
 
-    z -= offset [5-approx];
-    z *= multiplier [5-approx];
-    z = z << 1; //DRL HACK!!
+    z -= offset[5 - approx];
+    z *= multiplier[5 - approx];
+    z = z << 1;                        // DRL HACK!!
 
-    assert (0 <= z);
+    assert(0 <= z);
 
-    r = mid_approx (5 - approx, z);
+    r = mid_approx(5 - approx, z);
     r = r >> 16;
 
-    int tmp = leading_terms [10 - approx];
+    int tmp = leading_terms[10 - approx];
 
     r += tmp << 13;
 
-    r = ((int)(__smulwb (r, p)));      // DRL HACK rounding???
+    r = (int) __smulwb(r, p);          // DRL HACK rounding???
 
-    return (r);
+    return r;
 }
 
 //! \brief Given an 16-bit signed integer value, representing p - 0.5,
@@ -207,41 +221,46 @@ int central_approx (unsigned int approx, int p)
 //! \return A 32-bit integer representing the cumulative normal distribution
 //! This is in s16.15 (i.e. standard accum) format.
 
-int  __attribute__ ((noinline)) __norminv_rbits  (int x)
+int  __attribute__ ((noinline)) __norminv_rbits(
+		int x)
 {
-    int neg = negative (x);
+    int neg = negative(x);
     int r, shift;
 
-    assert (INT16_MIN <= x && x <= INT16_MAX);
+    assert(INT16_MIN <= x && x <= INT16_MAX);
 
-    if      (x - INT16_MIN <= 31)
-        r = low_values [x - INT16_MIN];
-    else if (INT16_MAX - x + 1 <= 31)
-        r = low_values [INT16_MAX - x + 1];
-    else {
-        if (x < 0)
+    if (x - INT16_MIN <= 31) {
+        r = low_values[x - INT16_MIN];
+    } else if (INT16_MAX - x + 1 <= 31) {
+        r = low_values[INT16_MAX - x + 1];
+    } else {
+        if (x < 0) {
             x = -x;
+        }
 
-        assert (0 <= x && x <= INT16_MAX - 31);
+        assert(0 <= x && x <= INT16_MAX - 31);
 
-        shift = __builtin_clz ((INT16_MAX + 1) - x) - 17;
+        shift = __builtin_clz((INT16_MAX + 1) - x) - 17;
 
-        if (shift > 4)
-            r = tail_approx (shift, (INT16_MAX + 1) - x);
-        else
-            r = central_approx (shift+1, x);
+        if (shift > 4) {
+            r = tail_approx(shift, (INT16_MAX + 1) - x);
+        } else {
+            r = central_approx(shift+1, x);
+        }
     }
 
-    if (neg)
+    if (neg) {
         r = -r;
+    }
 
-    return (r);
+    return r;
 }
 
-int __attribute__ ((noinline)) __norminv_ulrbits (unsigned int x)
+int __attribute__ ((noinline)) __norminv_ulrbits(
+		unsigned int x)
 {
-    log_info ("This function is not yet implemented");
-    assert (false);
+    log_info("This function is not yet implemented");
+    assert(false);
 
-    return (x);
+    return x;
 }

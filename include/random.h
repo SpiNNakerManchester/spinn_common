@@ -154,16 +154,17 @@ accum gaussian_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg);
 // Returns Poisson variate using Knuth's method
 // O(n) for returned value so don't use for large lambda
 
-uint32_t poisson_dist_variate (uniform_rng uni_rng,
-                               uint32_t*   seed_arg,
-                               accum       lambda);
+uint32_t poisson_dist_variate(
+		uniform_rng uni_rng,
+		uint32_t*   seed_arg,
+		accum       lambda);
 
 // Use this version for Poisson with pre-calculated exp(-lambda) for speed gain
 
-uint32_t poisson_dist_variate_exp_minus_lambda
-             (uniform_rng         uni_rng,
-              uint32_t*           seed_arg,
-              unsigned long fract exp_minus_lambda);
+uint32_t poisson_dist_variate_exp_minus_lambda(
+		uniform_rng         uni_rng,
+		uint32_t*           seed_arg,
+		unsigned long fract exp_minus_lambda);
 
 
 #endif 	/*__RANDOM_H__*/
