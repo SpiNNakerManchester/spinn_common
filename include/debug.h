@@ -193,7 +193,7 @@
 //!        the condition is not met
 //! \param[in] assertion The condition being tested.
 //! \param[in] message The message to be printed if the condition is false
-#define assert_info(assertioan, message, ...)                           \
+#define assert_info(assertion, message, ...)                            \
     do {                                                                \
         if (!(assertion)) {                                             \
             __log(LOG_DEBUG, "[ASSERT]   ", message, ##__VA_ARGS__);    \
