@@ -24,6 +24,8 @@ HEADERS = arm_acle_gcc.h arm_acle.h arm.h bit_field.h circular_buffer.h \
 	utils.h
 INSTALL_HEADERS = $(HEADERS:%.h=$(SPINN_INC_DIR)/%.h)
 
+all: $(SPINN_COMMON_BUILD)/libspinn_common.a
+
 # Build rules (default)
 $(SPINN_COMMON_BUILD)/libspinn_common.a: $(BUILD_OBJS) 
 	$(RM) $@
@@ -46,3 +48,5 @@ $(SPINN_INC_DIR)/%.h: include/%.h
 
 clean:
 	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS)
+
+.PHONY: all install clean
