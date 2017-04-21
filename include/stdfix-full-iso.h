@@ -150,6 +150,15 @@ typedef uint64_t uint_ulk_t;
 #ifdef __arm__
 #include <stdfix.h>
 
+// TRULY AWFUL HACK to make the Eclipse CDT not complain like crazy
+// http://fasaxc.blogspot.co.uk/2015/02/working-with-cs-new-fixed-point.html
+// I am so, so sorry...
+#ifdef ECLIPSE_CDT_INDEXER_HACK
+#define _Fract int
+#define _Accum int
+#define _Sat
+#endif // ECLIPSE_CDT_INDEXER_HACK
+
 //! \brief An alternative name for the signed short fract type.
 
 typedef short fract s07;
