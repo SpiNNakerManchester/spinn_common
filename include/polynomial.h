@@ -69,18 +69,19 @@
 //! \param[in] n The number of coeficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 
-static inline int __horner_int_b (int* a, int x, int n)
+static inline int __horner_int_b(int* a, int x, int n)
 {
     register int r = *a++;
 
-    assert (!__reset_and_saturation_occurred ());
+    assert(!__reset_and_saturation_occurred());
 
-    for ( ; n > 0; n--)
-        r = __smlawb (r, x, *a++);
+    for ( ; n > 0; n--) {
+        r = __smlawb(r, x, *a++);
+    }
 
-    assert (!__saturation_occurred ());
+    assert(!__saturation_occurred());
 
-    return (r);
+    return r;
 }
 
 //! \brief Horner evaluation of a polynomial of signed accum at
@@ -95,18 +96,19 @@ static inline int __horner_int_b (int* a, int x, int n)
 //! \param[in] n The number of coeficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 
-static inline int __horner_int_t (int* a, int x, int n)
+static inline int __horner_int_t(int* a, int x, int n)
 {
     register int r = *a++;
 
-    assert (!__reset_and_saturation_occurred ());
+    assert(!__reset_and_saturation_occurred());
 
-    for ( ; n > 0; n--)
-        r = __smlawt (r, x, *a++);
+    for ( ; n > 0; n--) {
+        r = __smlawt(r, x, *a++);
+    }
 
-    assert (!__saturation_occurred ());
+    assert(!__saturation_occurred());
 
-    return (r);
+    return r;
 }
 
 #else  /*!__ARM_FEATURE_DSP*/
@@ -121,15 +123,16 @@ static inline int __horner_int_t (int* a, int x, int n)
 //! \param[in] n The number of coeficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 
-static inline int __horner_int_b (int* a, int x, int n)
+static inline int __horner_int_b(int* a, int x, int n)
 {
-    register int64_t t  = *a++;
+    register int64_t t = *a++;
     register int64_t dx = (int64_t)((int16_t)(x & 0xFFFF));
 
-    for ( ; n > 0; n--)
+    for ( ; n > 0; n--) {
         t = (t * dx >> 16) + *a++;
+    }
 
-    return ((int)(t & 0xFFFFFFFF));
+    return (int) (t & 0xFFFFFFFF);
 }
 
 //! \brief Horner evaluation of a polynomial of signed accum at
@@ -142,18 +145,17 @@ static inline int __horner_int_b (int* a, int x, int n)
 //! \param[in] n The number of coeficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 
-static inline int __horner_int_t (int* a, int x, int n)
+static inline int __horner_int_t(int* a, int x, int n)
 {
     register int64_t t = *a++;
     register int64_t dx = (int64_t)(x >> 16);
 
-
-    for ( ; n > 0; n--)
+    for ( ; n > 0; n--) {
         t = (t * dx >> 16) + *a++;
+    }
 
-    return ((int)(t & 0xFFFFFFFF));
+    return (int) (t & 0xFFFFFFFF);
 }
-
 #endif /*__ARM_FEATURE_DSP*/
 
 #endif /*__POLYNOMIAL_H__*/

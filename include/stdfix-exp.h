@@ -47,8 +47,7 @@
 
 // stdfix-exp API
 
-accum expk( accum x );
-
-uint32_t exp_series (uint32_t x);
+accum		expk(accum x);
+uint32_t	exp_series(uint32_t x);
 
 #endif /*__STDFIX_EXP_H__*/

@@ -3,7 +3,7 @@
 
 #include <stdfix.h>
 
-accum    sink     (accum x);
-accum    cosk     (accum x);
+accum    sink(accum x);
+accum    cosk(accum x);
 
 #endif /*__SINCOS_H__*/
