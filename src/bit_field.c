@@ -63,13 +63,13 @@
 // as a sequence of ones and zeros.
 //! \param[in] e The word of a bit_field to be printed.
 static inline void print_bit_field_entry(
-		uint32_t e)
+	uint32_t e)
 {
     counter_t i = 32;
 
     for ( ; i > 0; i--) {
-	    log_debug("%c", ((e & 0x1) == 0)? ' ': '1');
-	    e = e >> 1;
+	log_debug("%c", ((e & 0x1) == 0)? ' ': '1');
+	e = e >> 1;
     }
 
     log_debug("\n");
@@ -80,8 +80,8 @@ static inline void print_bit_field_entry(
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
 void print_bit_field_bits(
-		bit_field_t b,
-		size_t s)
+	bit_field_t b,
+	size_t s)
 {
     use(b);
     use(s);
@@ -89,7 +89,7 @@ void print_bit_field_bits(
     index_t i; //!< For indexing through the bit field
 
     for (i = 0; i < s; i++) {
-	    print_bit_field_entry(b[i]);
+	print_bit_field_entry(b[i]);
     }
 #endif // LOG_LEVEL >= LOG_DEBUG
 }
@@ -108,7 +108,7 @@ void print_bit_field(
     index_t i; //!< For indexing through the bit field
 
     for (i = 0; i < s; i++) {
-	    log_debug("%08x\n", b[i]);
+	log_debug("%08x\n", b[i]);
     }
 #endif // LOG_LEVEL >= LOG_DEBUG
 }
@@ -127,7 +127,7 @@ void random_bit_field(
     index_t i; //!< For indexing through the bit field
 
     for (i = 0; i < s; i++) {
-	    b[i] = sark_rand();
+	b[i] = sark_rand();
     }
 #endif // LOG_LEVEL >= LOG_DEBUG
 }

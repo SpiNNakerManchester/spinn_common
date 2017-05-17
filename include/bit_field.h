@@ -65,7 +65,7 @@
 //! function; this is useful if we run with -Wextra set for extra warnings.
 
 #ifndef use
-#define use(x)  do {} while ((x)!=(x))
+#define use(x)		do {} while ((x)!=(x))
 #endif
 
 //! \brief bit_field_t is an arbitrary length bit field (vector of bits)
@@ -98,42 +98,42 @@ typedef uint32_t counter_t;
 //! \param[in] n The size of the bit_field.
 //! \return The function returns true if the bit is set or false otherwise.
 static inline bool bit_field_test(
-		bit_field_t b,
-		index_t n)
+	bit_field_t b,
+	index_t n)
 {
-	return (b[n >> 5] & (1 << (n & 0x1F))) != 0;
+    return (b[n >> 5] & (1 << (n & 0x1F))) != 0;
 }
 
 //! \brief This function clears a particular bit of a bit_field.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] n The size of the bit_field.
 static inline void bit_field_clear(
-		bit_field_t b,
-		index_t n)
+	bit_field_t b,
+	index_t n)
 {
-	b[n >> 5] &= ~(1 << (n & 0x1F));
+    b[n >> 5] &= ~(1 << (n & 0x1F));
 }
 
 //! \brief This function sets a particular bit of a bit_field.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] n The bit in the bit_field of interest.
 static inline void bit_field_set(
-		bit_field_t b,
-		index_t n)
+	bit_field_t b,
+	index_t n)
 {
-	b[n >> 5] |= (1 << (n & 0x1F));
+    b[n >> 5] |= 1 << (n & 0x1F);
 }
 
 //! \brief This function negates the bits of an entire bit_field.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
 static inline void not_bit_field(
-		bit_field_t b,
-		size_t s)
+	bit_field_t b,
+	size_t s)
 {
-	for ( ; s > 0; s--) {
-		b[s-1] = ~(b[s-1]);
-	}
+    for ( ; s > 0; s--) {
+	b[s-1] = ~ b[s-1];
+    }
 }
 
 //! \brief This function ands two bit_fields together.
@@ -142,13 +142,13 @@ static inline void not_bit_field(
 //! \param[in] b2 The sequence of words representing the second bit_field.
 //! \param[in] s The size of the bit_field.
 static inline void and_bit_fields(
-		bit_field_t b1,
-		bit_field_t b2,
-		size_t s)
+	bit_field_t b1,
+	bit_field_t b2,
+	size_t s)
 {
-	for ( ; s > 0; s--) {
-		b1[s-1] &= b2[s-1];
-	}
+    for ( ; s > 0; s--) {
+	b1[s-1] &= b2[s-1];
+    }
 }
 
 //! \brief This function ors two bit_fields together.
@@ -157,37 +157,37 @@ static inline void and_bit_fields(
 //! \param[in] b2 The sequence of words representing the second bit_field.
 //! \param[in] s The size of the bit_field.
 static inline void or_bit_fields(
-		bit_field_t b1,
-		bit_field_t b2,
-		size_t s)
+	bit_field_t b1,
+	bit_field_t b2,
+	size_t s)
 {
-	for ( ; s > 0; s--) {
-		b1[s-1] |= b2[s-1];
-	}
+    for ( ; s > 0; s--) {
+	b1[s-1] |= b2[s-1];
+    }
 }
 
 //! \brief This function clears an entire bit_field.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
 static inline void clear_bit_field(
-		bit_field_t b,
-		size_t s)
+	bit_field_t b,
+	size_t s)
 {
-	for ( ; s > 0; s--) {
-		b[s-1] = 0;
-	}
+    for ( ; s > 0; s--) {
+	b[s-1] = 0;
+    }
 }
 
 //! \brief This function sets an entire bit_field.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
 static inline void set_bit_field(
-		bit_field_t b,
-		size_t s)
+	bit_field_t b,
+	size_t s)
 {
-	for ( ; s > 0; s--) {
-		b[s-1] = 0xFFFFFFFF;
-	}
+    for ( ; s > 0; s--) {
+	b[s-1] = 0xFFFFFFFF;
+    }
 }
 
 //! \brief This function tests whether a bit_field is all zeros.
@@ -195,15 +195,13 @@ static inline void set_bit_field(
 //! \param[in] s The size of the bit_field.
 //! \return The function returns true if every bit is zero, or false otherwise.
 static inline bool empty_bit_field(
-		bit_field_t b,
-		size_t s)
+	bit_field_t b,
+	size_t s)
 {
     bool empty = true;
-
     for ( ; s > 0; s--) {
         empty = empty && (b[s-1] == 0);
     }
-
     return empty;
 }
 
@@ -213,10 +211,10 @@ static inline bool empty_bit_field(
 //! \param[in] s The size of the bit_field.
 //! \return The function returns true if at least one bit is set; otherwise false.
 static inline bool nonempty_bit_field(
-		bit_field_t b,
-		size_t s)
+	bit_field_t b,
+	size_t s)
 {
-	return !empty_bit_field(b, s);
+    return !empty_bit_field(b, s);
 }
 
 //! \brief A function that calculates the size of a bit_field to hold 'bits'
@@ -224,7 +222,7 @@ static inline bool nonempty_bit_field(
 //! \param[in] bits The number of bits required for this bit_field.
 //! \return The size (or number of words) in the bit_field.
 static inline size_t get_bit_field_size(
-		size_t bits)
+	size_t bits)
 {
     // **NOTE** in floating point terms this is ceil(num_neurons / 32)
     const uint32_t bits_to_words_shift = 5;

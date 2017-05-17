@@ -98,7 +98,7 @@
 
 //! \brief This macro is intended to mimic the behaviour of 'C's exit
 //! system call.
-#define abort(n) do { exit(n); } while (0)
+#define abort(n)	do { exit(n); } while (0)
 
 //! \brief The log level for errors
 #define LOG_ERROR 10
@@ -137,8 +137,11 @@
 //! \param[in] level The level of the messsage
 //! \param[in] message The user-defined part of the debug message.
 #define __log(level, message, ...) \
-    do { if (level <= LOG_LEVEL) __log_message(message, ##__VA_ARGS__); } \
-        while (0)
+    do {								\
+	if (level <= LOG_LEVEL) {					\
+	    __log_message(message, ##__VA_ARGS__); 			\
+	} 								\
+    } while (0)
 
 //! \brief This macro logs errors.
 //! \param[in] message The user-defined part of the error message.
@@ -168,14 +171,17 @@
 //! \param[in] message The message to be printed if the condition is false
 #define check(condition, message, ...)                                 \
     do {                                                               \
-        if (!(condition))                                              \
+        if (!(condition)) {                                            \
             __log(LOG_DEBUG, "[CHECK]    ", message, ##__VA_ARGS__);   \
+        }							       \
     } while (0)
 
 //! \brief This macro prints out a sentinel message to the log file and aborts
 //! \param[in] message The message to be printed if execution reaches this point
-#define sentinel(message, ...)                                              \
-    do { __log(LOG_DEBUG, "[SENTINEL] ", message, ##__VA_ARGS__); abort(0); \
+#define sentinel(message, ...) \
+    do {								\
+	__log(LOG_DEBUG, "[SENTINEL] ", message, ##__VA_ARGS__);	\
+	abort(0);							\
     } while (0)
 
 //! \brief This macro performs an assertion check on a condition and aborts if
@@ -213,13 +219,14 @@
 //! address.
 //! \param[in] ptr The pointer whose address is required.
 //! \return The value as an unsigned integer.
-static inline unsigned int __addr__ (void* ptr)
-{ return ((unsigned int)(ptr)); }
+static inline unsigned int __addr__(void* ptr)
+{
+    return (unsigned int) ptr;
+}
 
 //! \brief This macro tests whether a pointer returned by malloc is null.
 //! \param[in] a The address returned by malloc.
-#define check_memory(a) check((a), "Out of memory")
-
+#define check_memory(a)		check((a), "Out of memory")
 
 #ifndef DEBUG_ON_HOST
 
@@ -248,10 +255,10 @@ static inline unsigned int __addr__ (void* ptr)
           "%x is not in sdram", (a))
 
 #else  /* DEBUG_ON_HOST */
-#define check_itcm(a)   skip ()
-#define check_dtcm(a)   skip ()
-#define check_sysram(a) skip ()
-#define check_sdram(a)  skip ()
+#define check_itcm(a)   skip()
+#define check_dtcm(a)   skip()
+#define check_sysram(a) skip()
+#define check_sdram(a)  skip()
 #endif /* DEBUG_ON_HOST */
 
 #endif /* __DEBUG_H__ */

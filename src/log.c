@@ -63,66 +63,32 @@ static int16_t recip_table[] = {
      -32768
 };
 
-//! \brief This function divides x by k/64; it does not use
-//! Arm DSP instructions.
-//! \param[in] x input value
-//! \param[in] k the `breakpoint' index.
-//! \return x/(k/64)
-
-static inline int32_t divide_ck_default(
-		int32_t x,
-		uint32_t k)
-{
-    register int64_t r;
-
-    r = (int64_t) x;
-    r = 2*r + ((r * recip_table[k]) >> 16);
-
-    return (int32_t) r;
-}
- 
-//! \brief This function divides x by k/64; it uses the
-//! Arm DSP instructions.
-//! \param[in] x input value
-//! \param[in] k the `breakpoint' index.
-//! \return x/(k/64)
-
-static inline int32_t divide_ck_arm(
-		int32_t x,
-		uint32_t k)
-{
-	return __smlawb(x, recip_table[k], x);
-}
-
 //! \brief This function divides x by k/64.
 //! \param[in] x input value
 //! \param[in] k the `breakpoint' index.
 //! \return x/(k/64)
-
 static inline int32_t divide_ck(
-		int32_t x,
-		uint32_t k)
+	int32_t x,
+	uint32_t k)
 {
-    register int32_t r;
-
     assert(-33554432 <= x && x <= 33554432);
     assert(k <= 64);
 
-#ifdef   __ARM_FEATURE_DSP
-    r = divide_ck_arm(x, k);
-#else  /*__ARM_FEATURE_DSP*/
-    r = divide_ck_default(x, k);
-#endif /*__ARM_FEATURE_DSP*/
+#ifdef __ARM_FEATURE_DSP
+    return __smlawb(x, recip_table[k], x);
+#else /*__ARM_FEATURE_DSP*/
+    register int64_t r = (int64_t) x;
 
-    return r;
+    r = 2*r + ((r * recip_table[k]) >> 16);
+    return (int32_t) r;
+#endif /*__ARM_FEATURE_DSP*/
 }
 
 static inline uint32_t uint32_round(
-		uint32_t r,
-		uint32_t n)
+	uint32_t r,
+	uint32_t n)
 {
     r = (r >> n) + ((r >> (n-1)) & 0x1);
-
     return r;
 }
 
@@ -130,79 +96,35 @@ static inline uint32_t uint32_round(
 //! \param[in] r accumulator value
 //! \param[in] x one of the factors
 //! \return r := r - x * log(2).
-
-static inline int32_t subtract_mult_log2_default(
-		int32_t r,
-		int32_t x)
-{
-	return r - x * 93032640;
-}
-
-//! \brief This function performs a multiply-accumulate
-//! \param[in] r accumulator value
-//! \param[in] x one of the factors
-//! \return r := r - x * log(2).
-
-static inline int32_t subtract_mult_log2_arm(
-		int32_t r,
-		int32_t x)
-{
-	return __smlawb(x << 10, -1453635, r);
-}
-
-//! \brief This function performs a multiply-accumulate
-//! \param[in] r accumulator value
-//! \param[in] x one of the factors
-//! \return r := r - x * log(2).
-
 static inline int32_t subtract_mult_log2(
-		int32_t r,
-		int32_t x)
+	int32_t r,
+	int32_t x)
 {
-#ifdef   __ARM_FEATURE_DSP
-	return subtract_mult_log2_default(r, x);
-//   return subtract_mult_log2_arm(r, x);   // DKF why is this commented out?
+#ifdef __ARM_FEATURE_DSP
+    return r - x * 93032640;
+    // return __smlawb(x << 10, -1453635, r);	// DKF why is this commented out?
 #else  /*__ARM_FEATURE_DSP*/
-	return subtract_mult_log2_default(r, x);
+    return r - x * 93032640;
 #endif /*__ARM_FEATURE_DSP*/
 }
 
-static inline int32_t cubic_term_default(
-		int32_t r)
+static inline int32_t cubic_term(
+	int32_t r)
 {
-    register int64_t t = r*r;
+#define CUBIC_TERM_CONSTANT 178958404
 
-    t = 178958404 * (t >> 31);
-    t = (t * r) >> 31;
-
-    return r + (t >> 31);
-}
-
-static inline int32_t cubic_term_arm(
-		int32_t r)
-{
+#ifdef __ARM_FEATURE_DSP
     register int32_t t = __smultt(r, r);
 
-    t = __smulwt(178958404*8, t);
+    t = __smulwt(CUBIC_TERM_CONSTANT * 8, t);
     t = __smulwt(t, r);
-
-    /* if (t != 0) {
-        log_info("%d %d (= %d) ", r, t, cubic_term_default(r));
-    } else {
-        log_info(". ");
-    }*/
-
     return r + t;
-}
+#else  /*!__ARM_FEATURE_DSP*/
+    register int64_t t = r*r;
 
-
-static inline int32_t cubic_term(
-		int32_t r)
-{
-#ifdef   __ARM_FEATURE_DSP
-	return cubic_term_arm(r);
-#else  /*__ARM_FEATURE_DSP*/
-	return cubic_term_default(r);
+    t = CUBIC_TERM_CONSTANT * (t >> 31);
+    t = (t * r) >> 31;
+    return r + (t >> 31);
 #endif /*__ARM_FEATURE_DSP*/
 }
 
@@ -211,14 +133,16 @@ static inline int32_t cubic_term(
 //! \return A value representing log(1+x) in u5.27 (or s4.27) format.
 
 static inline uint32_t log_1_2(
-		uint32_t x)
+	uint32_t x)
 {
     register uint32_t k = uint32_round(x, 26);
     register union { uint32_t u; int32_t i; } z;
     register int32_t r;
 
-    /* k = bitsuk(rounduk(ukbits(x) >> 25, 1)) >> 1;
-       log_info("x = %R (%u), k = %u", x >> 16, x, k); */
+/*
+    k = bitsuk(rounduk(ukbits(x) >> 25, 1)) >> 1;
+    log_info("x = %R (%u), k = %u", x >> 16, x, k);
+*/
 
     assert(k <= 64);
 
@@ -242,9 +166,7 @@ static inline uint32_t log_1_2(
 #ifndef FAST_LOG
     r = cubic_term(r);
 #endif /* FAST_LOG */
-
     r = log_ck[k] + (r >> 5);
-
     return r;
 }
 
@@ -252,9 +174,8 @@ static inline uint32_t log_1_2(
 //! the log function.
 //! \param[in] x is a positive signed accum.
 //! \return A value representing log(x).
-
 static inline int32_t logkbits(
-		int32_t x)
+	int32_t x)
 {
     register int32_t r;
     register int shift = __clz(x);
@@ -272,26 +193,24 @@ static inline int32_t logkbits(
 
     //log_info("r shifted: %k (%d)", r >> 12, r);
 
-    r = uint32_round(r, 12);           // round result from u5.27 to s16.15
+    r = uint32_round(r, 12);		// round result from u5.27 to s16.15
 
-    //log_info ("r after:  %k (%d)", r, r);
+    //log_info("r after:  %k (%d)", r, r);
 
-    r -= 393216;                       // subtract 12 * 2^15
-
+    r -= 393216;			// subtract 12 * 2^15
     assert(-340696 <= r && r <= 363409);
-
     return r;
 }
 
 //! \brief This function calculates the log function for the
 //! accum type (s16.15).
-//! \param[in] x is positive value representated as an accum.
-//! \return A value representing log(x) in accum format.
+//! \param[in] x is positive value represented as an accum.
+//! \return A value representing log (x) in accum format.
 
 accum logk(
-		accum x)
+	accum x)
 {
-	return kbits(logkbits(bitsk(x)));
+    return kbits(logkbits(bitsk(x)));
 }
 
 /* Disassembly of compiled code:

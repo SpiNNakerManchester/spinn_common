@@ -11,7 +11,6 @@
 #include <stdint.h>
 #include <stdfix.h>
 
-
 /***************************************************
 
 	Uniform RNGs
@@ -32,7 +31,6 @@
 	..across multiple random number streams.
 	
 	These generators can all be used with the non-uniform RNGs below
-	
 
 ****************************************************/
 //////////////////////////////
@@ -46,15 +44,13 @@
    209.9 nanosecs (i.e. 42 ticks) per call
    
    Only available in simple form.  Very good for single stream of PRNs.
-   
 */ 
 
 //! \brief Marsaglia 32-bit KISS generator using no multiplication
 //! instructions.
 //! \return A pseudo-random unsigned 32-bit integer.
 
-uint32_t mars_kiss32 (void);
-
+uint32_t mars_kiss32(void);
 
 /* 
    Implementation of Marsaglia JKISS RNG uses 64-bit value and 2x
@@ -66,11 +62,9 @@ uint32_t mars_kiss32 (void);
    length.
 	
    Also available in custom seed form.
-	
 */
 
-uint32_t mars_kiss64_simp (void);
-
+uint32_t mars_kiss64_simp(void);
 
 /*
  *
@@ -80,42 +74,37 @@ uint32_t mars_kiss64_simp (void);
    faster
    
    294.9 nanosecs (i.e. 59 ticks) per call
-   
 */
 
 // The initialiser function that MUST BE CALLED ONCE before WELLRNG1024a()
 // is used global WELL1024a seed is randomised each time it is called
-
-void init_WELL1024a_simp (void);
+void init_WELL1024a_simp(void);
 
 // the generator itself
-uint32_t WELL1024a_simp (void);
+uint32_t WELL1024a_simp(void);
 
 //////////////////////////////
 // The custom-seed generators
 //////////////////////////////
 
 //! \brief Seed type for the Marsaglia KISS 64 RNG
-
-typedef uint32_t mars_kiss64_seed_t [4];
+typedef uint32_t mars_kiss64_seed_t[4];
 
 // MUST USE THIS before working with proposed seed
-void validate_mars_kiss64_seed (mars_kiss64_seed_t seed);
+void validate_mars_kiss64_seed(mars_kiss64_seed_t seed);
 
 // the Marsaglia KISS 64 RNG with custom seed
-uint32_t mars_kiss64_seed (mars_kiss64_seed_t seed);
+uint32_t mars_kiss64_seed(mars_kiss64_seed_t seed);
 
 //! \brief Seed type for the L'Ecuyer WELL 1024a RNG.
 //! The 33rd element is the static variable used in simple version.
-
-typedef uint32_t WELL1024a_seed_t [33];
+typedef uint32_t WELL1024a_seed_t[33];
 
 // MUST USE THIS before working with proposed seed
-void validate_WELL1024a_seed (WELL1024a_seed_t seed);
+void validate_WELL1024a_seed(WELL1024a_seed_t seed);
 
 //! \brief The WELL 1024a RNG with custom seed.
-
-uint32_t WELL1024a_seed (WELL1024a_seed_t seed);
+uint32_t WELL1024a_seed(WELL1024a_seed_t seed);
 
 /***************************************************
 
@@ -123,7 +112,6 @@ uint32_t WELL1024a_seed (WELL1024a_seed_t seed);
 	
 	Being added to all the time, and updated for better speed as 
 	fixed-point transcendentals and optimised multiplies become available
-
 
 ****************************************************/
 /*
@@ -135,36 +123,30 @@ uint32_t WELL1024a_seed (WELL1024a_seed_t seed);
   This will generate some argument type warnings when used with simple URNGs
   but avoids a lot of code duplication and allows use of any Uniform RNG with 
   any Non-Uniform variates which is valuable flexibility.
-	
 */
 
 typedef uint32_t (*uniform_rng)(uint32_t*);
 
-
 /*
  * Von Neuman's Exponential distribution generator
  */
-accum exponential_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg);
+accum exponential_dist_variate(uniform_rng uni_rng, uint32_t* seed_arg);
 
 // Returns standard Gaussian deviate 
 // translation of NR in C version of Box-Muller
-
-accum gaussian_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg);
+accum gaussian_dist_variate(uniform_rng uni_rng, uint32_t* seed_arg);
 
 // Returns Poisson variate using Knuth's method
 // O(n) for returned value so don't use for large lambda
-
 uint32_t poisson_dist_variate(
-		uniform_rng uni_rng,
-		uint32_t*   seed_arg,
-		accum       lambda);
+	uniform_rng uni_rng,
+	uint32_t*   seed_arg,
+	accum       lambda);
 
 // Use this version for Poisson with pre-calculated exp(-lambda) for speed gain
-
 uint32_t poisson_dist_variate_exp_minus_lambda(
-		uniform_rng         uni_rng,
-		uint32_t*           seed_arg,
-		unsigned long fract exp_minus_lambda);
-
+	uniform_rng         uni_rng,
+	uint32_t*           seed_arg,
+	unsigned long fract exp_minus_lambda);
 
 #endif 	/*__RANDOM_H__*/

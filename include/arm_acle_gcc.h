@@ -33,18 +33,18 @@
 #include "cmsis.h"
 
 #ifndef  __GNUC__
-static_assert (false,
-               "Attempt to compile arm_acle_gcc.h with a non-gcc complier");
+static_assert(false,
+	"Attempt to compile arm_acle_gcc.h with a non-gcc complier");
 #endif
 
 #ifdef __STRICT_ANSI__
-static_assert (false,
-               "Attempt to compile arm_acle_gcc.h with strict ANSI compliance");
+static_assert(false,
+	"Attempt to compile arm_acle_gcc.h with strict ANSI compliance");
 #endif
 
 #if !(defined (__arm__) || defined (__thumb__))
-static_assert (false,
-               "Attempt to compile arm_acle_gcc.h for non-arm architecture");
+static_assert(false,
+	"Attempt to compile arm_acle_gcc.h for non-arm architecture");
 #endif
 
 // Following are all pre-defined at this stage, either above, or by GCC
@@ -460,7 +460,7 @@ static_assert(false, "ARM profile not recognized");
 //! This intrinsic expands into an ARM nop instruction.
 static inline void __ARM_ACLE_nop(void)
 {
-	asm volatile ("nop" : : : "cc");
+    asm volatile("nop" : : : "cc");
 }
 
 //! This function implements the ARM wfi instruction.
@@ -468,9 +468,9 @@ static inline void __ARM_ACLE_nop(void)
 static inline void __wfi(void)
 {
 #if defined(__ARM_ARCH_5TE__)
-	asm volatile("mcr p15, 0, r0, c7, c0, 4" : : : "cc");
+    asm volatile("mcr p15, 0, r0, c7, c0, 4" : : : "cc");
 #else
-	__ARM_ACLE_nop();
+    __ARM_ACLE_nop();
 #endif
 }
 
@@ -491,7 +491,7 @@ static inline void __wfi(void)
 
 static inline void __wfe(void)
 {
-	__ARM_ACLE_nop ();
+    __ARM_ACLE_nop();
 }
 
 // Generates a WFE (wait for event) hint instruction, or nothing. The WFE
@@ -503,7 +503,7 @@ static inline void __wfe(void)
 
 static inline void __sev(void)
 {
-	__ARM_ACLE_nop();
+    __ARM_ACLE_nop();
 }
 
 // Generates a SEV (send a global event) hint instruction. This causes an event
@@ -514,7 +514,7 @@ static inline void __sev(void)
 
 static inline void __sevl(void)
 {
-	__ARM_ACLE_nop();
+    __ARM_ACLE_nop();
 }
 
 // Generates a “send a local event” hint instruction. This causes an event to
@@ -525,7 +525,7 @@ static inline void __sevl(void)
 
 static inline void __yield(void)
 {
-	__ARM_ACLE_nop();
+    __ARM_ACLE_nop();
 }
 
 // Generates a YIELD hint instruction. This enables multithreading software to
@@ -535,7 +535,7 @@ static inline void __yield(void)
 //! This function implements the ARM dbg instruction.
 
 static inline void __dbg(
-		/*constant*/ unsigned int n)
+	/*constant*/ unsigned int n)
 {
     if (n == n) {
         __ARM_ACLE_nop();
@@ -554,56 +554,45 @@ static inline void __dbg(
 // equivalent to the deprecated (and possibly unavailable) SWP instruction. 
 
 static inline uint32_t __swp_word(
-		uint32_t x,
-		volatile void *addr)
+	uint32_t x,
+	volatile void *addr)
 {
+    register uint32_t r = 0;
 #ifdef __ARM_FEATURE_LDREX
-    register uint32_t r;
-
     do {
     	r = *p;
     } while (!__sync_bool_compare_and_swap(addr, r, x));
-
-    return r;
 #else  /*!__ARM_FEATURE_LDREX*/
-    register uint32_t r = 0;
-
     asm volatile("swp %[r], %[x], [ %[addr] ]"
                  : [r] "+r" (r) : [x] "r" (x), [addr] "r" (addr) : );
-
-    return r;
 #endif /*__ARM_FEATURE_LDREX*/
+    return r;
 }
 
 static inline uint32_t __swp_byte(
 		uint32_t x,
 		volatile void *addr)
 {
-#ifdef __ARM_FEATURE_LDREX
     register uint32_t r;
-
+#ifdef __ARM_FEATURE_LDREX
     do {
-    	r = *p;
+	r = *p;
     } while (!__sync_bool_compare_and_swap(addr, r, x));
-
-    return r;
 #else  /*!__ARM_FEATURE_LDREX*/
-    register uint32_t r = 0;
-
-    asm volatile("swpb %[r], %[x], [ %[addr] ]"
-                 : [r] "+r" (r) : [x] "r" (x), [addr] "r" (addr) : );
-
-    return r;
+    asm volatile(
+	    "swp %[r], %[x], [ %[addr] ]"
+	    : [r] "+r" (r) : [x] "r" (x), [addr] "r" (addr) : );
 #endif /*__ARM_FEATURE_LDREX*/
+    return r;
 }
 
 //! A type-generic macro for the ARM swp instruction (or its replacement)
 
-#define __swp(x,addr)                                                  \
-    (( __builtin_types_compatible_p(typeof (*addr), uint32_t))?        \
-     __swp_word(x, (void*)addr):                                       \
-     ((__builtin_types_compatible_p(typeof (*addr), uint8_t ))?        \
-      __swp_byte(x, (void*)addr): 0))
+#define __swp(x,addr) \
+	((__builtin_types_compatible_p(typeof(*addr), uint32_t)) ?	\
+		__swp_word(x, (void *) addr) :				\
+	((__builtin_types_compatible_p(typeof(*addr), uint8_t)) ?	\
+		__swp_byte(x, (void *) addr) : 0))
 
 // unconditionally stores a new value at the given address, and returns the
 // old value. 
@@ -650,7 +639,7 @@ static inline uint32_t __swp_byte(
 
 #ifndef  __nop
 //! This intrinsic expands into an ARM nop instruction.
-#define  __nop __ARM_ACLE_nop
+#define  __nop	__ARM_ACLE_nop
 #endif  /*__nop*/
 
 // generates an unspecified no-op instruction. Note that not all architectures
@@ -704,7 +693,7 @@ static inline uint32_t __swp_byte(
 
 static inline int  __saturation_occurred(void)
 {
-	return (__get_CONTROL() & (1 << __ARM_Q_FLAG)) != 0;
+    return (__get_CONTROL() & (1 << __ARM_Q_FLAG)) != 0;
 }
 
 // Sets or resets the Q flag according to the LSB of the value.
@@ -716,7 +705,8 @@ static inline int  __saturation_occurred(void)
 //! \param[in] q If the lowest bit of q is zero then the Q flag is cleared, if
 //! instead the lowest bit is one, then the Q flag is set.
 
-static inline void __set_saturation_occurred(int q)
+static inline void __set_saturation_occurred(
+	int q)
 {
     register uint32_t r = __get_CONTROL() & ~((1 <<__ARM_Q_FLAG) * (q & 1));
 
@@ -744,7 +734,6 @@ static inline int __reset_and_saturation_occurred(void)
 
     return __saturation_occurred();
 }
-
 #endif //__ARM_FEATURE_QBIT
 
 // 9.1.2 The GE flags
@@ -798,117 +787,59 @@ static inline int __reset_and_saturation_occurred(void)
 #define __ror(x,y) \
 	((__builtin_constant_p(y)) ? __ror_c(x,(y&0x1F)) : __ror_v(x,y))
 
+//! This helper function rotates the argument x right by y bits.
+//! \param[in] x The value to be rotated.
+//! \param[in] y The compile-time constant size of the rotation.
+//! \pre y must be a value between 0 and 31 (decimal)
+//! \return The rotated value of x.
+
+static inline uint32_t __ror_c(
+	uint32_t x,
+	uint32_t y)
+{
+    register uint32_t r;
+
+    switch (y) {
+    case 0x00: r = x; break;
 #ifdef __thumb__
-
-//! This helper function rotates the argument x right by y bits.
-//! \param[in] x The value to be rotated.
-//! \param[in] y The compile-time constant size of the rotation.
-//! \pre y must be a value between 0 and 31 (decimal)
-//! \return The rotated value of x.
-
-static inline uint32_t __ror_c(
-		uint32_t x,
-		uint32_t y)
-{
-    register uint32_t r;
-
-    switch (y) {
-    case 0x00:
-        r = x;
-        break;
-    case 0x01:
-        asm volatile ("rors %[r], %[x], #0x01" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x02:
-        asm volatile ("rors %[r], %[x], #0x02" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x03:
-        asm volatile ("rors %[r], %[x], #0x03" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x04:
-        asm volatile ("rors %[r], %[x], #0x04" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x05:
-        asm volatile ("rors %[r], %[x], #0x05" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x06:
-        asm volatile ("rors %[r], %[x], #0x06" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x07:
-        asm volatile ("rors %[r], %[x], #0x07" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x08:
-        asm volatile ("rors %[r], %[x], #0x08" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x09:
-        asm volatile ("rors %[r], %[x], #0x09" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x0A:
-        asm volatile ("rors %[r], %[x], #0x0A" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x0B:
-        asm volatile ("rors %[r], %[x], #0x0B" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x0C:
-        asm volatile ("rors %[r], %[x], #0x0C" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x0D:
-        asm volatile ("rors %[r], %[x], #0x0D" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x0E:
-        asm volatile ("rors %[r], %[x], #0x0E" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x0F:
-        asm volatile ("rors %[r], %[x], #0x0F" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x10:
-        asm volatile ("rors %[r], %[x], #0x10" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x11:
-        asm volatile ("rors %[r], %[x], #0x11" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x12:
-        asm volatile ("rors %[r], %[x], #0x12" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x13:
-        asm volatile ("rors %[r], %[x], #0x13" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x14:
-        asm volatile ("rors %[r], %[x], #0x14" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x15:
-        asm volatile ("rors %[r], %[x], #0x15" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x16:
-        asm volatile ("rors %[r], %[x], #0x16" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x17:
-        asm volatile ("rors %[r], %[x], #0x17" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x18:
-        asm volatile ("rors %[r], %[x], #0x18" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x19:
-        asm volatile ("rors %[r], %[x], #0x19" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x1A:
-        asm volatile ("rors %[r], %[x], #0x1A" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x1B:
-        asm volatile ("rors %[r], %[x], #0x1B" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x1C:
-        asm volatile ("rors %[r], %[x], #0x1C" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x1D:
-        asm volatile ("rors %[r], %[x], #0x1D" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x1E:
-        asm volatile ("rors %[r], %[x], #0x1E" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
-    case 0x1F:
-        asm volatile ("rors %[r], %[x], #0x1F" : [r] "=r" (r) : [x] "r" (x) :);
-        break;
+#define ROR(n) \
+        asm volatile("rors %[r], %[x], " n : [r] "=r" (r) : [x] "r" (x) :)
+#else // !__thumb__
+#define ROR(n) \
+        asm volatile("ror %[r], %[x], " n : [r] "=r" (r) : [x] "r" (x) :)
+#endif // __thumb__
+    case 0x01: ROR("#0x01"); break;
+    case 0x02: ROR("#0x02"); break;
+    case 0x03: ROR("#0x03"); break;
+    case 0x04: ROR("#0x04"); break;
+    case 0x05: ROR("#0x05"); break;
+    case 0x06: ROR("#0x06"); break;
+    case 0x07: ROR("#0x07"); break;
+    case 0x08: ROR("#0x08"); break;
+    case 0x09: ROR("#0x09"); break;
+    case 0x0A: ROR("#0x0A"); break;
+    case 0x0B: ROR("#0x0B"); break;
+    case 0x0C: ROR("#0x0C"); break;
+    case 0x0D: ROR("#0x0D"); break;
+    case 0x0E: ROR("#0x0E"); break;
+    case 0x0F: ROR("#0x0F"); break;
+    case 0x10: ROR("#0x10"); break;
+    case 0x11: ROR("#0x11"); break;
+    case 0x12: ROR("#0x12"); break;
+    case 0x13: ROR("#0x13"); break;
+    case 0x14: ROR("#0x14"); break;
+    case 0x15: ROR("#0x15"); break;
+    case 0x16: ROR("#0x16"); break;
+    case 0x17: ROR("#0x17"); break;
+    case 0x18: ROR("#0x18"); break;
+    case 0x19: ROR("#0x19"); break;
+    case 0x1A: ROR("#0x1A"); break;
+    case 0x1B: ROR("#0x1B"); break;
+    case 0x1C: ROR("#0x1C"); break;
+    case 0x1D: ROR("#0x1D"); break;
+    case 0x1E: ROR("#0x1E"); break;
+    case 0x1F: ROR("#0x1F"); break;
+#undef ROR
     default:
         r = x;
         break;
@@ -923,153 +854,21 @@ static inline uint32_t __ror_c(
 //! \return The rotated value of x.
 
 static inline uint32_t __ror_v(
-		uint32_t x,
-		uint32_t y)
+	uint32_t x,
+	uint32_t y)
 {
     register uint32_t r;
 
+#ifdef __thumb__
     asm volatile("rors %[r], %[x], %[y]"
-                 : [r] "=r" (r) : [x] "r" (x), [y] "r" (y & 0xFF) : );
-
-    return r;
-}
-
+                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y & 0xFF) : );
 #else /*!__thumb__*/
-
-//! This helper function rotates the argument x right by y bits.
-//! \param[in] x The value to be rotated.
-//! \param[in] y The compile-time constant size of the rotation.
-//! \pre y must be a value between 0 and 31 (decimal)
-//! \return The rotated value of x.
-
-static inline uint32_t __ror_c(
-		uint32_t x,
-		uint32_t y)
-{
-    register uint32_t r;
-
-    switch (y) {
-    case 0x00:
-        r = x;
-        break;
-    case 0x01:
-        asm volatile ("ror %[r], %[x], #0x01" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x02:
-        asm volatile ("ror %[r], %[x], #0x02" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x03:
-        asm volatile ("ror %[r], %[x], #0x03" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x04:
-        asm volatile ("ror %[r], %[x], #0x04" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x05:
-        asm volatile ("ror %[r], %[x], #0x05" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x06:
-        asm volatile ("ror %[r], %[x], #0x06" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x07:
-        asm volatile ("ror %[r], %[x], #0x07" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x08:
-        asm volatile ("ror %[r], %[x], #0x08" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x09:
-        asm volatile ("ror %[r], %[x], #0x09" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x0A:
-        asm volatile ("ror %[r], %[x], #0x0A" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x0B:
-        asm volatile ("ror %[r], %[x], #0x0B" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x0C:
-        asm volatile ("ror %[r], %[x], #0x0C" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x0D:
-        asm volatile ("ror %[r], %[x], #0x0D" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x0E:
-        asm volatile ("ror %[r], %[x], #0x0E" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x0F:
-        asm volatile ("ror %[r], %[x], #0x0F" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x10:
-        asm volatile ("ror %[r], %[x], #0x10" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x11:
-        asm volatile ("ror %[r], %[x], #0x11" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x12:
-        asm volatile ("ror %[r], %[x], #0x12" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x13:
-        asm volatile ("ror %[r], %[x], #0x13" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x14:
-        asm volatile ("ror %[r], %[x], #0x14" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x15:
-        asm volatile ("ror %[r], %[x], #0x15" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x16:
-        asm volatile ("ror %[r], %[x], #0x16" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x17:
-        asm volatile ("ror %[r], %[x], #0x17" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x18:
-        asm volatile ("ror %[r], %[x], #0x18" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x19:
-        asm volatile ("ror %[r], %[x], #0x19" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x1A:
-        asm volatile ("ror %[r], %[x], #0x1A" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x1B:
-        asm volatile ("ror %[r], %[x], #0x1B" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x1C:
-        asm volatile ("ror %[r], %[x], #0x1C" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x1D:
-        asm volatile ("ror %[r], %[x], #0x1D" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x1E:
-        asm volatile ("ror %[r], %[x], #0x1E" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    case 0x1F:
-        asm volatile ("ror %[r], %[x], #0x1F" : [r] "=r" (r) : [x] "r" (x) : );
-        break;
-    default:
-        r = x;
-        break;
-    }
-
-    return r;
-}
-
-//! This helper function rotates the argument x right by y bits.
-//! \param[in] x The value to be rotated.
-//! \param[in] y The non-compile-time constant size of the rotation.
-//! \return The rotated value of x.
-
-static inline uint32_t __ror_v(
-		uint32_t x,
-		uint32_t y)
-{
-    register uint32_t r;
-
     asm volatile("ror %[r], %[x], %[y]"
-                 : [r] "=r" (r) : [x] "r" (x), [y] "r" (y & 0xFF) : );
+                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y & 0xFF) : );
+#endif /*__thumb__*/
 
     return r;
 }
-#endif /*__thumb__*/
 
 // rorll (x, n)
 // = [x_{n-1}, x_{n-2} ... x_0, x_63, x_62 ... x_{n+1}, x_n]
@@ -1084,8 +883,8 @@ static inline uint32_t __ror_v(
 //! \return The rotated value of x.
 
 static inline uint64_t __rorll(
-		uint64_t x,
-		uint32_t y)
+	uint64_t x,
+	uint32_t y)
 {
     register union {
     	struct { uint32_t lo; uint32_t hi; } s;
@@ -1097,16 +896,16 @@ static inline uint64_t __rorll(
 
     z.r = x;
 
-    (z.s).lo = __ror((z.s).lo, y);
-    t        = __ror((z.s).hi, y);
+    z.s.lo = __ror(z.s.lo, y);
+    t      = __ror(z.s.hi, y);
 
-    (z.s).hi = ((z.s).lo & hi_mask) | (t & lo_mask);
-    (z.s).lo = (t & hi_mask) | ((z.s).lo & lo_mask);
+    z.s.hi = (z.s.lo & hi_mask) | (t & lo_mask);
+    z.s.lo = (t & hi_mask) | (z.s.lo & lo_mask);
 
     if ((y & 0x20) != 0) {
-        t        = (z.s).lo;
-        (z.s).lo = (z.s).hi;
-        (z.s).hi = t;
+        t      = z.s.lo;
+        z.s.lo = z.s.hi;
+        z.s.hi = t;
     }
 
     return z.r;
@@ -1117,9 +916,9 @@ static inline uint64_t __rorll(
 //! \param[in] y The size of the rotation.
 //! \return The rotated value of x.
 
-#define __rorl(x,y)                                             \
-    ((__builtin_types_compatible_p(unsigned long, uint32_t))?   \
-     __ror((x),(y)): __rorll((x),(y)))
+#define __rorl(x,y) \
+    ((__builtin_types_compatible_p(unsigned long, uint32_t)) ?	\
+	    __ror((x), (y)) : __rorll((x), (y)))
 
 // returns the number of leading zero bits in x. When x is zero it returns the
 // argument width, i.e. 32 or 64. These intrinsics are available on all
@@ -1133,9 +932,9 @@ static inline uint64_t __rorll(
 //! \return The number of leading zeros in x.
 
 static inline unsigned int __clz(
-		uint32_t x)
+	uint32_t x)
 {
-	return (unsigned int) __builtin_clz(x);
+    return (unsigned int) __builtin_clz(x);
 }
 
 //! This function counts the number of leading zeros in a long word.
@@ -1143,9 +942,9 @@ static inline unsigned int __clz(
 //! \return The number of leading zeros in x.
 
 static inline unsigned int __clzl(
-		unsigned long x)
+	unsigned long x)
 {
-	return (unsigned int) __builtin_clzl(x);
+    return (unsigned int) __builtin_clzl(x);
 }
 
 //! This function counts the number of leading zeros in a long long word.
@@ -1153,9 +952,9 @@ static inline unsigned int __clzl(
 //! \return The number of leading zeros in x.
 
 static inline unsigned int __clzll(
-		uint64_t x)
+	uint64_t x)
 {
-	return (unsigned int) __builtin_clzll(x);
+    return (unsigned int) __builtin_clzll(x);
 }
 
 //! This function counts the number of leading sign-bits in a word.
@@ -1163,9 +962,9 @@ static inline unsigned int __clzll(
 //! \return The number of leading sign-bits in x.
 
 static inline unsigned int __cls(
-		uint32_t x)
+	uint32_t x)
 {
-	return (unsigned int) __builtin_clrsb(x);
+    return (unsigned int) __builtin_clrsb(x);
 }
 
 //! This function counts the number of leading sign-bits in a long word.
@@ -1173,9 +972,9 @@ static inline unsigned int __cls(
 //! \return The number of leading sign-bits in x.
 
 static inline unsigned int __clsl(
-		unsigned long x)
+	unsigned long x)
 {
-	return (unsigned int) __builtin_clrsbl(x);
+    return (unsigned int) __builtin_clrsbl(x);
 }
 
 //! This function counts the number of leading zeros in a long long word.
@@ -1183,9 +982,9 @@ static inline unsigned int __clsl(
 //! \return The number of leading sign-bits in x.
 
 static inline unsigned int __clsll(
-		uint64_t x)
+	uint64_t x)
 {
-	return (unsigned int) __builtin_clrsbll(x);
+    return (unsigned int) __builtin_clrsbll(x);
 }
 
 // returns the number of leading sign bits in x. When x is zero it returns the
@@ -1205,12 +1004,11 @@ static inline unsigned int __clsll(
 //! \return The byte-order reversed result.
 
 static inline uint32_t __rev(
-		uint32_t x)
+	uint32_t x)
 {
     register union { uint32_t u; int32_t s; } t;
 
     t.s = __builtin_bswap32(x);
-
     return t.u;
 }
 
@@ -1219,12 +1017,11 @@ static inline uint32_t __rev(
 //! \return The byte-order reversed result.
 
 static inline uint64_t __revll(
-		uint64_t x)
+	uint64_t x)
 {
     register union { uint64_t u; int64_t s; } t;
 
     t.s = __builtin_bswap64(x);
-
     return t.u;
 }
 
@@ -1233,9 +1030,9 @@ static inline uint64_t __revll(
 //! \param[in] x The item to be byte-order reversed.
 //! \return The byte-order reversed result.
 
-#define __revl(x)                                              \
-    ((__builtin_types_compatible_p(unsigned long, uint32_t))?  \
-     __rev((x)): __revll((x)))
+#define __revl(x) \
+    ((__builtin_types_compatible_p(unsigned long, uint32_t)) ?	\
+	    __rev(x) : __revll(x))
 
 // reverses the byte order within each halfword of a word. For example,
 // 0x12345678 becomes 0x34127856. These intrinsics are available on all targets
@@ -1247,11 +1044,11 @@ static inline uint64_t __revll(
 //! \return The reversed result.
 
 static inline uint32_t __rev16(
-		uint32_t x)
+	uint32_t x)
 {
     register union {
-    	struct { uint8_t b0; uint8_t b1; uint8_t b2; uint8_t b3; } bs;
-    	uint32_t w;
+	struct { uint8_t b0; uint8_t b1; uint8_t b2; uint8_t b3; } bs;
+	uint32_t w;
     } r, t;
 
     t.w = x;
@@ -1270,18 +1067,16 @@ static inline uint32_t __rev16(
 //! \return The reversed result.
 
 static inline uint64_t __rev16ll(
-		uint64_t x)
+	uint64_t x)
 {
     register union {
-    	struct { uint32_t lo; uint32_t hi; } w;
-    	uint64_t dw;
+	struct { uint32_t lo; uint32_t hi; } w;
+	uint64_t dw;
     } r, t;
 
     t.dw = x;
-
     r.w.lo = __rev16(t.w.lo);
     r.w.hi = __rev16(t.w.hi);
-
     return r.dw;
 }
 
@@ -1290,9 +1085,9 @@ static inline uint64_t __rev16ll(
 //! \param[in] x The item to be reversed.
 //! \return The reversed result.
 
-#define __rev16l(x)                                             \
-    ((__builtin_types_compatible_p(unsigned long, uint32_t))?	\
-     __rev16(x): __rev16ll(x))
+#define __rev16l(x) \
+    ((__builtin_types_compatible_p(unsigned long, uint32_t)) ?	\
+	    __rev16(x) : __rev16ll(x))
 
 // reverses the byte order in a 16-bit value and returns the (sign-extended)
 // result. For example, 0x00000080 becomes 0xFFFF8000. This intrinsic is
@@ -1304,18 +1099,16 @@ static inline uint64_t __rev16ll(
 //! \return The reversed result.
 
 static inline int16_t __revsh(
-		int16_t x)
+	int16_t x)
 {
     register union {
-    	struct { uint8_t lo; uint8_t hi; } bs;
-    	int16_t hw;
+	struct { uint8_t lo; uint8_t hi; } bs;
+	int16_t hw;
     } r, t;
 
     t.hw = x;
-
     r.bs.lo = t.bs.hi;
     r.bs.hi = t.bs.lo;
-
     return r.hw;
 }
 
@@ -1324,22 +1117,21 @@ static inline int16_t __revsh(
 
 #if (__ARM_ARCH >= 6 && __ARM_ARCH_ISA_THUMB >= 2) || __ARM_ARCH >= 7 
  /* RBIT is available */
-static inline  uint32_t __rbit(
-		uint32_t x)
+static inline uint32_t __rbit(
+	uint32_t x)
 {
     register uint32_t r;
 
     asm volatile("rbit %[r], %[x]" : [r] "=r" (r) : [x] "r" (x) : );
-
     return r;
 }
 
-static inline  uint64_t __rbitll(
-		uint64_t x)
+static inline uint64_t __rbitll(
+	uint64_t x)
 {
     register union {
-    	struct { uint32_t lo; uint32_t hi; } w;
-    	uint64_t dw;
+	struct { uint32_t lo; uint32_t hi; } w;
+	uint64_t dw;
     } r;
 
     r.dw = x;
@@ -1350,10 +1142,9 @@ static inline  uint64_t __rbitll(
     return r.dw;
 }
 
-#define __rbitl(x)                                              \
-    ((__builtin_types_compatible_p(unsigned long, uint32_t))?	\
-     __rbit(x): __rbitll(x))
-
+#define __rbitl(x) \
+    ((__builtin_types_compatible_p(unsigned long, uint32_t)) ?	\
+	    __rbit(x) : __rbitll(x))
 #endif /* RBIT is available */
 
 // 9.3 16-bit multiplications
@@ -1367,14 +1158,13 @@ static inline  uint64_t __rbitll(
 //! \return signed result.
 
 static inline int32_t __smulbb(
-		int32_t x,
-		int32_t y)
+	int32_t x,
+	int32_t y)
 {
     register int32_t r;
 
     asm volatile("smulbb %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1384,14 +1174,13 @@ static inline int32_t __smulbb(
 //! \return signed result.
 
 static inline int32_t __smulbt(
-		int32_t x,
-		int32_t y)
+	int32_t x,
+	int32_t y)
 {
     register int32_t r;
 
     asm volatile("smulbt %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1401,14 +1190,13 @@ static inline int32_t __smulbt(
 //! \return signed result.
 
 static inline int32_t __smultb(
-		int32_t x,
-		int32_t y)
+	int32_t x,
+	int32_t y)
 {
     register int32_t r;
 
     asm volatile("smultb %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1418,14 +1206,13 @@ static inline int32_t __smultb(
 //! \return signed result.
 
 static inline int32_t __smultt(
-		int32_t x,
-		int32_t y)
+	int32_t x,
+	int32_t y)
 {
     register int32_t r;
 
     asm volatile("smultt %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1437,14 +1224,13 @@ static inline int32_t __smultt(
 //! \return signed result.
 
 static inline int32_t __smulwb(
-		int32_t x,
-		int32_t y)
+	int32_t x,
+	int32_t y)
 {
     register int32_t r;
 
     asm volatile("smulwb %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1456,14 +1242,13 @@ static inline int32_t __smulwb(
 //! \return signed result.
 
 static inline int32_t __smulwt(
-		int32_t x,
-		int32_t y)
+	int32_t x,
+	int32_t y)
 {
     register int32_t r;
 
     asm volatile("smulwt %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 #endif /*__ARM_FEATURE_DSP*/
@@ -1475,8 +1260,8 @@ static inline int32_t __smulwt(
 #ifdef __ARM_FEATURE_SAT
 
 static inline uint32_t __ssat_c(
-		uint32_t x,
-		uint32_t n)
+	uint32_t x,
+	uint32_t n)
 {
     register uint32_t r;
 
@@ -1590,8 +1375,8 @@ static inline uint32_t __ssat_c(
 }
 
 static inline uint32_t __usat_c(
-		uint32_t x,
-		uint32_t n)
+	uint32_t x,
+	uint32_t n)
 {
     register uint32_t r;
 
@@ -1719,14 +1504,13 @@ static inline uint32_t __usat_c(
 //! \return x+y.
 
 static inline int32_t __qadd(
-		int32_t x,
-		int32_t y)
+	int32_t x,
+	int32_t y)
 {
     register int32_t r;
 
     asm volatile("qadd %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1736,14 +1520,13 @@ static inline int32_t __qadd(
 //! \return x-y.
 
 static inline int32_t __qsub(
-		int32_t x,
-		int32_t y)
+	int32_t x,
+	int32_t y)
 {
     register int32_t r;
 
     asm volatile("qsub %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1752,13 +1535,12 @@ static inline int32_t __qsub(
 //! \return 2*x.
 
 static inline int32_t __qdbl(
-		int32_t x)
+	int32_t x)
 {
     register int32_t r;
 
     asm volatile("qadd %[r], %[x], %[x]"
-		: [r] "=r" (r) : [x] "r" (x) : );
-
+	    : [r] "=r" (r) : [x] "r" (x) : );
     return r;
 }
 
@@ -1770,14 +1552,13 @@ static inline int32_t __qdbl(
 //! \return x+2*y.
 
 static inline int32_t __qdadd(
-		int32_t x,
-		int32_t y)
+	int32_t x,
+	int32_t y)
 {
     register int32_t r;
 
     asm volatile("qdadd %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1787,14 +1568,13 @@ static inline int32_t __qdadd(
 //! \return x-2*y.
 
 static inline int32_t __qdsub(
-		int32_t x,
-		int32_t y)
+	int32_t x,
+	int32_t y)
 {
     register int32_t r;
 
     asm volatile("qdsub %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 #endif /*__ARM_ACLE_EXTENSIONS*/
@@ -1817,15 +1597,14 @@ static inline int32_t __qdsub(
 //! \return x*y+acc.
 
 static inline int32_t __smlabb(
-		int32_t x,
-		int32_t y,
-		int32_t acc)
+	int32_t x,
+	int32_t y,
+	int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlabb %[r], %[x], %[y], %[a]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1840,15 +1619,14 @@ static inline int32_t __smlabb(
 //! \return x*y+acc.
 
 static inline int32_t __smlabt(
-		int32_t x,
-		int32_t y,
-		int32_t acc)
+	int32_t x,
+	int32_t y,
+	int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlabt %[r], %[x], %[y], %[a]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1863,15 +1641,14 @@ static inline int32_t __smlabt(
 //! \return x*y+acc.
 
 static inline int32_t __smlatb(
-		int32_t x,
-		int32_t y,
-		int32_t acc)
+	int32_t x,
+	int32_t y,
+	int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlatb %[r], %[x], %[y], %[a]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1886,15 +1663,14 @@ static inline int32_t __smlatb(
 //! \return x*y+acc.
 
 static inline int32_t __smlatt(
-		int32_t x,
-		int32_t y,
-		int32_t acc)
+	int32_t x,
+	int32_t y,
+	int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlatt %[r], %[x], %[y], %[a]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1911,15 +1687,14 @@ static inline int32_t __smlatt(
 //! \return x*y+acc.
 
 static inline int32_t __smlawb(
-		int32_t x,
-		int32_t y,
-		int32_t acc)
+	int32_t x,
+	int32_t y,
+	int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlawb %[r], %[x], %[y], %[a]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1935,15 +1710,14 @@ static inline int32_t __smlawb(
 //! \return x*y+acc.
 
 static inline int32_t __smlawt(
-		int32_t x,
-		int32_t y,
-		int32_t acc)
+	int32_t x,
+	int32_t y,
+	int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlawt %[r], %[x], %[y], %[a]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
-
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1961,22 +1735,19 @@ static inline int32_t __smlawt(
 //! \return x*y+acc.
 
 static inline int64_t __smlalbb(
-		int64_t acc,
-		int32_t x,
-		int32_t y)
+	int64_t acc,
+	int32_t x,
+	int32_t y)
 {
     register union {
-    	struct {uint32_t lo; uint32_t hi; } s_rep;
-    	int64_t i_rep;
+	struct { uint32_t lo; uint32_t hi; } s_rep;
+	int64_t i_rep;
     } r;
 
     r.i_rep = acc;
-
     asm volatile("smlalbb %[r_lo], %[r_hi], %[x], %[y]"
-                  : [r_lo] "+r" (r.s_rep.lo),
-		    [r_hi] "+r" (r.s_rep.hi)
-                  : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
+	    : [x] "r" (x), [y] "r" (y) : );
     return r.i_rep;
 }
 
@@ -1993,22 +1764,19 @@ static inline int64_t __smlalbb(
 //! \return x*y+acc.
 
 static inline int64_t __smlalbt(
-		int64_t acc,
-		int32_t x,
-		int32_t y)
+	int64_t acc,
+	int32_t x,
+	int32_t y)
 {
     register union {
-    	struct { uint32_t lo; uint32_t hi; } s_rep;
-    	int64_t i_rep;
+	struct { uint32_t lo; uint32_t hi; } s_rep;
+	int64_t i_rep;
     } r;
 
     r.i_rep = acc;
-
     asm volatile("smlalbt %[r_lo], %[r_hi], %[x], %[y]"
-                  : [r_lo] "+r" (r.s_rep.lo),
-		    [r_hi] "+r" (r.s_rep.hi)
-                  : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
+	    : [x] "r" (x), [y] "r" (y) : );
     return r.i_rep;
 }
 
@@ -2025,22 +1793,19 @@ static inline int64_t __smlalbt(
 //! \return x*y+acc.
 
 static inline int64_t __smlaltb(
-		int64_t acc,
-		int32_t x,
-		int32_t y)
+	int64_t acc,
+	int32_t x,
+	int32_t y)
 {
     register union {
-    	struct { uint32_t lo; uint32_t hi; } s_rep;
-    	int64_t i_rep;
+	struct { uint32_t lo; uint32_t hi; } s_rep;
+	int64_t i_rep;
     } r;
 
     r.i_rep = acc;
-
-    asm volatile ("smlaltb %[r_lo], %[r_hi], %[x], %[y]"
-                  : [r_lo] "+r" (r.s_rep.lo),
-		    [r_hi] "+r" (r.s_rep.hi)
-                  : [x] "r" (x), [y] "r" (y) : );
-
+    asm volatile("smlaltb %[r_lo], %[r_hi], %[x], %[y]"
+	    : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
+	    : [x] "r" (x), [y] "r" (y) : );
     return r.i_rep;
 }
 
@@ -2056,22 +1821,19 @@ static inline int64_t __smlaltb(
 //! \return x*y+acc.
 
 static inline int64_t __smlaltt(
-		int64_t acc,
-		int32_t x,
-		int32_t y)
+	int64_t acc,
+	int32_t x,
+	int32_t y)
 {
     register union {
-    	struct { uint32_t lo; uint32_t hi; } s_rep;
-    	int64_t i_rep;
+	struct { uint32_t lo; uint32_t hi; } s_rep;
+	int64_t i_rep;
     } r;
 
     r.i_rep = acc;
-
     asm volatile("smlaltt %[r_lo], %[r_hi], %[x], %[y]"
-                  : [r_lo] "+r" (r.s_rep.lo),
-		    [r_hi] "+r" (r.s_rep.hi)
-                  : [x] "r" (x), [y] "r" (y) : );
-
+	    : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
+	    : [x] "r" (x), [y] "r" (y) : );
     return r.i_rep;
 }
 
@@ -2097,8 +1859,8 @@ typedef uint32_t uint8x4_t;
 // Available on 6, and 7em architectures
 
 static inline int16x2_t __ssat16_c(
-		int16x2_t x,
-		uint32_t n)
+	int16x2_t x,
+	uint32_t n)
 {
     register int16x2_t r;
 
@@ -2207,13 +1969,12 @@ static inline int16x2_t __ssat16_c(
     } else {
         r = x;
     }
-
     return r;
 }
 
 static inline int16x2_t __usat16_c(
-		int16x2_t x,
-		uint32_t n)
+	int16x2_t x,
+	uint32_t n)
 {
     register int16x2_t r;
 
@@ -2322,18 +2083,13 @@ static inline int16x2_t __usat16_c(
     } else {
         r = x;
     }
-
     return r;
 }
 
 #define __ssat16(x,n)  __ssat16_c(x,n)
 #define __usat16(x,n)  __usat16_c(x,n)
 
-
 // int16x2_t __ssat16(int16x2_t, /*constant*/ unsigned int)
-
-
-
 // int16x2_t __usat16(int16x2_t, /*constant */ unsigned int); 
 #endif /*__ARM_FEATURE_SIMD32*/
 

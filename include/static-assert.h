@@ -31,22 +31,16 @@
 #ifndef __STATIC_ASSERT_H__
 #define __STATIC_ASSERT_H__
 
-
 #ifdef __GNUC__
-
 //! \brief This macro gives access to GCC's built-in static assertion.
-
-#define static_assert(predicate, msg) _Static_assert (predicate, "msg")
-#else
-
+#define static_assert(predicate, msg)	_Static_assert(predicate, "msg")
+#else // !__GNUC__
 #define COMPILE_TIME_ASSERT(predicate, file)                            \
-    _impl_CASSERT_LINE(predicate,__LINE__,file)
-
-#define _impl_PASTE(a,b) a##b
+	_impl_CASSERT_LINE(predicate, __LINE__, file)
+#define _impl_PASTE(a,b)	a##b
 #define _impl_CASSERT_LINE(predicate, line, file)                       \
-  typedef char _impl_PASTE(assertion_failed_##file##_,line)[2*!!(predicate)-1];
-
-#define static_assert(predicate, msg) COMPILE_TIME_ASSERT (predicate, msg)
-#endif
+	typedef char _impl_PASTE(assertion_failed_##file##_,line)[2*!!(predicate)-1];
+#define static_assert(predicate, msg)	COMPILE_TIME_ASSERT(predicate, msg)
+#endif // __GNUC__
 
 #endif  /*__STATIC_ASSERT_H__*/

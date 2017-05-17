@@ -9,7 +9,6 @@
 #include "stdfix-full-iso.h"
 #include "polynomial.h"
 
-
 static int32_t low_values[] = {
       229376,  // 7.0
       136628,  // 4.1695693238150016769941586303372689400327
@@ -46,18 +45,16 @@ static int32_t low_values[] = {
       108042   // 3.2971933424171863645116941846338065473089
 };
 
-
 static int offset[6] = {
-	7200, 6272, 4608, 2048, 0, 0
+    7200, 6272, 4608, 2048, 0, 0
 };
 static int multiplier[6] = {
-	32,   16,   8,    6,    6, 0
+    32, 16, 8, 6, 6, 0
 };
 
 static int leading_terms[11] = {
-	98304, 98304, 65536, 65536, 65536, 16, 14, 13, 11, 10, 0
+    98304, 98304, 65536, 65536, 65536, 16, 14, 13, 11, 10, 0
 };
-
 
 /*static int new_poly [5]
   = {*/
@@ -126,8 +123,8 @@ static int polynomials[11][5] = {
 //! \return ???
 
 int lo_approx(
-		unsigned int approx,
-		int x)
+	unsigned int approx,
+	int x)
 {
     int r;
 
@@ -137,10 +134,8 @@ int lo_approx(
     r = __horner_int_b(polynomials[approx], x, 4);
     r = __stdfix_round_s32(r, 15);
     r = leading_terms[approx] + (r >> 16);
-
     return r;
 }
-
 
 //! \brief Access to the central approximation functions
 //! \param[in] approx The number of the approximation.
@@ -148,8 +143,8 @@ int lo_approx(
 //! \return ???
 
 int mid_approx(
-		unsigned int approx,
-		int x)
+	unsigned int approx,
+	int x)
 {
     int r;
 
@@ -158,21 +153,20 @@ int mid_approx(
 
     r = __horner_int_b(polynomials[approx+5], x, 4);
     r += x << 14; // DRL Mod for overflow prevention
-
     return r;
 }
 
 #ifndef abs
-#define abs(x)      ((x) < 0 ? -(x) : (x))
+#define abs(x)		(((x) < 0) ? -(x) : (x))
 #endif
 
 #ifndef negative
-#define negative(x) ((x) < 0)
+#define negative(x)	((x) < 0)
 #endif
 
 int tail_approx(
-		unsigned int approx,
-		int p)
+	unsigned int approx,
+	int p)
 {
     int r;
 
@@ -186,20 +180,19 @@ int tail_approx(
 }
 
 int central_approx(
-		unsigned int approx,
-		int p)
+	unsigned int approx,
+	int p)
 {
     int r, z;
 
     assert(0 <= p && p <= INT16_MAX);
 
     z = p;
-    z = __smulbb(z, z) >> 17;          // DRL HACK rounding???
+    z = __smulbb(z, z) >> 17;		// DRL HACK rounding???
 
-
-    z -= offset[5 - approx];
-    z *= multiplier[5 - approx];
-    z = z << 1;                        // DRL HACK!!
+    z -= offset[5-approx];
+    z *= multiplier[5-approx];
+    z = z << 1;				//DRL HACK!!
 
     assert(0 <= z);
 
@@ -209,9 +202,7 @@ int central_approx(
     int tmp = leading_terms[10 - approx];
 
     r += tmp << 13;
-
-    r = (int) __smulwb(r, p);          // DRL HACK rounding???
-
+    r = (int) __smulwb(r, p);		// DRL HACK rounding???
     return r;
 }
 
@@ -222,7 +213,7 @@ int central_approx(
 //! This is in s16.15 (i.e. standard accum) format.
 
 int  __attribute__ ((noinline)) __norminv_rbits(
-		int x)
+	int x)
 {
     int neg = negative(x);
     int r, shift;
@@ -252,12 +243,11 @@ int  __attribute__ ((noinline)) __norminv_rbits(
     if (neg) {
         r = -r;
     }
-
     return r;
 }
 
 int __attribute__ ((noinline)) __norminv_ulrbits(
-		unsigned int x)
+	unsigned int x)
 {
     log_info("This function is not yet implemented");
     assert(false);
