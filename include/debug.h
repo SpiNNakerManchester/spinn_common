@@ -137,8 +137,11 @@
 //! \param[in] level The level of the messsage
 //! \param[in] message The user-defined part of the debug message.
 #define __log(level, message, ...) \
-    do { if (level <= LOG_LEVEL) __log_message(message, ##__VA_ARGS__); } \
-        while (0)
+    do {							\
+	if (level <= LOG_LEVEL) {				\
+	    __log_message(message, ##__VA_ARGS__);		\
+	} 							\
+    } while (0)
 
 //! \brief This macro logs errors.
 //! \param[in] message The user-defined part of the error message.
@@ -166,10 +169,11 @@
 //! \brief This macro prints out a check message to the log file.
 //! \param[in] condition The condition being tested.
 //! \param[in] message The message to be printed if the condition is false
-#define check(condition, message, ...)                                 \
-    do {                                                               \
-        if (!(condition))                                              \
-            __log(LOG_DEBUG, "[CHECK]    ", message, ##__VA_ARGS__);   \
+#define check(condition, message, ...) \
+    do {								\
+        if (!(condition)) {						\
+            __log(LOG_DEBUG, "[CHECK]    ", message, ##__VA_ARGS__);	\
+        } 								\
     } while (0)
 
 //! \brief This macro prints out a sentinel message to the log file and aborts

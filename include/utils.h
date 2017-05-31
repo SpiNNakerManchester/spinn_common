@@ -37,14 +37,20 @@
 //! \param[in] x The 64-bit number
 //! \return The most significant 32-bits of x.
 
-static inline uint32_t __hi (uint64_t x) { return ((uint32_t)(x >> 32)); }
+static inline uint32_t __hi(uint64_t x)
+{
+    return (uint32_t) (x >> 32);
+}
 
 //! \brief This function returns the least significant 32-bit word of a 64-bit
 //! unsigned integer.
 //! \param[in] x The 64-bit number
 //! \return The least significant 32-bits of x.
 
-static inline uint32_t __lo (uint64_t x) { return (__hi(x << 32));       }
+static inline uint32_t __lo(uint64_t x)
+{
+    return __hi(x << 32);
+}
 
 //! \brief The function treats the 64-bit number as if it were a 32-bit integer
 //! and a 32-bit fraction, rounding the fractional part.
@@ -53,12 +59,12 @@ static inline uint32_t __lo (uint64_t x) { return (__hi(x << 32));       }
 
 static inline uint64_t round64 (uint64_t x)
 {
-    uint64_t r = (uint64_t)(__hi (x));
+    uint64_t r = (uint64_t) __hi(x);
 
-    if (__lo (x) >= INT32_MAX)
+    if (__lo(x) >= INT32_MAX) {
 	r++;
-
-    return (r);
+    }
+    return r;
 }
 
 //! \brief The function scales the 64-bit number \p x, treating \p y as if it
@@ -69,15 +75,15 @@ static inline uint64_t round64 (uint64_t x)
 //! \return The rounded result.
 
 
-static inline uint64_t scale64 (uint64_t x, uint32_t y)
+static inline uint64_t scale64(uint64_t x, uint32_t y)
 {
     uint64_t r;
 
-    r = round64 ((uint64_t)(__lo (x)) * (uint64_t)(y));
+    r = round64((uint64_t) __lo(x) * (uint64_t) y);
 
-    r += (uint64_t)(__hi (x)) * (uint64_t)(y);
+    r += (uint64_t) __hi(x) * (uint64_t) y;
 
-    return (r);
+    return r;
 }
 
 //! \brief The function scales the 32-bit number \p x, treating \p y as if it
@@ -87,7 +93,9 @@ static inline uint64_t scale64 (uint64_t x, uint32_t y)
 //! unsigned long fract.
 //! \return The rounded result.
 
-static inline uint32_t scale32 (uint32_t x, uint32_t y)
-{ return ((uint32_t)(round64 ((uint64_t)(x) * (uint64_t)(y)))); }
+static inline uint32_t scale32(uint32_t x, uint32_t y)
+{
+    return (uint32_t) round64((uint64_t) x * (uint64_t) y);
+}
 
 #endif /*__UTILS_H__*/

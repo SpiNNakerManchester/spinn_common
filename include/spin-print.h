@@ -46,7 +46,7 @@ static inline void skip(void)
 #include <stdlib.h>
 #include <stdio.h>
 
-#define spin1_dma_transfer(tag, s, t, d, l) \
+#define spin1_dma_transfer(tag, s, t, d, ln) \
     do { log_info("spin1_dma_transfer (%u, %u)", (s), (t)); } while (0)
 
 #define spin1_trigger_user_event(a, b) \

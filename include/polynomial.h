@@ -1,6 +1,6 @@
 /*! \file
  *
- *  \brief Fast polynomial evaluation, using ARM DSP instructions. 
+ *  \brief Fast polynomial evaluation, using ARM DSP instructions.
  *
  *    Each function takes three arguments: the polynomial coefficients,
  *    the point at which we are evaluating the polynomial, and the order
