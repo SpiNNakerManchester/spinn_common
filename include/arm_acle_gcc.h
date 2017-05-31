@@ -8,7 +8,7 @@
  */
 
 
-// 6.2 Testing for ARM C Language Extensions 
+// 6.2 Testing for ARM C Language Extensions
 
 // __ARM_ACLE is defined to the version of this specification implemented, as
 // 100*major version + minor_version. An implementation implementing version
@@ -80,7 +80,7 @@ static_assert (false,
 #undef __ARM_NEON_FP                 // Advanced SIMD (NEON) floating-point
 #undef __ARM_SIZEOF_MINIMAL_ENUM     // size of minimal enumeration type: 1 or 4
 #undef __ARM_SIZEOF_WCHAR_T          // size of wchar_t: 2 or 4
-#undef __ARM_WMMX                    // Wireless MMX extension 
+#undef __ARM_WMMX                    // Wireless MMX extension
 
 
 //! \def __ARM_ALIGN_MAX_PWR
@@ -127,7 +127,7 @@ static_assert (false,
 //! \def __ARM_SIZEOF_WCHAR_T
 //! \brief size of wchar_t: 2 or 4
 //! \def __ARM_WMMX
-//! \brief Wireless MMX extension 
+//! \brief Wireless MMX extension
 
 // We can now define generic features
 
@@ -155,14 +155,14 @@ static_assert (false,
 // __ARM_BIG_ENDIAN is defined as 1 if data is stored by default in big-endian
 // format. If the macro is not set, data is stored in little-endian format.
 // (Aside: the “mixed-endian” format for double-precision numbers, used on some
-// very old ARM FPU implementations, is not supported by ACLE or the ARM ABI.) 
+// very old ARM FPU implementations, is not supported by ACLE or the ARM ABI.)
 
 #if     defined (__BYTE_ORDER__) && (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
 //! \brief Memory is big-endian
 #define __ARM_BIG_ENDIAN 1
 #endif
 
-// 6.4 ARM and Thumb instruction set architecture and features 
+// 6.4 ARM and Thumb instruction set architecture and features
 //
 // References to “the target architecture” refer to the target as configured
 // in the tools, for example by appropriate command-line options. This may be
@@ -178,16 +178,16 @@ static_assert (false,
 // to the hardware feature, an implementation might override the programmer's
 // preference for target instruction set, or generate an interworking call to a
 // helper function. This mechanism is outside the scope of ACLE. In cases where
-// the implementation is given a hard requirement to use only one state (e.g. 
+// the implementation is given a hard requirement to use only one state (e.g.
 // to support validation, or post-processing) then it should set feature test
 // macros only for the hardware features available in that state – as if
-// compiling for a core where the other instruction set was not present. 
+// compiling for a core where the other instruction set was not present.
 //
 // An implementation that allows a user to indicate which functions go into
 // which state (either as a hard requirement or a preference) is not required
-// to change the settings of architectural feature test macros. 
+// to change the settings of architectural feature test macros.
 
-// 6.4.1 ARM/Thumb instruction set architecture 
+// 6.4.1 ARM/Thumb instruction set architecture
 
 //! \brief __ARM_ARCH is defined as an integer value indicating the current ARM
 //! instruction set architecture (e.g. 7 for the ARM v7-A architecture
@@ -237,7 +237,7 @@ static_assert(false, "ARM architecture not recognized");
 //! \brief __ARM_ARCH_ISA_THUMB is defined to 1 if the core supports the
 //! original Thumb instruction set (including the v6-M architecture) and 2 if
 //! it supports the Thumb-2 instruction set as found in the v6T2 architecture
-//! and all v7 architectures. 
+//! and all v7 architectures.
 
 #if   defined(__ARM_ARCH_5T__)    || defined(__ARM_ARCH_5TE__) || \
       defined(__ARM_ARCH_5TEJ__)  || defined(__ARM_ARCH_6T__)
@@ -260,7 +260,7 @@ static_assert(false, "ARM architecture not recognized");
 #define  __ARM_32BIT_STATE 1
 #endif
 
-// 6.4.2 Architectural profile (A, R, M or pre-Cortex) 
+// 6.4.2 Architectural profile (A, R, M or pre-Cortex)
 
 #if (__ARM_ARCH >= 7)
 
@@ -271,7 +271,7 @@ static_assert(false, "ARM architecture not recognized");
 //! This macro corresponds to the Tag_CPU_arch_profile object build attribute.
 //! It may be useful to writers of system code. It is expected in most cases
 //! programmers will use more feature-specific tests. The macro is undefined for
-//! architectural targets which predate the use of architectural profiles. 
+//! architectural targets which predate the use of architectural profiles.
 
 #if   defined(__ARM_ARCH_7__)    || defined(__ARM_ARCH_7S__)
 #define  __ARM_ARCH_PROFILE "S"
@@ -290,7 +290,7 @@ static_assert(false, "ARM profile not recognized");
 #undef __ARM_ARCH_PROFILE
 #endif
 
-// 6.4.3 Unaligned access supported in hardware 
+// 6.4.3 Unaligned access supported in hardware
 
 // __ARM_FEATURE_UNALIGNED is defined if the target supports unaligned access
 // in hardware, at least to the extent of being able to load or store an
@@ -300,39 +300,39 @@ static_assert(false, "ARM profile not recognized");
 // depend on the settings of system register bits, so an implementation should
 // define this macro to match the user's expectations and intentions. For
 // example, a command-line option might be provided to disable the use of
-// unaligned access, in which case this macro would not be defined. 
+// unaligned access, in which case this macro would not be defined.
 
 // This feature has been set by gcc.
 
-// 6.4.4 LDREX/STREX 
+// 6.4.4 LDREX/STREX
 
 // __ARM_FEATURE_LDREX is defined if the load/store-exclusive instructions
 // (LDREX/STREX) are supported. Its value is a set of bits indicating available
-// widths of the access, as powers of 2. The following bits are used: 
+// widths of the access, as powers of 2. The following bits are used:
 //
-// Bit Value Access width Instruction 
-//  0   0x01 byte         LDREXB/STREXB 
-//  1   0x02 halfword     LDREXH/STREXH 
-//  2   0x04 word         LDREX/STREX 
-//  3   0x08 doubleword   LDREXD/STREXD 
+// Bit Value Access width Instruction
+//  0   0x01 byte         LDREXB/STREXB
+//  1   0x02 halfword     LDREXH/STREXH
+//  2   0x04 word         LDREX/STREX
+//  3   0x08 doubleword   LDREXD/STREXD
 //
-// Other bits are reserved. 
+// Other bits are reserved.
 
-//The following values of __ARM_FEATURE_LDREX may occur: 
+//The following values of __ARM_FEATURE_LDREX may occur:
 //
-// Macro value Access widths                    Example architecture 
-// (undefined) none                             ARM v5, ARM v6-M 
-//    0x04     word                             ARM v6 
-//    0x07     word, halfword, byte             ARM v7-M 
+// Macro value Access widths                    Example architecture
+// (undefined) none                             ARM v5, ARM v6-M
+//    0x04     word                             ARM v6
+//    0x07     word, halfword, byte             ARM v7-M
 //    0x0F     doubleword, word, halfword, byte ARM v6K, ARM v7-A/R
-// 
-// Other values are reserved. 
+//
+// Other values are reserved.
 //
 // The LDREX/STREX instructions are introduced in recent versions of the ARM
 // architecture and supersede the SWP instruction. Where both are available,
 // ARM strongly recommends programmers to use LDREX/STREX rather than SWP.
 // Note that platforms may choose to make SWP unavailable in user mode and
-// emulate it through a trap to a platform routine, or fault it. 
+// emulate it through a trap to a platform routine, or fault it.
 
 #ifndef __ARM_FEATURE_LDREX
 #if    defined(__ARM_ARCH_6K__)  || defined(__ARM_ARCH_6ZK__) ||   \
@@ -348,13 +348,13 @@ static_assert(false, "ARM profile not recognized");
 #endif
 #endif
 
-// 6.4.5 CLZ 
+// 6.4.5 CLZ
 //
 // __ARM_FEATURE_CLZ is defined to 1 if the CLZ (count leading zeroes)
 // instruction is supported in hardware. Note that ACLE provides the __clz()
 // family of intrinsics (see 9.2) even when __ARM_FEATURE_CLZ is not defined.
 
-// 6.4.6 Q (saturation) flag 
+// 6.4.6 Q (saturation) flag
 //
 // __ARM_FEATURE_QBIT is defined to 1 if the Q (saturation) global flag exists
 // and the intrinsics defined in 9.1.1 are available. This flag is used with
@@ -372,7 +372,7 @@ static_assert(false, "ARM profile not recognized");
 #endif
 #endif
 
-// 6.4.7 DSP instructions 
+// 6.4.7 DSP instructions
 //
 // __ARM_FEATURE_DSP is defined to 1 if the DSP (v5E) instructions are
 // supported and the intrinsics defined in 9.4 are available. These
@@ -388,7 +388,7 @@ static_assert(false, "ARM profile not recognized");
 #endif
 #endif
 
-// 6.4.8 Saturation instructions 
+// 6.4.8 Saturation instructions
 //
 // __ARM_FEATURE_SAT is defined to 1 if the SSAT and USAT instructions are
 // supported and the intrinsics defined in 9.4.1 are available. This feature
@@ -402,54 +402,54 @@ static_assert(false, "ARM profile not recognized");
 #endif
 #endif
 
-// 6.4.9 32-bit SIMD instructions 
+// 6.4.9 32-bit SIMD instructions
 //
 // __ARM_FEATURE_SIMD32 is defined to 1 if the 32-bit SIMD instructions are
 // supported and the intrinsics defined in 9.5 are available. This also implies
 // support for the GE global flags which indicate byte-by-byte comparison
 // results.
 
-// 6.4.10 Hardware integer divide 
+// 6.4.10 Hardware integer divide
 //
-// __ARM_FEATURE_IDIV is defined to 1 if the target has hardware support for 
+// __ARM_FEATURE_IDIV is defined to 1 if the target has hardware support for
 // 32-bit integer division in all available instruction sets. Signed and
 // unsigned versions are both assumed to be available. The intention is to
 // allow programmers to choose alternative algorithm implementations depending
-// on the likely speed of integer division. 
+// on the likely speed of integer division.
 //
 // Some older R-profile targets have hardware divide available in the Thumb
 // instruction set only. This can be tested for using the following test:
 //
-// #if __ARM_FEATURE_IDIV || (__ARM_ARCH_PROFILE == ’R’) 
+// #if __ARM_FEATURE_IDIV || (__ARM_ARCH_PROFILE == ’R’)
 
 
-// 6.9 Summary of predefined macros 
-// Macro name Meaning Example See section 
+// 6.9 Summary of predefined macros
+// Macro name Meaning Example See section
 
-//#define __ARM_ALIGN_MAX_PWR log of maximum alignment of static object 20 7.5.2 
-//#define __ARM_ALIGN_MAX_STACK_PWR log of maximum alignment of stack object 3 7.5.3 
-//#define __ARM_FEATURE_IDIV integer divide in hardware (new in 1.1) 1 6.4.10 
-//#define __ARM_FEATURE_QBIT Q (saturation) flag 1 6.4.6, 9.1.1 
-//#define __ARM_FEATURE_SAT width-specified saturation instructions 1 6.4.8, 9.4.1 
-//#define __ARM_FEATURE_SIMD32 32-bit SIMD instructions (ARM v6) 1 6.4.8, 9.5 
-//#define __ARM_FP hardware floating-point 0x0C 6.5.1 
-//#define __ARM_FP_FAST accuracy-losing optimizations 1 6.6 
-//#define __ARM_FP_FENV_ROUNDING rounding is configurable at runtiume 1 6.6 
-//#define __ARM_FP16_FORMAT_ALTERNATIVE 16-bit floating-point, alternative format 1 6.5.2 
-//#define __ARM_FP16_FORMAT_IEEE 16-bit floating-point, IEEE format 1 6.5.2 
-//#define __ARM_NEON Advanced SIMD (NEON) extension 1 6.5.4 
-//#define __ARM_NEON_FP Advanced SIMD (NEON) floating-point 0x04 6.5.5 
-//#define __ARM_PCS ARM procedure call standard 1 6.7 
-//#define __ARM_PCS_VFP ARM PCS hardware FP variant in use 1 6.7 
-//#define __ARM_SIZEOF_MINIMAL_ENUM size of minimal enumeration type: 1 or 4 1 4.1.1 
-//#define __ARM_SIZEOF_WCHAR_T size of wchar_t: 2 or 4 2 4.1.1 
-//#define __ARM_WMMX Wireless MMX extension 1 6.5.6 
+//#define __ARM_ALIGN_MAX_PWR log of maximum alignment of static object 20 7.5.2
+//#define __ARM_ALIGN_MAX_STACK_PWR log of maximum alignment of stack object 3 7.5.3
+//#define __ARM_FEATURE_IDIV integer divide in hardware (new in 1.1) 1 6.4.10
+//#define __ARM_FEATURE_QBIT Q (saturation) flag 1 6.4.6, 9.1.1
+//#define __ARM_FEATURE_SAT width-specified saturation instructions 1 6.4.8, 9.4.1
+//#define __ARM_FEATURE_SIMD32 32-bit SIMD instructions (ARM v6) 1 6.4.8, 9.5
+//#define __ARM_FP hardware floating-point 0x0C 6.5.1
+//#define __ARM_FP_FAST accuracy-losing optimizations 1 6.6
+//#define __ARM_FP_FENV_ROUNDING rounding is configurable at runtiume 1 6.6
+//#define __ARM_FP16_FORMAT_ALTERNATIVE 16-bit floating-point, alternative format 1 6.5.2
+//#define __ARM_FP16_FORMAT_IEEE 16-bit floating-point, IEEE format 1 6.5.2
+//#define __ARM_NEON Advanced SIMD (NEON) extension 1 6.5.4
+//#define __ARM_NEON_FP Advanced SIMD (NEON) floating-point 0x04 6.5.5
+//#define __ARM_PCS ARM procedure call standard 1 6.7
+//#define __ARM_PCS_VFP ARM PCS hardware FP variant in use 1 6.7
+//#define __ARM_SIZEOF_MINIMAL_ENUM size of minimal enumeration type: 1 or 4 1 4.1.1
+//#define __ARM_SIZEOF_WCHAR_T size of wchar_t: 2 or 4 2 4.1.1
+//#define __ARM_WMMX Wireless MMX extension 1 6.5.6
 
-//#define __ARM_FEATURE_CLZ CLZ instruction 1 6.4.5, 9.2 
-//#define __ARM_FEATURE_DSP DSP instructions (ARM v5E) 1 6.4.6, 9.4 
-//#define __ARM_FEATURE_FMA floating-point fused multiply-accumulate 1 6.5.3, 9.6 
+//#define __ARM_FEATURE_CLZ CLZ instruction 1 6.4.5, 9.2
+//#define __ARM_FEATURE_DSP DSP instructions (ARM v5E) 1 6.4.6, 9.4
+//#define __ARM_FEATURE_FMA floating-point fused multiply-accumulate 1 6.5.3, 9.6
 
-// 8.4 Hints 
+// 8.4 Hints
 //
 // The intrinsics in this section are available for all targets. They may be
 // no-ops (i.e. generate no code, but possibly act as a code motion barrier in
@@ -472,7 +472,7 @@ static inline void __wfi (void)
 
 // MCR p15, 0, <Rd>, c7, c0, 4 also arm11 see
 // http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0360f/I1014942.html
- 
+
 // http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0360f/CHDGIJFB.html
 //
 // Note For compatibility with existing software, the ARM968E-S processor also
@@ -532,12 +532,12 @@ static inline void __dbg (/*constant*/ unsigned int n)
 // systems. The argument must be a constant integer from 0 to 15 inclusive. See
 // implementation documentation for the effect (if any) of this instruction and
 // the meaning of the argument. This is available only when compliling for
-// AArch32. 
+// AArch32.
 
-// 8.5 Swap 
+// 8.5 Swap
 
 // __swp is available for all targets. This intrinsic expands to a sequence
-// equivalent to the deprecated (and possibly unavailable) SWP instruction. 
+// equivalent to the deprecated (and possibly unavailable) SWP instruction.
 
 static inline uint32_t __swp_word (uint32_t x, volatile void* addr)
 #ifdef __ARM_FEATURE_LDREX
@@ -581,44 +581,44 @@ static inline uint32_t __swp_byte (uint32_t x, volatile void* addr)
 
 //! A type-generic macro for the ARM swp instruction (or its replacement)
 
-#define __swp(x,addr)                                                   \
+#define __swp(x, addr)                                                  \
     (( __builtin_types_compatible_p (typeof (*addr), uint32_t))?        \
      __swp_word (x, (void*)addr):                                       \
      ((__builtin_types_compatible_p (typeof (*addr), uint8_t ))?        \
       __swp_byte (x, (void*)addr): 0))
 
 // unconditionally stores a new value at the given address, and returns the
-// old value. 
+// old value.
 //
 // As with the IA-64/GCC primitives described in 8.2.2, the __swp intrinsic is
-// polymorphic. The second argument must provide the address of a byte-sized 
+// polymorphic. The second argument must provide the address of a byte-sized
 // object or an aligned word-sized object and it must be possible to determine
-// the size of this object from the argument expression. 
+// the size of this object from the argument expression.
 //
 // This intrinsic is implemented by LDREX/STREX (or LDREXB/STREXB) where
-// available, as if by 
+// available, as if by
 //
-// uint32_t __swp(uint32_t x, volatile uint32_t *p) { 
-// uint32_t v; 
-// /* use LDREX/STREX intrinsics not specified by ACLE */ 
-// do v = __ldrex(p); while (__strex(x, p)); 
-// return v; 
+// uint32_t __swp(uint32_t x, volatile uint32_t *p) {
+// uint32_t v;
+// /* use LDREX/STREX intrinsics not specified by ACLE */
+// do v = __ldrex(p); while (__strex(x, p));
+// return v;
 // }
-// 
-// or alternatively, 
 //
-// uint32_t __swp(uint32_t x, uint32_t *p) { 
-// uint32_t v; 
-// /* use IA-64/GCC atomic builtins */ 
-// do v = *p; while (!__sync_bool_compare_and_swap(p, v, x)); 
-// return v; 
+// or alternatively,
+//
+// uint32_t __swp(uint32_t x, uint32_t *p) {
+// uint32_t v;
+// /* use IA-64/GCC atomic builtins */
+// do v = *p; while (!__sync_bool_compare_and_swap(p, v, x));
+// return v;
 // }
-// 
+//
 // It is recommended that compilers should produce a downgradeable/upgradeable
-// warning on encountering the __swp intrinsic. 
+// warning on encountering the __swp intrinsic.
 //
 // Only if load-store exclusive instructions are not available will the
-// intrinsic use the SWP/SWPB instructions. 
+// intrinsic use the SWP/SWPB instructions.
 //
 // It is strongly recommended to use standard and flexible atomic primitives
 // such as those available in the C++ <atomic> header. __swp is provided solely
@@ -626,9 +626,9 @@ static inline uint32_t __swp_byte (uint32_t x, volatile void* addr)
 // use of SWP in inline assembler. SWP is obsolete in the ARM architecture, and
 // in recent versions of the architecture, may be configured to be unavailable
 // in user-mode. (Aside: unconditional atomic swap is also less powerful as a
-// synchronization primitive than load-exclusive/store-conditional.) 
+// synchronization primitive than load-exclusive/store-conditional.)
 
-// 8.7 NOP 
+// 8.7 NOP
 
 #ifndef  __nop
 //! This intrinsic expands into an ARM nop instruction.
@@ -638,7 +638,7 @@ static inline uint32_t __swp_byte (uint32_t x, volatile void* addr)
 // generates an unspecified no-op instruction. Note that not all architectures
 // provide a distinguished NOP instruction. On those that do, it is unspecified
 // whether this intrinsic generates it or another instruction. It is not
-// guaranteed that inserting this instruction will increase execution time. 
+// guaranteed that inserting this instruction will increase execution time.
 
 
 // 9.1.1 The Q (saturation) flag
@@ -649,10 +649,10 @@ static inline uint32_t __swp_byte (uint32_t x, volatile void* addr)
 // intrinsics in the DSP and SIMD intrinsic sets, though some SIMD intrinsics
 // feature saturating operations which do not set the Q flag.
 //
-// [AAPCS 5.1.1] states: 
+// [AAPCS 5.1.1] states:
 //
 //    The N, Z, C, V and Q flags (bits 27-31) and the GE[3:0] bits (bits 16-19)
-//    are undefined on entry to or return from a public interface. 
+//    are undefined on entry to or return from a public interface.
 //
 // Note that this does not state that these bits (in particular the Q flag) are
 // undefined across any C/C++ function call boundary – only across a “public
@@ -674,11 +674,11 @@ static inline uint32_t __swp_byte (uint32_t x, volatile void* addr)
 //
 // In general, the Q flag should appear to C/C++ code in a similar way to the
 // standard floating-point cumulative exception flags, as global (or
-// thread-local) state that can be tested, set or reset through an API. 
+// thread-local) state that can be tested, set or reset through an API.
 
 
 #ifdef  __ARM_FEATURE_QBIT
-// Returns 1 if the Q flag is set, 0 if not. 
+// Returns 1 if the Q flag is set, 0 if not.
 
 //! This function returns the Q flag value
 //! \return The returned value is true (!=0) if the Q flag has been set, and
@@ -690,7 +690,7 @@ static inline int  __saturation_occurred     (void)
 // Sets or resets the Q flag according to the LSB of the value.
 // __set_saturation_occurred(0) might be used before performing a sequence of
 // operations after which the Q flag is tested. (In general, the Q flag cannot
-// be assumed to be unset at the start of a function.) 
+// be assumed to be unset at the start of a function.)
 
 //! This function allows the Q flag to be set
 //! \param[in] q If the lowest bit of q is zero then the Q flag is cleared, if
@@ -709,7 +709,7 @@ static inline void __set_saturation_occurred (int q)
 // remove preceding instructions, or to change the instruction sequence in
 // such a way as to result in a different value of the Q flag. (A specific
 // example is that it may recognize clipping idioms in C code and implement
-// them with an instruction such as SSAT that may set the Q flag.) 
+// them with an instruction such as SSAT that may set the Q flag.)
 
 //! This function is a hint and may be ignored.
 
@@ -738,9 +738,9 @@ static inline int __reset_and_saturation_occurred (void)
 // set one for each byte. For 2x16-bit operations the GE bits are paired
 // together, one for the high halfword and the other pair for the low halfword.
 // The only supported way to read or use the GE bits (in this specification)
-// is by using the __sel intrinsic. 
+// is by using the __sel intrinsic.
 
-// 9.1.3 Floating-point environment 
+// 9.1.3 Floating-point environment
 //
 // An implementation should implement the features of <fenv.h> for accessing
 // the floating-point runtime environment. Programmers should use this rather
@@ -753,29 +753,30 @@ static inline int __reset_and_saturation_occurred (void)
 //
 // VFP “short vector” mode (enabled by setting the Stride and Len bits) is
 // deprecated, and is unavailable on later VFP implementations. ACLE
-// provides no support for this mode. 
+// provides no support for this mode.
 
 // 9.2 Miscellaneous data-processing intrinsics
 
 // The following intrinsics perform general data-processing operations. They
-// have no effect on global state. 
+// have no effect on global state.
 //
-// [Note: documentation of the __nop intrinsic has moved to 8.7.] 
+// [Note: documentation of the __nop intrinsic has moved to 8.7.]
 //
 // The 64-bit versions of these intrinsics ("ll" suffix) are new in ACLE 1.1.
 // For completeness and to aid portability between LP64 and LLP64 models,
-// ACLE 1.1 also defines intrinsics with "l" suffix. 
+// ACLE 1.1 also defines intrinsics with "l" suffix.
 
 
 // rotates the argument x right by y bits. y can take any value. These
-// intrinsics are available on all targets. 
+// intrinsics are available on all targets.
 
 //! This macro rotates the argument x right by y bits.
 //! \param[in] x The value to be rotated.
 //! \param[in] y The size of the rotation.
 //! \return The rotated value of x.
 
-#define __ror(x,y) ((__builtin_constant_p (y))? __ror_c(x,(y&0x1F)) : __ror_v(x,y))
+#define __ror(x, y) \
+    ((__builtin_constant_p(y))? __ror_c((x), ((y)&0x1F)) : __ror_v((x), (y)))
 
 #ifdef __thumb__
 
@@ -1046,8 +1047,8 @@ static inline uint32_t __ror_v (uint32_t x, uint32_t y)
 // = [x_{n-1}, x_{n-2} ... x_0, x_63, x_62 ... x_{n+1}, x_n]
 //
 // if n < 32 then
-// ror (xlo,n) = [x_{n-1},    x_{n-2}    ... x_0,  x_31 ...x_{n+1},    x_n]
-// ror (xhi,n) = [x_{n+32-1}, x_{n+32-2} ... x_32, x_63 ...x_{n+32+1}, x_{n+32}]
+// ror(xlo, n) = [x_{n-1},    x_{n-2}    ... x_0,  x_31 ...x_{n+1},    x_n]
+// ror(xhi, n) = [x_{n+32-1}, x_{n+32-2} ... x_32, x_63 ...x_{n+32+1}, x_{n+32}]
 
 //! This macro rotates the 64-bit argument x right by y bits.
 //! \param[in] x The value to be rotated.
@@ -1083,16 +1084,16 @@ static inline uint64_t __rorll (uint64_t x, uint32_t y)
 //! \param[in] y The size of the rotation.
 //! \return The rotated value of x.
 
-#define __rorl(x,y)                                              \
-    ((__builtin_types_compatible_p (unsigned long, uint32_t))?   \
-     __ror((x),(y)): __rorll((x),(y)))
+#define __rorl(x, y)                                            \
+    ((__builtin_types_compatible_p(unsigned long, uint32_t))?   \
+     __ror((x), (y)): __rorll((x), (y)))
 
 // returns the number of leading zero bits in x. When x is zero it returns the
 // argument width, i.e. 32 or 64. These intrinsics are available on all
 // targets. On targets without the CLZ instruction it should be implemented as
 // an instruction sequence or a call to such a sequence. A suitable sequence
 // can be found in [Warren] (fig. 5-7). Hardware support for these intrinsics
-// is indicated by __ARM_FEATURE_CLZ. 
+// is indicated by __ARM_FEATURE_CLZ.
 
 //! This function counts the number of leading zeros in a word.
 //! \param[in] x An unsigned integer.
@@ -1146,7 +1147,7 @@ static inline unsigned int __clsll (uint64_t x)
 
 // reverses the byte order within a word or doubleword. These intrinsics are
 // available on all targets and should be expanded to an efficient straight-
-// line code sequence on targets without byte reversal instructions. 
+// line code sequence on targets without byte reversal instructions.
 
 //! This function reverses the byte order in a word.
 //! \param[in] x The word to be byte-order reversed.
@@ -1186,7 +1187,7 @@ static inline uint64_t __revll (uint64_t x)
 // reverses the byte order within each halfword of a word. For example,
 // 0x12345678 becomes 0x34127856. These intrinsics are available on all targets
 // and should be expanded to an efficient straight-line code sequence on
-// targets without byte reversal instructions. 
+// targets without byte reversal instructions.
 
 //! This function reverses each byte in a half-word order for unsigned integers.
 //! \param[in] x The item to be reversed.
@@ -1236,7 +1237,7 @@ static inline uint64_t __rev16ll (uint64_t x)
 // reverses the byte order in a 16-bit value and returns the (sign-extended)
 // result. For example, 0x00000080 becomes 0xFFFF8000. This intrinsic is
 // available on all targets and should be expanded to an efficient straight-
-// line code sequence on targets without byte reversal instructions. 
+// line code sequence on targets without byte reversal instructions.
 
 //! This function byte-reverses a half-word.
 //! \param[in] x The item to be reversed.
@@ -1255,9 +1256,9 @@ static inline int16_t __revsh (int16_t x)
 }
 
 // reverses the bits in x. These intrinsics are only available on targets with
-// the RBIT instruction. 
+// the RBIT instruction.
 
-#if (__ARM_ARCH >= 6 && __ARM_ARCH_ISA_THUMB >= 2) || __ARM_ARCH >= 7 
+#if (__ARM_ARCH >= 6 && __ARM_ARCH_ISA_THUMB >= 2) || __ARM_ARCH >= 7
  /* RBIT is available */
 static inline  uint32_t __rbit (uint32_t x)
 {
@@ -1291,7 +1292,7 @@ static inline  uint64_t __rbitll (uint64_t x)
 #ifdef __ARM_FEATURE_DSP
 
 //! This function multiplies two 16-bit signed integers, each from the lower
-//! half word 
+//! half word
 //! \param[in] x first argument.
 //! \param[in] y second argument.
 //! \return signed result.
@@ -1388,7 +1389,7 @@ static inline int32_t __smulwt (int32_t x, int32_t y)
 
 // 9.4 Saturating intrinsics
 
-// 9.4.1 Width-specified saturation intrinsics 
+// 9.4.1 Width-specified saturation intrinsics
 
 #ifdef __ARM_FEATURE_SAT
 
@@ -1618,12 +1619,12 @@ static inline uint32_t __usat_c (uint32_t x, uint32_t n)
     return (r);
 }
 
-#define __ssat(x,n) __ssat_c(x,n)
-#define __usat(x,n) __usat_c(x,n)
+#define __ssat(x, n) __ssat_c(x, n)
+#define __usat(x, n) __usat_c(x, n)
 
 #endif /*__ARM_FEATURE_SAT*/
 
-// 9.4.2 Saturating addition and subtraction intrinsics 
+// 9.4.2 Saturating addition and subtraction intrinsics
 
 #ifdef __ARM_FEATURE_DSP
 
@@ -1705,7 +1706,7 @@ static inline int32_t __qdsub (int32_t x, int32_t y)
 #endif /*__ARM_ACLE_EXTENSIONS*/
 #endif /*__ARM_FEATURE_DSP*/
 
-// 9.4.3 Accumulating multiplications 
+// 9.4.3 Accumulating multiplications
 #ifdef __ARM_FEATURE_DSP
 
 
@@ -1715,7 +1716,7 @@ static inline int32_t __qdsub (int32_t x, int32_t y)
 //! operands, and adds to the third operand. Sets the Q flag if the addition
 //! overflows. (Note that the addition is the usual 32-bit modulo addition which
 //! wraps on overflow, not a saturating addition. The multiplication cannot
-//! overflow.) 
+//! overflow.)
 //!
 //! \param[in] x first argument.
 //! \param[in] y second argument.
@@ -1736,7 +1737,7 @@ static inline int32_t __smlabb (int32_t x, int32_t y, int32_t acc)
 //! This function performs a 16x16 multiply-accumulate, saturating the addition.
 //!
 //! Multiplies the low halfword of the first operand and the high halfword of
-// the second operand, and adds to the third operand, as for __smlabb. 
+// the second operand, and adds to the third operand, as for __smlabb.
 //!
 //! \param[in] x first argument.
 //! \param[in] y second argument.
@@ -1756,7 +1757,7 @@ static inline int32_t __smlabt (int32_t x, int32_t y, int32_t acc)
 //! This function performs a 16x16 multiply-accumulate, saturating the addition.
 //!
 //! Multiplies the high halfword of the first operand and the low halfword of
-//! the second operand, and adds to the third operand, as for __smlabb. 
+//! the second operand, and adds to the third operand, as for __smlabb.
 //!
 //! \param[in] x first argument.
 //! \param[in] y second argument.
@@ -1944,7 +1945,7 @@ static inline int64_t __smlaltt (int64_t acc, int32_t x, int32_t y)
 #endif /*__ARM_FEATURE_DSP*/
 
 // 9.5   32-bit SIMD intrinsics
-// 9.5.2 Data types for 32-bit SIMD intrinsics 
+// 9.5.2 Data types for 32-bit SIMD intrinsics
 
 #ifdef __ARM_FEATURE_SIMD32
 typedef int32_t  int16x2_t;
@@ -1953,10 +1954,10 @@ typedef int32_t  int8x4_t;
 typedef uint32_t uint8x4_t;
 #endif /*__ARM_FEATURE_SIMD32*/
 
-// 9.5.3 Use of the Q flag by 32-bit SIMD intrinsics 
+// 9.5.3 Use of the Q flag by 32-bit SIMD intrinsics
 
 
-// 9.5.4 Parallel 16-bit saturation 
+// 9.5.4 Parallel 16-bit saturation
 
 
 
@@ -2189,29 +2190,29 @@ static inline int16x2_t __usat16_c (int16x2_t x, uint32_t n)
     return (r);
 }
 
-#define __ssat16(x,n) __ssat16_c(x,n)
-#define __usat16(x,n) __usat16_c(x,n)
+#define __ssat16(x, n) __ssat16_c(x, n)
+#define __usat16(x, n) __usat16_c(x, n)
 
 
 // int16x2_t __ssat16(int16x2_t, /*constant*/ unsigned int)
 
 
 
-// int16x2_t __usat16(int16x2_t, /*constant */ unsigned int); 
+// int16x2_t __usat16(int16x2_t, /*constant */ unsigned int);
 #endif /*__ARM_FEATURE_SIMD32*/
 
-// 9.5.5 Packing and unpacking 
+// 9.5.5 Packing and unpacking
 #ifdef __ARM_FEATURE_SIMD32
-int16x2_t  __sxtab16 (int16x2_t, int8x4_t); 
-int16x2_t  __sxtb16  (int8x4_t); 
-uint16x2_t __uxtab16 (uint16x2_t, uint8x4_t); 
+int16x2_t  __sxtab16 (int16x2_t, int8x4_t);
+int16x2_t  __sxtb16  (int8x4_t);
+uint16x2_t __uxtab16 (uint16x2_t, uint8x4_t);
 uint16x2_t __uxtb16  (uint8x4_t);
 #endif /*__ARM_FEATURE_SIMD32*/
 
 
-// 9.5.6 Parallel selection 
+// 9.5.6 Parallel selection
 #ifdef __ARM_FEATURE_SIMD32
-uint8x4_t __sel (uint8x4_t, uint8x4_t); 
+uint8x4_t __sel (uint8x4_t, uint8x4_t);
 #endif /*__ARM_FEATURE_SIMD32*/
 
 
@@ -2222,18 +2223,18 @@ uint8x4_t __sel (uint8x4_t, uint8x4_t);
 // the result may be halved or saturated.
 
 #ifdef __ARM_FEATURE_SIMD32
-int8x4_t  __qadd8  (int8x4_t, int8x4_t); 
-int8x4_t  __qsub8  (int8x4_t, int8x4_t); 
-int8x4_t  __sadd8  (int8x4_t, int8x4_t); 
-int8x4_t  __shadd8 (int8x4_t, int8x4_t); 
-int8x4_t  __shsub8 (int8x4_t, int8x4_t); 
-int8x4_t  __ssub8  (int8x4_t, int8x4_t); 
-uint8x4_t __uadd8  (uint8x4_t, uint8x4_t); 
-uint8x4_t __uhadd8 (uint8x4_t, uint8x4_t); 
-uint8x4_t __uhsub8 (uint8x4_t, uint8x4_t); 
-uint8x4_t __uqadd8 (uint8x4_t, uint8x4_t); 
-uint8x4_t __uqsub8 (uint8x4_t, uint8x4_t); 
-uint8x4_t __usub8  (uint8x4_t, uint8x4_t); 
+int8x4_t  __qadd8  (int8x4_t, int8x4_t);
+int8x4_t  __qsub8  (int8x4_t, int8x4_t);
+int8x4_t  __sadd8  (int8x4_t, int8x4_t);
+int8x4_t  __shadd8 (int8x4_t, int8x4_t);
+int8x4_t  __shsub8 (int8x4_t, int8x4_t);
+int8x4_t  __ssub8  (int8x4_t, int8x4_t);
+uint8x4_t __uadd8  (uint8x4_t, uint8x4_t);
+uint8x4_t __uhadd8 (uint8x4_t, uint8x4_t);
+uint8x4_t __uhsub8 (uint8x4_t, uint8x4_t);
+uint8x4_t __uqadd8 (uint8x4_t, uint8x4_t);
+uint8x4_t __uqsub8 (uint8x4_t, uint8x4_t);
+uint8x4_t __usub8  (uint8x4_t, uint8x4_t);
 #endif /*__ARM_FEATURE_SIMD32*/
 
 // 9.5.8 Sum of 8-bit absolute differences
@@ -2245,76 +2246,76 @@ uint8x4_t __usub8  (uint8x4_t, uint8x4_t);
 #ifdef __ARM_FEATURE_SIMD32
 
 // Performs 4x8-bit unsigned subtraction, and adds the absolute values of the
-// differences together, returning the result as a single unsigned integer. 
+// differences together, returning the result as a single unsigned integer.
 
-uint32_t __usad8 (uint8x4_t, uint8x4_t); 
+uint32_t __usad8 (uint8x4_t, uint8x4_t);
 
 // Performs 4x8-bit unsigned subtraction, adds the absolute values of the
-// differences together, and adds the result to the third operand. 
+// differences together, and adds the result to the third operand.
 
 uint32_t __usada8 (uint8x4_t, uint8x4_t, uint32_t);
 
 #endif /*__ARM_FEATURE_SIMD32*/
 
-// 9.5.9 Parallel 16-bit addition and subtraction 
+// 9.5.9 Parallel 16-bit addition and subtraction
 #ifdef __ARM_FEATURE_SIMD32
-int16x2_t  __qadd16  (int16x2_t, int16x2_t); 
-int16x2_t  __qasx    (int16x2_t, int16x2_t); 
-int16x2_t  __qsax    (int16x2_t, int16x2_t); 
-int16x2_t  __qsub16  (int16x2_t, int16x2_t); 
-int16x2_t  __sadd16  (int16x2_t, int16x2_t); 
-int16x2_t  __sasx    (int16x2_t, int16x2_t); 
-int16x2_t  __shadd16 (int16x2_t, int16x2_t); 
-int16x2_t  __shasx   (int16x2_t, int16x2_t); 
-int16x2_t  __shsax   (int16x2_t, int16x2_t); 
-int16x2_t  __shsub16 (int16x2_t, int16x2_t); 
-int16x2_t  __ssax    (int16x2_t, int16x2_t); 
-int16x2_t  __ssub16  (int16x2_t, int16x2_t); 
-uint16x2_t __uadd16  (uint16x2_t, uint16x2_t); 
-uint16x2_t __uasx    (uint16x2_t, uint16x2_t); 
-uint16x2_t __uhadd16 (uint16x2_t, uint16x2_t); 
+int16x2_t  __qadd16  (int16x2_t, int16x2_t);
+int16x2_t  __qasx    (int16x2_t, int16x2_t);
+int16x2_t  __qsax    (int16x2_t, int16x2_t);
+int16x2_t  __qsub16  (int16x2_t, int16x2_t);
+int16x2_t  __sadd16  (int16x2_t, int16x2_t);
+int16x2_t  __sasx    (int16x2_t, int16x2_t);
+int16x2_t  __shadd16 (int16x2_t, int16x2_t);
+int16x2_t  __shasx   (int16x2_t, int16x2_t);
+int16x2_t  __shsax   (int16x2_t, int16x2_t);
+int16x2_t  __shsub16 (int16x2_t, int16x2_t);
+int16x2_t  __ssax    (int16x2_t, int16x2_t);
+int16x2_t  __ssub16  (int16x2_t, int16x2_t);
+uint16x2_t __uadd16  (uint16x2_t, uint16x2_t);
+uint16x2_t __uasx    (uint16x2_t, uint16x2_t);
+uint16x2_t __uhadd16 (uint16x2_t, uint16x2_t);
 uint16x2_t __uhasx   (uint16x2_t, uint16x2_t);
-uint16x2_t __uhsax   (uint16x2_t, uint16x2_t); 
-uint16x2_t __uhsub16 (uint16x2_t, uint16x2_t); 
-uint16x2_t __uqadd16 (uint16x2_t, uint16x2_t); 
-uint16x2_t __uqasx   (uint16x2_t, uint16x2_t); 
-uint16x2_t __uqsax   (uint16x2_t, uint16x2_t); 
-uint16x2_t __uqsub16 (uint16x2_t, uint16x2_t); 
-uint16x2_t __usax    (uint16x2_t, uint16x2_t); 
-uint16x2_t __usub16  (uint16x2_t, uint16x2_t); 
+uint16x2_t __uhsax   (uint16x2_t, uint16x2_t);
+uint16x2_t __uhsub16 (uint16x2_t, uint16x2_t);
+uint16x2_t __uqadd16 (uint16x2_t, uint16x2_t);
+uint16x2_t __uqasx   (uint16x2_t, uint16x2_t);
+uint16x2_t __uqsax   (uint16x2_t, uint16x2_t);
+uint16x2_t __uqsub16 (uint16x2_t, uint16x2_t);
+uint16x2_t __usax    (uint16x2_t, uint16x2_t);
+uint16x2_t __usub16  (uint16x2_t, uint16x2_t);
 #endif /*__ARM_FEATURE_SIMD32*/
 
-// 9.5.10 Parallel 16-bit multiplication 
+// 9.5.10 Parallel 16-bit multiplication
 #ifdef __ARM_FEATURE_SIMD32
-int32_t __smlad   (int16x2_t, int16x2_t, int32_t); 
-int32_t __smladx  (int16x2_t, int16x2_t, int32_t); 
-int64_t __smlald  (int16x2_t, int16x2_t, int64_t); 
-int64_t __smlaldx (int16x2_t, int16x2_t, int64_t); 
-int32_t __smlsd   (int16x2_t, int16x2_t, int32_t); 
-int32_t __smlsdx  (int16x2_t, int16x2_t, int32_t); 
-int64_t __smlsld  (int16x2_t, int16x2_t, int64_t); 
-int64_t __smlsldx (int16x2_t, int16x2_t, int64_t); 
-int32_t __smuad   (int16x2_t, int16x2_t); 
-int32_t __smuadx  (int16x2_t, int16x2_t); 
-int32_t __smusd   (int16x2_t, int16x2_t); 
+int32_t __smlad   (int16x2_t, int16x2_t, int32_t);
+int32_t __smladx  (int16x2_t, int16x2_t, int32_t);
+int64_t __smlald  (int16x2_t, int16x2_t, int64_t);
+int64_t __smlaldx (int16x2_t, int16x2_t, int64_t);
+int32_t __smlsd   (int16x2_t, int16x2_t, int32_t);
+int32_t __smlsdx  (int16x2_t, int16x2_t, int32_t);
+int64_t __smlsld  (int16x2_t, int16x2_t, int64_t);
+int64_t __smlsldx (int16x2_t, int16x2_t, int64_t);
+int32_t __smuad   (int16x2_t, int16x2_t);
+int32_t __smuadx  (int16x2_t, int16x2_t);
+int32_t __smusd   (int16x2_t, int16x2_t);
 int32_t __smusdx  (int16x2_t, int16x2_t);
 #endif /*__ARM_FEATURE_SIMD32*/
 
 // 9.6 Floating-point data-processing intrinsics
 
-#if (__ARM_FP & 0x08) != 0 
-double __sqrt (double x); 
+#if (__ARM_FP & 0x08) != 0
+double __sqrt (double x);
 #endif /*__ARM_FP*/
-#if (__ARM_FP & 0x04) != 0 
-float __sqrtf (float x); 
+#if (__ARM_FP & 0x04) != 0
+float __sqrtf (float x);
 #endif /*__ARM_FP*/
 
 #ifdef __ARM_FEATURE_FMA
-#if (__ARM_FP & 0x08) != 0 
-double __fma (double x, double y, double z); 
+#if (__ARM_FP & 0x08) != 0
+double __fma (double x, double y, double z);
 #endif /*__ARM_FP*/
-#if (__ARM_FP & 0x04) != 0 
-float __fmaf (float x, float y, float z); 
+#if (__ARM_FP & 0x04) != 0
+float __fmaf (float x, float y, float z);
 #endif /*__ARM_FP*/
 #endif /*__ARM_FEATURE_FMA*/
 
