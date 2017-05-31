@@ -1845,13 +1845,15 @@ static inline int countlshr(s07 f)
 //! \param[in] f A fract.
 //! \return The number of leading sign-bits in f.
 
-static inline int countlsr   (s015  f)
+static inline int countlsr(s015 f)
 {
-    int32_t n = (int32_t)(bitsr (f));
+    int32_t n = (int32_t) bitsr(f);
 
-    if (n == 0) return (15);
+    if (n == 0) {
+	return 15;
+    }
 
-    return (__builtin_clrsb (n) - 16);
+    return __builtin_clrsb(n) - 16;
 }
 
 //! \brief This function counts the number of leading sign-bits of a
