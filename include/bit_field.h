@@ -50,9 +50,6 @@
  *    Last modified on : $Date$
  *    Last modified by : $Author$
  *    $Id$
- *
- *    $Log$
- *
  */
 
 #ifndef __BIT_FIELD_H__
