@@ -137,7 +137,7 @@ static inline uint64_t newton_xlr(uint32_t x, uint64_t r)
 //! \param[in] r The current approximation R = 1 - r/2 (r is in u0.32)
 //! \return x * R in u1.63 format
 
-//static inline 
+//static inline
 uint64_t newton_lxr(uint64_t x, uint32_t r)
 {
     return x - __x_u64_ulr(x, r >> 1);
@@ -198,7 +198,7 @@ uint64_t newton_xlr2(uint32_t x, uint64_t r)
 //-----------------------------------------------------------------------
 // We have:
 //
-// If R = 1 - r/2 (and R' = 1 - r'/2), and Z = X*R^2 - 1, then 
+// If R = 1 - r/2 (and R' = 1 - r'/2), and Z = X*R^2 - 1, then
 //
 // R' = R + (1 - X * R^2) * R/2
 //    = R - Z * R/2

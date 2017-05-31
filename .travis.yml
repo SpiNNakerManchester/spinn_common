@@ -13,5 +13,5 @@ install:
 # TODO: Add actually building the code
 
 script:
-  - support/run-vera.sh include
+  - support/run-vera.sh include -P max-file-length=2500
   - support/run-vera.sh src

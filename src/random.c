@@ -80,7 +80,7 @@ uint32_t WELL1024a_simp(void)
     z1    = Identity(V0)      ^ MAT0POS(  8, VM1);
     z2    = MAT0NEG(-19, VM2) ^ MAT0NEG(-14, VM3);
     newV1 = z1                ^ z2;
-    newV0 = MAT0NEG(-11,z0)   ^ MAT0NEG(-7, z1)    ^ MAT0NEG(-13, z2);
+    newV0 = MAT0NEG(-11, z0)  ^ MAT0NEG(-7, z1)    ^ MAT0NEG(-13, z2);
     state_i = (state_i + 31) & 0x0000001fU;
 
     return STATE[state_i];
@@ -104,7 +104,7 @@ uint32_t WELL1024a_seed(WELL1024a_seed_t STATE)
     z1    = Identity(V0)      ^ MAT0POS(  8, VM1);
     z2    = MAT0NEG(-19, VM2) ^ MAT0NEG(-14, VM3);
     newV1 = z1                ^ z2;
-    newV0 = MAT0NEG(-11,z0)   ^ MAT0NEG(-7,z1)    ^ MAT0NEG(-13,z2);
+    newV0 = MAT0NEG(-11, z0)  ^ MAT0NEG(-7, z1)   ^ MAT0NEG(-13, z2);
     state_i = (state_i + 31) & 0x0000001fU;
 
     return STATE[state_i];
@@ -257,7 +257,7 @@ outer:
 inner:
     USTAR = uni_rng(seed_arg);
     if (U < USTAR) {
-	return  A + (accum) ulrbits(U0);
+	return A + (accum) ulrbits(U0);
                    // accum + (accum)[ unsigned long fract <= uint32_t ]
     }
 
