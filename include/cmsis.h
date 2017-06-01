@@ -10,19 +10,17 @@
 
 #define __ARM_Q_FLAG 27
 
-
-
-
-static inline uint32_t __get_CONTROL (void)
+static inline uint32_t __get_CONTROL(void)
 {
     uint32_t r;
 
     asm volatile ("mrs %[r], cpsr" : [r] "=r" (r) : : "cc");
-
-    return (r);
+    return r;
 }
 
-static inline void     __set_CONTROL (uint32_t r)
-{   asm volatile ("msr cpsr_f, %[r]" : : [r] "r" (r) : "cc"); }
+static inline void __set_CONTROL(uint32_t r)
+{
+    asm volatile ("msr cpsr_f, %[r]" : : [r] "r" (r) : "cc");
+}
 
 #endif /*__CMSIS_H__*/

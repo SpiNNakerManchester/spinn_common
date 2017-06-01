@@ -45,9 +45,9 @@ static uint32_t STATE[R];
 #define M2 24
 #define M3 10
 
-#define MAT0POS(t,v) (v^(v>>t))
-#define MAT0NEG(t,v) (v^(v<<(-(t))))
-#define Identity(v) (v)
+#define MAT0POS(t, v)	(v^(v>>t))
+#define MAT0NEG(t, v)	(v^(v<<(-(t))))
+#define Identity(v)	(v)
 
 #define V0            STATE[state_i                   ]
 #define VM1           STATE[(state_i+M1) & 0x0000001fU]
@@ -57,41 +57,38 @@ static uint32_t STATE[R];
 #define newV0         STATE[(state_i+31) & 0x0000001fU]
 #define newV1         STATE[state_i                   ]
 
-
 // the initialiser function that MUST BE CALLED before WELL1024a_simp() is used
 
-void init_WELL1024a_simp (void)
+void init_WELL1024a_simp(void)
 {
-    //   state_i = 0;
+    // state_i = 0;
     for (int j = 0; j < R; j++) {
-    STATE[j] = mars_kiss64_simp();
+	STATE[j] = mars_kiss64_simp();
                          // init state vector with good generator
-// io_printf( IO_STD, " %u , ", STATE[j]);
+	// io_printf( IO_STD, " %u , ", STATE[j]);
     }
-// io_printf( IO_STD, "\n");
+    // io_printf( IO_STD, "\n");
 }
 
-
 // the WELL generator itself
-uint32_t WELL1024a_simp (void)
+uint32_t WELL1024a_simp(void)
 {
     static uint32_t state_i = 0;
     uint32_t 	    z0, z1, z2;
 
     z0    = VRm1;
-    z1    = Identity (V0)      ^ MAT0POS (  8, VM1);
-    z2    = MAT0NEG (-19, VM2) ^ MAT0NEG (-14, VM3);
-    newV1 = z1                 ^ z2;
-    newV0 = MAT0NEG (-11,z0)   ^ MAT0NEG (-7, z1)    ^ MAT0NEG(-13, z2);
+    z1    = Identity(V0)      ^ MAT0POS(  8, VM1);
+    z2    = MAT0NEG(-19, VM2) ^ MAT0NEG(-14, VM3);
+    newV1 = z1                ^ z2;
+    newV0 = MAT0NEG(-11, z0)  ^ MAT0NEG(-7, z1)    ^ MAT0NEG(-13, z2);
     state_i = (state_i + 31) & 0x0000001fU;
 
-    return (STATE [state_i]);
+    return STATE[state_i];
 }
-
 
 // MUST USE THIS before working with proposed seed for the first time
 
-void validate_WELL1024a_seed (WELL1024a_seed_t seed)
+void validate_WELL1024a_seed(WELL1024a_seed_t seed)
 {
     seed[33] = 0;
 }
@@ -99,18 +96,18 @@ void validate_WELL1024a_seed (WELL1024a_seed_t seed)
 #define state_i STATE[33] // need to store original static variable as extra element of seed
 
 // the WELL generator for custom seed - STATE in function argument replaces file static version
-uint32_t WELL1024a_seed (WELL1024a_seed_t STATE)
+uint32_t WELL1024a_seed(WELL1024a_seed_t STATE)
 {
     uint32_t 			z0, z1, z2;
 
     z0    = VRm1;
-    z1    = Identity (V0)      ^ MAT0POS (  8, VM1);
-    z2    = MAT0NEG (-19, VM2) ^ MAT0NEG (-14, VM3);
-    newV1 = z1                 ^ z2;
-    newV0 = MAT0NEG (-11,z0)   ^ MAT0NEG(-7,z1)    ^ MAT0NEG(-13,z2);
+    z1    = Identity(V0)      ^ MAT0POS(  8, VM1);
+    z2    = MAT0NEG(-19, VM2) ^ MAT0NEG(-14, VM3);
+    newV1 = z1                ^ z2;
+    newV0 = MAT0NEG(-11, z0)  ^ MAT0NEG(-7, z1)   ^ MAT0NEG(-13, z2);
     state_i = (state_i + 31) & 0x0000001fU;
 
-    return (STATE [state_i]);
+    return STATE[state_i];
 }
 
 #undef state_i
@@ -135,8 +132,6 @@ uint32_t WELL1024a_seed (WELL1024a_seed_t STATE)
 
 // end of L'Ecuyer WELL1024a definition
 
-
-
 /*
    Implementation of a Marsaglia 32-bit KISS generator which uses no multiply
    instructions
@@ -144,7 +139,7 @@ uint32_t WELL1024a_seed (WELL1024a_seed_t STATE)
    209.9 nanosecs (i.e. 42 ticks) per call
 
 */
-uint32_t mars_kiss32 (void)
+uint32_t mars_kiss32(void)
 {
     static uint32_t
         x = 123456789,
@@ -154,18 +149,17 @@ uint32_t mars_kiss32 (void)
         c = 0; /* Seed variables */
     int32_t t;
 
-    y ^= ( y << 5);
-    y ^= ( y >> 7);
-    y ^= ( y << 22);
+    y ^= y << 5;
+    y ^= y >> 7;
+    y ^= y << 22;
     t  = z + w + c;
     z  = w;
     c  = t < 0;
     w  = t & 2147483647;
     x += 1411392427;
 
-    return ((uint32_t)x + y + w);
+    return (uint32_t) x + y + w;
 }
-
 
 /*
    Implementation of Marsaglia JKISS RNG uses 64-bit value and 2x multiplies
@@ -191,9 +185,8 @@ uint32_t mars_kiss64_simp (void)
     c = t >> 32;
     z = t;
 
-    return ((uint32_t)x + y + z);
+    return (uint32_t) x + y + z;
 }
-
 
 #define x seed[0]
 #define y seed[1]
@@ -204,7 +197,7 @@ uint32_t mars_kiss64_simp (void)
    before use
 */
 
-uint32_t mars_kiss64_seed (mars_kiss64_seed_t seed)
+uint32_t mars_kiss64_seed(mars_kiss64_seed_t seed)
 {
     uint64_t t;
 
@@ -216,25 +209,24 @@ uint32_t mars_kiss64_seed (mars_kiss64_seed_t seed)
     c = t >> 32;
     z = t;
 
-    return ((uint32_t)x + y + z);
+    return (uint32_t) x + y + z;
 }
 #undef x
 #undef y
 #undef z
 #undef c
 
-
 // validate seed for Marsaglia KISS 64 before it is first used
 void validate_mars_kiss64_seed (mars_kiss64_seed_t seed)
 {
-    if (seed[1] == 0)
+    if (seed[1] == 0) {
         seed[1] = 13031301;
            // y (<- seed[2]) can't be zero so set to arbitrary non-zero if so
+    }
 
     seed[3] = seed[3] % 698769068 + 1;
            // avoid z=c=0 and make < 698769069
 }
-
 
 /***************************************************
 
@@ -242,7 +234,6 @@ void validate_mars_kiss64_seed (mars_kiss64_seed_t seed)
 
     Being added to all the time, and updated for better speed as
     fixed-point transcendentals and optimised multiplies become available
-
 
 ****************************************************/
 /*
@@ -254,33 +245,34 @@ void validate_mars_kiss64_seed (mars_kiss64_seed_t seed)
  *
  * 	I have been lazy and copied the GOTOs, sorry!
  */
-accum exponential_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg)
+accum exponential_dist_variate(uniform_rng uni_rng, uint32_t* seed_arg)
 {
     accum 	A = 0.0k;
     uint32_t	U, U0, USTAR;
 
 outer:
-    U = uni_rng (seed_arg);
+    U = uni_rng(seed_arg);
     U0 = U;
 
 inner:
-    USTAR = uni_rng (seed_arg);
-    if (U < USTAR) return  A + (accum) ulrbits (U0);
+    USTAR = uni_rng(seed_arg);
+    if (U < USTAR) {
+	return A + (accum) ulrbits(U0);
                    // accum + (accum)[ unsigned long fract <= uint32_t ]
+    }
 
-    U = uni_rng (seed_arg);
-    if (U < USTAR) goto inner;
+    U = uni_rng(seed_arg);
+    if (U < USTAR) {
+	goto inner;
+    }
 
     A += 1.0k;
     goto outer;
 }
 
-
-
 // Returns standard gaussian deviate
-accum gaussian_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg)
+accum gaussian_dist_variate(uniform_rng uni_rng, uint32_t* seed_arg)
 {
-
     uint32_t U = uni_rng(seed_arg);
     return norminv_urt(U);
 }
@@ -292,15 +284,16 @@ accum gaussian_dist_variate (uniform_rng uni_rng, uint32_t* seed_arg)
 //! \param[in] lambda The parameter \f$\lambda\f$ of the distribution.
 //! \return An unsigned integer which is poisson-distributed.
 
-uint32_t poisson_dist_variate (uniform_rng uni_rng,
-                               uint32_t*   seed_arg,
-                accum       lambda)
+uint32_t poisson_dist_variate(
+	uniform_rng uni_rng,
+	uint32_t*   seed_arg,
+	accum       lambda)
 {
-    unsigned long fract exp_minus_lambda = (unsigned long fract) expk (-lambda);
+    unsigned long fract exp_minus_lambda = (unsigned long fract) expk(-lambda);
 
 //! \remark DRL thinks the above cast (from s16.15 to u0.32) might be wasteful.
 
-    return (poisson_dist_variate_exp_minus_lambda (uni_rng, seed_arg, exp_minus_lambda));
+    return poisson_dist_variate_exp_minus_lambda(uni_rng, seed_arg, exp_minus_lambda);
 }
 
 //! \brief A poisson distributed random variable, given exp (-lambda).
@@ -309,10 +302,10 @@ uint32_t poisson_dist_variate (uniform_rng uni_rng,
 //! \param[in] exp_minus_lambda \f$\exp(-\lambda)\f$.
 //! \return An unsigned integer which is poisson-distributed.
 
-uint32_t poisson_dist_variate_exp_minus_lambda
-    (uniform_rng         uni_rng,
-     uint32_t*           seed_arg,
-     unsigned long fract exp_minus_lambda)
+uint32_t poisson_dist_variate_exp_minus_lambda(
+	uniform_rng         uni_rng,
+	uint32_t*           seed_arg,
+	unsigned long fract exp_minus_lambda)
 {
     unsigned long fract  p = 1.0ulr;
     uint32_t 	     	 k = 0;
@@ -327,10 +320,9 @@ uint32_t poisson_dist_variate_exp_minus_lambda
 //!     return (k);
 
     do {
-    k++;
-    p = p * ulrbits (uni_rng (seed_arg));
+	k++;
+	p *= ulrbits(uni_rng(seed_arg));
     } while (p > exp_minus_lambda);
 
-    return (k - 1);
+    return k - 1;
 }
-

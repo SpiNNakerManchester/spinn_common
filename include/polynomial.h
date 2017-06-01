@@ -1,6 +1,6 @@
 /*! \file
  *
- *  \brief Fast polynomial evaluation, using ARM DSP instructions. 
+ *  \brief Fast polynomial evaluation, using ARM DSP instructions.
  *
  *    Each function takes three arguments: the polynomial coefficients,
  *    the point at which we are evaluating the polynomial, and the order
@@ -55,8 +55,6 @@
 #include "arm_acle.h"
 #include "debug.h"
 
-#ifdef __ARM_FEATURE_DSP
-
 //! \brief Horner evaluation of a polynomial of signed accum at
 //! a point given by the lower (signed) 16-bits of x.
 //! \param[in] a The 32-bit signed polynomial coefficients. These can
@@ -66,21 +64,29 @@
 //! is given by treating the lower 16-bits of the argument as s0.16.
 //! Note this is not a fract (s0.15), thus, if we are using a fract here,
 //! we must treat the fract value of -1.0 as if it were only -0.5.
-//! \param[in] n The number of coeficients in the polynomial.
+//! \param[in] n The number of coefficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 
-static inline int __horner_int_b (int* a, int x, int n)
+static inline int __horner_int_b(int* a, int x, int n)
 {
+#ifdef __ARM_FEATURE_DSP
     register int r = *a++;
 
-    assert (!__reset_and_saturation_occurred ());
+    assert(!__reset_and_saturation_occurred());
+    for ( ; n > 0; n--) {
+        r = __smlawb(r, x, *a++);
+    }
+    assert(!__saturation_occurred());
+    return r;
+#else  /*!__ARM_FEATURE_DSP*/
+    register int64_t t = *a++;
+    register int64_t dx = (int64_t) ((int16_t) (x & 0xFFFF));
 
-    for ( ; n > 0; n--)
-        r = __smlawb (r, x, *a++);
-
-    assert (!__saturation_occurred ());
-
-    return (r);
+    for ( ; n > 0; n--) {
+        t = (t * dx >> 16) + *a++;
+    }
+    return (int) (t & 0xFFFFFFFF);
+#endif /*__ARM_FEATURE_DSP*/
 }
 
 //! \brief Horner evaluation of a polynomial of signed accum at
@@ -92,68 +98,29 @@ static inline int __horner_int_b (int* a, int x, int n)
 //! is given by treating the upper 16-bits of the argument as s0.16.
 //! Note this is not a fract (s0.15), thus, if we are using a fract here,
 //! we must treat the fract value of -1.0 as if it were only -0.5.
-//! \param[in] n The number of coeficients in the polynomial.
+//! \param[in] n The number of coefficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 
-static inline int __horner_int_t (int* a, int x, int n)
+static inline int __horner_int_t(int* a, int x, int n)
 {
+#ifdef __ARM_FEATURE_DSP
     register int r = *a++;
 
-    assert (!__reset_and_saturation_occurred ());
-
-    for ( ; n > 0; n--)
-        r = __smlawt (r, x, *a++);
-
-    assert (!__saturation_occurred ());
-
-    return (r);
-}
-
+    assert(!__reset_and_saturation_occurred());
+    for ( ; n > 0; n--) {
+        r = __smlawt(r, x, *a++);
+    }
+    assert(!__saturation_occurred());
+    return r;
 #else  /*!__ARM_FEATURE_DSP*/
-
-//! \brief Horner evaluation of a polynomial of signed accum at
-//! a point given by the lower (signed) 16-bits of x.
-//! \param[in] a The 32-bit signed polynomial coefficients. These can
-//! be treated as either accum or long fract (or any other signed 32-bit
-//! quantity.
-//! \param[in] x The point at which the polynomial is to be evaluated
-//! is given by treating the lower 16-bits as a signed fract.
-//! \param[in] n The number of coeficients in the polynomial.
-//! \return The result as a signed 32-bit quantity.
-
-static inline int __horner_int_b (int* a, int x, int n)
-{
-    register int64_t t  = *a++;
-    register int64_t dx = (int64_t)((int16_t)(x & 0xFFFF));
-
-    for ( ; n > 0; n--)
-        t = (t * dx >> 16) + *a++;
-
-    return ((int)(t & 0xFFFFFFFF));
-}
-
-//! \brief Horner evaluation of a polynomial of signed accum at
-//! a point given by the upper (signed) 16-bits of x.
-//! \param[in] a The 32-bit signed polynomial coefficients. These can
-//! be treated as either accum or long fract (or any other signed 32-bit
-//! quantity.
-//! \param[in] x The point at which the polynomial is to be evaluated
-//! is given by treating the upper 16-bits as a signed fract.
-//! \param[in] n The number of coeficients in the polynomial.
-//! \return The result as a signed 32-bit quantity.
-
-static inline int __horner_int_t (int* a, int x, int n)
-{
     register int64_t t = *a++;
-    register int64_t dx = (int64_t)(x >> 16);
+    register int64_t dx = (int64_t) (x >> 16);
 
-
-    for ( ; n > 0; n--)
+    for ( ; n > 0; n--) {
         t = (t * dx >> 16) + *a++;
-
-    return ((int)(t & 0xFFFFFFFF));
-}
-
+    }
+    return (int) (t & 0xFFFFFFFF);
 #endif /*__ARM_FEATURE_DSP*/
+}
 
 #endif /*__POLYNOMIAL_H__*/

@@ -1,6 +1,4 @@
-/*
- * circular_buffer.c
- *
+/* circular_buffer.c
  *
  *  SUMMARY
  *    The essential feature of the buffer used in this implementation is that it
@@ -23,7 +21,6 @@
  *
  *  DESCRIPTION
  *
- *
  *  CREATION DATE
  *    10 December, 2013
  *
@@ -34,9 +31,6 @@
  *    Last modified on : $Date$
  *    Last modified by : $Author$
  *    $Id$
- *
- *    $Log$
- *
  */
 
 #include "circular_buffer.h"
@@ -77,7 +71,6 @@ static inline bool _circular_buffer_not_full(circular_buffer buffer) {
     return ((buffer->input + 1) & buffer->buffer_size) != buffer->output;
 }
 
-
 circular_buffer circular_buffer_initialize(uint32_t size) {
     uint32_t real_size = size;
     if (!_is_power_of_2(real_size)) {
@@ -85,16 +78,19 @@ circular_buffer circular_buffer_initialize(uint32_t size) {
         log_warning(
             "Requested size of %u was rounded up to %u", size, real_size - 1);
     }
-    circular_buffer buffer = sark_alloc(1, sizeof(struct _circular_buffer));
+
+    circular_buffer buffer = sark_alloc(1, sizeof(_circular_buffer));
     if (buffer == NULL) {
         log_error("Cannot allocate space for buffer structure");
         return NULL;
     }
-    buffer->buffer = (uint32_t *) sark_alloc(1, real_size * sizeof(uint32_t));
+
+    buffer->buffer = sark_alloc(1, real_size * sizeof(uint32_t));
     if (buffer->buffer == NULL) {
         log_error("Cannot allocate space for buffer in circular buffer");
         return NULL;
     }
+
     buffer->buffer_size = real_size - 1;
     buffer->input = 0;
     buffer->output = 0;
