@@ -321,7 +321,7 @@ uint32_t poisson_dist_variate_exp_minus_lambda(
 
     do {
 	k++;
-	p *= ulrbits(uni_rng(seed_arg));
+	p = p * ulrbits(uni_rng(seed_arg));
     } while (p > exp_minus_lambda);
 
     return k - 1;
