@@ -18,7 +18,6 @@
  *    Manchester M13 9PL, UK
  *
  *  DESCRIPTION
- *    
  *
  *  CREATION DATE
  *    20 February, 2014
@@ -32,7 +31,6 @@
  *    $Id$
  *
  *    $Log$
- *
  */
 
 #ifndef __STDFIX_EXP_H__
@@ -44,10 +42,10 @@
 
 #include "stdfix-full-iso.h"
 
-
 // stdfix-exp API
 
-accum		expk(accum x);
-uint32_t	exp_series(uint32_t x);
+accum expk(accum x);
+
+uint32_t exp_series(uint32_t x);
 
 #endif /*__STDFIX_EXP_H__*/

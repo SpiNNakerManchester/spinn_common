@@ -18,7 +18,7 @@
  *    School of Computer Science
  *    The University of Manchester
  *    Manchester M13 9PL, UK
- * 
+ *
  *  \date
  *    27 April, 2014
  *

@@ -50,9 +50,6 @@
  *    Last modified on : $Date$
  *    Last modified by : $Author$
  *    $Id$
- *
- *    $Log$
- *
  */
 
 #ifndef __BIT_FIELD_H__
@@ -199,6 +196,7 @@ static inline bool empty_bit_field(
 	size_t s)
 {
     bool empty = true;
+
     for ( ; s > 0; s--) {
         empty = empty && (b[s-1] == 0);
     }
@@ -235,7 +233,6 @@ static inline size_t get_bit_field_size(
     if ((bits & bits_to_words_remainder) != 0) {
         words++;
     }
-
     return words;
 }
 

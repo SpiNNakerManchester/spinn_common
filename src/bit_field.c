@@ -68,8 +68,8 @@ static inline void print_bit_field_entry(
     counter_t i = 32;
 
     for ( ; i > 0; i--) {
-	log_debug("%c", ((e & 0x1) == 0)? ' ': '1');
-	e = e >> 1;
+	log_debug("%c", ((e & 0x1) == 0) ? ' ' : '1');
+	e >>= 1;
     }
 
     log_debug("\n");

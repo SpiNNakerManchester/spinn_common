@@ -37,7 +37,8 @@
 
 //! This function is used to represent doing nothing.
 
-static inline void skip(void) {
+static inline void skip(void)
+{
     return;
 }
 
@@ -45,11 +46,11 @@ static inline void skip(void) {
 #include <stdlib.h>
 #include <stdio.h>
 
-#define spin1_dma_transfer(tag,s,t,d,l)					\
-    do { log_info("spin1_dma_transfer (%u, %u)",(s),(t)); } while (0)
+#define spin1_dma_transfer(tag, s, t, d, ln) \
+    do { log_info("spin1_dma_transfer (%u, %u)", (s), (t)); } while (0)
 
-#define spin1_trigger_user_event(a,b)					\
-    do { log_info("spin1_trigger_user_event (%d, %d)",(a),(b)); } while (0)
+#define spin1_trigger_user_event(a, b) \
+    do { log_info("spin1_trigger_user_event (%d, %d)", (a), (b)); } while (0)
 
 #define c_main \
     c_main(void); int main(void) { c_main(); return 0; } void c_main
@@ -78,14 +79,16 @@ static inline void skip(void) {
 #define stderr IO_BUF
 //! This function is used to mimic printf on SpiNNaker
 #undef  printf
-#define printf(s, ...)	do { io_printf(IO_BUF, s, ##__VA_ARGS__); } while (0)
+#define printf(s, ...) \
+    do { io_printf(IO_BUF, s, ##__VA_ARGS__); } while (0)
 //! This function is used to mimic putchar on SpiNNaker
 #undef  putchar
-#define putchar(c)	do { io_printf(IO_BUF, "%c", c); } while (0)
+#define putchar(c) \
+    do { io_printf(IO_BUF, "%c", c); } while (0)
 //! This function is used to mimic exit on SpiNNaker
 #undef  exit
-#define exit(n)		do { spin1_exit(n); } while (0)
-
+#define exit(n) \
+    do { spin1_exit(n); } while (0)
 
 #endif /* DEBUG_ON_HOST */
 #endif /* __SPIN_PRINT_H__ */

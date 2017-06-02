@@ -52,7 +52,7 @@ static uint32_t log_ck[] = {
 };
 
 static int16_t recip_table[] = {
-          0,  -1008,  -1986,  -2934,  -3855,  -4749,  -5617,  -6461,
+	  0,  -1008,  -1986,  -2934,  -3855,  -4749,  -5617,  -6461,
       -7282,  -8080,  -8856,  -9612, -10348, -11065, -11763, -12444,
      -13107, -13754, -14386, -15002, -15604, -16191, -16765, -17326,
      -17873, -18409, -18933, -19445, -19946, -20436, -20916, -21385,
@@ -88,8 +88,7 @@ static inline uint32_t uint32_round(
 	uint32_t r,
 	uint32_t n)
 {
-    r = (r >> n) + ((r >> (n-1)) & 0x1);
-    return r;
+    return (r >> n) + ((r >> (n-1)) & 0x1);
 }
 
 //! \brief This function performs a multiply-accumulate
@@ -205,7 +204,7 @@ static inline int32_t logkbits(
 //! \brief This function calculates the log function for the
 //! accum type (s16.15).
 //! \param[in] x is positive value represented as an accum.
-//! \return A value representing log (x) in accum format.
+//! \return A value representing log(x) in accum format.
 
 accum logk(
 	accum x)

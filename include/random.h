@@ -14,22 +14,22 @@
 /***************************************************
 
 	Uniform RNGs
-	
-	These all return well-distributed unsigned 32-bit ints that 
+
+	These all return well-distributed unsigned 32-bit ints that
 	have been tested rigorously on the DIEHARD, dieharder and TestU01
 	test suites. The Marsaglia KISS generators are slightly faster
 	and the 64-bit one uses the theoretically superior multiplicative
 	algorithm.  The WELL1024a has a cycle length of (2^1024)-1
-	
+
 	Two versions are available.  A simple version which
 	has a global hidden seed which does not need to be set, and a custom
-	version which allows seeds to be set by the user to either 
-	
-		1 - promote independence or 
-		2 - guarantee identical behaviour 
-		
+	version which allows seeds to be set by the user to either
+
+		1 - promote independence or
+		2 - guarantee identical behaviour
+
 	..across multiple random number streams.
-	
+
 	These generators can all be used with the non-uniform RNGs below
 
 ****************************************************/
@@ -37,14 +37,14 @@
 // The simple generators
 //////////////////////////////
 
-/* 
+/*
    Implementation of a Marsaglia 32-bit KISS generator which uses no multiply
    instructions
-	
+
    209.9 nanosecs (i.e. 42 ticks) per call
-   
+
    Only available in simple form.  Very good for single stream of PRNs.
-*/ 
+*/
 
 //! \brief Marsaglia 32-bit KISS generator using no multiplication
 //! instructions.
@@ -52,27 +52,26 @@
 
 uint32_t mars_kiss32(void);
 
-/* 
+/*
    Implementation of Marsaglia JKISS RNG uses 64-bit value and 2x
    multiplies
-	
+
    219.9 nanosecs (i.e. 44 ticks) per call on ARM with gcc 4.8.1
-	
+
    The best general purpose trade-off between speed, equidistribution and cycle
    length.
-	
+
    Also available in custom seed form.
 */
 
 uint32_t mars_kiss64_simp(void);
 
 /*
- *
- *  WELL 1024a long cycle generator (2^1024 - 1) from L'Ecuyer & Panneton
-   
+   WELL 1024a long cycle generator (2^1024 - 1) from L'Ecuyer & Panneton
+
    Better equi-distribution and warm-up performance than Mersenne Twister, and
    faster
-   
+
    294.9 nanosecs (i.e. 59 ticks) per call
 */
 
@@ -109,8 +108,8 @@ uint32_t WELL1024a_seed(WELL1024a_seed_t seed);
 /***************************************************
 
 	Non-uniform RNGs
-	
-	Being added to all the time, and updated for better speed as 
+
+	Being added to all the time, and updated for better speed as
 	fixed-point transcendentals and optimised multiplies become available
 
 ****************************************************/
@@ -121,7 +120,7 @@ uint32_t WELL1024a_seed(WELL1024a_seed_t seed);
     - for a seeded type call as ( rng_type, seed_vector, .. )
 
   This will generate some argument type warnings when used with simple URNGs
-  but avoids a lot of code duplication and allows use of any Uniform RNG with 
+  but avoids a lot of code duplication and allows use of any Uniform RNG with
   any Non-Uniform variates which is valuable flexibility.
 */
 
@@ -132,7 +131,7 @@ typedef uint32_t (*uniform_rng)(uint32_t*);
  */
 accum exponential_dist_variate(uniform_rng uni_rng, uint32_t* seed_arg);
 
-// Returns standard Gaussian deviate 
+// Returns standard Gaussian deviate
 // translation of NR in C version of Box-Muller
 accum gaussian_dist_variate(uniform_rng uni_rng, uint32_t* seed_arg);
 

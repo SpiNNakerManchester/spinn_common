@@ -1,6 +1,6 @@
 /*! \file
  *
- *  \brief Fast polynomial evaluation, using ARM DSP instructions. 
+ *  \brief Fast polynomial evaluation, using ARM DSP instructions.
  *
  *    Each function takes three arguments: the polynomial coefficients,
  *    the point at which we are evaluating the polynomial, and the order
@@ -82,7 +82,7 @@ static inline int __horner_int_b(
     return r;
 #else  /*!__ARM_FEATURE_DSP*/
     register int64_t t = *a++;
-    register int64_t dx = (int64_t)((int16_t)(x & 0xFFFF));
+    register int64_t dx = (int64_t) ((int16_t) (x & 0xFFFF));
 
     for ( ; n > 0; n--) {
         t = (t * dx >> 16) + *a++;
@@ -118,7 +118,7 @@ static inline int __horner_int_t(
     return r;
 #else  /*!__ARM_FEATURE_DSP*/
     register int64_t t = *a++;
-    register int64_t dx = (int64_t)(x >> 16);
+    register int64_t dx = (int64_t) (x >> 16);
 
     for ( ; n > 0; n--) {
         t = (t * dx >> 16) + *a++;

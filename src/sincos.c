@@ -109,7 +109,6 @@ static inline int32_t sin_pi4(
 // Thus 1 - cos(x)*cos(b)
 //    = -(cx*cb) + cx + cb
 //------------------------------------------------------------------------
-
 static inline int32_t cos_pi4(
 	int32_t x,
 	int32_t cos_x,
@@ -148,10 +147,9 @@ static inline int32_t cos_pi4(
 // is equivalent to:
 //
 //   r = smulwt(x, 23170);
-//   r = smlawb(x, 31130, r) << 1;	// n.b. two constants in same register
-// 
+//   r = smlawb(x, 31130, r) << 1; // n.b. two constants in same register
+//
 //------------------------------------------------------------------------
-
 int32_t mul_sqrt_half(
 	int32_t x)
 {
@@ -183,7 +181,6 @@ static inline int32_t sin_pi4_x_sqrt_half(
 // the calculation. The reason is that we no longer have to represent 1.0000
 // as an s0.31.
 //------------------------------------------------------------------------
-
 static inline int32_t cos_pi4_x_sqrt_half(
 	int32_t c)
 {
@@ -195,7 +192,6 @@ static inline int32_t cos_pi4_x_sqrt_half(
 //! \return A pair of values (accessible by use of fst and snd).
 //! The first component is the range reduced value of x represented by
 //! an s0.31 in the range [0,pi/4). The second is a quadrant, in the range 0..7
-
 static inline int reduced(
 	pair_t p)
 {
@@ -387,8 +383,8 @@ static inline int32_t coskbits(
     //log_info("bp = %d (%r)", break_point, break_point >> 16);
 
     x -= break_point;
-    x  = x << 5;
-    break_point = break_point >> 27;
+    x <<= 5;
+    break_point >>= 27;
     cos_x = cos_approx(x);
 
     //log_info("x' = %d (%r), q = %d, bp = %d", x, x >> 16, q, break_point);
@@ -449,16 +445,16 @@ static inline int32_t coskbits(
 
 //! \brief This function calculates the sin function for the accum type (s16.15).
 //! \param[in] x is positive value represented as an accum.
-//! \return A value representing sin (x) in accum format.
+//! \return A value representing sin(x) in accum format.
 accum sink(
 	accum x)
 {
     return kbits(sinkbits(bitsk(x)));
 }
 
-//! \brief This function calculates the sin function for the accum type (s16.15).
+//! \brief This function calculates the cos function for the accum type (s16.15).
 //! \param[in] x is positive value represented as an accum.
-//! \return A value representing sin (x) in accum format.
+//! \return A value representing cos(x) in accum format.
 accum cosk(
 	accum x)
 {

@@ -1,4 +1,3 @@
-
 #ifndef __NORMAL_H__
 #define __NORMAL_H__
 
@@ -88,12 +87,14 @@ static inline accum norminv_ulr(
 
 #define norminv_fx(f) \
     ({	accum tmp;							\
-	if (__builtin_types_compatible_p(__typeof__(f), unsigned fract))\
+	if (__builtin_types_compatible_p(__typeof__(f), unsigned fract)) { \
 	    tmp = norminv_ur(f);					\
-	else if (__builtin_types_compatible_p(__typeof__(f), unsigned long fract)) \
+	} else if (__builtin_types_compatible_p(__typeof__(f),		\
+		unsigned long fract)) {					\
 	    tmp = norminv_ulr(f);					\
-	else								\
-	    abort(1);							\
+	} else {							\
+	    abort(1);                                                   \
+	}								\
 	tmp;								\
     })
 

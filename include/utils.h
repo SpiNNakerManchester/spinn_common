@@ -77,10 +77,9 @@ static inline uint64_t scale64(
 	uint64_t x,
 	uint32_t y)
 {
-    uint64_t r;
+    uint64_t r = round64((uint64_t) __lo(x) * (uint64_t) y);
 
-    r = round64((uint64_t)(__lo(x)) * (uint64_t) y);
-    r += (uint64_t)(__hi(x)) * (uint64_t) y;
+    r += (uint64_t) __hi(x) * (uint64_t) y;
     return r;
 }
 

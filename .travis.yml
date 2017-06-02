@@ -1,0 +1,17 @@
+dist: trusty
+language: c
+
+addons:
+  apt:
+    packages:
+      - vera++
+      #- gcc-arm-none-eabi
+      #- libnewlib-arm-none-eabi
+
+install:
+  - git clone https://github.com/SpiNNakerManchester/SupportScripts.git support
+# TODO: Add actually building the code
+
+script:
+  - support/run-vera.sh include -P max-file-length=2500
+  - support/run-vera.sh src

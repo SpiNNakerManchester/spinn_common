@@ -192,7 +192,7 @@ int central_approx(
 
     z -= offset[5-approx];
     z *= multiplier[5-approx];
-    z = z << 1;				//DRL HACK!!
+    z <<= 1;				//DRL HACK!!
 
     assert(0 <= z);
 
@@ -212,7 +212,7 @@ int central_approx(
 //! \return A 32-bit integer representing the cumulative normal distribution
 //! This is in s16.15 (i.e. standard accum) format.
 
-int  __attribute__ ((noinline)) __norminv_rbits(
+int  __attribute__((noinline)) __norminv_rbits(
 	int x)
 {
     int neg = negative(x);
@@ -246,7 +246,7 @@ int  __attribute__ ((noinline)) __norminv_rbits(
     return r;
 }
 
-int __attribute__ ((noinline)) __norminv_ulrbits(
+int __attribute__((noinline)) __norminv_ulrbits(
 	unsigned int x)
 {
     log_info("This function is not yet implemented");

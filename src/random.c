@@ -2,7 +2,6 @@
  *  \brief pseudo-random number generators
  *  \author Michael Hopkins
  *  \date February 2014
- *
  */
 
 #include "random.h"
@@ -12,7 +11,6 @@
 #include "stdfix-exp.h"
 
 /*
-
   By Michael Hopkins, Manchester University
 
   For all of these, to get a high resolution fixed-point number in (0,1) that
@@ -32,7 +30,6 @@
   faster
 
   294.9 nanosecs (i.e. 59 ticks) per call
-
 */
 #define R 32
 
@@ -40,28 +37,30 @@
 // static
 static uint32_t STATE[R];
 
-#define W 32
-#define M1 3
-#define M2 24
-#define M3 10
+#define W	32
+#define M1	3
+#define M2	24
+#define M3	10
 
-#define MAT0POS(t,v)	((v)^((v)>>(t)))
-#define MAT0NEG(t,v)	((v)^((v)<<(-(t))))
+#define MAT0POS(t, v)	((v) ^ ((v)>>(t)))
+#define MAT0NEG(t, v)	((v) ^ ((v)<<(-(t))))
 #define Identity(v)	(v)
 
-#define V0            STATE[state_i                   ]
-#define VM1           STATE[(state_i+M1) & 0x0000001fU]
-#define VM2           STATE[(state_i+M2) & 0x0000001fU]
-#define VM3           STATE[(state_i+M3) & 0x0000001fU]
-#define VRm1          STATE[(state_i+31) & 0x0000001fU]
-#define newV0         STATE[(state_i+31) & 0x0000001fU]
-#define newV1         STATE[state_i                   ]
+#define V0	STATE[state_i                   ]
+#define VM1	STATE[(state_i+M1) & 0x0000001fU]
+#define VM2	STATE[(state_i+M2) & 0x0000001fU]
+#define VM3	STATE[(state_i+M3) & 0x0000001fU]
+#define VRm1	STATE[(state_i+31) & 0x0000001fU]
+#define newV0	STATE[(state_i+31) & 0x0000001fU]
+#define newV1	STATE[state_i                   ]
 
 // the initialiser function that MUST BE CALLED before WELL1024a_simp() is used
 void init_WELL1024a_simp(void)
 {
+    // state_i = 0;
     for (int j = 0; j < R; j++) {
-	STATE[j] = mars_kiss64_simp();		// init state vector with good generator
+	STATE[j] = mars_kiss64_simp();
+                         // init state vector with good generator
 	// io_printf(IO_STD, " %u , ", STATE[j]);
     }
     // io_printf(IO_STD, "\n");
@@ -73,11 +72,11 @@ uint32_t WELL1024a_simp(void)
     static uint32_t state_i = 0;
     uint32_t z0, z1, z2;
 
-    z0 = VRm1;
-    z1 = Identity(V0) ^ MAT0POS(8, VM1);
-    z2 = MAT0NEG(-19, VM2) ^ MAT0NEG(-14, VM3);
-    newV1 = z1 ^ z2;
-    newV0 = MAT0NEG(-11,z0) ^ MAT0NEG(-7, z1) ^ MAT0NEG(-13, z2);
+    z0    = VRm1;
+    z1    = Identity(V0)      ^ MAT0POS(  8, VM1);
+    z2    = MAT0NEG(-19, VM2) ^ MAT0NEG(-14, VM3);
+    newV1 = z1                ^ z2;
+    newV0 = MAT0NEG(-11, z0)  ^ MAT0NEG(-7, z1)    ^ MAT0NEG(-13, z2);
     state_i = (state_i + 31) & 0x0000001fU;
     return STATE[state_i];
 }
@@ -89,25 +88,25 @@ void validate_WELL1024a_seed(
     seed[33] = 0;
 }
 
-#define state_i STATE[33] // need to store original static variable as extra element of seed
-
 // the WELL generator for custom seed - STATE in function argument replaces
 // file static version
 uint32_t WELL1024a_seed(
 	WELL1024a_seed_t STATE)
 {
+#define state_i STATE[33] // need to store original static variable as extra element of seed
+
     uint32_t z0, z1, z2;
 
-    z0 = VRm1;
-    z1 = Identity(V0) ^ MAT0POS(8, VM1);
-    z2 = MAT0NEG(-19, VM2) ^ MAT0NEG(-14, VM3);
-    newV1 = z1 ^ z2;
-    newV0 = MAT0NEG(-11, z0) ^ MAT0NEG(-7, z1) ^ MAT0NEG(-13, z2);
+    z0    = VRm1;
+    z1    = Identity(V0)      ^ MAT0POS(  8, VM1);
+    z2    = MAT0NEG(-19, VM2) ^ MAT0NEG(-14, VM3);
+    newV1 = z1                ^ z2;
+    newV0 = MAT0NEG(-11, z0)  ^ MAT0NEG(-7, z1)   ^ MAT0NEG(-13, z2);
     state_i = (state_i + 31) & 0x0000001fU;
     return STATE[state_i];
-}
 
 #undef state_i
+}
 
 #undef W
 #undef R
@@ -153,7 +152,7 @@ uint32_t mars_kiss32(void)
     c = t < 0;
     w = t & 2147483647;
     x += 1411392427;
-    return (uint32_t)x + y + w;
+    return (uint32_t) x + y + w;
 }
 
 /*
@@ -178,14 +177,13 @@ uint32_t mars_kiss64_simp(void)
     c = t >> 32;
     z = t;
 
-    return (uint32_t)x + y + z;
+    return (uint32_t) x + y + z;
 }
 
 /*
    Custom seed version of above - need to create & validate 128 bit seed
    before use
 */
-
 uint32_t mars_kiss64_seed(
 	mars_kiss64_seed_t seed)
 {
@@ -204,7 +202,7 @@ uint32_t mars_kiss64_seed(
     c = t >> 32;
     z = t;
 
-    return (uint32_t)x + y + z;
+    return (uint32_t) x + y + z;
 
 #undef x
 #undef y
@@ -217,8 +215,8 @@ void validate_mars_kiss64_seed(
 	mars_kiss64_seed_t seed)
 {
     if (seed[1] == 0) {
-        seed[1] = 13031301;
-        // y (<- seed[2]) can't be zero so set to arbitrary non-zero if so
+	seed[1] = 13031301;
+	// y (<- seed[2]) can't be zero so set to arbitrary non-zero if so
     }
 
     seed[3] = seed[3] % 698769068 + 1;
@@ -230,7 +228,7 @@ void validate_mars_kiss64_seed(
     Non-uniform RNGs
 
     Being added to all the time, and updated for better speed as
-    fixed-point transcendentals and optimised multiplies become available
+    fixed-point transcendentals and optimized multiplies become available
 
 ****************************************************/
 /*
@@ -247,19 +245,24 @@ accum exponential_dist_variate(
     accum A = 0.0k;
     uint32_t U, U0, USTAR;
 
-    while (1) {
-    	U = uni_rng(seed_arg);
-    	U0 = U;
-    	do {
-    	    USTAR = uni_rng(seed_arg);
-    	    if (U < USTAR) {
-    		return A + (accum) ulrbits(U0);
-    		// accum + (accum)[unsigned long fract <= uint32_t]
-    	    }
-    	    U = uni_rng(seed_arg);
-    	} while (U < USTAR);
-    	A += 1.0k;
+outer:
+    U = uni_rng(seed_arg);
+    U0 = U;
+
+inner:
+    USTAR = uni_rng(seed_arg);
+    if (U < USTAR) {
+	return A + (accum) ulrbits(U0);
+                   // accum + (accum)[ unsigned long fract <= uint32_t ]
     }
+
+    U = uni_rng(seed_arg);
+    if (U < USTAR) {
+	goto inner;
+    }
+
+    A += 1.0k;
+    goto outer;
 }
 
 // Returns standard gaussian deviate
@@ -271,19 +274,20 @@ accum gaussian_dist_variate(
     return norminv_urt(U);
 }
 
+typedef unsigned long fract ulf_t;	// DKF type introduced to make Eclipse moan less
+
 //! \brief A poisson distributed random variable, given exp (-lambda). This is
 //! Knuth's method, and is \f$O(n)\f$, so don't use for large lambda
 //! \param[in] uni_rng A uniformly distributed random number generator.
 //! \param[in] seed_arg The seed state for the random number sequence.
 //! \param[in] lambda The parameter \f$\lambda\f$ of the distribution.
 //! \return An unsigned integer which is poisson-distributed.
-
 uint32_t poisson_dist_variate(
 	uniform_rng uni_rng,
 	uint32_t* seed_arg,
 	accum lambda)
 {
-    unsigned long fract exp_minus_lambda = (unsigned long fract) expk(-lambda);
+    ulf_t exp_minus_lambda = (ulf_t) expk(-lambda);
 
     //! \remark DRL thinks the above cast (from s16.15 to u0.32) might be wasteful.
 
@@ -295,13 +299,12 @@ uint32_t poisson_dist_variate(
 //! \param[in] seed_arg The seed state for the random number sequence.
 //! \param[in] exp_minus_lambda \f$\exp(-\lambda)\f$.
 //! \return An unsigned integer which is poisson-distributed.
-
 uint32_t poisson_dist_variate_exp_minus_lambda(
 	uniform_rng uni_rng,
 	uint32_t* seed_arg,
-	unsigned long fract exp_minus_lambda)
+	ulf_t exp_minus_lambda)
 {
-    unsigned long fract p = 1.0ulr;
+    ulf_t p = 1.0ulr;
     uint32_t k = 0;
 
     //! \remark DRL thinks this can be simplified to the following code:
@@ -315,7 +318,7 @@ uint32_t poisson_dist_variate_exp_minus_lambda(
 
     do {
 	k++;
-	p = p * ulrbits(uni_rng(seed_arg));
+	p *= ulrbits(uni_rng(seed_arg));
     } while (p > exp_minus_lambda);
     return k - 1;
 }

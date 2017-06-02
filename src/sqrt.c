@@ -31,12 +31,16 @@
 #include "arm_acle.h"
 #include "arm.h"
 
-#define __SQRT_HALF UINT32_C(3037000500)
+#define NO_INLINE	__attribute__((noinline))
+#define UNIMPLEMENTED	__attribute__((deprecated("Not implemented")))
+
+#define __SQRT_HALF	UINT32_C(3037000500)
 
 static inline int even(
 	int x) {
     return (x & 1) == 0;
 }
+
 static inline int odd(
 	int x) {
     return (x & 1) == 1;
@@ -59,7 +63,6 @@ uint64_t __x_u64_ulr(
     result = (result >> 32) + ((result & UINT64_C(0x80000000)) >> 31);
                                        // rounding of least significant bit
     result += (x >> 32) * ((uint64_t) y);
-
     return result;
 }
 
@@ -95,7 +98,7 @@ static inline uint64_t r_squared(
 {
     uint64_t t = ((uint64_t) r) << 32;
 
-    t -= ((uint64_t)(r >> 1)) * ((uint64_t)(r >> 1));
+    t -= ((uint64_t) (r >> 1)) * ((uint64_t) (r >> 1));
     return t;
 }
 
@@ -110,7 +113,7 @@ static inline uint64_t newton_xr(
 {
     register uint64_t t = ((uint64_t) x)*((uint64_t) r);
 
-    t = ((uint64_t)(x) << 32) - (t >> 1);
+    t = ((uint64_t) x << 32) - (t >> 1);
     return t;
 }
 
@@ -195,7 +198,7 @@ uint64_t newton_xlr2(
 //-----------------------------------------------------------------------
 // We have:
 //
-// If R = 1 - r/2 (and R' = 1 - r'/2), and Z = X*R^2 - 1, then 
+// If R = 1 - r/2 (and R' = 1 - r'/2), and Z = X*R^2 - 1, then
 //
 // R' = R + (1 - X * R^2) * R/2
 //    = R - Z * R/2
@@ -208,7 +211,7 @@ uint64_t newton_xlr2(
 //    = r + Z - Z * r/2
 //-----------------------------------------------------------------------
 
-uint64_t __attribute__ ((noinline)) square_root_improve(
+uint64_t NO_INLINE square_root_improve(
 	uint32_t x,
 	uint32_t r)
 {
@@ -234,7 +237,7 @@ uint64_t __attribute__ ((noinline)) square_root_improve(
     return tmp.u;
 }
 
-uint64_t __attribute__ ((noinline)) square_root_ximprove(
+uint64_t NO_INLINE square_root_ximprove(
 	uint32_t x,
 	uint64_t r)
 {
@@ -254,8 +257,8 @@ uint64_t __attribute__ ((noinline)) square_root_ximprove(
 	tmp.s = -tmp.s;
     }
 
-    t = __x_u64_ulr(tmp.u, (uint32_t)(r >> 33));
-    t += __x_u64_ulr(tmp.u, (uint32_t)((r >> 1) & UINT32_C(0xFFFFFFFF))) >> 32;
+    t  = __x_u64_ulr(tmp.u, (uint32_t) (r >> 33));
+    t += __x_u64_ulr(tmp.u, (uint32_t) ((r >> 1) & UINT32_C(0xFFFFFFFF))) >> 32;
 					// t has |Z|*r/2 in s0.63 format
     tmp.u -= t;
 
@@ -265,8 +268,8 @@ uint64_t __attribute__ ((noinline)) square_root_ximprove(
     tmp.s <<= 1;
 
     //log_info("tmp = (%u:%u)\n",
-    //         (uint32_t)(tmp.u >> 32),
-    //         (uint32_t)(tmp.u & UINT32_C(0xFFFFFFFF)));
+    //         (uint32_t) (tmp.u >> 32),
+    //         (uint32_t) (tmp.u & UINT32_C(0xFFFFFFFF)));
 
     tmp.u += r;
     return tmp.u;
@@ -276,8 +279,7 @@ uint64_t __attribute__ ((noinline)) square_root_ximprove(
 //! \param[in] x An unsigned integer, representing a u1.31. Leading bit is 1.
 //! \return An unsigned 64-bit integer representing the reciprocal square-root
 //! of x, as a u0.64. INCORRECT FORMAT DOCUMENTATION. FIX THIS!
-
-uint64_t __attribute__ ((noinline)) recip_normalized_root(
+uint64_t NO_INLINE recip_normalized_root(
 	uint32_t x)
 {
     uint64_t result;
@@ -288,23 +290,24 @@ uint64_t __attribute__ ((noinline)) recip_normalized_root(
 
     result = square_root_improve(x, initial);
     //log_info("result = %u %u", (uint32_t)(result >> 32),
-    //         (uint32_t)(result & 0xFFFFFFFF));
-    result = square_root_improve(x, (uint32_t)(result >> 32));
+    //          (uint32_t)(result & 0xFFFFFFFF));
+    result = square_root_improve(x, (uint32_t) (result >> 32));
     //log_info("result = %u %u", (uint32_t)(result >> 32),
-    //         (uint32_t)(result & 0xFFFFFFFF));
-    result = square_root_improve(x, (uint32_t)(result >> 32));
+    //          (uint32_t)(result & 0xFFFFFFFF));
+    result = square_root_improve(x, (uint32_t) (result >> 32));
     //log_info("result = %u %u", (uint32_t)(result >> 32),
-    //         (uint32_t)(result & 0xFFFFFFFF));
+    //          (uint32_t)(result & 0xFFFFFFFF));
     result = square_root_ximprove(x, result);
     //log_info("result = %u %u", (uint32_t)(result >> 32),
-    //         (uint32_t)(result & 0xFFFFFFFF));
+    //          (uint32_t)(result & 0xFFFFFFFF));
+
     result = square_root_ximprove(x, result);
     //log_info("result = %u %u", (uint32_t)(result >> 32),
-    //         (uint32_t)(result & 0xFFFFFFFF));
+    //          (uint32_t)(result & 0xFFFFFFFF));
 
     // DRL HACK!!! The following result = -(result >> 1);
     //log_info("result = %u %u", (uint32_t)(result >> 32),
-    //         (uint32_t)(result & 0xFFFFFFFF));
+    //          (uint32_t)(result & 0xFFFFFFFF));
 
     return result;
 }
@@ -312,7 +315,6 @@ uint64_t __attribute__ ((noinline)) recip_normalized_root(
 //! This function calculates the square-root of the argument
 //! \param[in] x A signed integer, representing an s16.15 accum.
 //! \return A signed integer representing the square-root of x, as an s16.15.
-
 int32_t sqrtk_bits(
 	int32_t x)
 {
@@ -323,27 +325,27 @@ int32_t sqrtk_bits(
     assert(x >= 0);
 
     if ((x == 0) || x == 32768) {
-        return x; // x is zero or one.
+	return x;	// x is zero or one.
     }
 
     n = __builtin_clz(x);
     r.s = x;
     r.u = x << n;
-		    // if x = 0.25, then n = 18
-		    // if x == 1.0, then n = 16
-		    // if x == 4.0, then n = 14
-		    // if x == 2^14, then n = 16 - 14 = 2
+			// if x = 0.25, then n = 18
+			// if x == 1.0, then n = 16
+			// if x == 4.0, then n = 14
+			// if x == 2^14, then n = 16 - 14 = 2
 
     //log_info("x = %k (%d), normalised = %u, n = %d", x, x, r.u, n);
 
     tmp = recip_normalized_root(r.u);
 
     tmp = newton_xlr(r.u, tmp);
-    tmp = tmp >> (16 + ((n - 16) >> 1));
-		    // if x was 0.25, tmp = 1.0 (in u1.63), n = 17
-		    // if x was 1.0, tmp = 1.0 (in u1.63), n = 16
-		    // if x was 4.0, tmp = 1.0, n = 15
-		    // if x was 2^14, tmp = 1.0, n = 16 + (n-16)/2 = 9
+    tmp >>= 16 + ((n - 16) >> 1);
+			// if x was 0.25, tmp = 1.0 (in u1.63), n = 17
+			// if x was 1.0, tmp = 1.0 (in u1.63), n = 16
+			// if x was 4.0, tmp = 1.0, n = 15
+			// if x was 2^14, tmp = 1.0, n = 16 + (n-16)/2 = 9
 
     if (odd(n)) {
         tmp = __x_u64_ulr(tmp, __SQRT_HALF);
@@ -351,13 +353,10 @@ int32_t sqrtk_bits(
     return (int32_t) (tmp >> 32);
 }
 
-#define UNIMPLEMENTED __attribute__((deprecated("Not implemented")))
-
 //! This function calculates the square-root of the argument
 //! \param[in] x An unsigned integer, representing an u16.16 accum.
 //! \return An unsigned integer representing the square-root of x,
 //! as an u16.16.
-
 uint32_t UNIMPLEMENTED sqrtuk_bits(
 	uint32_t x)
 {
