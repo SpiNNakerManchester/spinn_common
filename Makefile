@@ -25,6 +25,8 @@ CFLAGS += -I include $(OTIME) -D$(SPINN_COMMON_DEBUG)
 # Headers
 HEADERS = arm_acle_gcc.h arm_acle.h arm.h bit_field.h circular_buffer.h cmsis.h core_v5te.h debug.h log.h normal.h pair.h polynomial.h random.h sincos.h spin-print.h sqrt.h static-assert.h stdfix-exp.h stdfix-full-iso.h utils.h
 
+INSTALL ?= install
+
 $(SPINN_COMMON_BUILD)/%.o: src/%.c $(SPINN_COMMON_BUILD)
 	$(CC) $(CFLAGS) -o $@ $<
 
