@@ -161,3 +161,22 @@ void circular_buffer_print_buffer(circular_buffer buffer) {
     }
     io_printf(IO_BUF, "]\n");
 }
+
+// Expose some functions for structural plasticity
+uint32_t circular_buffer_input(circular_buffer buffer) {
+    return buffer->input;
+}
+
+uint32_t circular_buffer_output(circular_buffer buffer) {
+    return buffer->output;
+}
+
+uint32_t circular_buffer_real_size(circular_buffer buffer) {
+    return buffer->buffer_size;
+}
+
+
+uint32_t circular_buffer_value_at_index(circular_buffer buffer,
+                                        uint32_t index) {
+    return buffer->buffer[index& buffer->buffer_size];
+}
