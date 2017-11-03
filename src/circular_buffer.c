@@ -175,8 +175,7 @@ uint32_t circular_buffer_real_size(circular_buffer buffer) {
     return buffer->buffer_size;
 }
 
-
-uint32_t circular_buffer_value_at_index(circular_buffer buffer,
-                                        uint32_t index) {
-    return buffer->buffer[index& buffer->buffer_size];
+uint32_t circular_buffer_value_at_index(
+	circular_buffer buffer, uint32_t index) {
+    return buffer->buffer[index & buffer->buffer_size];
 }
