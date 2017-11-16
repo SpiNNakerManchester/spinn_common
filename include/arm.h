@@ -38,14 +38,14 @@
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns x+y.
 
-static inline uint32_t __add (uint32_t x, uint32_t y)
+static inline uint32_t __add(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("add %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
-    return (r);
+    asm volatile(
+	    "add %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+    return r;
 }
 
 //! \brief This function gives access to the ARM adc instruction.
@@ -53,14 +53,14 @@ static inline uint32_t __add (uint32_t x, uint32_t y)
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns x+y+carry.
 
-static inline uint32_t __adc (uint32_t x, uint32_t y)
+static inline uint32_t __adc(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("adc %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
-    return (r);
+    asm volatile(
+	    "adc %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+    return r;
 }
 
 //! \brief This function gives access to the ARM adds instruction.
@@ -69,14 +69,14 @@ static inline uint32_t __adc (uint32_t x, uint32_t y)
 //! \return The function returns x+y, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __adds (uint32_t x, uint32_t y)
+static inline uint32_t __adds(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("adds %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
-
-    return (r);
+    asm volatile(
+	    "adds %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
+    return r;
 }
 
 //! \brief This function gives access to the ARM adcs instruction.
@@ -85,14 +85,14 @@ static inline uint32_t __adds (uint32_t x, uint32_t y)
 //! \return The function returns x+y+carry, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __adcs (uint32_t x, uint32_t y)
+static inline uint32_t __adcs(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("adcs %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
-
-    return (r);
+    asm volatile(
+	    "adcs %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
+    return r;
 }
 
 //! \brief This function gives access to the ARM sub instruction.
@@ -100,14 +100,14 @@ static inline uint32_t __adcs (uint32_t x, uint32_t y)
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns x-y.
 
-static inline uint32_t __sub (uint32_t x, uint32_t y)
+static inline uint32_t __sub(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("sub %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
-    return (r);
+    asm volatile(
+	    "sub %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+    return r;
 }
 
 //! \brief This function gives access to the ARM sbc instruction.
@@ -115,14 +115,14 @@ static inline uint32_t __sub (uint32_t x, uint32_t y)
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns x-y-carry.
 
-static inline uint32_t __sbc (uint32_t x, uint32_t y)
+static inline uint32_t __sbc(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("sbc %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
-    return (r);
+    asm volatile(
+	    "sbc %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+    return r;
 }
 
 //! \brief This function gives access to the ARM subs instruction.
@@ -131,14 +131,14 @@ static inline uint32_t __sbc (uint32_t x, uint32_t y)
 //! \return The function returns x-y, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __subs (uint32_t x, uint32_t y)
+static inline uint32_t __subs(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("subs %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
-
-    return (r);
+    asm volatile(
+	    "subs %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
+    return r;
 }
 
 //! \brief This function gives access to the ARM sbcs instruction.
@@ -147,14 +147,14 @@ static inline uint32_t __subs (uint32_t x, uint32_t y)
 //! \return The function returns x-y-carry, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __sbcs (uint32_t x, uint32_t y)
+static inline uint32_t __sbcs(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("sbcs %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
-
-    return (r);
+    asm volatile(
+	    "sbcs %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
+    return r;
 }
 
 //! \brief This function gives access to the ARM rsb instruction.
@@ -162,14 +162,14 @@ static inline uint32_t __sbcs (uint32_t x, uint32_t y)
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns y-x
 
-static inline uint32_t __rsb (uint32_t x, uint32_t y)
+static inline uint32_t __rsb(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("rsb %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
-    return (r);
+    asm volatile(
+	    "rsb %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+    return r;
 }
 
 //! \brief This function gives access to the ARM rsc instruction.
@@ -177,14 +177,14 @@ static inline uint32_t __rsb (uint32_t x, uint32_t y)
 //! \param[in] y An unsigned 32-bit integer.
 //! \return The function returns y-x-carry.
 
-static inline uint32_t __rsc (uint32_t x, uint32_t y)
+static inline uint32_t __rsc(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("rsc %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
-
-    return (r);
+    asm volatile(
+	    "rsc %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+    return r;
 }
 
 //! \brief This function gives access to the ARM rsbs instruction.
@@ -193,14 +193,14 @@ static inline uint32_t __rsc (uint32_t x, uint32_t y)
 //! \return The function returns y-x-carry, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __rsbs (uint32_t x, uint32_t y)
+static inline uint32_t __rsbs(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("rsbs %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
-
-    return (r);
+    asm volatile(
+	    "rsbs %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
+    return r;
 }
 
 //! \brief This function gives access to the ARM rscs instruction.
@@ -209,14 +209,14 @@ static inline uint32_t __rsbs (uint32_t x, uint32_t y)
 //! \return The function returns y-x-carry, and sets the flag bits
 //! (including carry).
 
-static inline uint32_t __rscs (uint32_t x, uint32_t y)
+static inline uint32_t __rscs(uint32_t x, uint32_t y)
 {
     register uint32_t r;
 
-    asm volatile ("rscs %[r], %[x], %[y]"
-                  : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
-
-    return (r);
+    asm volatile(
+	    "rscs %[r], %[x], %[y]"
+	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : "cc");
+    return r;
 }
 
 #else  /*__arm__*/

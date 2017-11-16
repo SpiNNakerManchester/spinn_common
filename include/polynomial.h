@@ -66,8 +66,10 @@
 //! we must treat the fract value of -1.0 as if it were only -0.5.
 //! \param[in] n The number of coefficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
-
-static inline int __horner_int_b(int* a, int x, int n)
+static inline int __horner_int_b(
+	int *a,
+	int x,
+	int n)
 {
 #ifdef __ARM_FEATURE_DSP
     register int r = *a++;
@@ -100,8 +102,10 @@ static inline int __horner_int_b(int* a, int x, int n)
 //! we must treat the fract value of -1.0 as if it were only -0.5.
 //! \param[in] n The number of coefficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
-
-static inline int __horner_int_t(int* a, int x, int n)
+static inline int __horner_int_t(
+	int *a,
+	int x,
+	int n)
 {
 #ifdef __ARM_FEATURE_DSP
     register int r = *a++;

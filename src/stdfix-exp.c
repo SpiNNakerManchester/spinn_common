@@ -56,18 +56,21 @@ static uint32_t __exp_series[3] = { 5294, 4293434720, 2081624032 };
 // the following calculates a series expansion
 // for 1 - exp(-x/2^15) for x in [0..2^11 - 1]
 
-static inline uint32_t coef_mult(uint32_t c, uint32_t x)
+static inline uint32_t coef_mult(
+	uint32_t c,
+	uint32_t x)
 {
     uint64_t tmp = ((uint64_t) c * (uint64_t) x) >> 32;
 
     return (uint32_t) tmp;
 }
 
-uint32_t exp_series(uint32_t x)
+uint32_t exp_series(
+	uint32_t x)
 {
     uint32_t tmp;
 
-    //log_info ("x = %u", x);
+    //log_info("x = %u", x);
     tmp = __exp_series[1] - coef_mult(__exp_series[2], x);
 
     //log_info(". tmp = %u", tmp);
@@ -80,9 +83,10 @@ uint32_t exp_series(uint32_t x)
     return tmp;
 }
 
-accum expk(accum x)
+accum expk(
+	accum x)
 {
-    int_k_t n = bitsk (x);
+    int_k_t n = bitsk(x);
     int_k_t r;
     int32_t z, f;
     uint32_t y;
@@ -100,14 +104,14 @@ accum expk(accum x)
 	    z++;
 	    f = 32768 - f;
 
-	    tmp1 = __exp_hi[13+z];
+	    tmp1 = __exp_hi[13 + z];
 	    tmp1 -= scale64(tmp1, __expm1_mid[f >> 11]);
 
 	    y = ((uint32_t) (f & 0x7FF)) << 17;
 
 	    tmp1 -= scale64(tmp1, exp_series(y));
 	} else {			// (f == 0)
-	    tmp1 = __exp_hi[13+z];
+	    tmp1 = __exp_hi[13 + z];
 	}
 
 	r += 1 << 16;
