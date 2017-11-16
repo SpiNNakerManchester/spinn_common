@@ -1097,7 +1097,7 @@ static inline uint64_t __rorll(
 //! \param[in] y The size of the rotation.
 //! \return The rotated value of x.
 
-#define __rorl(x,y) \
+#define __rorl(x, y) \
     ((__builtin_types_compatible_p(unsigned long, uint32_t)) ?	\
 	    __ror((x), (y)) : __rorll((x), (y)))
 

@@ -47,35 +47,36 @@ UNIMPLEMENTED unsigned accum		sqrtuk(unsigned accum x);
 UNIMPLEMENTED unsigned long accum	sqrtulk(unsigned long accum x);
 
 #define sqrtfx(f) \
-    ({									\
-	__typeof__(f) tmp = (f);					\
-	if      (__builtin_types_compatible_p(__typeof__(f), s07))	\
-	    tmp = sqrthr(f, n);						\
-	else if (__builtin_types_compatible_p(__typeof__(f), s015))	\
-	    tmp = sqrtr(f, n);						\
-	else if (__builtin_types_compatible_p(__typeof__(f), s031))	\
-	    tmp = sqrtlr(f, n);						\
-	else if (__builtin_types_compatible_p(__typeof__(f), s87))	\
-	    tmp = sqrthk(f, n);						\
-	else if (__builtin_types_compatible_p(__typeof__(f), s1615))	\
-	    tmp = sqrtk(f, n);						\
-	else if (__builtin_types_compatible_p(__typeof__(f), s3231))	\
-	    tmp = sqrtlk(f, n);						\
-	else if (__builtin_types_compatible_p(__typeof__(f), u08))	\
-	    tmp = sqrtuhr(f, n);					\
-	else if (__builtin_types_compatible_p(__typeof__(f), u016))	\
-	    tmp = sqrtur(f, n);						\
-	else if (__builtin_types_compatible_p(__typeof__(f), u032))	\
-	    tmp = sqrtulr(f, n);					\
-	else if (__builtin_types_compatible_p(__typeof__(f), u88))	\
-	    tmp = sqrtuhk(f, n);					\
-	else if (__builtin_types_compatible_p(__typeof__(f), u1616))	\
-	    tmp = sqrtuk(f, n);						\
-	else if (__builtin_types_compatible_p(__typeof__(f), u3232))	\
-	    tmp = sqrtulk(f, n);					\
-	else								\
-	    abort();							\
-	tmp;								\
+    ({									 \
+	__typeof__(f) tmp = (f);					 \
+	if (__builtin_types_compatible_p(__typeof__(f), s07)) {		 \
+	    tmp = sqrthr(f, n);						 \
+	} else if (__builtin_types_compatible_p(__typeof__(f), s015)) {	 \
+	    tmp = sqrtr(f, n);						 \
+	} else if (__builtin_types_compatible_p(__typeof__(f), s031)) {	 \
+	    tmp = sqrtlr(f, n);						 \
+	} else if (__builtin_types_compatible_p(__typeof__(f), s87)) {	 \
+	    tmp = sqrthk(f, n);						 \
+	} else if (__builtin_types_compatible_p(__typeof__(f), s1615)) { \
+	    tmp = sqrtk(f, n);						 \
+	} else if (__builtin_types_compatible_p(__typeof__(f), s3231)) { \
+	    tmp = sqrtlk(f, n);						 \
+	} else if (__builtin_types_compatible_p(__typeof__(f), u08)) {	 \
+	    tmp = sqrtuhr(f, n);					 \
+	} else if (__builtin_types_compatible_p(__typeof__(f), u016)) {	 \
+	    tmp = sqrtur(f, n);						 \
+	} else if (__builtin_types_compatible_p(__typeof__(f), u032)) {	 \
+	    tmp = sqrtulr(f, n);					 \
+	} else if (__builtin_types_compatible_p(__typeof__(f), u88)) {	 \
+	    tmp = sqrtuhk(f, n);					 \
+	} else if (__builtin_types_compatible_p(__typeof__(f), u1616)) { \
+	    tmp = sqrtuk(f, n);						 \
+	} else if (__builtin_types_compatible_p(__typeof__(f), u3232)) { \
+	    tmp = sqrtulk(f, n);					 \
+	} else {							 \
+	    abort();							 \
+	}								 \
+	tmp;								 \
     })
 
 #endif /*__SQRT_H__*/
