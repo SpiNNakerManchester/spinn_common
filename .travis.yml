@@ -19,5 +19,6 @@ install:
 
 script:
   - make
+  - make install
   - support/run-vera.sh include -P max-file-length=2500
   - support/run-vera.sh src
