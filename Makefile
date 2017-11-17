@@ -42,7 +42,7 @@ $(SPINN_COMMON_BUILD):
 # Installing rules
 install: $(SPINN_COMMON_BUILD)/libspinn_common.a
 	$(INSTALL) -c -m644 $< $(SPINN_LIB_DIR)
-	$(INSTALL) -c -m644 $(HEADERS) $(SPINN_INC_DIR)
+	$(INSTALL) -c -m644 $(HEADERS:%.h=include/%.h) $(SPINN_INC_DIR)
 
 clean:
 	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS)
