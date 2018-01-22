@@ -50,4 +50,13 @@ void circular_buffer_clear(circular_buffer buffer);
 //! \param[in] The buffer to print
 void circular_buffer_print_buffer(circular_buffer buffer);
 
+//---------------------------------------
+// Synaptic rewiring functions
+//---------------------------------------
+uint32_t circular_buffer_input(circular_buffer buffer);
+uint32_t circular_buffer_output(circular_buffer buffer);
+uint32_t circular_buffer_real_size(circular_buffer buffer);
+uint32_t circular_buffer_value_at_index(circular_buffer buffer,
+                                        uint32_t index);
+
 #endif // _CIRCULAR_BUFFER_H_
