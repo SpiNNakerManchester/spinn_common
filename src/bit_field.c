@@ -62,13 +62,14 @@
 //! \brief This function prints out an individual word of a bit_field,
 // as a sequence of ones and zeros.
 //! \param[in] e The word of a bit_field to be printed.
-static inline void print_bit_field_entry(uint32_t e)
+static inline void print_bit_field_entry(
+	uint32_t e)
 {
     counter_t i = 32;
 
     for ( ; i > 0; i--) {
 	log_debug("%c", ((e & 0x1) == 0) ? ' ' : '1');
-	e = e >> 1;
+	e >>= 1;
     }
 
     log_debug("\n");
@@ -78,7 +79,9 @@ static inline void print_bit_field_entry(uint32_t e)
 // as a sequence of ones and zeros.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
-void print_bit_field_bits(bit_field_t b, size_t s)
+void print_bit_field_bits(
+	bit_field_t b,
+	size_t s)
 {
     use(b);
     use(s);
@@ -95,7 +98,9 @@ void print_bit_field_bits(bit_field_t b, size_t s)
 // as a sequence of hexadecimal numbers, one per line.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
-void print_bit_field(bit_field_t b, size_t s)
+void print_bit_field(
+		bit_field_t b,
+		size_t s)
 {
     use(b);
     use(s);
@@ -112,7 +117,9 @@ void print_bit_field(bit_field_t b, size_t s)
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
 
-void random_bit_field(bit_field_t b, size_t s)
+void random_bit_field(
+		bit_field_t b,
+		size_t s)
 {
     use(b);
     use(s);

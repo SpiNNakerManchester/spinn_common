@@ -53,7 +53,7 @@ static inline void skip(void)
     do { log_info("spin1_trigger_user_event (%d, %d)", (a), (b)); } while (0)
 
 #define c_main \
-    c_main(void); int main(void) { c_main(); return (0); } void c_main
+    c_main(void); int main(void) { c_main(); return 0; } void c_main
 
 #else /* DEBUG_ON_HOST */
 #include "sark.h"

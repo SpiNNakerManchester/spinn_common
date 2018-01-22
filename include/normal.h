@@ -21,8 +21,8 @@ int __norminv_ulrbits(unsigned int x);
 //! \param[in] x A uniformly distributed 16-bit PRNG, in the top
 //! 16 bits of x.
 //! \return A normally distributed int representation of an s16.15 PRNG.
-
-static inline int __norminv_t_bits(int x)
+static inline int __norminv_t_bits(
+	int x)
 {
     return __norminv_rbits(x >> 16);
 }
@@ -32,8 +32,8 @@ static inline int __norminv_t_bits(int x)
 //! \param[in] x A uniformly distributed 16-bit PRNG, in the bottom
 //! 16 bits of x.
 //! \return A normally distributed int representation of an s16.15 PRNG.
-
-static inline int __norminv_b_bits(int x)
+static inline int __norminv_b_bits(
+	int x)
 {
     return __norminv_t_bits(x << 16);
 }
@@ -43,8 +43,8 @@ static inline int __norminv_b_bits(int x)
 //! \param[in] x A uniformly distributed 16-bit PRNG, in the bottom
 //! 16 bits of x.
 //! \return A normally distributed accum PRNG.
-
-static inline accum norminv_urb(unsigned int x)
+static inline accum norminv_urb(
+	unsigned int x)
 {
     union { unsigned int u; int s; } tmp;
 
@@ -57,8 +57,8 @@ static inline accum norminv_urb(unsigned int x)
 //! \param[in] x A uniformly distributed 16-bit PRNG, in the top
 //! 16 bits of x.
 //! \return A normally distributed accum PRNG.
-
-static inline accum norminv_urt(unsigned int x)
+static inline accum norminv_urt(
+	unsigned int x)
 {
     union { unsigned int u; int s; } tmp;
 
@@ -70,8 +70,8 @@ static inline accum norminv_urt(unsigned int x)
 //! PRNG x, and returns a normally distributed accum PRNG.
 //! \param[in] x A uniformly distributed unsigned fract.
 //! \return A normally distributed accum PRNG.
-
-static inline accum norminv_ur(unsigned fract x)
+static inline accum norminv_ur(
+	unsigned fract x)
 {
     union { unsigned int u; int s; } tmp;
 
@@ -79,7 +79,8 @@ static inline accum norminv_ur(unsigned fract x)
     return kbits(__norminv_rbits(tmp.s + INT16_MIN));
 }
 
-static inline accum norminv_ulr(unsigned long fract x)
+static inline accum norminv_ulr(
+	unsigned long fract x)
 {
     return kbits(__norminv_ulrbits(bitsulr(x)));
 }

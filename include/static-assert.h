@@ -32,7 +32,6 @@
 #define __STATIC_ASSERT_H__
 
 #ifdef __GNUC__
-
 //! \brief This macro gives access to GCC's built-in static assertion.
 
 #define static_assert(predicate, msg) \

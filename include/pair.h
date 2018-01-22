@@ -32,35 +32,36 @@
 //! \brief Give a useful name to the return type, indicating it's use.
 
 typedef uint64_t pair_t;
+typedef union {
+    pair_t r1;
+    struct {
+	void* lo;
+	void* hi;
+    } r2;
+} pair_union_t;
 
 //! \brief Create a pair from two generic 32-bit objects.
 //! \param[in] x is a void* object
 //! \param[in] y is a void* object
 //! \return A pair of values as a 64-bit unsigned int (pair_t).
-
-static inline pair_t __pair(void* x, void* y)
+static inline pair_t __pair(
+	void *x,
+	void *y)
 {
-    register union {
-	pair_t r1;
-	struct { void* lo; void* hi; } r2;
-    } tmp;
+    register pair_union_t tmp;
 
     tmp.r2.lo = x;
     tmp.r2.hi = y;
-
     return tmp.r1;
 }
 
 //! \brief Return the first component of a pair.
 //! \param[in] p is a pair_t object
 //! \return The first component: n.b. this is void*, so will need casting.
-
-static inline void* fst(pair_t p)
+static inline void *fst(
+	pair_t p)
 {
-    register union {
-	pair_t r1;
-	struct { void* lo; void* hi; } r2;
-    } tmp;
+    register pair_union_t tmp;
 
     tmp.r1 = p;
     return tmp.r2.lo;
@@ -69,21 +70,16 @@ static inline void* fst(pair_t p)
 //! \brief Return the second component of a pair.
 //! \param[in] p is a pair_t object
 //! \return The second component: n.b. this is void*, so will need casting.
-
-static inline void* snd(pair_t p)
+static inline void *snd(
+	pair_t p)
 {
-    register union {
-	pair_t r1;
-	struct { void* lo; void* hi; } r2;
-    } tmp;
+    register pair_union_t tmp;
 
     tmp.r1 = p;
-
     return tmp.r2.hi;
 }
 
 //! \brief Create a pair, with automatic casting.
-
 #define pair(x, y)	__pair((void*)(x), (void*)(y))
 
 #endif  /*__PAIR_H__*/

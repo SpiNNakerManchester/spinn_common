@@ -3,15 +3,22 @@ language: c
 
 addons:
   apt:
+    sources:
+      - sourceline: 'deb http://us.archive.ubuntu.com/ubuntu/ trusty universe'
     packages:
       - vera++
-      #- gcc-arm-none-eabi
-      #- libnewlib-arm-none-eabi
+      - gcc-arm-none-eabi
+      - libnewlib-arm-none-eabi
 
 install:
   - git clone https://github.com/SpiNNakerManchester/SupportScripts.git support
-# TODO: Add actually building the code
+  - git clone https://github.com/SpiNNakerManchester/spinnaker_tools.git tools
+  - export SPINN_DIRS=`pwd`/tools GNU=1
+  - make -C tools/sark
+  - make -C tools/spin1_api
 
 script:
+  - make
+  - make install
   - support/run-vera.sh include -P max-file-length=2500
   - support/run-vera.sh src
