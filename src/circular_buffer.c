@@ -73,7 +73,7 @@ circular_buffer circular_buffer_initialize(
 {
     uint32_t real_size = size;
     if (!is_power_of_2(real_size)) {
-    real_size = next_power_of_two(size);
+    real_size = next_power_of_2(size);
     log_warning("Requested size of %u was rounded up to %u",
         size, real_size - 1);
     }
