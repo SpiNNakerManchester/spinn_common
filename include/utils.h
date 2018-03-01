@@ -113,8 +113,6 @@ static inline uint32_t log_2(uint32_t v)
     return 31 - __builtin_clz(v);
 }
 
-
-
 // \brief Returns the next highest power of 2 of a value
 // \param[in] v A 32-bit unsigned integer
 // \return The next highest power of 2
