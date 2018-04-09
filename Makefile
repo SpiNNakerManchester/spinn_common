@@ -10,8 +10,15 @@ OBJS = bit_field.o circular_buffer.o normal.o random.o stdfix-exp.o log.o \
 	sincos.o sqrt.o
 BUILD_OBJS = $(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o)
 
+# Variables needed for file convertor
+RAW_DIR = src/
+MODIFIED_DIR = modified_src/
+APP_OUTPUT_DIR = $(SPINN_COMMON_BUILD)/
+APP = libspinn_common
+RANGE_START = 1000
+
 # Build rules (default)
-all: $(SPINN_COMMON_BUILD)/libspinn_common.a
+all: $(SPINN_COMMON_BUILD)/$(APP).a $(SPINN_COMMON_BUILD)/$(APP).dict
 
 $(SPINN_COMMON_BUILD)/libspinn_common.a: $(BUILD_OBJS) 
 	$(RM) $@
@@ -30,21 +37,54 @@ HEADERS = arm_acle_gcc.h arm_acle.h arm.h bit_field.h circular_buffer.h \
 	cmsis.h core_v5te.h debug.h log.h normal.h pair.h polynomial.h random.h \
 	sincos.h spin-print.h sqrt.h static-assert.h stdfix-exp.h \
 	stdfix-full-iso.h utils.h
+INSTALL_HEADERS = $(HEADERS:%.h=$(SPINN_INC_DIR)/%.h)
 
 INSTALL ?= install
 
-$(SPINN_COMMON_BUILD)/%.o: src/%.c $(SPINN_COMMON_BUILD)
+
+include convert.mk
+
+$(SPINN_COMMON_BUILD)/%.o: $(MODIFIED_DIR)%.c $(SPINN_COMMON_BUILD)
 	$(CC) $(CFLAGS) -o $@ $<
 
 $(SPINN_COMMON_BUILD):
 	$(MKDIR) $@
 
+#install: $(SPINN_COMMON_BUILD)/$(APP).a $(SPINN_COMMON_BUILD)/$(APP).dict
+#	$(INSTALL) -c -m644 $< $(SPINN_LIB_DIR)
+#	$(INSTALL) -c -m644 $(HEADERS:%.h=include/%.h) $(SPINN_INC_DIR)
+
 # Installing rules
-install: $(SPINN_COMMON_BUILD)/libspinn_common.a
+
+# Makefile
+MAKEFILES = convert.mk local.mk
+INSTALL_MAKEFILES = $(MAKEFILES:%=$(SPINN_MAKE_LIB_DIR)/%)
+
+# Installing rules
+install: install-libraries install-headers install-makefiles
+install-libraries: $(SPINN_LIB_DIR)/$(APP).a $(SPINN_LIB_DIR)/$(APP).dict
+install-headers: $(INSTALL_HEADERS)
+install-makefiles: $(INSTALL_MAKEFILES)
+
+$(SPINN_LIB_DIR)/%.a: $(SPINN_COMMON_BUILD)/%.a
 	$(INSTALL) -c -m644 $< $(SPINN_LIB_DIR)
-	$(INSTALL) -c -m644 $(HEADERS:%.h=include/%.h) $(SPINN_INC_DIR)
+
+$(SPINN_LIB_DIR)/%.dict: $(SPINN_COMMON_BUILD)/%.dict
+	$(INSTALL) -c -m644 $< $(SPINN_LIB_DIR)
+
+$(SPINN_INC_DIR)/%.h: include/%.h
+	$(INSTALL) -c -m644 $< $(SPINN_INC_DIR)
+
+$(SPINN_MAKE_LIB_DIR)/%: %
+	$(INSTALL) -c -m644 $< $(SPINN_MAKE_LIB_DIR)
 
 clean:
-	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS)
+	$(RM) $(SPINN_COMMON_BUILD)/$(APP).a $(BUILD_OBJS) $(OLD_CONVERT_FILES)
+
+install-clean:
+	$(RM) $(SPINN_LIB_DIR)/$(APP).a $(SPINN_LIB_DIR)/$(APP).dict $(INSTALL_LIBS) $(INSTALL_HEADERS) $(INSTALL_MAKEFILES)
 
 .PHONY: all install clean
+
+test:
+	# $(SPINN_MAKE_LIB_DIR)
