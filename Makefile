@@ -41,7 +41,6 @@ INSTALL_HEADERS = $(HEADERS:%.h=$(SPINN_INC_DIR)/%.h)
 
 INSTALL ?= install
 
-
 include convert.mk
 
 $(SPINN_COMMON_BUILD)/%.o: $(MODIFIED_DIR)%.c $(SPINN_COMMON_BUILD)
