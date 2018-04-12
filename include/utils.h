@@ -96,4 +96,40 @@ static inline uint32_t scale32(
     return (uint32_t) round64((uint64_t) x * (uint64_t) y);
 }
 
+// \brief Returns the log of the next highest power of 2 of a value
+// \param[in] v A 32-bit unsigned integer
+// \return The log of the next highest power of 2
+static inline uint32_t log_next_power_of_2(
+	uint32_t v)
+{
+    return 32 - __builtin_clz(v);
+}
+
+// \brief Returns the integer part of the log to base 2 of a number
+// \param[in] v A 32-bit unsigned integer
+// \return The log to the base 2
+static inline uint32_t ilog_2(
+	uint32_t v)
+{
+    return 31 - __builtin_clz(v);
+}
+
+// \brief Returns the next highest power of 2 of a value
+// \param[in] v A 32-bit unsigned integer
+// \return The next highest power of 2
+static inline uint32_t next_power_of_2(
+	uint32_t v)
+{
+    return 1 << log_next_power_of_2(v);
+}
+
+// \brief Returns True if the value is a power of 2
+// \param[in] v A 32-bit unsigned integer
+// \return True if the value is a power of 2, False if not
+static inline bool is_power_of_2(
+	uint32_t v)
+{
+    return (v & (v - 1)) == 0;
+}
+
 #endif /*__UTILS_H__*/
