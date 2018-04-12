@@ -108,7 +108,7 @@ static inline uint32_t log_next_power_of_2(
 // \brief Returns the integer part of the log to base 2 of a number
 // \param[in] v A 32-bit unsigned integer
 // \return The log to the base 2
-static inline uint32_t log_2(uint32_t v)
+static inline uint32_t ilog_2(uint32_t v)
 {
     return 31 - __builtin_clz(v);
 }
