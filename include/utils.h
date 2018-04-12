@@ -102,7 +102,7 @@ static inline uint32_t scale32(
 static inline uint32_t log_next_power_of_2(
 	uint32_t v)
 {
-	return 32 - __builtin_clz(v);
+    return 32 - __builtin_clz(v);
 }
 
 // \brief Returns the integer part of the log to base 2 of a number
@@ -111,7 +111,7 @@ static inline uint32_t log_next_power_of_2(
 static inline uint32_t ilog_2(
 	uint32_t v)
 {
-	return 31 - __builtin_clz(v);
+    return 31 - __builtin_clz(v);
 }
 
 // \brief Returns the next highest power of 2 of a value
@@ -120,7 +120,7 @@ static inline uint32_t ilog_2(
 static inline uint32_t next_power_of_2(
 	uint32_t v)
 {
-	return 1 << log_next_power_of_2(v);
+    return 1 << log_next_power_of_2(v);
 }
 
 // \brief Returns True if the value is a power of 2
@@ -129,7 +129,7 @@ static inline uint32_t next_power_of_2(
 static inline bool is_power_of_2(
 	uint32_t v)
 {
-	return (v & (v - 1)) == 0;
+    return (v & (v - 1)) == 0;
 }
 
 #endif /*__UTILS_H__*/
