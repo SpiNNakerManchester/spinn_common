@@ -17,13 +17,18 @@ ifndef BUILD_DIR
 endif
 
 # MODIFIED_DIR local directory to put modified c and h files into
-# as well as the matching dictionary files
 ifndef MODIFIED_DIR
     MODIFIED_DIR := modified_src/
 endif
 
+# SRC_DIR local directory where the raw c and h files are 
+ifndef SRC_DIR
+    SRC_DIR := src/
+endif
+
 # SOURCES one or more unmodified c files to build
-# Assumption is that all SOURCES are local ie just file names no directories
+# While these file will be in the SRC_DIR that will not be included in SOURCES
+# SOURCES can be in sub directories of SRC_DIR in which case the sub directory is included
 ifndef SOURCES
     $(error SOURCES is not set.  Please define SOURCES)
 endif
@@ -43,24 +48,33 @@ APPLICATION_NAME_HASH = $(shell echo -n "$(APP)" | (md5sum 2>/dev/null || md5) |
 
 CFLAGS += -Wall -Wextra -D$(FEC_DEBUG) -D$(PROFILER) $(OTIME) -DAPPLICATION_NAME_HASH=0x$(APPLICATION_NAME_HASH)
 
+LOG_DICT_FILE = $(APP_OUTPUT_DIR)/$(APP).dict
+
 # Use a list of files to be checked / built by the default rule
 ALL_TARGETS += $(APP_OUTPUT_DIR)$(APP).aplx
-ALL_TARGETS += $(APP_OUTPUT_DIR)$(APP).dict
+ALL_TARGETS += $(LOG_DICT_FILE)
 
 # default rule based on list ALL_TARGETS so more main targets can be added later
 all: all_targets
 
 all_targets: $(ALL_TARGETS)
 
+$(MODIFIED_DIR)%.c: $(SRC_DIR)%.c
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) 
+
+$(LOG_DICT_FILE): $(SRC_DIR)
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) 
+
 # Build the o files from the modified sources and any copied directories
-$(BUILD_DIR)%.o: $(MODIFIED_DIR)%.c $(COPIED_DIRS)
-    # local
+$(BUILD_DIR)%.o: $(MODIFIED_DIR)%.c
+	# local
 	-mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -D__FILENAME__=\"$(notdir $*.c)\" -o $@ $<
 
-include $(SPINN_DIRS)/make/convert.mk
 include $(SPINN_DIRS)/make/Makefile.common
 
 # Tidy and cleaning dependencies
 clean:
-	$(RM) $(TEMP_FILES) $(OBJECTS) $(BUILD_DIR)$(APP).elf $(BUILD_DIR)$(APP).txt $(ALL_TARGETS)
+	$(RM) $(TEMP_FILES) $(OBJECTS) $(BUILD_DIR)$(APP).elf $(BUILD_DIR)$(APP).txt $(ALL_TARGETS) $(LOG_DICT_FILE)
+	rm -rf $(MODIFIED_DIR)
+
