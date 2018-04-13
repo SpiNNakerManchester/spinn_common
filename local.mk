@@ -65,8 +65,8 @@ $(MODIFIED_DIR)%.c: $(SRC_DIR)%.c
 $(LOG_DICT_FILE): $(SRC_DIR)
 	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) 
 
-# Build the o files from the modified sources and any copied directories
-$(BUILD_DIR)%.o: $(MODIFIED_DIR)%.c
+# Build the o files from the modified sources and any copied directories (if applicable)
+$(BUILD_DIR)%.o: $(MODIFIED_DIR)%.c $(COPIED_DIRS)
 	# local
 	-mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -D__FILENAME__=\"$(notdir $*.c)\" -o $@ $<
