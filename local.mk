@@ -48,7 +48,8 @@ APPLICATION_NAME_HASH = $(shell echo -n "$(APP)" | (md5sum 2>/dev/null || md5) |
 
 CFLAGS += -Wall -Wextra -D$(FEC_DEBUG) -D$(PROFILER) $(OTIME) -DAPPLICATION_NAME_HASH=0x$(APPLICATION_NAME_HASH)
 
-LOG_DICT_FILE = $(APP_OUTPUT_DIR)/$(APP).dict
+
+LOG_DICT_FILE = $(MODIFIED_DIR)log_dict.dict
 
 # Use a list of files to be checked / built by the default rule
 ALL_TARGETS += $(APP_OUTPUT_DIR)$(APP).aplx
