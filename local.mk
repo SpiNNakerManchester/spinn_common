@@ -69,7 +69,7 @@ $(LOG_DICT_FILE): $(SRC_DIR)
 $(BUILD_DIR)%.o: $(MODIFIED_DIR)%.c $(COPIED_DIRS)
 	# local
 	-mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -D__FILENAME__=\"$(notdir $*.c)\" -o $@ $<
+	$(CC) $(CFLAGS) -o $@ $<
 
 include $(SPINN_DIRS)/make/Makefile.common
 
