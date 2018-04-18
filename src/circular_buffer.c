@@ -34,6 +34,7 @@
  */
 
 #include "circular_buffer.h"
+#include "utils.h"
 
 #include <debug.h>
 
@@ -44,20 +45,6 @@ typedef struct _circular_buffer {
     uint32_t input;
     uint32_t overflows;
 } _circular_buffer;
-
-// Returns the next highest power of 2 of a value
-static inline uint32_t _next_power_of_two(
-	uint32_t v)
-{
-    return 1 << (32 - __builtin_clz(v));
-}
-
-// Returns True if the value is a power of 2
-static inline bool _is_power_of_2(
-	uint32_t v)
-{
-    return (v & (v - 1)) == 0;
-}
 
 // Returns the index of the next position in the buffer from the given value
 static inline uint32_t _circular_buffer_next(
@@ -85,8 +72,8 @@ circular_buffer circular_buffer_initialize(
 	uint32_t size)
 {
     uint32_t real_size = size;
-    if (!_is_power_of_2(real_size)) {
-	real_size = _next_power_of_two(size);
+    if (!is_power_of_2(real_size)) {
+	real_size = next_power_of_2(size);
 	log_warning("Requested size of %u was rounded up to %u",
 		size, real_size - 1);
     }
