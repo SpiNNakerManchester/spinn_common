@@ -60,7 +60,11 @@ all: all_targets
 
 all_targets: $(ALL_TARGETS)
 
+# All the c and h files built at the same time but individual rules needed for make chains
 $(MODIFIED_DIR)%.c: $(SRC_DIR)%.c
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) 
+
+$(MODIFIED_DIR)%.h: $(SRC_DIR)%.h
 	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) 
 
 $(LOG_DICT_FILE): $(SRC_DIR)
