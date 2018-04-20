@@ -84,7 +84,7 @@ clean:
 	rm -rf $(MODIFIED_DIR)
 
 install-clean:
-	$(RM) $(SPINN_LIB_DIR)/$(APP).a $(SPINN_LIB_DIR)/$(APP).dict $(INSTALL_LIBS) $(INSTALL_HEADERS) $(INSTALL_MAKEFILES)
+	$(RM) $(SPINN_LIB_DIR)/$(APP).a $(SPINN_LIB_DIR)/*.dict $(SPINN_LIB_DIR)/*.ranges $(INSTALL_LIBS) $(INSTALL_HEADERS) $(INSTALL_MAKEFILES) 
 
 .PHONY: all install clean
 

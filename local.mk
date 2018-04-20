@@ -61,14 +61,15 @@ all: all_targets
 all_targets: $(ALL_TARGETS)
 
 # All the c and h files built at the same time but individual rules needed for make chains
-$(MODIFIED_DIR)%.c: $(SRC_DIR)%.c
-	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) 
+# LOG_RANGE_NAME is optional. Used by NEURAL_MODELLING_DIRS/makefiles/common.mk
+$(MODIFIED_DIR)%.c: $(SRC_DIR)%.c                                                                 
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) $(LOG_RANGE_NAME)
 
 $(MODIFIED_DIR)%.h: $(SRC_DIR)%.h
-	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) 
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) $(LOG_RANGE_NAME)
 
 $(LOG_DICT_FILE): $(SRC_DIR)
-	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) 
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) $(LOG_RANGE_NAME)
 
 # Build the o files from the modified sources and any copied directories (if applicable)
 $(BUILD_DIR)%.o: $(MODIFIED_DIR)%.c $(COPIED_DIRS)
