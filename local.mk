@@ -77,7 +77,7 @@ $(BUILD_DIR)%.o: $(MODIFIED_DIR)%.c $(COPIED_DIRS)
 	-mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -o $@ $<
 
-include $(SPINN_DIRS)/make/Makefile.common
+include $(SPINN_DIRS)/make/spinnaker_tools.mk
 
 # Tidy and cleaning dependencies
 clean:

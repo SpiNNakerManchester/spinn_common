@@ -37,7 +37,7 @@ $(SPINN_COMMON_BUILD)/libspinn_common.a: $(BUILD_OBJS)
 	$(AR) $@ $(BUILD_OBJS)
 
 override LIB = 1
-include $(SPINN_DIRS)/make/Makefile.common
+include $(SPINN_DIRS)/make/spinnaker_tools.mk
 
 $(MODIFIED_DIR)%.c: $(RAW_DIR)
 	python -m spinn_utilities.make_tools.convertor $(RAW_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) $(APP)
