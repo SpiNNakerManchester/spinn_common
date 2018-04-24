@@ -49,27 +49,25 @@ APPLICATION_NAME_HASH = $(shell echo -n "$(APP)" | (md5sum 2>/dev/null || md5) |
 FEC_OPT = $(OTIME)
 CFLAGS += -Wall -Wextra -D$(FEC_DEBUG) -D$(PROFILER) $(FEC_OPT) -DAPPLICATION_NAME_HASH=0x$(APPLICATION_NAME_HASH)
 
-LOG_DICT_FILE = $(MODIFIED_DIR)log_dict.dict
+MODIFIED_DICT_FILE = $(MODIFIED_DIR)log_dict.dict
 
-# Use a list of files to be checked / built by the default rule
-ALL_TARGETS += $(APP_OUTPUT_DIR)$(APP).aplx
-ALL_TARGETS += $(LOG_DICT_FILE)
+LOG_DICT_FILES += $(wildcard $(SPINN_DIRS)/lib/*.dict)
+LOG_DICT_FILES += $(MODIFIED_DICT_FILE)
+APP_DICT_FILE = $(APP_OUTPUT_DIR)$(APP).dict
 
 # default rule based on list ALL_TARGETS so more main targets can be added later
-all: all_targets
-
-all_targets: $(ALL_TARGETS)
+all: $(APP_OUTPUT_DIR)$(APP).aplx $(APP_DICT_FILE)
 
 # All the c and h files built at the same time but individual rules needed for make chains
 # LOG_RANGE_NAME is optional. Used by NEURAL_MODELLING_DIRS/makefiles/common.mk
 $(MODIFIED_DIR)%.c: $(SRC_DIR)%.c                                                                 
-	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) $(LOG_RANGE_NAME)
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(MODIFIED_DICT_FILE) $(LOG_RANGE_NAME)
 
 $(MODIFIED_DIR)%.h: $(SRC_DIR)%.h
-	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) $(LOG_RANGE_NAME)
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(MODIFIED_DICT_FILE) $(LOG_RANGE_NAME)
 
-$(LOG_DICT_FILE): $(SRC_DIR)
-	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) $(LOG_RANGE_NAME)
+$(MODIFIED_DICT_FILE): $(SRC_DIR)
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(MODIFIED_DICT_FILE) $(LOG_RANGE_NAME)
 
 # Build the o files from the modified sources and any copied directories (if applicable)
 $(BUILD_DIR)%.o: $(MODIFIED_DIR)%.c $(COPIED_DIRS)
@@ -78,6 +76,12 @@ $(BUILD_DIR)%.o: $(MODIFIED_DIR)%.c $(COPIED_DIRS)
 	$(CC) $(CFLAGS) -o $@ $<
 
 include $(SPINN_DIRS)/make/spinnaker_tools.mk
+
+$(APP_DICT_FILE): $(LOG_DICT_FILES)
+    # Add the two header lines once
+	head -2 $(firstword $(LOG_DICT_FILES)) > $(APP_DICT_FILE)
+	# Add the none header lines for each file remembering tail starts counting at 1
+	$(foreach ldf, $(LOG_DICT_FILES), tail -n +3 $(ldf) >> $(APP_DICT_FILE) ;)
 
 # Tidy and cleaning dependencies
 clean:
