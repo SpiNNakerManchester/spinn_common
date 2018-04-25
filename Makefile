@@ -40,10 +40,10 @@ override LIB = 1
 include $(SPINN_DIRS)/make/spinnaker_tools.mk
 
 $(MODIFIED_DIR)%.c: $(RAW_DIR)
-	python -m spinn_utilities.make_tools.convertor $(RAW_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) $(APP)
+	python -m spinn_utilities.make_tools.convertor $(RAW_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE)
 
 $(LOG_DICT_FILE): $(RAW_DIR)
-	python -m spinn_utilities.make_tools.convertor $(RAW_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE) $(APP)
+	python -m spinn_utilities.make_tools.convertor $(RAW_DIR) $(MODIFIED_DIR) $(LOG_DICT_FILE)
 
 $(SPINN_COMMON_BUILD)/%.o: $(MODIFIED_DIR)%.c $(SPINN_COMMON_BUILD)
 	$(CC) $(CFLAGS) -o $@ $<

@@ -59,15 +59,14 @@ APP_DICT_FILE = $(APP_OUTPUT_DIR)$(APP).dict
 all: $(APP_OUTPUT_DIR)$(APP).aplx $(APP_DICT_FILE)
 
 # All the c and h files built at the same time but individual rules needed for make chains
-# LOG_RANGE_NAME is optional. Used by NEURAL_MODELLING_DIRS/makefiles/common.mk
-$(MODIFIED_DIR)%.c: $(SRC_DIR)%.c                                                                 
-	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(MODIFIED_DICT_FILE) $(LOG_RANGE_NAME)
+$(MODIFIED_DIR)%.c: $(SRC_DIR)%.c
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(MODIFIED_DICT_FILE)
 
 $(MODIFIED_DIR)%.h: $(SRC_DIR)%.h
-	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(MODIFIED_DICT_FILE) $(LOG_RANGE_NAME)
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(MODIFIED_DICT_FILE)
 
 $(MODIFIED_DICT_FILE): $(SRC_DIR)
-	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(MODIFIED_DICT_FILE) $(LOG_RANGE_NAME)
+	python -m spinn_utilities.make_tools.convertor $(SRC_DIR) $(MODIFIED_DIR) $(MODIFIED_DICT_FILE)
 
 # Build the o files from the modified sources and any copied directories (if applicable)
 $(BUILD_DIR)%.o: $(MODIFIED_DIR)%.c $(COPIED_DIRS)
