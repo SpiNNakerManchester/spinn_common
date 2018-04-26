@@ -55,8 +55,10 @@ LOG_DICT_FILES += $(wildcard $(SPINN_DIRS)/lib/*.dict)
 LOG_DICT_FILES += $(MODIFIED_DICT_FILE)
 APP_DICT_FILE = $(APP_OUTPUT_DIR)$(APP).dict
 
+ALL_TARGETS += $(APP_OUTPUT_DIR)$(APP).aplx $(APP_DICT_FILE)
+
 # default rule based on list ALL_TARGETS so more main targets can be added later
-all: $(APP_OUTPUT_DIR)$(APP).aplx $(APP_DICT_FILE)
+all: $(ALL_TARGETS)
 
 # All the c and h files built at the same time but individual rules needed for make chains
 $(MODIFIED_DIR)%.c: $(SRC_DIR)%.c
