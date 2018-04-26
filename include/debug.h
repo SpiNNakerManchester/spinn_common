@@ -113,50 +113,37 @@
 #endif // PRODUCTION_CODE
 #endif // LOG_LEVEL
 
-#ifndef __FILENAME__
-#define __FILENAME__ __FILE__
-#endif
-
-//! \brief This macro prints out a message to the log file.
-//! \param[in] type The kind of fault detected.
-//! \param[in] message The user-defined part of a message.
-#define __log_message(type, message, ...) \
-    do {							\
-	fprintf(stderr, type "(%s:%4d): " message "\n",		\
-		__FILENAME__, __LINE__, ##__VA_ARGS__);		\
-    } while (0)
 
 //! \brief This macro prints a debug message if level is less than or equal
 //!        to the LOG_LEVEL
 //! \param[in] level The level of the messsage
 //! \param[in] message The user-defined part of the debug message.
-#define __log(level, message, ...) \
+#define __log_mini(level, message, ...) \
     do {							\
 	if (level <= LOG_LEVEL) {				\
-	    __log_message(message, ##__VA_ARGS__);		\
+	    fprintf(stderr, message "\n", ##__VA_ARGS__);	\
 	} 							\
     } while (0)
 
 //! \brief This macro logs errors.
 //! \param[in] message The user-defined part of the error message.
-#define log_error(message, ...) \
-    __log(LOG_ERROR, "[ERROR]   ", message, ##__VA_ARGS__)
+#define log_mini_error(message, ...) \
+    __log_mini(LOG_ERROR, message, ##__VA_ARGS__)
 
 //! \brief This macro logs warnings.
 //! \param[in] message The user-defined part of the error message.
-#define log_warning(message, ...) \
-    __log(LOG_WARNING, "[WARNING] ", message, ##__VA_ARGS__)
+#define log_mini_warning(message, ...) \
+    __log_mini(LOG_WARNING, message, ##__VA_ARGS__)
 
 //! \brief This macro logs information.
 //! \param[in] message The user-defined part of the error message.
-#define log_info(message, ...) \
-    __log(LOG_INFO, "[INFO]    ", message, ##__VA_ARGS__)
+#define log_mini_info(message, ...) \
+    __log_mini(LOG_INFO, message, ##__VA_ARGS__)
 
 //! \brief This macro logs debug messages.
 //! \param[in] message The user-defined part of the error message.
-#define log_debug(message, ...) \
-    __log(LOG_DEBUG, "[DEBUG]   ", message, ##__VA_ARGS__)
-
+#define log_mini_debug(message, ...) \
+    __log_mini(LOG_DEBUG, "[DEBUG]   ", message, ##__VA_ARGS__)
 
 #if !(defined(PRODUCTION_CODE) || defined(NDEBUG))
 
