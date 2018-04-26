@@ -158,6 +158,37 @@
     __log(LOG_DEBUG, "[DEBUG]   ", message, ##__VA_ARGS__)
 
 
+//! \brief This macro prints a debug message if level is less than or equal
+//!        to the LOG_LEVEL
+//! \param[in] level The level of the messsage
+//! \param[in] message The user-defined part of the debug message.
+#define __log_mini(level, message, ...) \
+    do {							\
+	if (level <= LOG_LEVEL) {				\
+	    fprintf(stderr, message "\n", ##__VA_ARGS__);	\
+	} 							\
+    } while (0)
+
+//! \brief This macro logs errors.
+//! \param[in] message The user-defined part of the error message.
+#define log_mini_error(message, ...) \
+    __log_mini(LOG_ERROR, message, ##__VA_ARGS__)
+
+//! \brief This macro logs warnings.
+//! \param[in] message The user-defined part of the error message.
+#define log_mini_warning(message, ...) \
+    __log_mini(LOG_WARNING, message, ##__VA_ARGS__)
+
+//! \brief This macro logs information.
+//! \param[in] message The user-defined part of the error message.
+#define log_mini_info(message, ...) \
+    __log_mini(LOG_INFO, message, ##__VA_ARGS__)
+
+//! \brief This macro logs debug messages.
+//! \param[in] message The user-defined part of the error message.
+#define log_mini_debug(message, ...) \
+    __log_mini(LOG_DEBUG, "[DEBUG]   ", message, ##__VA_ARGS__)
+
 #if !(defined(PRODUCTION_CODE) || defined(NDEBUG))
 
 //! \brief This macro prints out a check message to the log file.
