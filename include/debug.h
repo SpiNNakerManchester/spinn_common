@@ -143,7 +143,7 @@
 //! \brief This macro logs debug messages.
 //! \param[in] message The user-defined part of the error message.
 #define log_mini_debug(message, ...) \
-    __log_mini(LOG_DEBUG, "[DEBUG]   ", message, ##__VA_ARGS__)
+    __log_mini(LOG_DEBUG, message, ##__VA_ARGS__)
 
 #if !(defined(PRODUCTION_CODE) || defined(NDEBUG))
 
