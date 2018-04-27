@@ -245,24 +245,22 @@ accum exponential_dist_variate(
     accum A = 0.0k;
     uint32_t U, U0, USTAR;
 
-outer:
-    U = uni_rng(seed_arg);
-    U0 = U;
+    while (true) {
+	U = uni_rng(seed_arg);
+	U0 = U;
 
-inner:
-    USTAR = uni_rng(seed_arg);
-    if (U < USTAR) {
-	return A + (accum) ulrbits(U0);
+	do {
+	    USTAR = uni_rng(seed_arg);
+	    if (U < USTAR) {
+		return A + (accum) ulrbits(U0);
                    // accum + (accum)[ unsigned long fract <= uint32_t ]
-    }
+	    }
 
-    U = uni_rng(seed_arg);
-    if (U < USTAR) {
-	goto inner;
-    }
+	    U = uni_rng(seed_arg);
+	} while (U >= USTAR);
 
-    A += 1.0k;
-    goto outer;
+	A += 1.0k;
+    }
 }
 
 // Returns standard gaussian deviate
