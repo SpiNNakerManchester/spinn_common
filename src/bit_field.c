@@ -57,7 +57,7 @@
 
 #include "bit_field.h"
 #include "sark.h"
-#include "debug.h"
+// #include "debug.h"
 
 //! \brief This function prints out an individual word of a bit_field,
 // as a sequence of ones and zeros.
@@ -68,11 +68,11 @@ static inline void print_bit_field_entry(
     counter_t i = 32;
 
     for ( ; i > 0; i--) {
-	log_debug("%c", ((e & 0x1) == 0) ? ' ' : '1');
+	io_printf(IO_BUF, "%c", ((e & 0x1) == 0) ? ' ' : '1');
 	e >>= 1;
     }
 
-    log_debug("\n");
+    io_printf(IO_BUF, "\n");
 }
 
 //! \brief This function prints out an entire bit_field,
@@ -108,7 +108,7 @@ void print_bit_field(
     index_t i; //!< For indexing through the bit field
 
     for (i = 0; i < s; i++) {
-	log_debug("%08x\n", b[i]);
+	    io_printf(IO_BUF, "%08x\n", b[i]);
     }
 #endif // LOG_LEVEL >= LOG_DEBUG
 }

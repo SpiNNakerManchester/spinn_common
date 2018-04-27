@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdfix.h>
-#include "debug.h"
+//#include "debug.h"
 #include "stdfix-full-iso.h"
 #include "polynomial.h"
 

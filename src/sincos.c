@@ -24,7 +24,7 @@
  */
 
 #include "stdfix-full-iso.h"
-#include "debug.h"
+#include "assert.h"
 #include "arm_acle.h"
 #include "pair.h"
 

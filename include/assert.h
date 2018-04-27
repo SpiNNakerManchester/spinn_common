@@ -41,12 +41,6 @@
  *
  *      assert(0.0 < c && c < 1.0);                // assertion checking
  *
- *    Logging errors, warnings and info:
- *
- *      log_error(17, "error");                    // not the most useful message..
- *      log_warning(0, "variable x = %8x", 0xFF);  // variable printing
- *      log_info("function f entered");            // trace
- *
  *    Checking:
  *
  *      check(1==1, "1 !=1 !!!!!!");               // assertion with message
@@ -83,8 +77,8 @@
  *      -DPRODUCTION_CODE or -DNDEBUG
  */
 
-#ifndef __DEBUG_H__
-#define __DEBUG_H__
+#ifndef __ASSERT_H__
+#define __ASSERT_H__
 
 #include "spin-print.h"
 
@@ -112,38 +106,6 @@
 #define LOG_LEVEL LOG_DEBUG
 #endif // PRODUCTION_CODE
 #endif // LOG_LEVEL
-
-
-//! \brief This macro prints a debug message if level is less than or equal
-//!        to the LOG_LEVEL
-//! \param[in] level The level of the messsage
-//! \param[in] message The user-defined part of the debug message.
-#define __log_mini(level, message, ...) \
-    do {							\
-	if (level <= LOG_LEVEL) {				\
-	    fprintf(stderr, message "\n", ##__VA_ARGS__);	\
-	} 							\
-    } while (0)
-
-//! \brief This macro logs errors.
-//! \param[in] message The user-defined part of the error message.
-#define log_mini_error(message, ...) \
-    __log_mini(LOG_ERROR, message, ##__VA_ARGS__)
-
-//! \brief This macro logs warnings.
-//! \param[in] message The user-defined part of the error message.
-#define log_mini_warning(message, ...) \
-    __log_mini(LOG_WARNING, message, ##__VA_ARGS__)
-
-//! \brief This macro logs information.
-//! \param[in] message The user-defined part of the error message.
-#define log_mini_info(message, ...) \
-    __log_mini(LOG_INFO, message, ##__VA_ARGS__)
-
-//! \brief This macro logs debug messages.
-//! \param[in] message The user-defined part of the error message.
-#define log_mini_debug(message, ...) \
-    __log_mini(LOG_DEBUG, message, ##__VA_ARGS__)
 
 #if !(defined(PRODUCTION_CODE) || defined(NDEBUG))
 
@@ -240,4 +202,4 @@ static inline unsigned int __addr__(void* ptr)
 #define check_sdram(a)		skip()
 #endif /* DEBUG_ON_HOST */
 
-#endif /* __DEBUG_H__ */
+#endif /* __ASSERT_H__ */

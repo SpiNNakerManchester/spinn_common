@@ -26,7 +26,7 @@
 
 #include "stdfix-full-iso.h"
 #include "polynomial.h"
-#include "debug.h"
+//#include "debug.h"
 #include "pair.h"
 #include "arm_acle.h"
 #include "arm.h"
