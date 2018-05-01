@@ -43,7 +43,7 @@ typedef real_t*  state_t; //! \brief The type of the state vector for ODE system
 //! \param[in] n Numerator of the rational number
 //! \param[in] d Denominator of the rational number
 
-#define q2r(n,d) (n2r((n)) / n2r((d)))
+#define q2r(n, d) (n2r((n)) / n2r((d)))
 
 //! \typepdef fun_t
 //! \brief This is the type of a C function pointer used by the generic

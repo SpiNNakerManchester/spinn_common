@@ -80,19 +80,23 @@
  * (of whatever type that actually is).
  */
 
-static const real_t a[]  = {q2r(1,5), q2r(3,10), q2r(3,5), q2r(1,1), q2r(7,8)};
-static const real_t b[]  = {q2r(1,5),
-			    q2r(3,40),       q2r(9,40),
-			    q2r(3,10),       q2r(-9,10),   q2r(6,5),
-			    q2r(-11,54),     q2r(5,2),     q2r(-70,27),    q2r(35,27),
-			    q2r(1631,55296), q2r(175,512), q2r(575,13824), q2r(44275,110592), q2r(253,4096)};
+static const real_t a[]  = {
+	q2r(1, 5), q2r(3, 10), q2r(3, 5), q2r(1, 1), q2r(7, 8)};
+static const real_t b[]  = {
+	q2r(1, 5),
+	q2r(3, 40),       q2r(9, 40),
+	q2r(3, 10),       q2r(-9, 10),   q2r(6, 5),
+	q2r(-11, 54),     q2r(5, 2),     q2r(-70, 27),    q2r(35, 27),
+	q2r(1631, 55296), q2r(175, 512), q2r(575, 13824), q2r(44275, 110592), q2r(253, 4096)};
 
-static const real_t c[] = {q2r(37,378), q2r(250,621), q2r(125,594), q2r(0,1), q2r(512,1771)};
-static const real_t d[] = {q2r(37,378)  - q2r(2825,27648),
-			     q2r(250,621) - q2r(18575,48384),
-			     q2r(125,594) - q2r(13525,55296),
-			     q2r(-277,14336),
-			     q2r(512,1771) - q2r(1,4)};
+static const real_t c[] = {
+	q2r(37, 378), q2r(250, 621), q2r(125, 594), q2r(0, 1), q2r(512, 1771)};
+static const real_t d[] = {
+	q2r(37, 378)  - q2r(2825, 27648),
+	q2r(250, 621) - q2r(18575, 48384),
+	q2r(125, 594) - q2r(13525, 55296),
+	q2r(-277, 14336),
+	q2r(512, 1771) - q2r(1, 4)};
 
 //! The following variables are used to gather statistics about the quality of the solver
 //! and its execution. All are initialised to zero. Probably need a reset function.
@@ -112,10 +116,10 @@ unsigned int* odeint_statistics(void)
 }
 
 #define RKN 6                        /* Dimension of the RK-CK system              */
-#define index_b(i,j) (((i)==2)? 0: (((i)-3)*((i)-3)+1 + ((j)-1)))
-#define A(i)         (a[i-2])
-#define B(i,j)       (b[index_b((i),(j))])
-#define K(i)         (ks+(n*(i-1)))  /* Get the start address of the i-th K-vector */
+#define index_b(i, j) (((i)==2)? 0: (((i)-3)*((i)-3)+1 + ((j)-1)))
+#define A(i)          (a[i-2])
+#define B(i, j)       (b[index_b((i), (j))])
+#define K(i)          (ks+(n*(i-1))) /* Get the start address of the i-th K-vector */
 
 //! \brief Tests for vector equality
 //!
@@ -127,11 +131,11 @@ unsigned int* odeint_statistics(void)
 static inline bool vector_eq(
 	real_t* x, real_t* y, unsigned int n)
 {
-    unsigned int l;
+    unsigned int i;
     bool r = true;
 
-    for (l = 0; l < n; l++) {
-        r &= (x[l] == y[l]);
+    for (i = 0; i < n; i++) {
+        r &= (x[i] == y[i]);
     }
 
     return r;
@@ -168,7 +172,7 @@ static inline bool K1_is_derivs(
 static void runge_kutta_ks(
 	real_t* ks, real_t* y, real_t x, unsigned int n, real_t h, fun_t derivs)
 {
-    unsigned int i, j, l;
+    unsigned int i, j, k;
     real_t ytemp[n];
 
     assert(n > 0);                                 // Assert that the vectors are non-empty
@@ -176,12 +180,12 @@ static void runge_kutta_ks(
                                                    // initialised with the instantaneous derivatives at y,x.
 
     for (i = 2; i <= RKN; i++) {                   // Calculate the K(i) vector
-	for (l = 0; l < n; l++) {                  // Do component-wise operations
-	    ytemp[l] = B(i,1) * K(1)[l];           // Initialise the accumulation
+	for (k = 0; k < n; k++) {                  // Do component-wise operations
+	    ytemp[k] = B(i,1) * K(1)[k];           // Initialise the accumulation
 	    for (j = 2; j < i; j++) {              // Iterate over the vector being constructed
-	        ytemp[l] += B(i,j) * K(j)[l];      // Addition of linear combinations of previous K(i)'s
+	        ytemp[k] += B(i,j) * K(j)[k];      // Addition of linear combinations of previous K(i)'s
 	    }
-	    ytemp[l] = y[l] + h*ytemp[l];          // We're calculating modified states for use
+	    ytemp[k] = y[k] + h*ytemp[k];          // We're calculating modified states for use
 	}                                          // in the derivs calculation ...
 	derivs(K(i), x + h*A(i), ytemp);           //  ... which is done here. This assigns a result to K(i).
     }
@@ -198,16 +202,16 @@ static void runge_kutta_ks(
 static void matrix_vector(
 	const real_t* a, real_t* b, real_t* ks, real_t h, unsigned int n)
 {
-    unsigned int i, l;
+    unsigned int i, j;
 
     assert(n > 0);
 
-    for (l = 0; l < n; l++) {           // Iterate component-wise over the output vector
-        b[l] = K(1)[l] * a[0];          // Initialise output vector, then skip an element ..
+    for (j = 0; j < n; j++) {           // Iterate component-wise over the output vector
+        b[j] = K(1)[j] * a[0];          // Initialise output vector, then skip an element ..
 	for (i = 3; i <= RKN; i++) {    //  .. Iterating over the remaining terms of the RK system
-	    b[l] +=  K(i)[l] * a[i-2];  // Accumulate component result.
+	    b[j] +=  K(i)[j] * a[i-2];  // Accumulate component result.
 	}
-	b[l] *= h;                      // Scale result
+	b[j] *= h;                      // Scale result
     }
 }
 
@@ -279,12 +283,12 @@ static inline void copy_vector(
     }
 }
 
-#define SAFETY q2r(9,10)
-#define PGROW  q2r(-2,10)
-#define PSHRNK q2r(-25,100)
+#define SAFETY  q2r(9, 10)
+#define PGROW   q2r(-2, 10)
+#define PSHRNK  q2r(-25, 100)
 
-//! \brief Given an error make a suggested scale-factor for the next step size to try
-//!        The maximum growth is a factor of 5.
+//! \brief Given an error make a suggested scale-factor for the next step size
+//!        to try. The maximum growth is a factor of 5.
 
 static inline real_t grow_step_size(
 	real_t err)
@@ -292,17 +296,19 @@ static inline real_t grow_step_size(
     return fmin(SAFETY * pow(err, PGROW), n2r(5));
 }
 
-//! \brief Given an error make a suggested scale-factor for the next step size to try
-//!        The minimum growth is a factor of 1/10.
+//! \brief Given an error make a suggested scale-factor for the next step size
+//!        to try. The minimum growth is a factor of 1/10.
 
 static inline real_t shrink_step_size(
 	real_t err)
 {
-    return fmax(SAFETY * pow(err, PSHRNK), q2r(1,10));
+    return fmax(SAFETY * pow(err, PSHRNK), q2r(1, 10));
 }
 
-//! \brief Checks that the step size does not underflow when added to the current start point of integration.
-//!        Has the side-effect of incrementing the variable rkck_underflow, if an underflow is detected.
+//! \brief Checks that the step size does not underflow when added to the
+//!        current start point of integration. Has the side-effect of
+//!        incrementing the variable rkck_underflow, if an underflow is
+//!        detected.
 //!
 //! \param[in]  x Current start point of integration
 //! \param[in]  h step size
@@ -312,7 +318,8 @@ static inline bool step_size_underflow(
 	real_t x, real_t h)
 {
     real_t xnew = x+h;
-    bool   r    = (xnew == x);  // Check that the new step size is not so small as to be a rounding error.
+    bool   r    = (xnew == x);  // Check that the new step size is not so
+                                // small as to be a rounding error.
 
     if (r) {
         rkck_statistics[RKCK_UNDERFLOW]++;
@@ -336,9 +343,9 @@ static inline bool unacceptable_step_size(
     bool   r     = (err > n2r(1));
   
     if (r) {
-        h_new = (*hp) * shrink_step_size(err);         // Re-size the next step size to be smaller ..
-        if (step_size_underflow(x, h_new)) {           //  ... and check for underflow.
-	    return false;                              // There's no point going smaller as the step size is already underflowing
+        h_new = (*hp) * shrink_step_size(err);// Re-size the next step size to be smaller ..
+        if (step_size_underflow(x, h_new)) {  //  ... and check for underflow.
+	    return false;                     // There's no point going smaller as the step size is already underflowing
         }
 	(*hp) = h_new;
     }
@@ -365,30 +372,31 @@ static inline void select_step_size_and_step(
 {
     real_t ytemp[n];
     real_t errmax = 0, h;
-    unsigned int l;
+    unsigned int i;
     
-    h = htry;                                           // Set stepsize to the initial trial value.
+    h = htry;                                 // Set stepsize to the initial trial value.
 
     do {
-        runge_kutta_ks (ks, y, *xp, n, h, derivs);      // Set up the K vectors.
-	runge_kutta_error (ytemp, ks, h, n);            // Calculate the error of this attempt.
-	errmax = maximum_error (ytemp, yscal, n) / eps; // Evaluate error, scale and convert error to a ratio
-    } while (unacceptable_step_size (&h, errmax, *xp)); // Continue to reduce step size while the error is unacceptable.
+        runge_kutta_ks(ks, y, *xp, n, h, derivs); // Set up the K vectors.
+	runge_kutta_error(ytemp, ks, h, n);   // Calculate the error of this attempt.
+	errmax = maximum_error(ytemp, yscal, n) / eps; // Evaluate error, scale and convert error to a ratio
+    } while (unacceptable_step_size(&h, errmax, *xp)); // Continue to reduce step size while the error is unacceptable.
 
-    runge_kutta_step(ytemp, ks, h, n);                  // Take a step
+    runge_kutta_step(ytemp, ks, h, n);        // Take a step
     
-    r->hnext = h * grow_step_size(errmax);              // Set the next step size to be (potentially) larger
-    r->hdid  = h;                                       // Set the actual step size taken.
-    *xp += h;                                           // Increment the starting point of the integration.
+    r->hnext = h * grow_step_size(errmax);    // Set the next step size to be (potentially) larger
+    r->hdid  = h;                             // Set the actual step size taken.
+    *xp += h;                                 // Increment the starting point of the integration.
 
-    for (l = 0; l < n; l++) {
-        y[l] += ytemp[l];                               // Add the evolution values to the state variables.
+    for (i = 0; i < n; i++) {
+        y[i] += ytemp[i];                     // Add the evolution values to the state variables.
     }
 }
 
 
 #define MAXSTP 100000
-#define TINY (q2r(1,10000000000)*q2r(1,10000000000)*q2r(1,10000000000)) /* = 1.0e-30 */
+#define TINY \
+    (q2r(1, 10000000000) * q2r(1, 10000000000) * q2r(1, 10000000000)) /* = 1.0e-30 */
 
 static inline void step_size_heuristic_statistics(
 	real_t h_actual, real_t h_chosen)
@@ -444,7 +452,7 @@ static inline void scale_vector(
 static inline bool same_sign(
 	real_t a, real_t b)
 {
-    return a*b > q2r(0,1);
+    return a*b > q2r(0, 1);
 }
 
 //! \brief Runge-Kutta driver with adaptive stepsize control.
@@ -464,28 +472,31 @@ void odeint(
 {
     real_t ks[RKN*n];                         // The K-vector structure
     real_t x = x1, h = SIGN(h1, x2-x1);       // Assign h: the magnitude of h1, and the sign of x2-x1
-    real_t yscal[n];                          // A scaling vector used to scale the results during error analysis 
+    real_t yscal[n];                          // A scaling vector used to scale the results during error analysis
     rkqs_t rs;                                // Results structure for the rkqs routine.
     dim_t  nstp = 1;                          // The number of individual integration steps actually taken
 
     assert(hmin > n2r(0));                    // The minimum step size is positive. Note the actual h might not be.
 
     do {
-        derivs(K(1), x, y);                                   // Initialise K-vectors with the instantaneous derivatives
-	scale_vector(yscal, y, K(1), h, n);                   // Initialise the yscal-vector
+        derivs(K(1), x, y);                   // Initialise K-vectors with the instantaneous derivatives
+	scale_vector(yscal, y, K(1), h, n);   // Initialise the yscal-vector
 	if (same_sign(x+h-x2, x+h-x1)) {
-	    h = x2-x;                                         // If stepsize overshoots: decrease it.
+	    h = x2-x;                         // If stepsize overshoots: decrease it.
 	}
 
 	select_step_size_and_step(&rs, y, &x, ks, n, h, eps, yscal, derivs);
-	                                                      // Take a single step of a suitable size (size to be determined by rkqs)
-	step_size_heuristic_statistics(rs.hdid, h);           // Update the statistics counters associated with the step size heuristic
+	                                      // Take a single step of a suitable size (size to be determined by rkqs)
+	step_size_heuristic_statistics(rs.hdid, h);
+	                                      // Update the statistics counters associated with the step size heuristic
 	next_step_size_check(rs.hnext, hmin);
 	h = rs.hnext;
-    } while ((++nstp <= MAXSTP) && ((x-x2) * (x2-x1) < n2r(0))); // Take at most MAXSTP steps, and also stop when x isn't in [x1,x2)
+	                                      // Take at most MAXSTP steps, and also stop when x isn't in [x1,x2)
+    } while ((++nstp <= MAXSTP) && ((x-x2) * (x2-x1) < n2r(0)));
 
-    max_steps_exceeded(nstp);                                 // Update statistics on too many steps taken
+    max_steps_exceeded(nstp);                 // Update statistics on too many steps taken
 
     printf("Underflows %u, right/wrong guess %u/%u, too many steps: %u, steps too small %u\n",
-	    rkck_statistics[0],rkck_statistics[1],rkck_statistics[2],rkck_statistics[3],rkck_statistics[4]);
+	    rkck_statistics[0], rkck_statistics[1], rkck_statistics[2], rkck_statistics[3],
+	    rkck_statistics[4]);
 }
