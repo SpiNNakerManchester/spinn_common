@@ -52,7 +52,6 @@
  *      odeint                    This is the public API for the Runge-Kutta ODE solver. Note it is
  *                                different to that provided in the reference because I've moved the reporting
  *                                over to the user.
- *               
  */
 
 #include "generic-runge-kutta-impl.h"
@@ -181,9 +180,9 @@ static void runge_kutta_ks(
 
     for (i = 2; i <= RKN; i++) {                   // Calculate the K(i) vector
 	for (k = 0; k < n; k++) {                  // Do component-wise operations
-	    ytemp[k] = B(i,1) * K(1)[k];           // Initialise the accumulation
+	    ytemp[k] = B(i, 1) * K(1)[k];          // Initialise the accumulation
 	    for (j = 2; j < i; j++) {              // Iterate over the vector being constructed
-	        ytemp[k] += B(i,j) * K(j)[k];      // Addition of linear combinations of previous K(i)'s
+	        ytemp[k] += B(i, j) * K(j)[k];     // Addition of linear combinations of previous K(i)'s
 	    }
 	    ytemp[k] = y[k] + h*ytemp[k];          // We're calculating modified states for use
 	}                                          // in the derivs calculation ...
@@ -256,12 +255,12 @@ static inline real_t maximum_error(
 	real_t* yerr, real_t* yscal, unsigned int n)
 {
     real_t errmax = fabs(yerr[0] * yscal[0]);
-    unsigned int l;
+    unsigned int i;
 
     assert(n > 0);
 
-    for (l = 1; l < n; l++) {
-        errmax = fmax(errmax, fabs(yerr[l] * yscal[l]));   // Scale relative to required tolerance.
+    for (i = 1; i < n; i++) {
+        errmax = fmax(errmax, fabs(yerr[i] * yscal[i]));   // Scale relative to required tolerance.
     }
 
     return errmax;
@@ -276,9 +275,9 @@ static inline real_t maximum_error(
 static inline void copy_vector(
 	real_t* b, real_t* a, unsigned int n)
 {
-    unsigned int l;
+    unsigned int i;
 
-    for (l = 0; l < n; l++) {
+    for (i = 0; i < n; i++) {
         *b++ = *a++;
     }
 }
@@ -341,7 +340,7 @@ static inline bool unacceptable_step_size(
 {
     real_t h_new = *hp;
     bool   r     = (err > n2r(1));
-  
+
     if (r) {
         h_new = (*hp) * shrink_step_size(err);// Re-size the next step size to be smaller ..
         if (step_size_underflow(x, h_new)) {  //  ... and check for underflow.
@@ -436,10 +435,10 @@ static inline void max_steps_exceeded(
 static inline void scale_vector(
 	real_t yscal[], real_t y[], real_t dydx[], real_t h, unsigned int n)
 {
-    unsigned int l;
+    unsigned int i;
 
-    for (l = 0; l < n; l++) {
-        yscal[l] = n2r(1) / (fabs(y[l]) + fabs(dydx[l] * h) + TINY);
+    for (i = 0; i < n; i++) {
+        yscal[i] = n2r(1) / (fabs(y[i]) + fabs(dydx[i] * h) + TINY);
     }
 }
 
