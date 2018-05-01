@@ -268,13 +268,13 @@ static inline void copy_vector (real_t* b, real_t* a, unsigned int n)
 //!        The maximum growth is a factor of 5.
 
 static inline real_t grow_step_size   (real_t err)
-{   return (FMIN (SAFETY * POW (err, PGROW),  n2r(5)));    }
+{   return (FMIN (SAFETY * pow (err, PGROW),  n2r(5)));    }
 
 //! \brief Given an error make a suggested scale-factor for the next step size to try
 //!        The minimum growth is a factor of 1/10.
 
 static inline real_t shrink_step_size (real_t err)
-{   return (FMAX (SAFETY * POW (err, PSHRNK), q2r(1,10))); }
+{   return (FMAX (SAFETY * pow (err, PSHRNK), q2r(1,10))); }
 
 //! \brief Checks that the step size does not underflow when added to the current start point of integration.
 //!        Has the side-effect of incrementing the variable rkck_underflow, if an underflow is detected.
