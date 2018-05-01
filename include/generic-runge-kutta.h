@@ -43,7 +43,7 @@ typedef real_t*  state_t; //! \brief The type of the state vector for ODE system
 //! \param[in] n Numerator of the rational number
 //! \param[in] d Denominator of the rational number
 
-#define q2r(n,d) (n2r((n))/n2r((d)))
+#define q2r(n,d) (n2r((n)) / n2r((d)))
 
 //! \typepdef fun_t
 //! \brief This is the type of a C function pointer used by the generic
@@ -55,8 +55,9 @@ typedef real_t*  state_t; //! \brief The type of the state vector for ODE system
 
 typedef void (*fun_t)(state_t, real_t, state_t);
 
-unsigned int* odeint_statistics (void);
-void odeint (real_t y[], dim_t n, real_t x1, real_t x2, real_t eps, real_t h1, real_t hmin, fun_t derivs);
+unsigned int* odeint_statistics(void);
+void odeint(real_t y[], dim_t n, real_t x1, real_t x2, real_t eps, real_t h1,
+	real_t hmin, fun_t derivs);
 
 
 #endif /*__GENERIC_RUNGE_KUTTA4*/

@@ -3,7 +3,7 @@
  * Author: David Lester
  * Date 25/1/2018
  *
- * This is a modified versionn of Runge-Kutta 4-5 with Cash-Karp Butcher Table from Numerical Recipes.
+ * This is a modified version of Runge-Kutta 4-5 with Cash-Karp Butcher Table from Numerical Recipes.
  *
  * The key differences are: I have tried to make it independent of the type of reals used.
  * And I have taken out the heap allocation and deallocation so that it all takes place on the stack instead.
@@ -30,7 +30,7 @@
  *
  *    \Delta = y_n+1 - y^*_n+1
  *
- * There are three major rountines in this file:
+ * There are three major routines in this file:
  *
  *      runge_kutta_ks (combined with the two extra functions below, constitutes rkck in the reference):
  *                      Calculates the K-vectors as shown above.
@@ -106,8 +106,10 @@ static const real_t d[] = {q2r(37,378)  - q2r(2825,27648),
 
 static unsigned int rkck_statistics[] = {0, 0, 0, 0, 0};
 
-unsigned int* odeint_statistics (void)
-{   return (rkck_statistics); }
+unsigned int* odeint_statistics(void)
+{
+    return rkck_statistics;
+}
 
 #define RKN 6                        /* Dimension of the RK-CK system              */
 #define index_b(i,j) (((i)==2)? 0: (((i)-3)*((i)-3)+1 + ((j)-1)))
@@ -122,15 +124,17 @@ unsigned int* odeint_statistics (void)
 //! \param[in] n Dimension of the vectors.
 //! \return      Returns true if the two vectors have pairwise equal elements
 
-static inline bool vector_eq (real_t* x, real_t* y, unsigned int n)
+static inline bool vector_eq(
+	real_t* x, real_t* y, unsigned int n)
 {
     unsigned int l;
     bool r = true;
 
-    for (l = 0; l < n; l++)
+    for (l = 0; l < n; l++) {
         r &= (x[l] == y[l]);
+    }
 
-    return (r);
+    return r;
 }
 
 //! \brief Tests that the k1 vector is equal to the instantaneous derivatives at y,x.
@@ -142,13 +146,14 @@ static inline bool vector_eq (real_t* x, real_t* y, unsigned int n)
 //! \param[in] n      The dimension of the vectors.
 //! \param[in] derivs The function describing the ODE system.
 
-static inline bool K1_is_derivs (real_t* k1, real_t* y, real_t x, unsigned int n, fun_t derivs)
+static inline bool K1_is_derivs(
+	real_t* k1, real_t* y, real_t x, unsigned int n, fun_t derivs)
 {
     real_t dydx[n];
 
-    derivs (dydx, x, y);
+    derivs(dydx, x, y);
 
-    return (vector_eq (k1, dydx, n));
+    return vector_eq(k1, dydx, n);
 }
 
 //! \brief Construct the K-vectors for a given starting position (y,x), and time-step h.
@@ -160,23 +165,25 @@ static inline bool K1_is_derivs (real_t* k1, real_t* y, real_t x, unsigned int n
 //! \param[in] h      The time step
 //! \param[in] derivs The functional description of the ODE system.
 
-static void runge_kutta_ks (real_t* ks, real_t* y, real_t x, unsigned int n, real_t h, fun_t derivs)
+static void runge_kutta_ks(
+	real_t* ks, real_t* y, real_t x, unsigned int n, real_t h, fun_t derivs)
 {
     unsigned int i, j, l;
     real_t ytemp[n];
 
-    assert (n > 0);                                // Assert that the vectors are non-empty
-    assert (K1_is_derivs (K(1), y, x, n, derivs)); // Assert that on entry to the routine, K(1) is already
+    assert(n > 0);                                 // Assert that the vectors are non-empty
+    assert(K1_is_derivs(K(1), y, x, n, derivs));   // Assert that on entry to the routine, K(1) is already
                                                    // initialised with the instantaneous derivatives at y,x.
 
     for (i = 2; i <= RKN; i++) {                   // Calculate the K(i) vector
 	for (l = 0; l < n; l++) {                  // Do component-wise operations
 	    ytemp[l] = B(i,1) * K(1)[l];           // Initialise the accumulation
-	    for (j = 2; j < i; j++)                // Iterate over the vector being constructed
+	    for (j = 2; j < i; j++) {              // Iterate over the vector being constructed
 	        ytemp[l] += B(i,j) * K(j)[l];      // Addition of linear combinations of previous K(i)'s
-	    ytemp[l] = y[l] + h*ytemp[l];          // We're calculating modifed states for use
+	    }
+	    ytemp[l] = y[l] + h*ytemp[l];          // We're calculating modified states for use
 	}                                          // in the derivs calculation ...
-	derivs (K(i), x + h*A(i), ytemp);          //  ... which is done here. This assigns a result to K(i).
+	derivs(K(i), x + h*A(i), ytemp);           //  ... which is done here. This assigns a result to K(i).
     }
 }
 
@@ -188,16 +195,18 @@ static void runge_kutta_ks (real_t* ks, real_t* y, real_t x, unsigned int n, rea
 //! \param[in]  h  A scaling factor, which is in fact the integration step-size.
 //! \param[in]  n  Dimension of ODE system.
 
-static void matrix_vector (const real_t* a, real_t* b, real_t* ks, real_t h, unsigned int n)
+static void matrix_vector(
+	const real_t* a, real_t* b, real_t* ks, real_t h, unsigned int n)
 {
     unsigned int i, l;
 
-    assert (n > 0);
+    assert(n > 0);
 
     for (l = 0; l < n; l++) {           // Iterate component-wise over the output vector
         b[l] = K(1)[l] * a[0];          // Initialise output vector, then skip an element ..
-	for (i = 3; i <= RKN; i++)      //  .. Iterating over the remaining terms of the RK system
+	for (i = 3; i <= RKN; i++) {    //  .. Iterating over the remaining terms of the RK system
 	    b[l] +=  K(i)[l] * a[i-2];  // Accumulate component result.
+	}
 	b[l] *= h;                      // Scale result
     }
 }
@@ -210,8 +219,11 @@ static void matrix_vector (const real_t* a, real_t* b, real_t* ks, real_t h, uns
 //! \param[in]  h     A scaling factor, which is in fact the integration step-size.
 //! \param[in]  n     Dimension of ODE system.
 
-static inline void runge_kutta_error (real_t* yerr, real_t* ks, real_t h, unsigned int n)
-{   matrix_vector (d, yerr, ks, h, n); }
+static inline void runge_kutta_error(
+	real_t* yerr, real_t* ks, real_t h, unsigned int n)
+{
+    matrix_vector(d, yerr, ks, h, n);
+}
 
 
 //! \brief A wrapper function to matrix_vector, to calculate the component-wise
@@ -223,8 +235,11 @@ static inline void runge_kutta_error (real_t* yerr, real_t* ks, real_t h, unsign
 //! \param[in]  h     A scaling factor, which is in fact the integration step-size.
 //! \param[in]  n     Dimension of ODE system.
 
-static inline void runge_kutta_step (real_t* yout, real_t* ks, real_t h, unsigned int n)
-{   matrix_vector (c, yout, ks, h, n); }
+static inline void runge_kutta_step(
+	real_t* yout, real_t* ks, real_t h, unsigned int n)
+{
+    matrix_vector(c, yout, ks, h, n);
+}
 
 //! \brief Calculates the maximum estimated error for each component of the ODE state vector.
 //!
@@ -233,17 +248,19 @@ static inline void runge_kutta_step (real_t* yout, real_t* ks, real_t h, unsigne
 //! \param[in] n     Dimension of ODE system.
 //! \return          The value of the component with the largest absolute value.
 
-static inline real_t maximum_error (real_t* yerr, real_t* yscal, unsigned int n)
+static inline real_t maximum_error(
+	real_t* yerr, real_t* yscal, unsigned int n)
 {
-    real_t errmax = FABS(yerr[0] * yscal[0]);
+    real_t errmax = fabs(yerr[0] * yscal[0]);
     unsigned int l;
 
-    assert (n > 0);
+    assert(n > 0);
 
-    for (l = 1; l < n; l++)
-        errmax = FMAX(errmax, FABS(yerr[l] * yscal[l]));   // Scale relative to required tolerance.
+    for (l = 1; l < n; l++) {
+        errmax = fmax(errmax, fabs(yerr[l] * yscal[l]));   // Scale relative to required tolerance.
+    }
 
-    return (errmax);
+    return errmax;
 }
 
 //! \brief Copies the vector a to the vector b.
@@ -252,12 +269,14 @@ static inline real_t maximum_error (real_t* yerr, real_t* yscal, unsigned int n)
 //! \param[in]  a Source vector
 //! \param[in]  n Dimension of ODE system.
 
-static inline void copy_vector (real_t* b, real_t* a, unsigned int n)
+static inline void copy_vector(
+	real_t* b, real_t* a, unsigned int n)
 {
     unsigned int l;
 
-    for (l = 0; l < n; l++)
+    for (l = 0; l < n; l++) {
         *b++ = *a++;
+    }
 }
 
 #define SAFETY q2r(9,10)
@@ -267,14 +286,20 @@ static inline void copy_vector (real_t* b, real_t* a, unsigned int n)
 //! \brief Given an error make a suggested scale-factor for the next step size to try
 //!        The maximum growth is a factor of 5.
 
-static inline real_t grow_step_size   (real_t err)
-{   return (FMIN (SAFETY * pow (err, PGROW),  n2r(5)));    }
+static inline real_t grow_step_size(
+	real_t err)
+{
+    return fmin(SAFETY * pow(err, PGROW), n2r(5));
+}
 
 //! \brief Given an error make a suggested scale-factor for the next step size to try
 //!        The minimum growth is a factor of 1/10.
 
-static inline real_t shrink_step_size (real_t err)
-{   return (FMAX (SAFETY * pow (err, PSHRNK), q2r(1,10))); }
+static inline real_t shrink_step_size(
+	real_t err)
+{
+    return fmax(SAFETY * pow(err, PSHRNK), q2r(1,10));
+}
 
 //! \brief Checks that the step size does not underflow when added to the current start point of integration.
 //!        Has the side-effect of incrementing the variable rkck_underflow, if an underflow is detected.
@@ -283,15 +308,17 @@ static inline real_t shrink_step_size (real_t err)
 //! \param[in]  h step size
 //! \return     Returns true if there has been an underflow; otherwise false.
 
-static inline bool step_size_underflow (real_t x, real_t h)
+static inline bool step_size_underflow(
+	real_t x, real_t h)
 {
     real_t xnew = x+h;
     bool   r    = (xnew == x);  // Check that the new step size is not so small as to be a rounding error.
 
-    if (r)
+    if (r) {
         rkck_statistics[RKCK_UNDERFLOW]++;
+    }
 
-    return (r);
+    return r;
 }
 
 //! \brief Determines if the step size is now small enough to be acceptable; has the side-effect of
@@ -302,19 +329,21 @@ static inline bool step_size_underflow (real_t x, real_t h)
 //! \param[in] x   Current start point of integration
 //! \return        Returns true if the current step size is unacceptable; false otherwise.
 
-static inline bool unacceptable_step_size (real_t* hp, real_t err, real_t x)
+static inline bool unacceptable_step_size(
+	real_t* hp, real_t err, real_t x)
 {
-    real_t h_new = (*hp);
+    real_t h_new = *hp;
     bool   r     = (err > n2r(1));
   
     if (r) {
-        h_new = (*hp) * shrink_step_size (err);        // Re-size the next step size to be smaller ..
-        if (step_size_underflow (x, h_new))            //  ... and check for underflow.
-	    return (false);                            // There's no point going smaller as the step size is already underflowing
+        h_new = (*hp) * shrink_step_size(err);         // Re-size the next step size to be smaller ..
+        if (step_size_underflow(x, h_new)) {           //  ... and check for underflow.
+	    return false;                              // There's no point going smaller as the step size is already underflowing
+        }
 	(*hp) = h_new;
     }
 
-    return (r);
+    return r;
 }
 
 //! \brief Fifth-order Runge-Kutta step with monitoring of local truncation
@@ -330,7 +359,9 @@ static inline bool unacceptable_step_size (real_t* hp, real_t err, real_t x)
 //! \param[in]  yscal  Vector against which to scale error
 //! \param[in]  derivs The user-supplied computation of the righthand side derivatives
 
-static inline void select_step_size_and_step (rkqs_t *r, real_t y[], real_t *xp, real_t ks[], dim_t n, real_t htry, real_t eps, real_t yscal[], fun_t derivs)
+static inline void select_step_size_and_step(
+	rkqs_t *r, real_t y[], real_t *xp, real_t ks[], dim_t n,
+	real_t htry, real_t eps, real_t yscal[], fun_t derivs)
 {
     real_t ytemp[n];
     real_t errmax = 0, h;
@@ -344,44 +375,64 @@ static inline void select_step_size_and_step (rkqs_t *r, real_t y[], real_t *xp,
 	errmax = maximum_error (ytemp, yscal, n) / eps; // Evaluate error, scale and convert error to a ratio
     } while (unacceptable_step_size (&h, errmax, *xp)); // Continue to reduce step size while the error is unacceptable.
 
-    runge_kutta_step (ytemp, ks, h, n);                 // Take a step
+    runge_kutta_step(ytemp, ks, h, n);                  // Take a step
     
-    r->hnext = h * grow_step_size (errmax);             // Set the next step size to be (potentially) larger
+    r->hnext = h * grow_step_size(errmax);              // Set the next step size to be (potentially) larger
     r->hdid  = h;                                       // Set the actual step size taken.
-    *xp += h;                                            // Increment the starting point of the integration.
+    *xp += h;                                           // Increment the starting point of the integration.
 
-    for (l = 0; l < n; l++)
+    for (l = 0; l < n; l++) {
         y[l] += ytemp[l];                               // Add the evolution values to the state variables.
+    }
 }
 
 
 #define MAXSTP 100000
 #define TINY (q2r(1,10000000000)*q2r(1,10000000000)*q2r(1,10000000000)) /* = 1.0e-30 */
 
-static inline void step_size_heuristic_statistics (real_t h_actual, real_t h_chosen)
-{   if (h_actual == h_chosen) rkck_statistics[RKCK_SIZE_GUESSED_RIGHT]++; else rkck_statistics[RKCK_SIZE_GUESSED_WRONG]++; }
+static inline void step_size_heuristic_statistics(
+	real_t h_actual, real_t h_chosen)
+{
+    if (h_actual == h_chosen) {
+	rkck_statistics[RKCK_SIZE_GUESSED_RIGHT]++;
+    } else {
+	rkck_statistics[RKCK_SIZE_GUESSED_WRONG]++;
+    }
+}
 
-static inline void next_step_size_check (real_t h_next, real_t h_min)
-{   if (FABS(h_next) <= h_min) rkck_statistics[RKCK_STEP_TOO_SMALL]++; }
+static inline void next_step_size_check(
+	real_t h_next, real_t h_min)
+{
+    if (fabs(h_next) <= h_min) {
+	rkck_statistics[RKCK_STEP_TOO_SMALL]++;
+    }
+}
 
-static inline void max_steps_exceeded (unsigned int n)
-{   if (n > MAXSTP) rkck_statistics[RKCK_STEPS_EXCEEDED]++; }
+static inline void max_steps_exceeded(
+	unsigned int n)
+{
+    if (n > MAXSTP) {
+	rkck_statistics[RKCK_STEPS_EXCEEDED]++;
+    }
+}
 
 //! \brief Scaling used to monitor accuracy. This general-purpose choice can be modified
 //!        if need be.
 //!
 //! \param[out] yscal The resultant scale vector
 //! \param[in]  y     The current values of the ODE state vector
-//! \param[in]  dydx  The current instantaneous derivative values for teh state variables.
+//! \param[in]  dydx  The current instantaneous derivative values for the state variables.
 //! \param[in]  h     The current step size
 //! \param[in]  n     The dimension of each vector
 
-static inline void scale_vector (real_t yscal[], real_t y[], real_t dydx[], real_t h, unsigned int n)
+static inline void scale_vector(
+	real_t yscal[], real_t y[], real_t dydx[], real_t h, unsigned int n)
 {
     unsigned int l;
 
-    for (l = 0; l < n; l++)
-        yscal[l] = n2r(1) / (FABS(y[l]) + FABS(dydx[l]*h) + TINY);
+    for (l = 0; l < n; l++) {
+        yscal[l] = n2r(1) / (fabs(y[l]) + fabs(dydx[l] * h) + TINY);
+    }
 }
 
 //! \brief Checks that the two real_valued arguments both have the same (non-zero) sign.
@@ -390,8 +441,11 @@ static inline void scale_vector (real_t yscal[], real_t y[], real_t dydx[], real
 //! \param[in] b Second real variable
 //! \return    Returns true if (a > 0 && b > 0) or (a < 0 && b < 0); false otherwise
 
-static inline bool same_sign (real_t a, real_t b)
-{   return (a*b > q2r(0,1)); }
+static inline bool same_sign(
+	real_t a, real_t b)
+{
+    return a*b > q2r(0,1);
+}
 
 //! \brief Runge-Kutta driver with adaptive stepsize control.
 //!
@@ -404,30 +458,34 @@ static inline bool same_sign (real_t a, real_t b)
 //! \param[in]  hmin   Minimum allowed step size
 //! \param[in]  derivs The user-supplied routine for calculating the right-hand side derivatives
 
-void odeint (real_t y[], dim_t n, real_t x1, real_t x2, real_t eps, real_t h1, real_t hmin, fun_t derivs)
+void odeint(
+	real_t y[], dim_t n, real_t x1, real_t x2, real_t eps, real_t h1,
+	real_t hmin, fun_t derivs)
 {
     real_t ks[RKN*n];                         // The K-vector structure
-    real_t x = x1, h = SIGN (h1, x2-x1);      // Assign h: the magnitude of h1, and the sign of x2-x1
+    real_t x = x1, h = SIGN(h1, x2-x1);       // Assign h: the magnitude of h1, and the sign of x2-x1
     real_t yscal[n];                          // A scaling vector used to scale the results during error analysis 
     rkqs_t rs;                                // Results structure for the rkqs routine.
     dim_t  nstp = 1;                          // The number of individual integration steps actually taken
 
-    assert (hmin > n2r(0));                   // The minimum step size is positive. Note the actual h might not be.
+    assert(hmin > n2r(0));                    // The minimum step size is positive. Note the actual h might not be.
 
     do {
-        derivs (K(1), x, y);                                  // Initialise K-vectors with the instantaneous derivatives
-	scale_vector (yscal, y, K(1), h, n);                  // Initialise the yscal-vector
-	if (same_sign (x+h-x2, x+h-x1)) h = x2-x;             // If stepsize overshoots: decrease it.
+        derivs(K(1), x, y);                                   // Initialise K-vectors with the instantaneous derivatives
+	scale_vector(yscal, y, K(1), h, n);                   // Initialise the yscal-vector
+	if (same_sign(x+h-x2, x+h-x1)) {
+	    h = x2-x;                                         // If stepsize overshoots: decrease it.
+	}
 
-	select_step_size_and_step (&rs, y, &x, ks, n, h, eps, yscal, derivs);
+	select_step_size_and_step(&rs, y, &x, ks, n, h, eps, yscal, derivs);
 	                                                      // Take a single step of a suitable size (size to be determined by rkqs)
-	step_size_heuristic_statistics (rs.hdid, h);          // Update the statistics counters associated with the step size heuristic
-	next_step_size_check (rs.hnext, hmin);
+	step_size_heuristic_statistics(rs.hdid, h);           // Update the statistics counters associated with the step size heuristic
+	next_step_size_check(rs.hnext, hmin);
 	h = rs.hnext;
-    } while ((++nstp <= MAXSTP) && ((x-x2)*(x2-x1) < n2r(0)));  // Take at most MAXSTP steps, and also stop when x isn't in [x1,x2)
+    } while ((++nstp <= MAXSTP) && ((x-x2) * (x2-x1) < n2r(0))); // Take at most MAXSTP steps, and also stop when x isn't in [x1,x2)
 
-    max_steps_exceeded (nstp);                                // Update statistics on too many steps taken
+    max_steps_exceeded(nstp);                                 // Update statistics on too many steps taken
 
-    printf ("Underflows %u, right/wrong guess %u/%u, too many steps: %u, steps too small %u\n",
+    printf("Underflows %u, right/wrong guess %u/%u, too many steps: %u, steps too small %u\n",
 	    rkck_statistics[0],rkck_statistics[1],rkck_statistics[2],rkck_statistics[3],rkck_statistics[4]);
 }

@@ -28,10 +28,7 @@
 #define use(x)	do {} while ((x) != (x))
 #endif
 
-#define FMIN(a,b) ((a)<(b)? (a): (b))
-#define FMAX(a,b) ((a)>(b)? (a): (b))
-#define FABS(a)   FMAX((a), (-(a)))
-#define SIGN(a,b) ((b)==0.0? 0.0: ((b) > 0.0)? FABS((a)): - FABS((a)))
+#define SIGN(a,b) ((b)==0.0? 0.0: ((b) > 0.0)? fabs((a)): - fabs((a)))
 
 //! A structure for holding the return data from a call to rkqs
 
