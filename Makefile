@@ -7,7 +7,7 @@ SPINN_COMMON_BUILD = build
 
 # Objects
 OBJS = bit_field.o circular_buffer.o normal.o random.o stdfix-exp.o log.o \
-	sincos.o sqrt.o
+	sincos.o sqrt.o generic-runge-kutta.o
 BUILD_OBJS = $(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o)
 
 # Build rules (default)
@@ -29,7 +29,7 @@ CFLAGS += -I include $(OTIME) -D$(SPINN_COMMON_DEBUG)
 HEADERS = arm_acle_gcc.h arm_acle.h arm.h bit_field.h circular_buffer.h \
 	cmsis.h core_v5te.h debug.h log.h normal.h pair.h polynomial.h random.h \
 	sincos.h spin-print.h sqrt.h static-assert.h stdfix-exp.h \
-	stdfix-full-iso.h utils.h
+	stdfix-full-iso.h utils.h generic-runge-kutta.h
 
 INSTALL ?= install
 
