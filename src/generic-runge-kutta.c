@@ -3,10 +3,12 @@
  * Author: David Lester
  * Date 25/1/2018
  *
- * This is a modified version of Runge-Kutta 4-5 with Cash-Karp Butcher Table from Numerical Recipes.
+ * This is a modified version of Runge-Kutta 4-5 with Cash-Karp Butcher Table
+ * from Numerical Recipes.
  *
- * The key differences are: I have tried to make it independent of the type of reals used.
- * And I have taken out the heap allocation and deallocation so that it all takes place on the stack instead.
+ * The key differences are: I have tried to make it independent of the type of
+ * reals used. And I have taken out the heap allocation and deallocation so
+ * that it all takes place on the stack instead.
  *
  * Reference: http://www.aip.de/groups/soe/local/numres/bookcpdf/c16-2.pdf
  *
@@ -32,26 +34,30 @@
  *
  * There are three major routines in this file:
  *
- *      runge_kutta_ks (combined with the two extra functions below, constitutes rkck in the reference):
- *                      Calculates the K-vectors as shown above.
- *                      The calculations 16.2.5,6 have been split from the function rkck in the reference, since
- *                      we use the error calculation more often to correctly size h before calling the step function
- *                      for 16.2.5.
+ *      runge_kutta_ks (combined with the two extra functions below,
+ *                      constitutes rkck in the reference):
+ *              Calculates the K-vectors as shown above.
+ *              The calculations 16.2.5,6 have been split from the function
+ *              rkck in the reference, since we use the error calculation more
+ *              often to correctly size h before calling the step function
+ *              for 16.2.5.
  *
  *        - runge_kutta_error: Calculation of Eqn 16.2.6
  *        - runge_kutta_step:  Calculation of Eqn 16.2.5
  *
- *      select_step_size_and_step (was rkqs in reference): Selects a step-size, and then makes a step.
- *                                Uses two heuristic routines to grow and shrink the step size:
+ *      select_step_size_and_step (was rkqs in reference): Selects a step-size,
+ *              and then makes a step. Uses two heuristic routines to grow and
+ *              shrink the step size:
  *
  *        - grow_step_size
  *        - shrink_step_size
  *
- *                                As heuristics these functions can be changed to suit the task in hand.
+ *              As heuristics these functions can be changed to suit the task
+ *              in hand.
  *
- *      odeint                    This is the public API for the Runge-Kutta ODE solver. Note it is
- *                                different to that provided in the reference because I've moved the reporting
- *                                over to the user.
+ *      odeint  This is the public API for the Runge-Kutta ODE solver. Note it
+ *              is different to that provided in the reference because I've
+ *              moved the reporting over to the user.
  */
 
 #include "generic-runge-kutta-impl.h"
@@ -161,7 +167,8 @@ static inline bool K1_is_derivs(
 
 //! \brief Construct the K-vectors for a given starting position (y,x), and time-step h.
 //!
-//! \param     ks     The constructed K-vectors (excluding the first one which has been pre-computed).
+//! \param     ks     The constructed K-vectors (excluding the first one which has been
+//!                   pre-computed).
 //! \param[in] y      The ODE state vector
 //! \param[in] x      The current time
 //! \param[in] n      The dimension of the ODE system.
@@ -175,18 +182,21 @@ static void runge_kutta_ks(
     real_t ytemp[n];
 
     assert(n > 0);                                 // Assert that the vectors are non-empty
-    assert(K1_is_derivs(K(1), y, x, n, derivs));   // Assert that on entry to the routine, K(1) is already
-                                                   // initialised with the instantaneous derivatives at y,x.
+    assert(K1_is_derivs(K(1), y, x, n, derivs));   // Assert that on entry to the routine, K(1) is
+                                                   // already initialised with the instantaneous
+                                                   // derivatives at y,x.
 
     for (i = 2; i <= RKN; i++) {                   // Calculate the K(i) vector
 	for (k = 0; k < n; k++) {                  // Do component-wise operations
 	    ytemp[k] = B(i, 1) * K(1)[k];          // Initialise the accumulation
 	    for (j = 2; j < i; j++) {              // Iterate over the vector being constructed
-	        ytemp[k] += B(i, j) * K(j)[k];     // Addition of linear combinations of previous K(i)'s
+	        ytemp[k] += B(i, j) * K(j)[k];     // Addition of linear combinations of previous
+	                                           // K(i)'s
 	    }
 	    ytemp[k] = y[k] + h*ytemp[k];          // We're calculating modified states for use
 	}                                          // in the derivs calculation ...
-	derivs(K(i), x + h*A(i), ytemp);           //  ... which is done here. This assigns a result to K(i).
+	derivs(K(i), x + h*A(i), ytemp);           //  ... which is done here. This assigns a
+	                                           // result to K(i).
     }
 }
 
@@ -344,7 +354,8 @@ static inline bool unacceptable_step_size(
     if (r) {
         h_new = (*hp) * shrink_step_size(err);// Re-size the next step size to be smaller ..
         if (step_size_underflow(x, h_new)) {  //  ... and check for underflow.
-	    return false;                     // There's no point going smaller as the step size is already underflowing
+	    return false;                     // There's no point going smaller as the step size is
+	                                      // already underflowing
         }
 	(*hp) = h_new;
     }
@@ -378,8 +389,10 @@ static inline void select_step_size_and_step(
     do {
         runge_kutta_ks(ks, y, *xp, n, h, derivs); // Set up the K vectors.
 	runge_kutta_error(ytemp, ks, h, n);   // Calculate the error of this attempt.
-	errmax = maximum_error(ytemp, yscal, n) / eps; // Evaluate error, scale and convert error to a ratio
-    } while (unacceptable_step_size(&h, errmax, *xp)); // Continue to reduce step size while the error is unacceptable.
+	errmax = maximum_error(ytemp, yscal, n) / eps; // Evaluate error, scale and convert error
+	                                               // to a ratio
+    } while (unacceptable_step_size(&h, errmax, *xp)); // Continue to reduce step size while the
+                                                       // error is unacceptable.
 
     runge_kutta_step(ytemp, ks, h, n);        // Take a step
     
@@ -456,7 +469,8 @@ static inline bool same_sign(
 
 //! \brief Runge-Kutta driver with adaptive stepsize control.
 //!
-//! \param      y      Initial values of the vector y, also holds the final result on successful completion.
+//! \param      y      Initial values of the vector y, also holds the final result on successful
+//!                    completion.
 //! \param[in]  n      Dimension of the ODE system.
 //! \param[in]  x1     Initial value of the independent variable x
 //! \param[in]  x2     Final value of the independent variable x
@@ -470,27 +484,35 @@ void odeint(
 	real_t hmin, fun_t derivs)
 {
     real_t ks[RKN*n];                         // The K-vector structure
-    real_t x = x1, h = SIGN(h1, x2-x1);       // Assign h: the magnitude of h1, and the sign of x2-x1
-    real_t yscal[n];                          // A scaling vector used to scale the results during error analysis
+    real_t x = x1, h = SIGN(h1, x2-x1);       // Assign h: the magnitude of h1, and the sign of
+                                              // x2-x1
+    real_t yscal[n];                          // A scaling vector used to scale the results during
+                                              // error analysis.
     rkqs_t rs;                                // Results structure for the rkqs routine.
-    dim_t  nstp = 1;                          // The number of individual integration steps actually taken
+    dim_t  nstp = 1;                          // The number of individual integration steps
+                                              // actually taken
 
-    assert(hmin > n2r(0));                    // The minimum step size is positive. Note the actual h might not be.
+    assert(hmin > n2r(0));                    // The minimum step size is positive. Note the actual
+                                              // h might not be.
 
     do {
-        derivs(K(1), x, y);                   // Initialise K-vectors with the instantaneous derivatives
+        derivs(K(1), x, y);                   // Initialise K-vectors with the instantaneous
+                                              // derivatives
 	scale_vector(yscal, y, K(1), h, n);   // Initialise the yscal-vector
 	if (same_sign(x+h-x2, x+h-x1)) {
 	    h = x2-x;                         // If stepsize overshoots: decrease it.
 	}
 
 	select_step_size_and_step(&rs, y, &x, ks, n, h, eps, yscal, derivs);
-	                                      // Take a single step of a suitable size (size to be determined by rkqs)
+	                                      // Take a single step of a suitable size (size to be
+                                              // determined by rkqs)
 	step_size_heuristic_statistics(rs.hdid, h);
-	                                      // Update the statistics counters associated with the step size heuristic
+	                                      // Update the statistics counters associated with the
+                                              // step size heuristic
 	next_step_size_check(rs.hnext, hmin);
 	h = rs.hnext;
-	                                      // Take at most MAXSTP steps, and also stop when x isn't in [x1,x2)
+	                                      // Take at most MAXSTP steps, and also stop when x
+                                              // isn't in [x1,x2)
     } while ((++nstp <= MAXSTP) && ((x-x2) * (x2-x1) < n2r(0)));
 
     max_steps_exceeded(nstp);                 // Update statistics on too many steps taken
