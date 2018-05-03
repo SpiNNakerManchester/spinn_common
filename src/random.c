@@ -257,7 +257,7 @@ accum exponential_dist_variate(
 	    }
 
 	    U = uni_rng(seed_arg);
-	} while (U >= USTAR);
+	} while (U < USTAR);
 
 	A += 1.0k;
     }
