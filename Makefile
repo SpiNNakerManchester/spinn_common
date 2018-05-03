@@ -30,6 +30,7 @@ HEADERS = arm_acle_gcc.h arm_acle.h arm.h assert.h bit_field.h \
     circular_buffer.h cmsis.h core_v5te.h normal.h pair.h polynomial.h \
     random.h sincos.h spin-print.h sqrt.h static-assert.h stdfix-exp.h \
 	stdfix-full-iso.h utils.h
+INSTALL_HEADERS = $(HEADERS:%.h=$(SPINN_INC_DIR)/%.h)
 
 INSTALL ?= install
 
