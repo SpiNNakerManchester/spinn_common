@@ -1,15 +1,24 @@
+/*
+    This file complements stdfix-full-iso.h to add various rounding routines
+    and operations with rounding.
+
+    Note that GCC currenly does not implement rounding on such operations like
+    fixed-point multiplication.
+
+    Author: mantas.mikaitis@manchester.ac.uk, 2018 May
+
+ */
+
 #include <stdfix-full-iso.h>
 #include <random.h>
 
-#define MULT_ROUND_NEAREST(x, y) (kbits(__stdfix_smul_k_round_nearest(bitsk(x), bitsk(y))))
-#define MULT_ROUND_STOCHASTIC(x, y) (kbits(__stdfix_smul_k_round_stochastic(bitsk(x), bitsk(y))))
-
-//! \brief This function stochastically rounds the input signed 64-bit integer
-//! to a number
-//! of bits, returning a 64-bit integer.
-//! \param[in] f A 64-bit number to be rounded.
-//! \param[in] n An int.
-//! \return The f rounded to the nearest n bits stochastically.
+// Helper macros to work with accums easily
+#define MULT_NO_ROUND_GCC(x, y) (x*y)
+#define MULT_NO_ROUNT_CUSTOM(x,y) (kbits(__stdfix_smul_k(bitsk(x), bitsk(y))))
+#define MULT_ROUND_NEAREST(x, y) \
+    (kbits(__stdfix_smul_k_round_nearest(bitsk(x), bitsk(y))))
+#define MULT_ROUND_STOCHASTIC(x, y) \
+    (kbits(__stdfix_smul_k_round_stochastic(bitsk(x), bitsk(y))))
 
 static inline int64_t __stdfix_stochastic_round_s64(
 	int64_t x,
@@ -17,6 +26,86 @@ static inline int64_t __stdfix_stochastic_round_s64(
 {
     register int64_t r;
     register uint64_t p, dropped_bits;
+
+    r = x >> n;
+    p = mars_kiss64_simp() & ((0x1 << n) - 1);
+    dropped_bits = x & ((0x1 << n) - 1);
+
+    if (p <= dropped_bits)
+        return ((r + 0x1) << n);
+    else return (r << n);
+}
+
+static inline int32_t __stdfix_stochastic_round_s32(
+	int32_t x,
+	int n)
+{
+    register int32_t r;
+    register uint32_t p, dropped_bits;
+
+    r = x >> n;
+    p = mars_kiss32() & ((0x1 << n) - 1);
+    dropped_bits = x & ((0x1 << n) - 1);
+
+    if (p <= dropped_bits)
+        return ((r + 0x1) << n);
+    else return (r << n);
+}
+
+static inline int16_t __stdfix_stochastic_round_s16(
+	int16_t x,
+	int n)
+{
+    register int16_t r;
+    register uint16_t p, dropped_bits;
+
+    r = x >> n;
+    p = mars_kiss32() & ((0x1 << n) - 1);
+    dropped_bits = x & ((0x1 << n) - 1);
+
+    if (p <= dropped_bits)
+        return ((r + 0x1) << n);
+    else return (r << n);
+}
+
+static inline uint64_t __stdfix_stochastic_round_u64(
+	uint64_t x,
+	int n)
+{
+    register uint64_t r;
+    register uint64_t p, dropped_bits;
+
+    r = x >> n;
+    p = mars_kiss64_simp() & ((0x1 << n) - 1);
+    dropped_bits = x & ((0x1 << n) - 1);
+
+    if (p <= dropped_bits)
+        return ((r + 0x1) << n);
+    else return (r << n);
+}
+
+static inline uint32_t __stdfix_stochastic_round_u32(
+	uint32_t x,
+	int n)
+{
+    register uint32_t r;
+    register uint32_t p, dropped_bits;
+
+    r = x >> n;
+    p = mars_kiss32() & ((0x1 << n) - 1);
+    dropped_bits = x & ((0x1 << n) - 1);
+
+    if (p <= dropped_bits)
+        return ((r + 0x1) << n);
+    else return (r << n);
+}
+
+static inline uint16_t __stdfix_stochastic_round_u16(
+	uint16_t x,
+	int n)
+{
+    register uint16_t r;
+    register uint16_t p, dropped_bits;
 
     r = x >> n;
     p = mars_kiss32() & ((0x1 << n) - 1);
