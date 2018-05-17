@@ -47,6 +47,10 @@ static_assert(false,
     "Attempt to compile arm_acle_gcc.h for non-arm architecture");
 #endif
 
+#ifndef use
+#define use(x)      do {} while ((x)!=(x))
+#endif
+
 // Following are all pre-defined at this stage, either above, or by GCC
 
 //#undef __ARM_ACLE                    // indicates ACLE implemented
@@ -534,7 +538,7 @@ static inline void __yield(void)
 static inline void __dbg(
     /*constant*/ unsigned int n)
 {
-    do {} while ((n)!=(n));
+    use(n);
     __ARM_ACLE_nop();
 }
 
