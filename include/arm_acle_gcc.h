@@ -34,7 +34,7 @@
 
 #ifndef  __GNUC__
 static_assert(false,
-    "Attempt to compile arm_acle_gcc.h with a non-gcc complier");
+    "Attempt to compile arm_acle_gcc.h with a non-gcc compiler");
 #endif
 
 #ifdef __STRICT_ANSI__
