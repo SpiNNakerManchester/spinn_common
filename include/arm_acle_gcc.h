@@ -34,7 +34,7 @@
 
 #ifndef  __GNUC__
 static_assert(false,
-	"Attempt to compile arm_acle_gcc.h with a non-gcc complier");
+	"Attempt to compile arm_acle_gcc.h with a non-gcc compiler");
 #endif
 
 #ifdef __STRICT_ANSI__
@@ -45,6 +45,10 @@ static_assert(false,
 #if !(defined (__arm__) || defined (__thumb__))
 static_assert(false,
 	"Attempt to compile arm_acle_gcc.h for non-arm architecture");
+#endif
+
+#ifndef use
+#define use(x)      do {} while ((x)!=(x))
 #endif
 
 // Following are all pre-defined at this stage, either above, or by GCC
@@ -534,9 +538,8 @@ static inline void __yield(void)
 static inline void __dbg(
 	/*constant*/ unsigned int n)
 {
-    if (n == n) {
-        __ARM_ACLE_nop();
-    }
+    use(n);
+    __ARM_ACLE_nop();
 }
 
 // Generates a DBG instruction. This provides a hint to debugging and related
