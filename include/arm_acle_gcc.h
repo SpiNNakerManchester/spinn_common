@@ -34,17 +34,17 @@
 
 #ifndef  __GNUC__
 static_assert(false,
-	"Attempt to compile arm_acle_gcc.h with a non-gcc complier");
+    "Attempt to compile arm_acle_gcc.h with a non-gcc complier");
 #endif
 
 #ifdef __STRICT_ANSI__
 static_assert(false,
-	"Attempt to compile arm_acle_gcc.h with strict ANSI compliance");
+    "Attempt to compile arm_acle_gcc.h with strict ANSI compliance");
 #endif
 
 #if !(defined (__arm__) || defined (__thumb__))
 static_assert(false,
-	"Attempt to compile arm_acle_gcc.h for non-arm architecture");
+    "Attempt to compile arm_acle_gcc.h for non-arm architecture");
 #endif
 
 // Following are all pre-defined at this stage, either above, or by GCC
@@ -532,11 +532,10 @@ static inline void __yield(void)
 //! This function implements the ARM dbg instruction.
 
 static inline void __dbg(
-	/*constant*/ unsigned int n)
+    /*constant*/ unsigned int n)
 {
-    if (n == n) {
-        __ARM_ACLE_nop();
-    }
+    do {} while ((n)!=(n));
+    __ARM_ACLE_nop();
 }
 
 // Generates a DBG instruction. This provides a hint to debugging and related
@@ -551,36 +550,36 @@ static inline void __dbg(
 // equivalent to the deprecated (and possibly unavailable) SWP instruction.
 
 static inline uint32_t __swp_word(
-	uint32_t x,
-	volatile void *addr)
+    uint32_t x,
+    volatile void *addr)
 {
     register uint32_t r = 0;
 
 #ifdef __ARM_FEATURE_LDREX
     do {
-	r = *p;
+    r = *p;
     } while (!__sync_bool_compare_and_swap(addr, r, x));
 #else  /*!__ARM_FEATURE_LDREX*/
     asm volatile ("swp %[r], %[x], [ %[addr] ]"
-	    : [r] "+r" (r) : [x] "r" (x), [addr] "r" (addr) : );
+        : [r] "+r" (r) : [x] "r" (x), [addr] "r" (addr) : );
 #endif /*__ARM_FEATURE_LDREX*/
 
     return r;
 }
 
 static inline uint32_t __swp_byte(
-	uint32_t x,
-	volatile void* addr)
+    uint32_t x,
+    volatile void* addr)
 {
     register uint32_t r = 0;
 
 #ifdef __ARM_FEATURE_LDREX
     do {
-	r = *p;
+    r = *p;
     } while (!__sync_bool_compare_and_swap(addr, r, x));
 #else  /*!__ARM_FEATURE_LDREX*/
     asm volatile ("swpb %[r], %[x], [ %[addr] ]"
-	    : [r] "+r" (r) : [x] "r" (x), [addr] "r" (addr) : );
+        : [r] "+r" (r) : [x] "r" (x), [addr] "r" (addr) : );
 #endif /*__ARM_FEATURE_LDREX*/
 
     return r;
@@ -913,7 +912,7 @@ static inline uint32_t __ror_v(uint32_t x, uint32_t y)
     register uint32_t r;
 
     asm volatile ("rors %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y & 0xFF) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y & 0xFF) : );
 
     return r;
 }
@@ -1045,7 +1044,7 @@ static inline uint32_t __ror_v(uint32_t x, uint32_t y)
     register uint32_t r;
 
     asm volatile ("ror %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y & 0xFF) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y & 0xFF) : );
 
     return r;
 }
@@ -1064,12 +1063,12 @@ static inline uint32_t __ror_v(uint32_t x, uint32_t y)
 //! \return The rotated value of x.
 
 static inline uint64_t __rorll(
-	uint64_t x,
-	uint32_t y)
+    uint64_t x,
+    uint32_t y)
 {
     register union {
-	struct { uint32_t lo; uint32_t hi; } s;
-	uint64_t r;
+    struct { uint32_t lo; uint32_t hi; } s;
+    uint64_t r;
     } z;
     register uint32_t t;
     register uint32_t lo_mask = (1 << (32-y)) - 1;         // y zeros followed by 32-y ones
@@ -1099,7 +1098,7 @@ static inline uint64_t __rorll(
 
 #define __rorl(x, y) \
     ((__builtin_types_compatible_p(unsigned long, uint32_t)) ?	\
-	    __ror((x), (y)) : __rorll((x), (y)))
+        __ror((x), (y)) : __rorll((x), (y)))
 
 // returns the number of leading zero bits in x. When x is zero it returns the
 // argument width, i.e. 32 or 64. These intrinsics are available on all
@@ -1113,7 +1112,7 @@ static inline uint64_t __rorll(
 //! \return The number of leading zeros in x.
 
 static inline unsigned int __clz(
-	uint32_t x)
+    uint32_t x)
 {
     return (unsigned int) __builtin_clz(x);
 }
@@ -1123,7 +1122,7 @@ static inline unsigned int __clz(
 //! \return The number of leading zeros in x.
 
 static inline unsigned int __clzl(
-	unsigned long x)
+    unsigned long x)
 {
     return (unsigned int) __builtin_clzl(x);
 }
@@ -1133,7 +1132,7 @@ static inline unsigned int __clzl(
 //! \return The number of leading zeros in x.
 
 static inline unsigned int __clzll(
-	uint64_t x)
+    uint64_t x)
 {
     return (unsigned int) __builtin_clzll(x);
 }
@@ -1143,7 +1142,7 @@ static inline unsigned int __clzll(
 //! \return The number of leading sign-bits in x.
 
 static inline unsigned int __cls(
-	uint32_t x)
+    uint32_t x)
 {
     return (unsigned int) __builtin_clrsb(x);
 }
@@ -1153,7 +1152,7 @@ static inline unsigned int __cls(
 //! \return The number of leading sign-bits in x.
 
 static inline unsigned int __clsl(
-	unsigned long x)
+    unsigned long x)
 {
     return (unsigned int) __builtin_clrsbl(x);
 }
@@ -1163,7 +1162,7 @@ static inline unsigned int __clsl(
 //! \return The number of leading sign-bits in x.
 
 static inline unsigned int __clsll(
-	uint64_t x)
+    uint64_t x)
 {
     return (unsigned int) __builtin_clrsbll(x);
 }
@@ -1185,11 +1184,11 @@ static inline unsigned int __clsll(
 //! \return The byte-order reversed result.
 
 static inline uint32_t __rev(
-	uint32_t x)
+    uint32_t x)
 {
     register union {
-	uint32_t u;
-	int32_t s;
+    uint32_t u;
+    int32_t s;
     } t;
 
     t.s = __builtin_bswap32(x);
@@ -1201,11 +1200,11 @@ static inline uint32_t __rev(
 //! \return The byte-order reversed result.
 
 static inline uint64_t __revll(
-	uint64_t x)
+    uint64_t x)
 {
     register union {
-	uint64_t u;
-	int64_t s;
+    uint64_t u;
+    int64_t s;
     } t;
 
     t.s = __builtin_bswap64(x);
@@ -1219,7 +1218,7 @@ static inline uint64_t __revll(
 
 #define __revl(x) \
     ((__builtin_types_compatible_p(unsigned long, uint32_t)) ?	\
-	    __rev(x) : __revll(x))
+        __rev(x) : __revll(x))
 
 // reverses the byte order within each halfword of a word. For example,
 // 0x12345678 becomes 0x34127856. These intrinsics are available on all targets
@@ -1231,11 +1230,11 @@ static inline uint64_t __revll(
 //! \return The reversed result.
 
 static inline uint32_t __rev16(
-	uint32_t x)
+    uint32_t x)
 {
     register union {
-	struct { uint8_t b0; uint8_t b1; uint8_t b2; uint8_t b3; } bs;
-	uint32_t w;
+    struct { uint8_t b0; uint8_t b1; uint8_t b2; uint8_t b3; } bs;
+    uint32_t w;
     } r, t;
 
     t.w = x;
@@ -1252,11 +1251,11 @@ static inline uint32_t __rev16(
 //! \return The reversed result.
 
 static inline uint64_t __rev16ll(
-	uint64_t x)
+    uint64_t x)
 {
     register union {
-	struct { uint32_t lo; uint32_t hi; } w;
-	uint64_t dw;
+    struct { uint32_t lo; uint32_t hi; } w;
+    uint64_t dw;
     } r, t;
 
     t.dw = x;
@@ -1272,7 +1271,7 @@ static inline uint64_t __rev16ll(
 
 #define __rev16l(x) \
     ((__builtin_types_compatible_p(unsigned long, uint32_t)) ?	\
-	    __rev16(x) : __rev16ll(x))
+        __rev16(x) : __rev16ll(x))
 
 // reverses the byte order in a 16-bit value and returns the (sign-extended)
 // result. For example, 0x00000080 becomes 0xFFFF8000. This intrinsic is
@@ -1284,11 +1283,11 @@ static inline uint64_t __rev16ll(
 //! \return The reversed result.
 
 static inline int16_t __revsh(
-	int16_t x)
+    int16_t x)
 {
     register union {
-	struct { uint8_t lo; uint8_t hi; } bs;
-	int16_t hw;
+    struct { uint8_t lo; uint8_t hi; } bs;
+    int16_t hw;
     } r, t;
 
     t.hw = x;
@@ -1303,7 +1302,7 @@ static inline int16_t __revsh(
 #if (__ARM_ARCH >= 6 && __ARM_ARCH_ISA_THUMB >= 2) || __ARM_ARCH >= 7
  /* RBIT is available */
 static inline uint32_t __rbit(
-	uint32_t x)
+    uint32_t x)
 {
     register uint32_t r;
 
@@ -1312,11 +1311,11 @@ static inline uint32_t __rbit(
 }
 
 static inline uint64_t __rbitll(
-	uint64_t x)
+    uint64_t x)
 {
     register union {
-	struct { uint32_t lo; uint32_t hi; } w;
-	uint64_t dw;
+    struct { uint32_t lo; uint32_t hi; } w;
+    uint64_t dw;
     } r;
 
     r.dw = x;
@@ -1327,7 +1326,7 @@ static inline uint64_t __rbitll(
 
 #define __rbitl(x) \
     ((__builtin_types_compatible_p(unsigned long, uint32_t)) ?	\
-	    __rbit(x) : __rbitll(x))
+        __rbit(x) : __rbitll(x))
 #endif /* RBIT is available */
 
 // 9.3 16-bit multiplications
@@ -1341,13 +1340,13 @@ static inline uint64_t __rbitll(
 //! \return signed result.
 
 static inline int32_t __smulbb(
-	int32_t x,
-	int32_t y)
+    int32_t x,
+    int32_t y)
 {
     register int32_t r;
 
     asm volatile("smulbb %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1357,13 +1356,13 @@ static inline int32_t __smulbb(
 //! \return signed result.
 
 static inline int32_t __smulbt(
-	int32_t x,
-	int32_t y)
+    int32_t x,
+    int32_t y)
 {
     register int32_t r;
 
     asm volatile("smulbt %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1373,13 +1372,13 @@ static inline int32_t __smulbt(
 //! \return signed result.
 
 static inline int32_t __smultb(
-	int32_t x,
-	int32_t y)
+    int32_t x,
+    int32_t y)
 {
     register int32_t r;
 
     asm volatile("smultb %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1389,13 +1388,13 @@ static inline int32_t __smultb(
 //! \return signed result.
 
 static inline int32_t __smultt(
-	int32_t x,
-	int32_t y)
+    int32_t x,
+    int32_t y)
 {
     register int32_t r;
 
     asm volatile("smultt %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1407,13 +1406,13 @@ static inline int32_t __smultt(
 //! \return signed result.
 
 static inline int32_t __smulwb(
-	int32_t x,
-	int32_t y)
+    int32_t x,
+    int32_t y)
 {
     register int32_t r;
 
     asm volatile("smulwb %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1425,13 +1424,13 @@ static inline int32_t __smulwb(
 //! \return signed result.
 
 static inline int32_t __smulwt(
-	int32_t x,
-	int32_t y)
+    int32_t x,
+    int32_t y)
 {
     register int32_t r;
 
     asm volatile("smulwt %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 #endif /*__ARM_FEATURE_DSP*/
@@ -1443,8 +1442,8 @@ static inline int32_t __smulwt(
 #ifdef __ARM_FEATURE_SAT
 
 static inline uint32_t __ssat_c(
-	uint32_t x,
-	uint32_t n)
+    uint32_t x,
+    uint32_t n)
 {
     register uint32_t r;
 
@@ -1557,8 +1556,8 @@ static inline uint32_t __ssat_c(
 }
 
 static inline uint32_t __usat_c(
-	uint32_t x,
-	uint32_t n)
+    uint32_t x,
+    uint32_t n)
 {
     register uint32_t r;
 
@@ -1685,13 +1684,13 @@ static inline uint32_t __usat_c(
 //! \return x+y.
 
 static inline int32_t __qadd(
-	int32_t x,
-	int32_t y)
+    int32_t x,
+    int32_t y)
 {
     register int32_t r;
 
     asm volatile("qadd %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1701,13 +1700,13 @@ static inline int32_t __qadd(
 //! \return x-y.
 
 static inline int32_t __qsub(
-	int32_t x,
-	int32_t y)
+    int32_t x,
+    int32_t y)
 {
     register int32_t r;
 
     asm volatile("qsub %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1716,12 +1715,12 @@ static inline int32_t __qsub(
 //! \return 2*x.
 
 static inline int32_t __qdbl(
-	int32_t x)
+    int32_t x)
 {
     register int32_t r;
 
     asm volatile("qadd %[r], %[x], %[x]"
-	    : [r] "=r" (r) : [x] "r" (x) : );
+        : [r] "=r" (r) : [x] "r" (x) : );
     return r;
 }
 
@@ -1733,13 +1732,13 @@ static inline int32_t __qdbl(
 //! \return x+2*y.
 
 static inline int32_t __qdadd(
-	int32_t x,
-	int32_t y)
+    int32_t x,
+    int32_t y)
 {
     register int32_t r;
 
     asm volatile("qdadd %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 
@@ -1749,13 +1748,13 @@ static inline int32_t __qdadd(
 //! \return x-2*y.
 
 static inline int32_t __qdsub(
-	int32_t x,
-	int32_t y)
+    int32_t x,
+    int32_t y)
 {
     register int32_t r;
 
     asm volatile("qdsub %[r], %[x], %[y]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y) : );
     return r;
 }
 #endif /*__ARM_ACLE_EXTENSIONS*/
@@ -1778,14 +1777,14 @@ static inline int32_t __qdsub(
 //! \return x*y+acc.
 
 static inline int32_t __smlabb(
-	int32_t x,
-	int32_t y,
-	int32_t acc)
+    int32_t x,
+    int32_t y,
+    int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlabb %[r], %[x], %[y], %[a]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1800,14 +1799,14 @@ static inline int32_t __smlabb(
 //! \return x*y+acc.
 
 static inline int32_t __smlabt(
-	int32_t x,
-	int32_t y,
-	int32_t acc)
+    int32_t x,
+    int32_t y,
+    int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlabt %[r], %[x], %[y], %[a]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1822,14 +1821,14 @@ static inline int32_t __smlabt(
 //! \return x*y+acc.
 
 static inline int32_t __smlatb(
-	int32_t x,
-	int32_t y,
-	int32_t acc)
+    int32_t x,
+    int32_t y,
+    int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlatb %[r], %[x], %[y], %[a]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1844,14 +1843,14 @@ static inline int32_t __smlatb(
 //! \return x*y+acc.
 
 static inline int32_t __smlatt(
-	int32_t x,
-	int32_t y,
-	int32_t acc)
+    int32_t x,
+    int32_t y,
+    int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlatt %[r], %[x], %[y], %[a]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1868,14 +1867,14 @@ static inline int32_t __smlatt(
 //! \return x*y+acc.
 
 static inline int32_t __smlawb(
-	int32_t x,
-	int32_t y,
-	int32_t acc)
+    int32_t x,
+    int32_t y,
+    int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlawb %[r], %[x], %[y], %[a]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1891,14 +1890,14 @@ static inline int32_t __smlawb(
 //! \return x*y+acc.
 
 static inline int32_t __smlawt(
-	int32_t x,
-	int32_t y,
-	int32_t acc)
+    int32_t x,
+    int32_t y,
+    int32_t acc)
 {
     register int32_t r;
 
     asm volatile("smlawt %[r], %[x], %[y], %[a]"
-	    : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
+        : [r] "=r" (r) : [x] "r" (x), [y] "r" (y), [a] "r" (acc) : );
     return r;
 }
 
@@ -1916,19 +1915,19 @@ static inline int32_t __smlawt(
 //! \return x*y+acc.
 
 static inline int64_t __smlalbb(
-	int64_t acc,
-	int32_t x,
-	int32_t y)
+    int64_t acc,
+    int32_t x,
+    int32_t y)
 {
     register union {
-	struct { uint32_t lo; uint32_t hi; } s_rep;
-	int64_t i_rep;
+    struct { uint32_t lo; uint32_t hi; } s_rep;
+    int64_t i_rep;
     } r;
 
     r.i_rep = acc;
     asm volatile("smlalbb %[r_lo], %[r_hi], %[x], %[y]"
-	    : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
-	    : [x] "r" (x), [y] "r" (y) : );
+        : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
+        : [x] "r" (x), [y] "r" (y) : );
     return r.i_rep;
 }
 
@@ -1945,19 +1944,19 @@ static inline int64_t __smlalbb(
 //! \return x*y+acc.
 
 static inline int64_t __smlalbt(
-	int64_t acc,
-	int32_t x,
-	int32_t y)
+    int64_t acc,
+    int32_t x,
+    int32_t y)
 {
     register union {
-	struct { uint32_t lo; uint32_t hi; } s_rep;
-	int64_t i_rep;
+    struct { uint32_t lo; uint32_t hi; } s_rep;
+    int64_t i_rep;
     } r;
 
     r.i_rep = acc;
     asm volatile("smlalbt %[r_lo], %[r_hi], %[x], %[y]"
-	    : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
-	    : [x] "r" (x), [y] "r" (y) : );
+        : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
+        : [x] "r" (x), [y] "r" (y) : );
     return r.i_rep;
 }
 
@@ -1974,19 +1973,19 @@ static inline int64_t __smlalbt(
 //! \return x*y+acc.
 
 static inline int64_t __smlaltb(
-	int64_t acc,
-	int32_t x,
-	int32_t y)
+    int64_t acc,
+    int32_t x,
+    int32_t y)
 {
     register union {
-	struct { uint32_t lo; uint32_t hi; } s_rep;
-	int64_t i_rep;
+    struct { uint32_t lo; uint32_t hi; } s_rep;
+    int64_t i_rep;
     } r;
 
     r.i_rep = acc;
     asm volatile("smlaltb %[r_lo], %[r_hi], %[x], %[y]"
-	    : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
-	    : [x] "r" (x), [y] "r" (y) : );
+        : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
+        : [x] "r" (x), [y] "r" (y) : );
     return r.i_rep;
 }
 
@@ -2002,19 +2001,19 @@ static inline int64_t __smlaltb(
 //! \return x*y+acc.
 
 static inline int64_t __smlaltt(
-	int64_t acc,
-	int32_t x,
-	int32_t y)
+    int64_t acc,
+    int32_t x,
+    int32_t y)
 {
     register union {
-	struct { uint32_t lo; uint32_t hi; } s_rep;
-	int64_t i_rep;
+    struct { uint32_t lo; uint32_t hi; } s_rep;
+    int64_t i_rep;
     } r;
 
     r.i_rep = acc;
     asm volatile("smlaltt %[r_lo], %[r_hi], %[x], %[y]"
-	    : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
-	    : [x] "r" (x), [y] "r" (y) : );
+        : [r_lo] "+r" (r.s_rep.lo), [r_hi] "+r" (r.s_rep.hi)
+        : [x] "r" (x), [y] "r" (y) : );
     return r.i_rep;
 }
 
@@ -2039,8 +2038,8 @@ typedef uint32_t uint8x4_t;
 // Available on 6, and 7em architectures
 
 static inline int16x2_t __ssat16_c(
-	int16x2_t x,
-	uint32_t n)
+    int16x2_t x,
+    uint32_t n)
 {
     register int16x2_t r;
 
@@ -2153,8 +2152,8 @@ static inline int16x2_t __ssat16_c(
 }
 
 static inline int16x2_t __usat16_c(
-	int16x2_t x,
-	uint32_t n)
+    int16x2_t x,
+    uint32_t n)
 {
     register int16x2_t r;
 
