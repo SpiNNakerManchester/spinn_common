@@ -57,7 +57,6 @@
 
 #include "bit_field.h"
 #include "sark.h"
-// #include "debug.h"
 
 //! \brief This function prints out an individual word of a bit_field,
 // as a sequence of ones and zeros.
