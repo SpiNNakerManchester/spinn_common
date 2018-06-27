@@ -1,7 +1,7 @@
 /*! \file
  *
  *  \brief
- *    For quick changing between host-side and spinnaker side C code printing
+ *    For quick changing between host-side and SpiNNaker side C code printing
  *
  *  \author
  *    Dave Lester (david.r.lester@manchester.ac.uk)
