@@ -55,7 +55,7 @@
  *
  *    SpiNNaker memory checking:
  *
- *      If we are running on spinnaker hardware, we have the following
+ *      If we are running on SpiNNaker hardware, we have the following
  *      additional checks available:
  *
  *      check_itcm(addr);
