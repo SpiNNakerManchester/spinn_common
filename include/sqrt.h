@@ -1,7 +1,7 @@
 /*! \file
  *
- *  \brief Implementation of exp for the unsigned accum type, returning a
- *  u0.12 result.
+ *  \brief Implementation of sqrt for the unsigned accum type, returning a
+ *  s16.15 result.
  *
  *  \details The details of the algorithm are from
  *     "Elementary Functions: Algorithms and Implemenation", 2nd edn,
@@ -31,13 +31,19 @@
 #include "debug.h"
 #include "spin-print.h"
 
-#define UNIMPLEMENTED __attribute__((deprecated("Not implemented")))
+#define UNIMPLEMENTED extern __attribute__((deprecated("Not implemented")))
+
+extern accum				sqrtk(accum x);
+
+/*
+ * All these functions have no implementation in this library. They will
+ * generate a compile-time warning if used, and a link-time error.
+ */
 
 UNIMPLEMENTED short fract		sqrthr(short fract x);
 UNIMPLEMENTED fract			sqrtr(fract x);
 UNIMPLEMENTED long fract		sqrtlr(long fract x);
 UNIMPLEMENTED short accum		sqrthk(short accum x);
-accum					sqrtk(accum x);
 UNIMPLEMENTED long accum		sqrtlk(long accum x);
 UNIMPLEMENTED unsigned short fract	sqrtuhr(unsigned short fract x);
 UNIMPLEMENTED unsigned fract		sqrtur(unsigned fract x);
