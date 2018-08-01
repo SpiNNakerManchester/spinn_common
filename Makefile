@@ -18,7 +18,7 @@ $(SPINN_COMMON_BUILD)/libspinn_common.a: $(BUILD_OBJS)
 	$(AR) $@ $(BUILD_OBJS)
 
 override LIB = 1
-include $(SPINN_DIRS)/make/Makefile.common
+include $(SPINN_DIRS)/make/spinnaker_tools.mk
 
 SPINN_COMMON_DEBUG := PRODUCTION_CODE
 
@@ -30,6 +30,7 @@ HEADERS = arm_acle_gcc.h arm_acle.h arm.h bit_field.h circular_buffer.h \
 	cmsis.h core_v5te.h debug.h log.h normal.h pair.h polynomial.h random.h \
 	sincos.h spin-print.h sqrt.h static-assert.h stdfix-exp.h \
 	stdfix-full-iso.h utils.h
+INSTALL_HEADERS = $(HEADERS:%.h=$(SPINN_INC_DIR)/%.h)
 
 INSTALL ?= install
 
@@ -46,5 +47,8 @@ install: $(SPINN_COMMON_BUILD)/libspinn_common.a
 
 clean:
 	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS)
+	
+install-clean:
+	$(RM) $(INSTALL_HEADERS)
 
-.PHONY: all install clean
+.PHONY: all install clean install-clean
