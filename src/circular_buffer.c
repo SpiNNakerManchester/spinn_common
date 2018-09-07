@@ -38,55 +38,21 @@
 
 #include <debug.h>
 
-typedef struct _circular_buffer {
-    uint32_t* buffer;
-    uint32_t buffer_size;
-    uint32_t output;
-    uint32_t input;
-    uint32_t overflows;
-} _circular_buffer;
-
-// Returns the index of the next position in the buffer from the given value
-static inline uint32_t _circular_buffer_next(
-        circular_buffer buffer,
-	uint32_t current)
-{
-    return (current + 1) & buffer->buffer_size;
-}
-
-// Returns true if the buffer is not empty
-static inline bool _circular_buffer_not_empty(
-	circular_buffer buffer)
-{
-    return buffer->input != buffer->output;
-}
-
-// Returns true if the buffer is not full
-static inline bool _circular_buffer_not_full(
-	circular_buffer buffer)
-{
-    return ((buffer->input + 1) & buffer->buffer_size) != buffer->output;
-}
-
 circular_buffer circular_buffer_initialize(
 	uint32_t size)
 {
     uint32_t real_size = size;
     if (!is_power_of_2(real_size)) {
 	real_size = next_power_of_2(size);
-	log_warning("Requested size of %u was rounded up to %u",
-		size, real_size - 1);
     }
 
     circular_buffer buffer = sark_alloc(1, sizeof(_circular_buffer));
     if (buffer == NULL) {
-	log_error("Cannot allocate space for buffer structure");
 	return NULL;
     }
 
     buffer->buffer = sark_alloc(1, real_size * sizeof(uint32_t));
     if (buffer->buffer == NULL) {
-	log_error("Cannot allocate space for buffer in circular buffer");
 	return NULL;
     }
 
@@ -95,71 +61,6 @@ circular_buffer circular_buffer_initialize(
     buffer->output = 0;
     buffer->overflows = 0;
     return buffer;
-}
-
-bool circular_buffer_add(
-	circular_buffer buffer,
-	uint32_t item)
-{
-    bool success = _circular_buffer_not_full(buffer);
-
-    if (success) {
-	buffer->buffer[buffer->input] = item;
-	buffer->input = _circular_buffer_next(buffer, buffer->input);
-    } else {
-	buffer->overflows++;
-    }
-
-    return success;
-}
-
-bool circular_buffer_get_next(
-	circular_buffer buffer,
-	uint32_t* item)
-{
-    bool success = _circular_buffer_not_empty(buffer);
-
-    if (success) {
-	*item = buffer->buffer[buffer->output];
-	buffer->output = _circular_buffer_next(buffer, buffer->output);
-    }
-
-    return success;
-}
-
-bool circular_buffer_advance_if_next_equals(
-        circular_buffer buffer,
-	uint32_t item)
-{
-    bool success = _circular_buffer_not_empty(buffer);
-    if (success) {
-	success = (buffer->buffer[buffer->output] == item);
-	if (success) {
-	    buffer->output = _circular_buffer_next(buffer, buffer->output);
-	}
-    }
-    return success;
-}
-
-uint32_t circular_buffer_size(
-	circular_buffer buffer)
-{
-    return buffer->input >= buffer->output
-	    ? buffer->input - buffer->output
-	    : (buffer->input + buffer->buffer_size + 1) - buffer->output;
-}
-
-uint32_t circular_buffer_get_n_buffer_overflows(
-	circular_buffer buffer)
-{
-    return buffer->overflows;
-}
-
-void circular_buffer_clear(
-	circular_buffer buffer)
-{
-    buffer->input = 0;
-    buffer->output = 0;
 }
 
 void circular_buffer_print_buffer(
@@ -176,22 +77,4 @@ void circular_buffer_print_buffer(
 	}
     }
     io_printf(IO_BUF, "]\n");
-}
-
-// Expose some functions for structural plasticity
-uint32_t circular_buffer_input(circular_buffer buffer) {
-    return buffer->input;
-}
-
-uint32_t circular_buffer_output(circular_buffer buffer) {
-    return buffer->output;
-}
-
-uint32_t circular_buffer_real_size(circular_buffer buffer) {
-    return buffer->buffer_size;
-}
-
-uint32_t circular_buffer_value_at_index(
-	circular_buffer buffer, uint32_t index) {
-    return buffer->buffer[index & buffer->buffer_size];
 }
