@@ -14,7 +14,7 @@
 
 // Helper macros to work with accums easily
 #define MULT_NO_ROUND_GCC(x, y) (x*y)
-#define MULT_NO_ROUNT_CUSTOM(x,y) (kbits(__stdfix_smul_k(bitsk(x), bitsk(y))))
+#define MULT_NO_ROUND_CUSTOM(x,y) (kbits(__stdfix_smul_k(bitsk(x), bitsk(y))))
 #define MULT_ROUND_NEAREST(x, y) \
     (kbits(__stdfix_smul_k_round_nearest(bitsk(x), bitsk(y))))
 #define MULT_ROUND_STOCHASTIC(x, y) \
