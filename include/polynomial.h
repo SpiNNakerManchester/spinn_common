@@ -53,7 +53,7 @@
 #define __POLYNOMIAL_H__
 
 #include "arm_acle.h"
-#include "debug.h"
+#include "assert.h"
 
 //! \brief Horner evaluation of a polynomial of signed accum at
 //! a point given by the lower (signed) 16-bits of x.

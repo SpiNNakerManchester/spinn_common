@@ -12,10 +12,10 @@ addons:
 
 install:
   - git clone https://github.com/SpiNNakerManchester/SupportScripts.git support
-  - git clone https://github.com/SpiNNakerManchester/spinnaker_tools.git tools
-  - export SPINN_DIRS=`pwd`/tools GNU=1
-  - make -C tools/sark
-  - make -C tools/spin1_api
+  - support/gitclone.sh https://github.com/SpiNNakerManchester/spinnaker_tools.git
+  - export SPINN_DIRS=`pwd`/spinnaker_tools GNU=1
+  - make -C spinnaker_tools/sark
+  - make -C spinnaker_tools/spin1_api
 
 script:
   - make
