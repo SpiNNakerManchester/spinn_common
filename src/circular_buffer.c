@@ -36,7 +36,7 @@
 #include "circular_buffer.h"
 #include "utils.h"
 
-#include <debug.h>
+#include "spin-print.h"
 
 circular_buffer circular_buffer_initialize(
 	uint32_t size)

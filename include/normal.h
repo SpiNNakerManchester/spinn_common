@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <stdfix.h>
 #include "stdfix-full-iso.h"
-#include "debug.h"
+#include "assert.h"
 
 #define UNIMPLEMENTED extern __attribute__((deprecated("Not implemented")))
 

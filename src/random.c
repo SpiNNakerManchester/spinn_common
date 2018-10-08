@@ -315,20 +315,20 @@ accum exponential_dist_variate(
     uint32_t U, U0, USTAR;
 
     while (true) {
-	U = uni_rng(seed_arg);
-	U0 = U;
+        U = uni_rng(seed_arg);
+        U0 = U;
 
-	do {
-	    USTAR = uni_rng(seed_arg);
-	    if (U < USTAR) {
-		return A + (accum) ulrbits(U0);
-                   // accum + (accum)[ unsigned long fract <= uint32_t ]
-	    }
+        do {
+            USTAR = uni_rng(seed_arg);
+            if (U < USTAR) {
+                return A + (accum) ulrbits(U0);
+                       // accum + (accum)[ unsigned long fract <= uint32_t ]
+            }
 
-	    U = uni_rng(seed_arg);
-	} while (U < USTAR);
+            U = uni_rng(seed_arg);
+        } while (U < USTAR);
 
-	A += 1.0k;
+    A += 1.0k;
     }
 }
 
