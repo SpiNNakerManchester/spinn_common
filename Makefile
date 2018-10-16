@@ -18,7 +18,7 @@ $(SPINN_COMMON_BUILD)/libspinn_common.a: $(BUILD_OBJS)
 	$(AR) $@ $(BUILD_OBJS)
 
 override LIB = 1
-include $(SPINN_DIRS)/make/Makefile.common
+include $(SPINN_DIRS)/make/spinnaker_tools.mk
 
 SPINN_COMMON_DEBUG := PRODUCTION_CODE
 
@@ -49,4 +49,7 @@ clean:
 	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS) \
 	$(SPINN_LIB_DIR)/*.dict $(SPINN_LIB_DIR)/*.ranges $(INSTALL_HEADERS)
 
-.PHONY: all install clean
+install-clean:
+	$(RM) $(INSTALL_HEADERS)
+
+.PHONY: all install clean install-clean
