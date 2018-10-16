@@ -24,8 +24,10 @@
  */
 
 #include "stdfix-full-iso.h"
-#include "debug.h"
+#include "assert.h"
 #include "arm_acle.h"
+
+#define NO_INLINE	__attribute__((noinline))
 
 // ck = 1 + k/64
 //
@@ -206,7 +208,7 @@ static inline int32_t logkbits(
 //! \param[in] x is positive value represented as an accum.
 //! \return A value representing log(x) in accum format.
 
-accum logk(
+NO_INLINE accum logk(
 	accum x)
 {
     return kbits(logkbits(bitsk(x)));

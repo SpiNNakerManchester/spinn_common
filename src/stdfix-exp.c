@@ -35,6 +35,8 @@
 //#include "stdfix-exp-impl.h"
 //#include "debug.h"
 
+#define NO_INLINE	__attribute__((noinline))
+
 // The following array has entry [n]
 static uint64_t __exp_hi[26] = {
    9708,  26389,          71733,         194991,          530041,         1440801,
@@ -65,7 +67,7 @@ static inline uint32_t coef_mult(
     return (uint32_t) tmp;
 }
 
-uint32_t exp_series(
+NO_INLINE uint32_t exp_series(
 	uint32_t x)
 {
     uint32_t tmp;
@@ -83,7 +85,7 @@ uint32_t exp_series(
     return tmp;
 }
 
-accum expk(
+NO_INLINE accum expk(
 	accum x)
 {
     int_k_t n = bitsk(x);

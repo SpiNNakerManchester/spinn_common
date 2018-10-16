@@ -5,7 +5,9 @@
 #include <stdbool.h>
 #include <stdfix.h>
 #include "stdfix-full-iso.h"
-#include "debug.h"
+#include "assert.h"
+
+#define UNIMPLEMENTED extern __attribute__((deprecated("Not implemented")))
 
 //! \brief This function takes a uniformly distributed 16-bit
 //! PRNG x, and returns a normally distributed 16-bit PRNG.
@@ -14,7 +16,6 @@
 //! \return A normally distributed int representation of an s16.15 PRNG.
 
 int __norminv_rbits(int x);
-int __norminv_ulrbits(unsigned int x);
 
 //! \brief This function takes a uniformly distributed 16-bit
 //! PRNG x, and returns a normally distributed 16-bit PRNG.
@@ -79,11 +80,7 @@ static inline accum norminv_ur(
     return kbits(__norminv_rbits(tmp.s + INT16_MIN));
 }
 
-static inline accum norminv_ulr(
-	unsigned long fract x)
-{
-    return kbits(__norminv_ulrbits(bitsulr(x)));
-}
+UNIMPLEMENTED accum norminv_ulr(unsigned long fract x);
 
 #define norminv_fx(f) \
     ({	accum tmp;							\

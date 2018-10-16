@@ -24,7 +24,7 @@
  */
 
 #include "stdfix-full-iso.h"
-#include "debug.h"
+#include "assert.h"
 #include "arm_acle.h"
 #include "pair.h"
 
@@ -65,12 +65,12 @@ static int32_t cos_table[16] = {
 };
 
 //! This function calculates the sin function for the interval [0, pi/4)
-//! param [in] x An s0.31 representing a value in the range [-1/32,1/32),
+//! \param [in] x An s0.31 representing a value in the range [-1/32,1/32),
 //! with INT32_MIN representing -1/32.
-//! param [in] cos_x The value of cos_x (= (1 - cos(x)) * 2^31)
+//! \param [in] cos_x The value of cos_x (= (1 - cos(x)) * 2^31)
 //! represented as an s0.31
-//! param [in] break_point A value in the range 0..13
-//! return sin(x + break_point / 16) as s0.31
+//! \param [in] break_point A value in the range 0..13
+//! \return sin(x + break_point / 16) as s0.31
 static inline int32_t sin_pi4(
 	int32_t x,
 	int32_t cos_x,
@@ -87,12 +87,12 @@ static inline int32_t sin_pi4(
 }
 
 //! This function calculates the cos function for the interval [0, pi/4)
-//! param [in] x An s0.31 representing a value in the range [-1/32,1/32),
+//! \param [in] x An s0.31 representing a value in the range [-1/32,1/32),
 //! with INT32_MIN representing -1/32.
-//! param [in] cos_x The value of cos_x (= (1 - cos(x)) * 2^31)
+//! \param [in] cos_x The value of cos_x (= (1 - cos(x)) * 2^31)
 //! represented as an s0.31
-//! param [in] break_point A value in the range 0..13
-//! return 1 - cos(x + break_point / 16) as s0.31
+//! \param [in] break_point A value in the range 0..13
+//! \return 1 - cos(x + break_point / 16) as s0.31
 
 //------------------------------------------------------------------------
 // Implementation notes
@@ -171,8 +171,8 @@ static inline int32_t sin_pi4_x_sqrt_half(
 
 //! This function calculates the cos function for the interval [0, pi/4)
 //! divided by sqrt(0.5).
-//! param [in] c An s0.31 representing the value of 1 - cos(x).
-//! return An s0.31 representing cos(x) * sqrt(0.5).
+//! \param [in] c An s0.31 representing the value of 1 - cos(x).
+//! \return An s0.31 representing cos(x) * sqrt(0.5).
 
 //------------------------------------------------------------------------
 // Implementation notes

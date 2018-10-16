@@ -242,27 +242,94 @@ accum exponential_dist_variate(
 	uniform_rng uni_rng,
 	uint32_t* seed_arg)
 {
+    /*
+     * DKF: Converted this function to use conventional C structured
+     * programming. This moves the assignment of the register holding the
+     * 1.0k to before the loop and alters the register assignment, but
+     * otherwise leaves the code functionally identical.
+     *
+     * TODO: DRL and MH need to investigate whether this matters. It depends
+     * on the expected number of additions of that value, with a likely
+     * (minor) net performance gain when the expectation exceeds 1, and is a
+     * loss when the expectation is less than 1. It's whether the cost of
+     * setting a register up front is small enough that it's beats the
+     * probabilistic number of sets of a register further down the code.
+     *
+     * ASM generated using 'goto's:
+     *   0:   e92d47f0        push    {r4, r5, r6, r7, r8, r9, sl, lr}
+     *   4:   e1a07000        mov     r7, r0
+     *   8:   e1a06001        mov     r6, r1
+     *   c:   e3a08000        mov     r8, #0
+     *  10:   e1a00006        mov     r0, r6
+     *  14:   e12fff37        blx     r7
+     *  18:   e1a09000        mov     r9, r0
+     *  1c:   e1a04000        mov     r4, r0
+     *  20:   ea000003        b       34 <exponential_dist_variate+0x34>
+     *  24:   e12fff37        blx     r7
+     *  28:   e1550000        cmp     r5, r0
+     *  2c:   e1a04000        mov     r4, r0
+     *  30:   9a000009        bls     5c <exponential_dist_variate+0x5c>
+     *  34:   e1a00006        mov     r0, r6
+     *  38:   e12fff37        blx     r7
+     *  3c:   e1a05000        mov     r5, r0
+     *  40:   e1540005        cmp     r4, r5
+     *  44:   e1a00006        mov     r0, r6
+     *  48:   2afffff5        bcs     24 <exponential_dist_variate+0x24>
+     *  4c:   e1a00009        mov     r0, r9
+     *  50:   ebfffffe        bl      0 <__gnu_fractusqsa>
+     *  54:   e0800008        add     r0, r0, r8
+     *  58:   e8bd87f0        pop     {r4, r5, r6, r7, r8, r9, sl, pc}
+     *  5c:   e3a03902        mov     r3, #32768      ; 0x8000
+     *  60:   e0888003        add     r8, r8, r3
+     *  64:   eaffffe9        b       10 <exponential_dist_variate+0x10>
+     *
+     * ASM generated using 'while' and 'do/while':
+     *   0:   e92d47f0        push    {r4, r5, r6, r7, r8, r9, sl, lr}
+     *   4:   e1a07000        mov     r7, r0
+     *   8:   e1a06001        mov     r6, r1
+     *   c:   e3a08000        mov     r8, #0
+     *  10:   e3a0a902        mov     sl, #32768      ; 0x8000
+     *  14:   e1a00006        mov     r0, r6
+     *  18:   e12fff37        blx     r7
+     *  1c:   e1a09000        mov     r9, r0
+     *  20:   e1a04000        mov     r4, r0
+     *  24:   ea000003        b       38 <exponential_dist_variate+0x38>
+     *  28:   e12fff37        blx     r7
+     *  2c:   e1550000        cmp     r5, r0
+     *  30:   e1a04000        mov     r4, r0
+     *  34:   9a000009        bls     60 <exponential_dist_variate+0x60>
+     *  38:   e1a00006        mov     r0, r6
+     *  3c:   e12fff37        blx     r7
+     *  40:   e1a05000        mov     r5, r0
+     *  44:   e1540005        cmp     r4, r5
+     *  48:   e1a00006        mov     r0, r6
+     *  4c:   2afffff5        bcs     28 <exponential_dist_variate+0x28>
+     *  50:   e1a00009        mov     r0, r9
+     *  54:   ebfffffe        bl      0 <__gnu_fractusqsa>
+     *  58:   e0800008        add     r0, r0, r8
+     *  5c:   e8bd87f0        pop     {r4, r5, r6, r7, r8, r9, sl, pc}
+     *  60:   e088800a        add     r8, r8, sl
+     *  64:   eaffffea        b       14 <exponential_dist_variate+0x14>
+     */
     accum A = 0.0k;
     uint32_t U, U0, USTAR;
 
-outer:
-    U = uni_rng(seed_arg);
-    U0 = U;
+    while (true) {
+        U = uni_rng(seed_arg);
+        U0 = U;
 
-inner:
-    USTAR = uni_rng(seed_arg);
-    if (U < USTAR) {
-	return A + (accum) ulrbits(U0);
-                   // accum + (accum)[ unsigned long fract <= uint32_t ]
-    }
+        do {
+            USTAR = uni_rng(seed_arg);
+            if (U < USTAR) {
+                return A + (accum) ulrbits(U0);
+                       // accum + (accum)[ unsigned long fract <= uint32_t ]
+            }
 
-    U = uni_rng(seed_arg);
-    if (U < USTAR) {
-	goto inner;
-    }
+            U = uni_rng(seed_arg);
+        } while (U < USTAR);
 
     A += 1.0k;
-    goto outer;
+    }
 }
 
 // Returns standard gaussian deviate

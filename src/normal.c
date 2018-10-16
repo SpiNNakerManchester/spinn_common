@@ -5,9 +5,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdfix.h>
-#include "debug.h"
 #include "stdfix-full-iso.h"
 #include "polynomial.h"
+
+#define NO_INLINE	__attribute__((noinline))
 
 static int32_t low_values[] = {
       229376,  // 7.0
@@ -212,7 +213,7 @@ int central_approx(
 //! \return A 32-bit integer representing the cumulative normal distribution
 //! This is in s16.15 (i.e. standard accum) format.
 
-int  __attribute__((noinline)) __norminv_rbits(
+int NO_INLINE __norminv_rbits(
 	int x)
 {
     int neg = negative(x);
@@ -244,13 +245,4 @@ int  __attribute__((noinline)) __norminv_rbits(
         r = -r;
     }
     return r;
-}
-
-int __attribute__((noinline)) __norminv_ulrbits(
-	unsigned int x)
-{
-    log_info("This function is not yet implemented");
-    assert(false);
-
-    return x;
 }

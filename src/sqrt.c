@@ -26,7 +26,6 @@
 
 #include "stdfix-full-iso.h"
 #include "polynomial.h"
-#include "debug.h"
 #include "pair.h"
 #include "arm_acle.h"
 #include "arm.h"
@@ -353,55 +352,6 @@ int32_t sqrtk_bits(
     return (int32_t) (tmp >> 32);
 }
 
-//! This function calculates the square-root of the argument
-//! \param[in] x An unsigned integer, representing an u16.16 accum.
-//! \return An unsigned integer representing the square-root of x,
-//! as an u16.16.
-uint32_t UNIMPLEMENTED sqrtuk_bits(
-	uint32_t x)
-{
-    //uint64_t tmp;
-    //uint32_t r, n = __builtin_clz(x);
-
-    return x;
-}
-
-short fract UNIMPLEMENTED sqrthr(
-	short fract x)
-{
-    log_info("This function is not yet implemented");
-    assert(false);
-
-    return x;
-}
-
-fract UNIMPLEMENTED sqrtr(
-	fract x)
-{
-    log_info("This function is not yet implemented");
-    assert(false);
-
-    return x;
-}
-
-long fract UNIMPLEMENTED sqrtlr(
-	long fract x)
-{
-    log_info("This function is not yet implemented");
-    assert(false);
-
-    return x;
-}
-
-short accum UNIMPLEMENTED sqrthk(
-	short accum x)
-{
-    log_info("This function is not yet implemented");
-    assert(false);
-
-    return x;
-}
-
 accum sqrtk(
 	accum x)
 {
@@ -412,67 +362,4 @@ accum sqrtk(
     }
 
     return kbits(sqrtk_bits(rx));
-}
-
-long accum UNIMPLEMENTED sqrtlk(
-	long accum x)
-{
-    log_info("This function is not yet implemented");
-    assert(false);
-
-    return x;
-}
-
-unsigned short fract UNIMPLEMENTED sqrtuhr(
-	unsigned short fract x)
-{
-    log_info("This function is not yet implemented");
-    assert(false);
-
-    return x;
-}
-
-unsigned fract UNIMPLEMENTED sqrtur(
-	unsigned fract x)
-{
-    log_info("This function is not yet implemented");
-    assert(false);
-
-    return x;
-}
-
-unsigned long fract UNIMPLEMENTED sqrtulr(
-	unsigned long fract x)
-{
-    log_info("This function is not yet implemented");
-    assert(false);
-
-    return x;
-}
-
-short accum UNIMPLEMENTED sqrtuhk(
-	short accum x)
-{
-    log_info("This function is not yet implemented");
-    assert(false);
-
-    return x;
-}
-
-unsigned accum sqrtuk(
-	unsigned accum x)
-{
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    return ukbits(sqrtuk_bits(bitsuk(x)));
-#pragma GCC diagnostic pop
-}
-
-unsigned long accum UNIMPLEMENTED sqrtulk(
-	unsigned long accum x)
-{
-    log_info("This function is not yet implemented");
-    assert(false);
-
-    return x;
 }

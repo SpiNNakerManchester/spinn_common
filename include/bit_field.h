@@ -5,7 +5,7 @@
  *  \details A bit field is a vector of machine words which is
  *    treated as a vector of bits.
  *
- *    For SpiNNAker each machine word is 32 bits, and so a
+ *    For SpiNNaker each machine word is 32 bits, and so a
  *    bit_field for each neuron (assuming 256 neurons)
  *    would be 8 words long.
  *

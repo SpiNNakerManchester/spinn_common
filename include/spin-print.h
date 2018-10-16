@@ -1,7 +1,7 @@
 /*! \file
  *
  *  \brief
- *    For quick changing between host-side and spinnaker side C code printing
+ *    For quick changing between host-side and SpiNNaker side C code printing
  *
  *  \author
  *    Dave Lester (david.r.lester@manchester.ac.uk)
@@ -45,6 +45,31 @@ static inline void skip(void)
 #ifdef DEBUG_ON_HOST
 #include <stdlib.h>
 #include <stdio.h>
+
+//! \brief This macro prints out a message to the log file.
+//! \param[in] type The kind of fault detected.
+//! \param[in] message The user-defined part of a message.
+#define __log_message(type, message, ...) \
+    do {							\
+	fprintf(stderr, type "(%s:%4d): " message "\n",		\
+		__FILENAME__, __LINE__, ##__VA_ARGS__);		\
+    } while (0)
+
+//! \brief This macro prints a debug message if level is less than or equal
+//!        to the LOG_LEVEL
+//! \param[in] level The level of the messsage
+//! \param[in] message The user-defined part of the debug message.
+#define __log(level, message, ...) \
+    do {							\
+	if (level <= LOG_LEVEL) {				\
+	    __log_message(message, ##__VA_ARGS__);		\
+	} 							\
+    } while (0)
+
+//! \brief This macro logs information.
+//! \param[in] message The user-defined part of the error message.
+#define log_info(message, ...) \
+    __log(LOG_INFO, "[INFO]    ", message, ##__VA_ARGS__)
 
 #define spin1_dma_transfer(tag, s, t, d, ln) \
     do { log_info("spin1_dma_transfer (%u, %u)", (s), (t)); } while (0)
