@@ -20,6 +20,12 @@
 #define MULT_ROUND_STOCHASTIC(x, y) \
     (kbits(__stdfix_smul_k_round_stochastic(bitsk(x), bitsk(y))))
 
+#define STOCHASTIC_ROUND_S32(x, n) \
+    (__stdfix_stochastic_round_s32(bitsk(x), n))
+
+#define STOCHASTIC_ROUND_S64(x, n) \
+    (__stdfix_stochastic_round_s64(bitslk(x), n))
+
 static inline int64_t __stdfix_stochastic_round_s64(
 	int64_t x,
 	int n)
@@ -44,7 +50,7 @@ static inline int32_t __stdfix_stochastic_round_s32(
     register uint32_t p, dropped_bits;
 
     r = x >> n;
-    p = mars_kiss32() & ((0x1 << n) - 1);
+    p = mars_kiss64_simp() & ((0x1 << n) - 1);
     dropped_bits = x & ((0x1 << n) - 1);
 
     if (p <= dropped_bits)
