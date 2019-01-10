@@ -130,3 +130,8 @@ void random_bit_field(
     }
 #endif // LOG_LEVEL >= LOG_DEBUG
 }
+
+bit_field_t bit_field_alloc(uint32_t n_atoms){
+    uint32_t n_words = get_bit_field_size(n_atoms);
+    return (bit_field_t) sark_alloc(n_words * sizeof(bit_field_t), 1);
+}
