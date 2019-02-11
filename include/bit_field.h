@@ -236,6 +236,22 @@ static inline size_t get_bit_field_size(
     return words;
 }
 
+//! \brief Computes the number of set bits in a bit_field
+//! \param[in] b The sequence of words representing a bit_field.
+//! \param[in] s The size of the bit_field.
+//! \return The function returns the number of bits set to 1.
+static inline int count_bit_field(
+	bit_field_t b,
+	size_t s)
+{
+    int sum = 0;
+
+    for ( ; s > 0; s--) {
+	sum += __builtin_popcount(b[s - 1]);
+    }
+    return sum;
+}
+
 //! \brief Prints a bit_field as ones and zeros.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
