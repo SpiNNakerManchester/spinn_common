@@ -46,13 +46,9 @@ circular_buffer circular_buffer_initialize(
 	real_size = next_power_of_2(size);
     }
 
-    circular_buffer buffer = sark_alloc(1, sizeof(_circular_buffer));
+    circular_buffer buffer = sark_alloc(1,
+	    sizeof(_circular_buffer) + real_size * sizeof(uint32_t));
     if (buffer == NULL) {
-	return NULL;
-    }
-
-    buffer->buffer = sark_alloc(1, real_size * sizeof(uint32_t));
-    if (buffer->buffer == NULL) {
 	return NULL;
     }
 
