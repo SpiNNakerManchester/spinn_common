@@ -1,4 +1,4 @@
-dist: trusty
+dist: xenial
 language: c
 
 addons:
@@ -18,7 +18,7 @@ install:
   - make -C spinnaker_tools/spin1_api
 
 script:
-  - make
+  - CFLAGS=-fdiagnostics-color make
   - make install
   - support/run-vera.sh include -P max-file-length=2500
   - support/run-vera.sh src
