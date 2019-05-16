@@ -268,4 +268,8 @@ void print_bit_field(bit_field_t b, size_t s);
 //! \param[in] s The size of the bit_field.
 void random_bit_field(bit_field_t b, size_t s);
 
+//! \brief allocates a bit_field_t object
+//! \param[in] n_atoms: the number of atoms to cover with this bitfield
+bit_field_t bit_field_alloc(uint32_t n_atoms);
+
 #endif /*__BIT_FIELD_H__*/
