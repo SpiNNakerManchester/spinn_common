@@ -83,16 +83,10 @@ static inline accum norminv_ur(
 UNIMPLEMENTED accum norminv_ulr(unsigned long fract x);
 
 #define norminv_fx(f) \
-    ({	accum tmp;							\
-	if (__builtin_types_compatible_p(__typeof__(f), unsigned fract)) { \
-	    tmp = norminv_ur(f);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f),		\
-		unsigned long fract)) {					\
-	    tmp = norminv_ulr(f);					\
-	} else {							\
-	    abort(1);                                                   \
-	}								\
-	tmp;								\
-    })
+    _Generic((f), \
+	unsigned fract:      norminv_ur(f), \
+	unsigned long fract: norminv_ulr(f), \
+	default:             abort(1) \
+    )
 
 #endif /*__NORMAL_H__*/
