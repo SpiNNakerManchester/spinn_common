@@ -44,7 +44,6 @@ $(SPINN_COMMON_BUILD):
 install: $(SPINN_COMMON_BUILD)/libspinn_common.a
 	$(INSTALL) -c -m644 $< $(SPINN_LIB_DIR)
 	$(INSTALL) -c -m644 $(HEADERS:%.h=include/%.h) $(SPINN_INC_DIR)
-	cp CITATION.cff $(SPINN_DIRS)/spinn_common.citation.cff
 
 clean:
 	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS) \

@@ -1,5 +1,0 @@
-#define	SLLT_VER_STR	"1!4.0.1"
-#define SLLT_VER_MON    "September"
-#define SLLT_VER_DAY    "25"
-#define SLLT_VER_YEAR   "2017"
-#define SLLT_VER_NAME   "Riptalon"
