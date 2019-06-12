@@ -5,11 +5,11 @@
 #include <stdbool.h>
 
 typedef struct _circular_buffer {
-    uint32_t* buffer;
     uint32_t buffer_size;
     uint32_t output;
     uint32_t input;
     uint32_t overflows;
+    uint32_t buffer[];
 } _circular_buffer, *circular_buffer;
 
 // Returns the index of the next position in the buffer from the given value
@@ -31,7 +31,7 @@ static inline bool _circular_buffer_not_empty(
 static inline bool _circular_buffer_not_full(
 	circular_buffer buffer)
 {
-    return ((buffer->input + 1) & buffer->buffer_size) != buffer->output;
+    return _circular_buffer_next(buffer, buffer->input) != buffer->output;
 }
 
 //! \brief Creates a new FIFO circular buffer of at least the given size.  For
