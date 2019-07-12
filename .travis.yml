@@ -26,7 +26,7 @@ addons:
       - openjdk-8-jre-headless
       - ant
 
-before-install:
+before_install:
   - git clone https://github.com/SpiNNakerManchester/SupportScripts.git support
   - python support/travis_blocking_stdout.py
   - support/rat.sh download
