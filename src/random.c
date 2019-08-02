@@ -402,7 +402,9 @@ uint32_t poisson_dist_variate_exp_minus_lambda(
 
     do {
 	k++;
-	p = p * ulrbits(uni_rng(seed_arg));
+//	p = p * ulrbits(uni_rng(seed_arg));
+    // Possibly faster multiplication by using DRL's routines
+    p = ulrbits(__stdfix_smul_ulr(bitsulr(p), uni_rng(seed_arg)));
     } while (p > exp_minus_lambda);
     return k - 1;
 }
