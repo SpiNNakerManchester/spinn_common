@@ -1183,7 +1183,7 @@ static inline uint32_t __stdfix_smul_ulr(
 	uint32_t x,
 	uint32_t y)
 {
-    return ((__U64(x) * __U64(y)) >> 32);
+    return __stdfix_sat_ulr((__U64(x) * __U64(y)) >> 32);
 }
 
 //! \brief Saturated multiplicaion of the underlying unsigned integer representations
