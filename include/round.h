@@ -1,9 +1,10 @@
 /*
     This file complements stdfix-full-iso.h to add various rounding routines
-    and operations with rounding.
+    and mixed-format fixed-point multiplication routines.
 
     Note that GCC currenly does not implement rounding on such operations like
-    fixed-point multiplication.
+    fixed-point multiplication and conversion (e.g. decimal to fixed-point).
+    Some more background in https://arxiv.org/abs/1904.11263
 
     Author: mantas.mikaitis@manchester.ac.uk, 2019 August.
 
