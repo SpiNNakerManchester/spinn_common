@@ -71,276 +71,276 @@
 #define MULT_NO_ROUND_GCC(x, y) ( (x) * (y) )
 
 #define MULT_NO_ROUND_CUSTOM_ACCUM(x,y)										\
-    ({                            											\
-    __typeof__(x) temp0 = (x);    											\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
     accum result;															\
-    if (__builtin_types_compatible_p(__typeof__(x), s1615) && 				\
-        __builtin_types_compatible_p(__typeof__(y), s1615)) { 				\
-        result = (kbits(__stdfix_smul_k(bitsk(temp0), bitsk(temp1)))); 		\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s031)))  { 		\
-        result = (accum_times_long_fract(temp0, temp1)); 					\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {  		\
-        result = (accum_times_long_fract(temp1, temp0)); 					\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u032)))  { 		\
-        result = (accum_times_u_long_fract(temp0, temp1)); 					\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {  		\
-        result = (accum_times_u_long_fract(temp1, temp0)); 					\
-    } else { 																\
-    } 																		\
-    result; 																\
+    if (__builtin_types_compatible_p(__typeof__(x), s1615) &&				\
+        __builtin_types_compatible_p(__typeof__(y), s1615)) {				\
+        result = (kbits(__stdfix_smul_k(bitsk(temp0), bitsk(temp1))));		\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&		\
+               __builtin_types_compatible_p(__typeof__(y), s031)))  {		\
+        result = (accum_times_long_fract(temp0, temp1));					\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s1615)) {		\
+        result = (accum_times_long_fract(temp1, temp0));					\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&		\
+               __builtin_types_compatible_p(__typeof__(y), u032)))  {		\
+        result = (accum_times_u_long_fract(temp0, temp1));					\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s1615)) {		\
+        result = (accum_times_u_long_fract(temp1, temp0));					\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
 #define MULT_NO_ROUND_CUSTOM_SHORT_ACCUM(x,y)								\
-    ({                            											\
-    __typeof__(x) temp0 = (x);    											\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
     short accum result;														\
-    if (__builtin_types_compatible_p(__typeof__(x), s87) && 				\
-        __builtin_types_compatible_p(__typeof__(y), s87)) { 				\
-        result = (hkbits(__stdfix_smul_hk(bitshk(temp0), bitshk(temp1)))); 	\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s015)))  { 		\
-        result = (short_accum_times_fract(temp0, temp1)); 					\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {  		\
-        result = (short_accum_times_fract(temp1, temp0)); 					\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u016)))  { 		\
-        result = (short_accum_times_u_fract(temp0, temp1)); 				\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {  		\
-        result = (short_accum_times_u_fract(temp1, temp0)); 				\
-    } else { 																\
-    } 																		\
-    result; 																\
+    if (__builtin_types_compatible_p(__typeof__(x), s87) &&					\
+        __builtin_types_compatible_p(__typeof__(y), s87)) {					\
+        result = (hkbits(__stdfix_smul_hk(bitshk(temp0), bitshk(temp1))));	\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s015)))  {		\
+        result = (short_accum_times_fract(temp0, temp1));					\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s87)) {			\
+        result = (short_accum_times_fract(temp1, temp0));					\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&			\
+               __builtin_types_compatible_p(__typeof__(y), u016)))  {		\
+        result = (short_accum_times_u_fract(temp0, temp1));					\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s87)) {			\
+        result = (short_accum_times_u_fract(temp1, temp0));					\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
 #define MULT_NO_ROUND_CUSTOM_FRACT32(x,y)									\
-    ({                            											\
-    __typeof__(x) temp0 = (x);    											\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
-    long fract result;															\
-    if (__builtin_types_compatible_p(__typeof__(x), u032) && 				\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {  		\
+    long fract result;														\
+    if (__builtin_types_compatible_p(__typeof__(x), u032) &&				\
+               __builtin_types_compatible_p(__typeof__(y), u032)) {			\
         result = (ulrbits(__stdfix_smul_ulr(bitsulr(temp0),					\
 				bitsulr(temp1))));											\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {  		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&			\
+               __builtin_types_compatible_p(__typeof__(y), u032)) {			\
         result = (long_fract_times_u_long_fract(temp0, temp1));				\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s031)) {  		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s031)) {			\
         result = (long_fract_times_u_long_fract(temp1, temp0));				\
-    } else { 																\
-    } 																		\
-    result; 																\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
 #define MULT_NO_ROUND_CUSTOM_FRACT16(x,y)									\
-    ({                            											\
-    __typeof__(x) temp0 = (x);    											\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
     fract result;															\
-    if (__builtin_types_compatible_p(__typeof__(x), u016) && 				\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {  		\
+    if (__builtin_types_compatible_p(__typeof__(x), u016) &&				\
+               __builtin_types_compatible_p(__typeof__(y), u016)) {			\
         result = (urbits(__stdfix_smul_ur(bitsur(temp0), bitsur(temp1))));	\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {  		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&			\
+               __builtin_types_compatible_p(__typeof__(y), u016)) {			\
         result = (fract_times_u_fract(temp0, temp1));						\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s015)) {  		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s015)) {			\
         result = (fract_times_u_fract(temp1, temp0));						\
-    } else { 																\
-    } 																		\
-    result; 																\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
-#define MULT_ROUND_NEAREST_ACCUM(x,y) 										\
-    ({                            											\
-    __typeof__(x) temp0 = (x);		    									\
+#define MULT_ROUND_NEAREST_ACCUM(x,y)										\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
     accum result;															\
-    if (__builtin_types_compatible_p(__typeof__(x), s1615) && 				\
-        __builtin_types_compatible_p(__typeof__(y), s1615)) { 				\
+    if (__builtin_types_compatible_p(__typeof__(x), s1615) &&				\
+        __builtin_types_compatible_p(__typeof__(y), s1615)) {				\
         result =  (kbits(__stdfix_smul_k_round_nearest(bitsk(temp0),		\
-				bitsk(temp1)))); 											\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s031)))  { 		\
-        result =  (accum_times_long_fract_nearest(temp0, temp1)); 			\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {  		\
-        result = (accum_times_long_fract_nearest(temp1, temp0)); 			\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u032)))  { 		\
-        result =  (accum_times_u_long_fract_nearest(temp0, temp1)); 		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {  		\
-        result = (accum_times_u_long_fract_nearest(temp1, temp0)); 			\
-    } else { 																\
-    } 																		\
-    result; 																\
+				bitsk(temp1))));											\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&		\
+               __builtin_types_compatible_p(__typeof__(y), s031)))  {		\
+        result =  (accum_times_long_fract_nearest(temp0, temp1));			\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s1615)) {		\
+        result = (accum_times_long_fract_nearest(temp1, temp0));			\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&		\
+               __builtin_types_compatible_p(__typeof__(y), u032)))  {		\
+        result =  (accum_times_u_long_fract_nearest(temp0, temp1));			\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s1615)) {		\
+        result = (accum_times_u_long_fract_nearest(temp1, temp0));			\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
 #define MULT_ROUND_NEAREST_SHORT_ACCUM(x,y)									\
-    ({                            											\
-    __typeof__(x) temp0 = (x);    											\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
     short accum result;														\
-    if (__builtin_types_compatible_p(__typeof__(x), s87) && 				\
-        __builtin_types_compatible_p(__typeof__(y), s87)) { 				\
-        result = (hkbits(__stdfix_smul_hk_round_nearest(bitshk(temp0),      \
-                bitshk(temp1))));                                       	\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s015)))  { 		\
-        result = (short_accum_times_fract_nearest(temp0, temp1)); 			\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {  		\
-        result = (short_accum_times_fract_nearest(temp1, temp0)); 			\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u016)))  { 		\
-        result = (short_accum_times_u_fract_nearest(temp0, temp1)); 		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {  		\
-        result = (short_accum_times_u_fract_nearest(temp1, temp0)); 		\
-    } else { 																\
-    } 																		\
-    result; 																\
+    if (__builtin_types_compatible_p(__typeof__(x), s87) &&					\
+        __builtin_types_compatible_p(__typeof__(y), s87)) {					\
+        result = (hkbits(__stdfix_smul_hk_round_nearest(bitshk(temp0),		\
+                bitshk(temp1))));											\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s015)))  {		\
+        result = (short_accum_times_fract_nearest(temp0, temp1));			\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s87)) {			\
+        result = (short_accum_times_fract_nearest(temp1, temp0));			\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&			\
+               __builtin_types_compatible_p(__typeof__(y), u016)))  {		\
+        result = (short_accum_times_u_fract_nearest(temp0, temp1));			\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s87)) {			\
+        result = (short_accum_times_u_fract_nearest(temp1, temp0));			\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
 #define MULT_ROUND_NEAREST_FRACT32(x,y)										\
-    ({                            											\
-    __typeof__(x) temp0 = (x);    											\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
-    long fract result;															\
-    if (__builtin_types_compatible_p(__typeof__(x), u032) && 				\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {  		\
-        result = (lrbits(__stdfix_smul_ulr_round_nearest(bitsulr(temp0),    \
-                bitsulr(temp1))));                                          \
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {  		\
+    long fract result;														\
+    if (__builtin_types_compatible_p(__typeof__(x), u032) &&				\
+               __builtin_types_compatible_p(__typeof__(y), u032)) {			\
+        result = (lrbits(__stdfix_smul_ulr_round_nearest(bitsulr(temp0),	\
+                bitsulr(temp1))));											\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&			\
+               __builtin_types_compatible_p(__typeof__(y), u032)) {			\
         result = (long_fract_times_u_long_fract_nearest(temp0, temp1));		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s031)) {  		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s031)) {			\
         result = (long_fract_times_u_long_fract_nearest(temp1, temp0));		\
-    } else { 																\
-    } 																		\
-    result; 																\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
 #define MULT_ROUND_NEAREST_FRACT16(x,y)										\
-    ({                            											\
-    __typeof__(x) temp0 = (x);    											\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
     fract result;															\
-    if (__builtin_types_compatible_p(__typeof__(x), u016) && 				\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {  		\
+    if (__builtin_types_compatible_p(__typeof__(x), u016) &&				\
+               __builtin_types_compatible_p(__typeof__(y), u016)) {			\
         result = (rbits(__stdfix_smul_ur_round_nearest(bitsur(temp0),		\
  				bitsur(temp1))));											\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {  		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&			\
+               __builtin_types_compatible_p(__typeof__(y), u016)) {			\
         result = (fract_times_u_fract_nearest(temp0, temp1));				\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s015)) {  		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s015)) {			\
         result = (fract_times_u_fract_nearest(temp1, temp0));				\
-    } else { 																\
-    } 																		\
-    result; 																\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
-#define MULT_ROUND_STOCHASTIC_ACCUM(x,y) 									\
-    ({                            											\
-    __typeof__(x) temp0 = (x);		    									\
+#define MULT_ROUND_STOCHASTIC_ACCUM(x,y)									\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
     accum result;															\
-    if (__builtin_types_compatible_p(__typeof__(x), s1615) && 				\
-        __builtin_types_compatible_p(__typeof__(y), s1615)) { 				\
+    if (__builtin_types_compatible_p(__typeof__(x), s1615) &&				\
+        __builtin_types_compatible_p(__typeof__(y), s1615)) {				\
         result = (kbits(__stdfix_smul_k_round_stochastic(bitsk(temp0),		\
 			 	 bitsk(temp1))));											\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s031)))  { 		\
-        result = (accum_times_long_fract_stochastic(temp0, temp1)); 		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {  		\
-        result = (accum_times_long_fract_stochastic(temp1, temp0)); 		\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u032)))  { 		\
-        result = (accum_times_u_long_fract_stochastic(temp0, temp1)); 		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {  		\
-        result = (accum_times_u_long_fract_stochastic(temp1, temp0)); 		\
-    } else { 																\
-    } 																		\
-    result; 																\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&		\
+               __builtin_types_compatible_p(__typeof__(y), s031)))  {		\
+        result = (accum_times_long_fract_stochastic(temp0, temp1));			\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s1615)) {		\
+        result = (accum_times_long_fract_stochastic(temp1, temp0));			\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&		\
+               __builtin_types_compatible_p(__typeof__(y), u032)))  {		\
+        result = (accum_times_u_long_fract_stochastic(temp0, temp1));		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s1615)) {		\
+        result = (accum_times_u_long_fract_stochastic(temp1, temp0));		\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
 #define MULT_ROUND_STOCHASTIC_SHORT_ACCUM(x,y)								\
-    ({                            											\
-    __typeof__(x) temp0 = (x);    											\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
     short accum result;														\
-    if (__builtin_types_compatible_p(__typeof__(x), s87) && 				\
-        __builtin_types_compatible_p(__typeof__(y), s87)) { 				\
+    if (__builtin_types_compatible_p(__typeof__(x), s87) &&					\
+        __builtin_types_compatible_p(__typeof__(y), s87)) {					\
         result = (hkbits(__stdfix_smul_hk_round_stochastic(bitshk(temp0),	\
 				bitshk(temp1))));											\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s015)))  { 		\
-        result = (short_accum_times_fract_stochastic(temp0, temp1)); 		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {  		\
-        result = (short_accum_times_fract_stochastic(temp1, temp0)); 		\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u016)))  { 		\
-        result = (short_accum_times_u_fract_stochastic(temp0, temp1)); 		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {  		\
-        result = (short_accum_times_u_fract_stochastic(temp1, temp0)); 		\
-    } else { 																\
-    } 																		\
-    result; 																\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s015)))  {		\
+        result = (short_accum_times_fract_stochastic(temp0, temp1));		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s87)) {			\
+        result = (short_accum_times_fract_stochastic(temp1, temp0));		\
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&			\
+               __builtin_types_compatible_p(__typeof__(y), u016)))  {		\
+        result = (short_accum_times_u_fract_stochastic(temp0, temp1));		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s87)) {			\
+        result = (short_accum_times_u_fract_stochastic(temp1, temp0));		\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
 #define MULT_ROUND_STOCHASTIC_FRACT32(x,y)									\
-    ({                            											\
-    __typeof__(x) temp0 = (x);    											\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
-    long fract result;															\
-    if (__builtin_types_compatible_p(__typeof__(x), u032) && 				\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {  		\
+    long fract result;														\
+    if (__builtin_types_compatible_p(__typeof__(x), u032) &&				\
+               __builtin_types_compatible_p(__typeof__(y), u032)) {			\
         result = (lrbits(__stdfix_smul_ulr_round_stochastic(bitsulr(temp0),	\
 				bitsulr(temp1))));											\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {  		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&			\
+               __builtin_types_compatible_p(__typeof__(y), u032)) {			\
         result = (long_fract_times_u_long_fract_stochastic(temp0, temp1));	\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s031)) {  		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s031)) {			\
         result = (long_fract_times_u_long_fract_stochastic(temp1, temp0));	\
-    } else { 																\
-    } 																		\
-    result; 																\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
 #define MULT_ROUND_STOCHASTIC_FRACT16(x,y)									\
-    ({                            											\
-    __typeof__(x) temp0 = (x);    											\
+    ({																		\
+    __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
     fract result;															\
-    if (__builtin_types_compatible_p(__typeof__(x), u016) && 				\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {  		\
+    if (__builtin_types_compatible_p(__typeof__(x), u016) &&				\
+               __builtin_types_compatible_p(__typeof__(y), u016)) {			\
         result = (rbits(__stdfix_smul_ur_round_stochastic(bitsur(temp0),	\
 				bitsur(temp1))));											\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) && 		\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {  		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&			\
+               __builtin_types_compatible_p(__typeof__(y), u016)) {			\
         result = (fract_times_u_fract_stochastic(temp0, temp1));			\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) && 		\
-               __builtin_types_compatible_p(__typeof__(y), s015)) {  		\
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&			\
+               __builtin_types_compatible_p(__typeof__(y), s015)) {			\
         result = (fract_times_u_fract_stochastic(temp1, temp0));			\
-    } else { 																\
-    } 																		\
-    result; 																\
+    } else {																\
+    }																		\
+    result;																	\
     })
 
 // Round a signed 64-bit number stochastically to a given number of bits and
@@ -350,7 +350,7 @@
 
 // Round an unsigned 64-bit number stochastically to a given number of bits and
 // return a 32-bit integer.
-#define STOCHASTIC_ROUND_U64(x, n) __stdfix_sat_uk(                         \
+#define STOCHASTIC_ROUND_U64(x, n) __stdfix_sat_uk(							\
     (__stdfix_stochastic_round_u64(x, n) >> n))
 
 // Round a signed 64-bit number to a nearest given number of bits and
