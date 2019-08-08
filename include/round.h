@@ -46,24 +46,24 @@
 // a signed fract.
 #ifdef ROUNDING_NONE_GCC
 	#define FX_MUL( x, y ) MULT_NO_ROUND_GCC( x, y )
-    #define FX_MUL_SHORT_ACCUM(x, y) MULT_NO_ROUND_GCC( x, y)
+	#define FX_MUL_SHORT_ACCUM(x, y) MULT_NO_ROUND_GCC( x, y)
 	#define FX_MUL_FRACT32( x, y ) MULT_NO_ROUND_GCC( x, y )
-    #define FX_MUL_FRACT16( x, y ) MULT_NO_ROUND_GCC( x, y )
+	#define FX_MUL_FRACT16( x, y ) MULT_NO_ROUND_GCC( x, y )
 #elif defined ROUNDING_NONE_CUSTOM
 	#define FX_MUL( x, y ) MULT_NO_ROUND_CUSTOM_ACCUM( x, y )
-    #define FX_MUL_SHORT_ACCUM( x, y ) MULT_NO_ROUND_CUSTOM_SHORT_ACCUM( x, y )
+	#define FX_MUL_SHORT_ACCUM( x, y ) MULT_NO_ROUND_CUSTOM_SHORT_ACCUM( x, y )
 	#define FX_MUL_FRACT32( x, y ) MULT_NO_ROUND_CUSTOM_FRACT32( x, y )
-    #define FX_MUL_FRACT16( x, y ) MULT_NO_ROUND_CUSTOM_FRACT16( x, y )
+	#define FX_MUL_FRACT16( x, y ) MULT_NO_ROUND_CUSTOM_FRACT16( x, y )
 #elif defined ROUNDING_NEAREST
 	#define FX_MUL( x, y ) MULT_ROUND_NEAREST_ACCUM( x, y )
-    #define FX_MUL_SHORT_ACCUM( x, y ) MULT_ROUND_NEAREST_SHORT_ACCUM( x, y )
+	#define FX_MUL_SHORT_ACCUM( x, y ) MULT_ROUND_NEAREST_SHORT_ACCUM( x, y )
 	#define FX_MUL_FRACT32( x, y ) MULT_ROUND_NEAREST_FRACT32( x, y )
-    #define FX_MUL_FRACT16( x, y ) MULT_ROUND_NEAREST_FRACT16( x, y )
+	#define FX_MUL_FRACT16( x, y ) MULT_ROUND_NEAREST_FRACT16( x, y )
 #elif defined ROUNDING_STOCHASTIC
 	#define FX_MUL( x, y ) MULT_ROUND_STOCHASTIC_ACCUM( x, y )
-    #define FX_MUL_SHORT_ACCUM( x, y ) MULT_ROUND_STOCHASTIC_SHORT_ACCUM(x, y)
+	#define FX_MUL_SHORT_ACCUM( x, y ) MULT_ROUND_STOCHASTIC_SHORT_ACCUM(x, y)
 	#define FX_MUL_FRACT32( x, y ) MULT_ROUND_STOCHASTIC_FRACT32( x, y )
-    #define FX_MUL_FRACT16( x, y ) MULT_ROUND_STOCHASTIC_FRACT16( x, y )
+	#define FX_MUL_FRACT16( x, y ) MULT_ROUND_STOCHASTIC_FRACT16( x, y )
 #endif
 
 // The following macros choose a correct multiplication function depending on
