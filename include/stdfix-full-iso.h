@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2013-2019 The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /*! \file
  *
  *  \brief  Additions to the stdfix.h file to support full Draft ISO/IEC
@@ -2293,25 +2310,15 @@ static inline int countlsulk(
 //! \return The absolute value of f (with the same type as f).
 
 #define absfx(f) \
-    ({									\
-	__typeof__(f) tmp = (f);					\
-	if (__builtin_types_compatible_p(__typeof__(f), s07)) {		\
-	    tmp = abshr(tmp);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s015)) {	\
-	    tmp = absr(tmp);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s031)) {	\
-	    tmp = abslr(tmp);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s87)) {	\
-	    tmp = abshk(tmp);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s1615)) { \
-	    tmp = absk(tmp);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s3231)) { \
-	    tmp = abslk(tmp);						\
-	} else {							\
-	    abort();							\
-	} 								\
-	tmp;								\
-    })
+    _Generic((f), \
+	s07:   abshr(f), \
+	s015:  absr(f), \
+	s031:  abslr(f), \
+	s87:   abshk(f), \
+	s1615: absk(f), \
+	s3231: abslk(f), \
+	default: abort() \
+    )
 
 //! \brief This macro provides type-generic access to the rounding
 //! functions.
@@ -2320,37 +2327,21 @@ static inline int countlsulk(
 //! \return The rounded value of f(with the same type as f).
 
 #define roundfx(f, n) \
-    ({									\
-	__typeof__(f) tmp = (f);					\
-	if (__builtin_types_compatible_p(__typeof__(f), s07)) {		\
-	    tmp = roundhr(tmp, n);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s015)) {	\
-	    tmp = roundr(tmp, n);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s031)) {	\
-	    tmp = roundlr(tmp, n);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s87)) {	\
-	    tmp = roundhk(tmp, n);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s1615)) { \
-	    tmp = roundk(tmp, n);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s3231)) { \
-	    tmp = roundlk(tmp, n);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u08)) {	\
-	    tmp = rounduhr(tmp, n);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u016)) {	\
-	    tmp = roundur(tmp, n);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u032)) {	\
-	    tmp = roundulr(tmp, n);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u88)) {	\
-	    tmp = rounduhk(tmp, n);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u1616)) { \
-	    tmp = rounduk(tmp, n);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u3232)) { \
-	    tmp = roundulk(tmp, n);					\
-	} else {							\
-	    abort();							\
-	}								\
-	tmp;								\
-    })
+    _Generic((f), \
+	s07:   roundhr(f, n), \
+	s015:  roundr(f, n), \
+	s031:  roundlr(f, n), \
+	s87:   roundhk(f, n), \
+	s1615: roundk(f, n), \
+	s3231: roundlk(f, n), \
+	u08:   rounduhr(f, n), \
+	u016:  roundur(f, n), \
+	u032:  roundulr(f, n), \
+	u88:   rounduhk(f, n), \
+	u1616: rounduk(f, n), \
+	u3232: roundulk(f, n), \
+	default: abort() \
+    )
 
 //! \brief This macro provides type-generic access to the functions for
 //! counting leading sign-bits.
@@ -2358,37 +2349,21 @@ static inline int countlsulk(
 //! \return The number of leading sign-bits in f.
 
 #define countlsfx(f) \
-    ({									\
-	int tmp = 0;							\
-	if (__builtin_types_compatible_p(__typeof__(f), s07)) {		\
-	    tmp = countlshr(f);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s015)) {	\
-	    tmp = countlsr(f);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s031)) {	\
-	    tmp = countlslr(f);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s87)) {	\
-	    tmp = countlshk(f);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s1615)) { \
-	    tmp = countlsk(f);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), s3231)) { \
-	    tmp = countlslk(f);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u08)) {	\
-	    tmp = countlsuhr(f);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u016)) {	\
-	    tmp = countlsur(f);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u032)) {	\
-	    tmp = countlsulr(f);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u88)) {	\
-	    tmp = countlsuhk(f);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u1616)) { \
-	    tmp = countlsuk(f);						\
-	} else if (__builtin_types_compatible_p(__typeof__(f), u3232)) { \
-	    tmp = countlsulk(f);					\
-	} else {							\
-	    abort();							\
-	}								\
-	tmp;								\
-    })
+    _Generic((f), \
+	s07:   countlshr(f), \
+	s015:  countlsr(f), \
+	s031:  countlslr(f), \
+	s87:   countlshk(f), \
+	s1615: countlsk(f), \
+	s3231: countlslk(f), \
+	u08:   countlsuhr(f), \
+	u016:  countlsur(f), \
+	u032:  countlsulr(f), \
+	u88:   countlsuhk(f), \
+	u1616: countlsuk(f), \
+	u3232: countlsulk(f), \
+	default: abort() \
+    )
 
 // 7.18a.6.8 Numeric conversion functions
 

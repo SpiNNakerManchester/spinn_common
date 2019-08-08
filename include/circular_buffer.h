@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2013-2019 The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef _CIRCULAR_BUFFER_H_
 #define _CIRCULAR_BUFFER_H_
 
@@ -5,11 +22,11 @@
 #include <stdbool.h>
 
 typedef struct _circular_buffer {
-    uint32_t* buffer;
     uint32_t buffer_size;
     uint32_t output;
     uint32_t input;
     uint32_t overflows;
+    uint32_t buffer[];
 } _circular_buffer, *circular_buffer;
 
 // Returns the index of the next position in the buffer from the given value
@@ -31,7 +48,7 @@ static inline bool _circular_buffer_not_empty(
 static inline bool _circular_buffer_not_full(
 	circular_buffer buffer)
 {
-    return ((buffer->input + 1) & buffer->buffer_size) != buffer->output;
+    return _circular_buffer_next(buffer, buffer->input) != buffer->output;
 }
 
 //! \brief Creates a new FIFO circular buffer of at least the given size.  For

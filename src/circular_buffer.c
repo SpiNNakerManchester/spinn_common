@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2013-2019 The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /* circular_buffer.c
  *
  *  SUMMARY
@@ -46,13 +63,9 @@ circular_buffer circular_buffer_initialize(
 	real_size = next_power_of_2(size);
     }
 
-    circular_buffer buffer = sark_alloc(1, sizeof(_circular_buffer));
+    circular_buffer buffer = sark_alloc(1,
+	    sizeof(_circular_buffer) + real_size * sizeof(uint32_t));
     if (buffer == NULL) {
-	return NULL;
-    }
-
-    buffer->buffer = sark_alloc(1, real_size * sizeof(uint32_t));
-    if (buffer->buffer == NULL) {
 	return NULL;
     }
 

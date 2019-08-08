@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2013-2019 The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /*! \file
  *
  *  \brief Bit field manipulation.
@@ -236,6 +253,22 @@ static inline size_t get_bit_field_size(
     return words;
 }
 
+//! \brief Computes the number of set bits in a bit_field
+//! \param[in] b The sequence of words representing a bit_field.
+//! \param[in] s The size of the bit_field.
+//! \return The function returns the number of bits set to 1.
+static inline int count_bit_field(
+	bit_field_t b,
+	size_t s)
+{
+    int sum = 0;
+
+    for ( ; s > 0; s--) {
+	sum += __builtin_popcount(b[s - 1]);
+    }
+    return sum;
+}
+
 //! \brief Prints a bit_field as ones and zeros.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
@@ -251,5 +284,9 @@ void print_bit_field(bit_field_t b, size_t s);
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
 void random_bit_field(bit_field_t b, size_t s);
+
+//! \brief allocates a bit_field_t object
+//! \param[in] n_atoms: the number of atoms to cover with this bitfield
+bit_field_t bit_field_alloc(uint32_t n_atoms);
 
 #endif /*__BIT_FIELD_H__*/

@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2014-2019 The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /*! \file random.c
  *  \brief pseudo-random number generators
  *  \author Michael Hopkins
@@ -384,8 +401,10 @@ uint32_t poisson_dist_variate_exp_minus_lambda(
     //!     return k;
 
     do {
-	k++;
-	p = p * ulrbits(uni_rng(seed_arg));
+    	k++;
+    	//	p = p * ulrbits(uni_rng(seed_arg));
+    	// Possibly faster multiplication by using DRL's routines
+    	p = ulrbits(__stdfix_smul_ulr(bitsulr(p), uni_rng(seed_arg)));
     } while (p > exp_minus_lambda);
     return k - 1;
 }

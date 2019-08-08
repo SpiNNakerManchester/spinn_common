@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2014-2019 The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /*! \file
  *
  *  \brief Implementation of sqrt for the unsigned accum type, returning a
@@ -53,36 +70,20 @@ UNIMPLEMENTED unsigned accum		sqrtuk(unsigned accum x);
 UNIMPLEMENTED unsigned long accum	sqrtulk(unsigned long accum x);
 
 #define sqrtfx(f) \
-    ({									 \
-	__typeof__(f) tmp = (f);					 \
-	if (__builtin_types_compatible_p(__typeof__(f), s07)) {		 \
-	    tmp = sqrthr(f, n);						 \
-	} else if (__builtin_types_compatible_p(__typeof__(f), s015)) {	 \
-	    tmp = sqrtr(f, n);						 \
-	} else if (__builtin_types_compatible_p(__typeof__(f), s031)) {	 \
-	    tmp = sqrtlr(f, n);						 \
-	} else if (__builtin_types_compatible_p(__typeof__(f), s87)) {	 \
-	    tmp = sqrthk(f, n);						 \
-	} else if (__builtin_types_compatible_p(__typeof__(f), s1615)) { \
-	    tmp = sqrtk(f, n);						 \
-	} else if (__builtin_types_compatible_p(__typeof__(f), s3231)) { \
-	    tmp = sqrtlk(f, n);						 \
-	} else if (__builtin_types_compatible_p(__typeof__(f), u08)) {	 \
-	    tmp = sqrtuhr(f, n);					 \
-	} else if (__builtin_types_compatible_p(__typeof__(f), u016)) {	 \
-	    tmp = sqrtur(f, n);						 \
-	} else if (__builtin_types_compatible_p(__typeof__(f), u032)) {	 \
-	    tmp = sqrtulr(f, n);					 \
-	} else if (__builtin_types_compatible_p(__typeof__(f), u88)) {	 \
-	    tmp = sqrtuhk(f, n);					 \
-	} else if (__builtin_types_compatible_p(__typeof__(f), u1616)) { \
-	    tmp = sqrtuk(f, n);						 \
-	} else if (__builtin_types_compatible_p(__typeof__(f), u3232)) { \
-	    tmp = sqrtulk(f, n);					 \
-	} else {							 \
-	    abort();							 \
-	}								 \
-	tmp;								 \
-    })
+    _Generic((f), \
+	s07:   sqrthr(f), \
+	s015:  sqrtr(f), \
+	s031:  sqrtlr(f), \
+	s87:   sqrthk(f), \
+	s1615: sqrtk(f), \
+	s3231: sqrtlk(f), \
+	u08:   sqrtuhr(f), \
+	u016:  sqrtur(f), \
+	u032:  sqrtulr(f), \
+	u88:   sqrtuhk(f), \
+	u1616: sqrtuk(f), \
+	u3232: sqrtulk(f), \
+	default: abort() \
+    )
 
 #endif /*__SQRT_H__*/

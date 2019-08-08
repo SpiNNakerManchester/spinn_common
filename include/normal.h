@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2013-2019 The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef __NORMAL_H__
 #define __NORMAL_H__
 
@@ -83,16 +100,10 @@ static inline accum norminv_ur(
 UNIMPLEMENTED accum norminv_ulr(unsigned long fract x);
 
 #define norminv_fx(f) \
-    ({	accum tmp;							\
-	if (__builtin_types_compatible_p(__typeof__(f), unsigned fract)) { \
-	    tmp = norminv_ur(f);					\
-	} else if (__builtin_types_compatible_p(__typeof__(f),		\
-		unsigned long fract)) {					\
-	    tmp = norminv_ulr(f);					\
-	} else {							\
-	    abort(1);                                                   \
-	}								\
-	tmp;								\
-    })
+    _Generic((f), \
+	unsigned fract:      norminv_ur(f), \
+	unsigned long fract: norminv_ulr(f), \
+	default:             abort(1) \
+    )
 
 #endif /*__NORMAL_H__*/
