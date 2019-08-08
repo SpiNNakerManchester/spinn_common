@@ -21,9 +21,9 @@
 
 // Choose random number generator that is used for the multiplications with
 // stochastic rounding
-#define RANDOM() mars_kiss64_simp()
+//#define RANDOM() mars_kiss64_simp()
 //#define RANDOM() mars_kiss32()
-//#define RANDOM() sark_rand()
+#define RANDOM() sark_rand()
 //#define RANDOM() cheap_generator ()
 
 // Choose rounding mode of all multiplications
@@ -31,9 +31,10 @@
 	#define ROUNDING_NONE_GCC
 #else
     //#define ROUNDING_NONE_GCC
-	#define ROUNDING_NONE_CUSTOM
+	//#define ROUNDING_NONE_CUSTOM
 	//#define ROUNDING_NEAREST
-	//#define ROUNDING_STOCHASTIC
+	#define ROUNDING_STOCHASTIC
+#endif
 
 // Set up various multiplication macros depending on the rounding method
 // chosen above. These are the highest level of macros that the users
@@ -73,7 +74,7 @@
     ({                            											\
     __typeof__(x) temp0 = (x);    											\
     __typeof__(y) temp1 = (y);												\
-    REAL result;															\
+    accum result;															\
     if (__builtin_types_compatible_p(__typeof__(x), s1615) && 				\
         __builtin_types_compatible_p(__typeof__(y), s1615)) { 				\
         result = (kbits(__stdfix_smul_k(bitsk(temp0), bitsk(temp1)))); 		\
@@ -123,7 +124,7 @@
     ({                            											\
     __typeof__(x) temp0 = (x);    											\
     __typeof__(y) temp1 = (y);												\
-    FRACT result;															\
+    long fract result;															\
     if (__builtin_types_compatible_p(__typeof__(x), u032) && 				\
                __builtin_types_compatible_p(__typeof__(y), u032)) {  		\
         result = (ulrbits(__stdfix_smul_ulr(bitsulr(temp0),					\
@@ -162,7 +163,7 @@
     ({                            											\
     __typeof__(x) temp0 = (x);		    									\
     __typeof__(y) temp1 = (y);												\
-    REAL result;															\
+    accum result;															\
     if (__builtin_types_compatible_p(__typeof__(x), s1615) && 				\
         __builtin_types_compatible_p(__typeof__(y), s1615)) { 				\
         result =  (kbits(__stdfix_smul_k_round_nearest(bitsk(temp0),		\
@@ -214,7 +215,7 @@
     ({                            											\
     __typeof__(x) temp0 = (x);    											\
     __typeof__(y) temp1 = (y);												\
-    FRACT result;															\
+    long fract result;															\
     if (__builtin_types_compatible_p(__typeof__(x), u032) && 				\
                __builtin_types_compatible_p(__typeof__(y), u032)) {  		\
         result = (lrbits(__stdfix_smul_ulr_round_nearest(bitsulr(temp0),    \
@@ -254,7 +255,7 @@
     ({                            											\
     __typeof__(x) temp0 = (x);		    									\
     __typeof__(y) temp1 = (y);												\
-    REAL result;															\
+    accum result;															\
     if (__builtin_types_compatible_p(__typeof__(x), s1615) && 				\
         __builtin_types_compatible_p(__typeof__(y), s1615)) { 				\
         result = (kbits(__stdfix_smul_k_round_stochastic(bitsk(temp0),		\
@@ -306,7 +307,7 @@
     ({                            											\
     __typeof__(x) temp0 = (x);    											\
     __typeof__(y) temp1 = (y);												\
-    FRACT result;															\
+    long fract result;															\
     if (__builtin_types_compatible_p(__typeof__(x), u032) && 				\
                __builtin_types_compatible_p(__typeof__(y), u032)) {  		\
         result = (lrbits(__stdfix_smul_ulr_round_stochastic(bitsulr(temp0),	\
