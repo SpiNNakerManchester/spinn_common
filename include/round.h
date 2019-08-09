@@ -71,7 +71,7 @@
 
 #define MULT_NO_ROUND_GCC(x, y) ( (x) * (y) )
 
-#define MULT_NO_ROUND_CUSTOM_ACCUM(x,y)										\
+#define MULT_NO_ROUND_CUSTOM_ACCUM(x, y)									\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -96,7 +96,7 @@
     result;																	\
     })
 
-#define MULT_NO_ROUND_CUSTOM_SHORT_ACCUM(x,y)								\
+#define MULT_NO_ROUND_CUSTOM_SHORT_ACCUM(x, y)								\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -121,7 +121,7 @@
     result;																	\
     })
 
-#define MULT_NO_ROUND_CUSTOM_FRACT32(x,y)									\
+#define MULT_NO_ROUND_CUSTOM_FRACT32(x, y)									\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -141,7 +141,7 @@
     result;																	\
     })
 
-#define MULT_NO_ROUND_CUSTOM_FRACT16(x,y)									\
+#define MULT_NO_ROUND_CUSTOM_FRACT16(x, y)									\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -160,7 +160,7 @@
     result;																	\
     })
 
-#define MULT_ROUND_NEAREST_ACCUM(x,y)										\
+#define MULT_ROUND_NEAREST_ACCUM(x, y)										\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -186,7 +186,7 @@
     result;																	\
     })
 
-#define MULT_ROUND_NEAREST_SHORT_ACCUM(x,y)									\
+#define MULT_ROUND_NEAREST_SHORT_ACCUM(x, y)									\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -212,7 +212,7 @@
     result;																	\
     })
 
-#define MULT_ROUND_NEAREST_FRACT32(x,y)										\
+#define MULT_ROUND_NEAREST_FRACT32(x, y)										\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -232,7 +232,7 @@
     result;																	\
     })
 
-#define MULT_ROUND_NEAREST_FRACT16(x,y)										\
+#define MULT_ROUND_NEAREST_FRACT16(x, y)									\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -252,7 +252,7 @@
     result;																	\
     })
 
-#define MULT_ROUND_STOCHASTIC_ACCUM(x,y)									\
+#define MULT_ROUND_STOCHASTIC_ACCUM(x, y)									\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -278,7 +278,7 @@
     result;																	\
     })
 
-#define MULT_ROUND_STOCHASTIC_SHORT_ACCUM(x,y)								\
+#define MULT_ROUND_STOCHASTIC_SHORT_ACCUM(x, y)								\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -304,7 +304,7 @@
     result;																	\
     })
 
-#define MULT_ROUND_STOCHASTIC_FRACT32(x,y)									\
+#define MULT_ROUND_STOCHASTIC_FRACT32(x, y)									\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -324,7 +324,7 @@
     result;																	\
     })
 
-#define MULT_ROUND_STOCHASTIC_FRACT16(x,y)									\
+#define MULT_ROUND_STOCHASTIC_FRACT16(x, y)									\
     ({																		\
     __typeof__(x) temp0 = (x);												\
     __typeof__(y) temp1 = (y);												\
@@ -398,8 +398,9 @@ static int64_t __stdfix_stochastic_round_s64(
 
     if (p < dropped_bits) {
         return ((r + 0x1) << n);
+    } else {
+        return (r << n);
     }
-    else return (r << n);
 }
 
 // Alternative algorithm of the above.
@@ -428,8 +429,9 @@ static inline int32_t __stdfix_stochastic_round_s32(
 
     if (p < dropped_bits) {
         return ((r + 0x1) << n);
+	} else {
+	    return (r << n);
 	}
-    else return (r << n);
 }
 
 static inline int16_t __stdfix_stochastic_round_s16(
@@ -445,8 +447,9 @@ static inline int16_t __stdfix_stochastic_round_s16(
 
     if (p < dropped_bits) {
         return ((r + 0x1) << n);
-	}
-    else return (r << n);
+	} else {
+        return (r << n);
+    }
 }
 
 static inline uint64_t __stdfix_stochastic_round_u64(
@@ -462,8 +465,9 @@ static inline uint64_t __stdfix_stochastic_round_u64(
 
     if (p < dropped_bits) {
         return ((r + 0x1) << n);
-	}
-    else return (r << n);
+	} else {
+        return (r << n);
+    }
 }
 
 static inline uint32_t __stdfix_stochastic_round_u32(
@@ -479,8 +483,9 @@ static inline uint32_t __stdfix_stochastic_round_u32(
 
     if (p < dropped_bits) {
         return ((r + 0x1) << n);
+	} else {
+	    return (r << n);
 	}
-    else return (r << n);
 }
 
 static inline uint16_t __stdfix_stochastic_round_u16(
@@ -496,8 +501,9 @@ static inline uint16_t __stdfix_stochastic_round_u16(
 
     if (p < dropped_bits) {
         return ((r + 0x1) << n);
+	} else {
+	    return (r << n);
 	}
-    else return (r << n);
 }
 
 /*
@@ -617,8 +623,6 @@ static inline uint32_t __stdfix_smul_ur_round_stochastic(
     return __stdfix_sat_ur(
 		__stdfix_stochastic_round_u32((__U32(x) * __U32(y)), 17) >> 17);
 }
-
-
 
 /*
   NOTE: The following functions do mixed format multiplications. Most of them
