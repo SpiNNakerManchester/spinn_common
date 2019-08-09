@@ -132,7 +132,7 @@
 #define check(condition, message, ...) \
     do {								\
         if (!(condition)) {						\
-            __log(LOG_DEBUG, "[CHECK]    ", message, ##__VA_ARGS__);	\
+            io_printf(IO_BUF, "[CHECK]    ", message, ##__VA_ARGS__);	\
         } 								\
     } while (0)
 
@@ -140,7 +140,7 @@
 //! \param[in] message The message to be printed if execution reaches this point
 #define sentinel(message, ...) \
     do {								\
-	__log(LOG_DEBUG, "[SENTINEL] ", message, ##__VA_ARGS__);	\
+	io_printf(IO_BUF, "[SENTINEL] ", message, ##__VA_ARGS__);	\
 	abort(0);							\
     } while (0)
 
@@ -150,7 +150,7 @@
 #define assert(assertion) \
     do {								\
         if (!(assertion)) {						\
-            __log(LOG_DEBUG, "[ASSERT]   ", "assertion check fails!");	\
+            io_printf(IO_BUF, "[ASSERT]   ", "assertion check fails!");	\
             abort(0);							\
         }								\
     } while (0)
@@ -162,7 +162,7 @@
 #define assert_info(assertion, message, ...) \
     do {                                                                \
         if (!(assertion)) {                                             \
-            __log(LOG_DEBUG, "[ASSERT]   ", message, ##__VA_ARGS__);    \
+            io_printf(IO_BUF, "[ASSERT]   ", message, ##__VA_ARGS__);    \
             abort(0);                                                   \
         }                                                               \
     } while (0)
