@@ -236,7 +236,7 @@ static inline bool full_bit_field(
             check = (1 << max_value - 1) - 1;
         }else{
             check = 0xFFFFFFFF;
-            max_value -= 32
+            max_value -= 32;
         }
         full = full && (b[x] == check);
     }
