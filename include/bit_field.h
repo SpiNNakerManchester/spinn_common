@@ -226,14 +226,14 @@ static inline bool empty_bit_field(
 //! \param[in] max_value: the max bit that was planned to be set.
 //! \return The function returns true if every bit is 1, or false otherwise.
 static inline bool full_bit_field(
-	bit_field_t b, size_t s, int max_value)
+	bit_field_t b, size_t s, uint32_t max_value)
 {
     bool full = true;
-    int check = 0;
+    uint32_t check = 0;
 
-    for (int x =0 ; x < s; x++) {
+    for (uint32_t x =0 ; x < s; x++) {
         if (max_value <= 32){
-            check = (1 << max_value - 1) - 1;
+            check = (1 << (max_value - 1)) - 1;
         }else{
             check = 0xFFFFFFFF;
             max_value -= 32;
