@@ -220,6 +220,29 @@ static inline bool empty_bit_field(
     return empty;
 }
 
+//! \brief This function tests whether a bit_field is all ones.
+//! \param[in] b The sequence of words representing a bit_field.
+//! \param[in] s The size of the bit_field.
+//! \param[in] max_value: the max bit that was planned to be set.
+//! \return The function returns true if every bit is 1, or false otherwise.
+static inline bool full_bit_field(
+	bit_field_t b, size_t s, int max_value)
+{
+    bool full = true;
+    int check = 0;
+
+    for (int x =0 ; x < s; x++) {
+        if (max_value <= 32){
+            check = (1 << max_value - 1) - 1;
+        }else{
+            check = 0xFFFFFFFF;
+            max_value -= 32
+        }
+        full = full && (b[x] == check);
+    }
+    return full;
+}
+
 //! \brief Testing whether a bit_field is non-empty, _i.e._ if there is at
 //! least one bit set.
 //! \param[in] b The sequence of words representing a bit_field.
