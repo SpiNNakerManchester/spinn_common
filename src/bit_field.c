@@ -124,7 +124,7 @@ void print_bit_field(
     index_t i; //!< For indexing through the bit field
 
     for (i = 0; i < s; i++) {
-	    io_printf(IO_BUF, "%08x\n", b[i]);
+	    io_printf(IO_BUF, "%d=%08x\n", i * 32, b[i]);
     }
 #endif // LOG_LEVEL >= LOG_DEBUG
 }
