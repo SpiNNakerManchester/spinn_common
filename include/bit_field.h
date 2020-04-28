@@ -254,9 +254,10 @@ static inline size_t get_bit_field_size(
 }
 
 //! \brief Computes the number of set bits in a bit_field
-//! NOTE: THIS FUNCTION CAN ONLY BE TRUSTED IF set_bit_field HAS NOT BEEN
-//! CALLED ON THIS BITFIELD, as the count includes padding which can change
-//! value by the set_bit_field.
+//! NOTE: THIS FUNCTION CAN ONLY BE TRUSTED IF clear_bit_field HAS BEEN
+//! CALLED ON THIS BITFIELD, as the count includes padding which can be
+//! included in the count if the value of the padding is not 0. Tracking
+//! padding size its too big a footprint to be worthwhile.
 //! \param[in] b The sequence of words representing a bit_field.
 //! \param[in] s The size of the bit_field.
 //! \return The function returns the number of bits set to 1.
