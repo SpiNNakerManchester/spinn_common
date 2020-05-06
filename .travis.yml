@@ -64,4 +64,9 @@ deploy:
     on:
       # Only enable deployment of any branch if we actually have supplied a token
       # Which branches to deploy is then controlled through Travis config page
+      # We also limit deployment to the named branches; others are not to be 
+      # deployed by policy anyway.
+      branch:
+        - doxygen
+        - master
       condition: -n "$GITHUB_TOKEN"
