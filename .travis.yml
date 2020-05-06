@@ -51,6 +51,8 @@ script:
   - support/run-vera.sh src
   # Copyright check
   - support/rat.sh run
+  # Documentation build
+  - doxygen
 
 deploy:
   - provider: pages
