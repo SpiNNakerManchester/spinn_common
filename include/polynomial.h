@@ -16,7 +16,6 @@
  */
 
 /*! \file
- *
  *  \brief Fast polynomial evaluation, using ARM DSP instructions.
  *
  *    Each function takes three arguments: the polynomial coefficients,
@@ -25,11 +24,11 @@
  *
  *    Assume that we have (note the "reverse order"):
  *
- *       int a [] = { a_4, a_3, a_2, a_1, a_0 };
+ *        int a [] = { a_4, a_3, a_2, a_1, a_0 };
  *
  *    This represents the function:
  *
- *       a_0 + x * (a_1 + x * (a_2 + x * (a_3 + x * a_4)))
+ *        a_0 + x * (a_1 + x * (a_2 + x * (a_3 + x * a_4)))
  *
  *    To use the fast DSP instructions we use an "odd" representation
  *    of x: s0.16. If we are using the usual s0.15 fract type, then
@@ -45,7 +44,7 @@
  *  \author Dave Lester (david.r.lester@manchester.ac.uk)
  *
  *  \copyright
- *    Copyright (c) Dave Lester and The University of Manchester, 2014.
+ *    &copy; Dave Lester and The University of Manchester, 2014.
  *    All rights reserved.
  *    SpiNNaker Project
  *    Advanced Processor Technologies Group
@@ -54,16 +53,6 @@
  *    Manchester M13 9PL, UK
  *
  *  \date 13 December, 2014
- *
- *  DETAILS
- *    Created on       : 13 December 2014
- *    Version          : $Revision$
- *    Last modified on : $Date$
- *    Last modified by : $Author$
- *    $Id$
- *
- *    $Log$
- *
  */
 
 #ifndef __POLYNOMIAL_H__
@@ -73,15 +62,15 @@
 #include "assert.h"
 
 //! \brief Horner evaluation of a polynomial of signed accum at
-//! a point given by the lower (signed) 16-bits of x.
-//! \param[in] a The 32-bit signed polynomial coefficients. These can
-//! be treated as either accum or long fract (or any other signed 32-bit
-//! quantity).
-//! \param[in] x The point at which the polynomial is to be evaluated
-//! is given by treating the lower 16-bits of the argument as s0.16.
-//! Note this is not a fract (s0.15), thus, if we are using a fract here,
-//! we must treat the fract value of -1.0 as if it were only -0.5.
-//! \param[in] n The number of coefficients in the polynomial.
+//!     a point given by the lower (signed) 16-bits of x.
+//! \param[in] a: The 32-bit signed polynomial coefficients. These can
+//!     be treated as either accum or long fract (or any other signed 32-bit
+//!     quantity).
+//! \param[in] x: The point at which the polynomial is to be evaluated
+//!     is given by treating the lower 16-bits of the argument as s0.16.
+//!     Note this is _not_ a fract (s0.15), thus, if we are using a fract here,
+//!     we must treat the fract value of -1.0 as if it were only -0.5.
+//! \param[in] n: The number of coefficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 static inline int __horner_int_b(
 	int *a,
@@ -109,15 +98,15 @@ static inline int __horner_int_b(
 }
 
 //! \brief Horner evaluation of a polynomial of signed accum at
-//! a point given by the upper (signed) 16-bits of x.
-//! \param[in] a The 32-bit signed polynomial coefficients. These can
-//! be treated as either accum or long fract (or any other signed 32-bit
-//! quantity.
-//! \param[in] x The point at which the polynomial is to be evaluated
-//! is given by treating the upper 16-bits of the argument as s0.16.
-//! Note this is not a fract (s0.15), thus, if we are using a fract here,
-//! we must treat the fract value of -1.0 as if it were only -0.5.
-//! \param[in] n The number of coefficients in the polynomial.
+//!     a point given by the upper (signed) 16-bits of x.
+//! \param[in] a: The 32-bit signed polynomial coefficients. These can
+//!     be treated as either accum or long fract (or any other signed 32-bit
+//!     quantity.
+//! \param[in] x: The point at which the polynomial is to be evaluated
+//!     is given by treating the upper 16-bits of the argument as s0.16.
+//!     Note this is _not_ a fract (s0.15), thus, if we are using a fract here,
+//!     we must treat the fract value of -1.0 as if it were only -0.5.
+//! \param[in] n: The number of coefficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 static inline int __horner_int_t(
 	int *a,

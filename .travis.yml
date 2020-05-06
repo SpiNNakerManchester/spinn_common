@@ -25,6 +25,12 @@ addons:
       - libnewlib-arm-none-eabi
       - openjdk-8-jre-headless
       - ant
+      - doxygen
+jobs:
+  include:
+    - name: Build
+      env:
+        - DEPLOY_DIR=$PWD/html
 
 before_install:
   - git clone https://github.com/SpiNNakerManchester/SupportScripts.git support
@@ -45,3 +51,15 @@ script:
   - support/run-vera.sh src
   # Copyright check
   - support/rat.sh run
+
+deploy:
+  - provider: pages
+    skip_cleanup: true
+    keep_history: true
+    # Inject magic environment variable from Travis Job Configuration page
+    token: $GITHUB_TOKEN
+    local_dir: $DEPLOY_DIR
+    on:
+      # Only enable deployment of any branch if we actually have supplied a token
+      # Which branches to deploy is then controlled through Travis config page
+      condition: -n "$GITHUB_TOKEN"

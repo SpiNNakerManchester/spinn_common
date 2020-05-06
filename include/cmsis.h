@@ -17,7 +17,7 @@
 
 //! \file cmsis.h
 //! \brief These built-in functions are available for the ARM family
-//! of processors (CMSIS)
+//!     of processors (CMSIS)
 
 #ifndef __CMSIS_H__
 #define __CMSIS_H__
@@ -25,8 +25,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+//! Saturation flag bit in control register
 #define __ARM_Q_FLAG 27
 
+//! \brief Get the control register
+//! \return the current value of the control register
 static inline uint32_t __get_CONTROL(void)
 {
     uint32_t r;
@@ -35,6 +38,8 @@ static inline uint32_t __get_CONTROL(void)
     return r;
 }
 
+//! \brief Set the control register
+//! \param[in] r: The value to set
 static inline void __set_CONTROL(
 	uint32_t r)
 {

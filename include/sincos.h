@@ -15,12 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//! \file
+//! \brief Trigonometric functions for fixed point
+
 #ifndef __SINCOS_H__
 #define __SINCOS_H__
 
 #include <stdfix.h>
 
+//! \brief This function calculates the sin function for the accum type (s16.15).
+//! \param[in] x: is positive value represented as an accum.
+//! \return A value representing sin(x) in accum format.
 accum    sink(accum x);
+//! \brief This function calculates the cos function for the accum type (s16.15).
+//! \param[in] x: is positive value represented as an accum.
+//! \return A value representing cos(x) in accum format.
 accum    cosk(accum x);
 
 #endif /*__SINCOS_H__*/

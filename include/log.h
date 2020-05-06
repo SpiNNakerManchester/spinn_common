@@ -15,6 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//! \file
+//! \brief Logarithm functions for fixed point
+
 #ifndef __LOG_H__
 #define __LOG_H__
 

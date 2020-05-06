@@ -15,17 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
-    This file complements stdfix-full-iso.h to add various rounding routines
-    and mixed-format fixed-point multiplication routines.
-
-    Note that GCC currenly does not implement rounding on such operations like
-    fixed-point multiplication and conversion (e.g. decimal to fixed-point).
-    Some more background in https://arxiv.org/abs/1904.11263
-
-    Author: mantas.mikaitis@manchester.ac.uk, 2019 August.
-
+/*! \file
+ * \brief Fixed-point multiplication with controlled rounding
+ *
+ * This file complements stdfix-full-iso.h to add various rounding routines
+ * and mixed-format fixed-point multiplication routines.
+ *
+ * Note that GCC currently does not implement rounding on such operations like
+ * fixed-point multiplication and conversion (e.g. decimal to fixed-point).
+ * Some more background in https://arxiv.org/abs/1904.11263
+ *
+ * \author mantas.mikaitis@manchester.ac.uk
+ * \date 2019 August.
  */
+
+#ifndef __ROUND_H__
+#define __ROUND_H__
 
 #include <stdfix-full-iso.h>
 #include <random.h>
@@ -34,24 +39,21 @@
 
 #include <stdfix.h>
 
-#ifndef _ROUND_
-#define _ROUND_
-
-// Choose random number generator that is used for the multiplications with
-// stochastic rounding
+//! Choose random number generator that is used for the multiplications with
+//! stochastic rounding
 //#define RANDOM() mars_kiss64_simp()
 //#define RANDOM() mars_kiss32()
 #define RANDOM() sark_rand()
 //#define RANDOM() cheap_generator ()
 
-// Choose rounding mode of all multiplications
+//! The rounding mode of all multiplications
 #ifdef FLOATING_POINT
-	#define ROUNDING_NONE_GCC
+#define ROUNDING_NONE_GCC
 #else
-    //#define ROUNDING_NONE_GCC
-	//#define ROUNDING_NONE_CUSTOM
-	//#define ROUNDING_NEAREST
-	#define ROUNDING_STOCHASTIC
+//#define ROUNDING_NONE_GCC
+//#define ROUNDING_NONE_CUSTOM
+//#define ROUNDING_NEAREST
+#define ROUNDING_STOCHASTIC
 #endif
 
 // Set up various multiplication macros depending on the rounding method
@@ -62,30 +64,35 @@
 // FX_MUL_FRACT32 return a signed long fract and FX_MUL_FRACT16 return
 // a signed fract.
 #ifdef ROUNDING_NONE_GCC
-	#define FX_MUL( x, y ) MULT_NO_ROUND_GCC( x, y )
-	#define FX_MUL_SHORT_ACCUM(x, y) MULT_NO_ROUND_GCC( x, y)
-	#define FX_MUL_FRACT32( x, y ) MULT_NO_ROUND_GCC( x, y )
-	#define FX_MUL_FRACT16( x, y ) MULT_NO_ROUND_GCC( x, y )
+    #define FX_MUL( x, y ) MULT_NO_ROUND_GCC( x, y )
+    #define FX_MUL_SHORT_ACCUM(x, y) MULT_NO_ROUND_GCC( x, y)
+    #define FX_MUL_FRACT32( x, y ) MULT_NO_ROUND_GCC( x, y )
+    #define FX_MUL_FRACT16( x, y ) MULT_NO_ROUND_GCC( x, y )
 #elif defined ROUNDING_NONE_CUSTOM
-	#define FX_MUL( x, y ) MULT_NO_ROUND_CUSTOM_ACCUM( x, y )
-	#define FX_MUL_SHORT_ACCUM( x, y ) MULT_NO_ROUND_CUSTOM_SHORT_ACCUM( x, y )
-	#define FX_MUL_FRACT32( x, y ) MULT_NO_ROUND_CUSTOM_FRACT32( x, y )
-	#define FX_MUL_FRACT16( x, y ) MULT_NO_ROUND_CUSTOM_FRACT16( x, y )
+    #define FX_MUL( x, y ) MULT_NO_ROUND_CUSTOM_ACCUM( x, y )
+    #define FX_MUL_SHORT_ACCUM( x, y ) MULT_NO_ROUND_CUSTOM_SHORT_ACCUM( x, y )
+    #define FX_MUL_FRACT32( x, y ) MULT_NO_ROUND_CUSTOM_FRACT32( x, y )
+    #define FX_MUL_FRACT16( x, y ) MULT_NO_ROUND_CUSTOM_FRACT16( x, y )
 #elif defined ROUNDING_NEAREST
-	#define FX_MUL( x, y ) MULT_ROUND_NEAREST_ACCUM( x, y )
-	#define FX_MUL_SHORT_ACCUM( x, y ) MULT_ROUND_NEAREST_SHORT_ACCUM( x, y )
-	#define FX_MUL_FRACT32( x, y ) MULT_ROUND_NEAREST_FRACT32( x, y )
-	#define FX_MUL_FRACT16( x, y ) MULT_ROUND_NEAREST_FRACT16( x, y )
+    #define FX_MUL( x, y ) MULT_ROUND_NEAREST_ACCUM( x, y )
+    #define FX_MUL_SHORT_ACCUM( x, y ) MULT_ROUND_NEAREST_SHORT_ACCUM( x, y )
+    #define FX_MUL_FRACT32( x, y ) MULT_ROUND_NEAREST_FRACT32( x, y )
+    #define FX_MUL_FRACT16( x, y ) MULT_ROUND_NEAREST_FRACT16( x, y )
 #elif defined ROUNDING_STOCHASTIC
-	#define FX_MUL( x, y ) MULT_ROUND_STOCHASTIC_ACCUM( x, y )
-	#define FX_MUL_SHORT_ACCUM( x, y ) MULT_ROUND_STOCHASTIC_SHORT_ACCUM(x, y)
-	#define FX_MUL_FRACT32( x, y ) MULT_ROUND_STOCHASTIC_FRACT32( x, y )
-	#define FX_MUL_FRACT16( x, y ) MULT_ROUND_STOCHASTIC_FRACT16( x, y )
+    //! Multiply two `accum` values with rounding
+    #define FX_MUL( x, y ) MULT_ROUND_STOCHASTIC_ACCUM( x, y )
+    //! Multiply two `short accum` values with rounding
+    #define FX_MUL_SHORT_ACCUM( x, y ) MULT_ROUND_STOCHASTIC_SHORT_ACCUM(x, y)
+    //! Multiply two `fract` values with rounding
+    #define FX_MUL_FRACT32( x, y ) MULT_ROUND_STOCHASTIC_FRACT32( x, y )
+    //! Multiply two `short fract` values with rounding
+    #define FX_MUL_FRACT16( x, y ) MULT_ROUND_STOCHASTIC_FRACT16( x, y )
 #endif
 
 // The following macros choose a correct multiplication function depending on
 // the types of arguments.
 
+//! Multiply with whatever the compiler deigns to pick for us
 #define MULT_NO_ROUND_GCC(x, y) ( (x) * (y) )
 
 #define MULT_NO_ROUND_CUSTOM_ACCUM(x, y)									\
@@ -361,32 +368,32 @@
     result;																	\
     })
 
-// Round a signed 64-bit number stochastically to a given number of bits and
-// return a 32-bit integer.
+//! Round a signed 64-bit number stochastically to a given number of bits and
+//! return a 32-bit integer.
 #define STOCHASTIC_ROUND_S64(x, n)  __stdfix_sat_k(							\
 	(__stdfix_stochastic_round_s64_alternative(x, n) >> n))
 
-// Round an unsigned 64-bit number stochastically to a given number of bits and
-// return a 32-bit integer.
+//! Round an unsigned 64-bit number stochastically to a given number of bits and
+//! return a 32-bit integer.
 #define STOCHASTIC_ROUND_U64(x, n) __stdfix_sat_uk(							\
     (__stdfix_stochastic_round_u64(x, n) >> n))
 
-// Round a signed 64-bit number to a nearest given number of bits and
-// return a 32-bit integer.
+//! Round a signed 64-bit number to a nearest given number of bits and
+//! return a 32-bit integer.
 #define NEAREST_ROUND_S64(x, n)  __stdfix_sat_k(							\
 	(__stdfix_round_s64(x, n) >> n))
 
-// Round an unsigned 64-bit number to a nearest given number of bits and
-// return a 32-bit integer.
+//! Round an unsigned 64-bit number to a nearest given number of bits and
+//! return a 32-bit integer.
 #define NEAREST_ROUND_U64(x, n)  __stdfix_sat_k(							\
 	(__stdfix_round_u64(x, n) >> n))
 
-// Round a 64-bit number down on a given number of bits and
-// return a 32-bit integer.
+//! Round a 64-bit number down on a given number of bits and
+//! return a 32-bit integer.
 #define ROUND_DOWN_S64(x, n) __stdfix_sat_k((x >> n))
 
 
-// Cheap PRNG from "Numerical Recipes in C", page 284.
+//! Cheap PRNG from "Numerical Recipes in C", page 284.
 static inline uint32_t cheap_generator () {
 	static unsigned long idum;
 	idum = 1664525L*idum + 1013904223L;
@@ -397,11 +404,12 @@ static inline uint32_t cheap_generator () {
 /*
 
   Stochastic rounding routines. Inputs are signed/unsigned integers of
-  variuos lengths and the number of bits to round. The output is the rounded
+  various lengths and the number of bits to round. The output is the rounded
   integer number.
 
 */
 
+//! Stochastic rounding: signed 64-bit
 static int64_t __stdfix_stochastic_round_s64(
 	int64_t x,
 	int n)
@@ -420,7 +428,7 @@ static int64_t __stdfix_stochastic_round_s64(
     }
 }
 
-// Alternative algorithm of the above.
+//! Alternative algorithm for __stdfix_stochastic_round_s64().
 static int64_t __stdfix_stochastic_round_s64_alternative(
     int64_t x,
     int n)
@@ -433,6 +441,7 @@ static int64_t __stdfix_stochastic_round_s64_alternative(
     return r;
 }
 
+//! Stochastic rounding: signed 32-bit
 static inline int32_t __stdfix_stochastic_round_s32(
 	int32_t x,
 	int n)
@@ -451,6 +460,7 @@ static inline int32_t __stdfix_stochastic_round_s32(
 	}
 }
 
+//! Stochastic rounding: signed 16-bit
 static inline int16_t __stdfix_stochastic_round_s16(
 	int16_t x,
 	int n)
@@ -469,6 +479,7 @@ static inline int16_t __stdfix_stochastic_round_s16(
     }
 }
 
+//! Stochastic rounding: unsigned 64-bit
 static inline uint64_t __stdfix_stochastic_round_u64(
 	uint64_t x,
 	int n)
@@ -487,6 +498,7 @@ static inline uint64_t __stdfix_stochastic_round_u64(
     }
 }
 
+//! Stochastic rounding: unsigned 32-bit
 static inline uint32_t __stdfix_stochastic_round_u32(
 	uint32_t x,
 	int n)
@@ -505,6 +517,7 @@ static inline uint32_t __stdfix_stochastic_round_u32(
 	}
 }
 
+//! Stochastic rounding: unsigned 16-bit
 static inline uint16_t __stdfix_stochastic_round_u16(
 	uint16_t x,
 	int n)
@@ -529,8 +542,8 @@ static inline uint16_t __stdfix_stochastic_round_u16(
 
 */
 
-// Multiply two integer representations of accum and return an integer
-// representation of an accum answer, rounded to nearest accum.
+//! Multiply two integer representations of accum and return an integer
+//! representation of an accum answer, rounded to nearest accum.
 static inline int32_t __stdfix_smul_k_round_nearest(
     int32_t x,
     int32_t y)
@@ -543,9 +556,9 @@ static inline int32_t __stdfix_smul_k_round_nearest(
 		(__I64(x) * __I64(y)), 15) >> 15);
 }
 
-// Multiply two integer representations of accum and return an integer
-// representation of an accum answer, rounded to a neighbouring accum
-// stochastically.
+//! Multiply two integer representations of accum and return an integer
+//! representation of an accum answer, rounded to a neighbouring accum
+//! stochastically.
 static inline int32_t __stdfix_smul_k_round_stochastic(
     int32_t x,
     int32_t y)
@@ -558,9 +571,9 @@ static inline int32_t __stdfix_smul_k_round_stochastic(
         __stdfix_stochastic_round_s64((__I64(x) * __I64(y)), 15) >> 15);
 }
 
-// Multiply two integer representations of unsigned long fract and return an
-// integer representation of a signed long fract answer, rounded to nearest
-// accum.
+//! Multiply two integer representations of unsigned long fract and return an
+//! integer representation of a signed long fract answer, rounded to nearest
+//! accum.
 static inline uint32_t __stdfix_smul_ulr_round_nearest(
     uint32_t x,
     uint32_t y)
@@ -570,9 +583,9 @@ static inline uint32_t __stdfix_smul_ulr_round_nearest(
 		(__U64(x) * __U64(y)), 33) >> 33);
 }
 
-// Multiply two integer representations of unsigned long fract and return an
-// integer representation of a signed long fract answer, rounded to a
-// neighbouring signed long fract stochastically.
+//! Multiply two integer representations of unsigned long fract and return an
+//! integer representation of a signed long fract answer, rounded to a
+//! neighbouring signed long fract stochastically.
 static inline uint32_t __stdfix_smul_ulr_round_stochastic(
     uint32_t x,
     uint32_t y)
@@ -590,9 +603,9 @@ static inline uint32_t __stdfix_smul_ulr_round_stochastic(
 
 */
 
-// Multiply two integer representations of short accum and return an
-// integer representation of a short accum answer, rounded to a nearest
-// short accum.
+//! Multiply two integer representations of short accum and return an
+//! integer representation of a short accum answer, rounded to a nearest
+//! short accum.
 static inline int32_t __stdfix_smul_hk_round_nearest(
     int32_t x,
     int32_t y)
@@ -604,9 +617,9 @@ static inline int32_t __stdfix_smul_hk_round_nearest(
     return __stdfix_sat_hk(__stdfix_round_s32((__I32(x) * __I32(y)), 7) >> 7);
 }
 
-// Multiply two integer representations of short accum and return an
-// integer representation of a short accum answer, rounded to a neighbouring
-// short accum stochastically.
+//! Multiply two integer representations of short accum and return an
+//! integer representation of a short accum answer, rounded to a neighbouring
+//! short accum stochastically.
 static inline int32_t __stdfix_smul_hk_round_stochastic(
     int32_t x,
     int32_t y)
@@ -619,9 +632,9 @@ static inline int32_t __stdfix_smul_hk_round_stochastic(
         __stdfix_stochastic_round_s32((__I32(x) * __I32(y)), 7) >> 7);
 }
 
-// Multiply two integer represetations of unsigned fract and return an
-// integer representation of a signed fract answer, rounded to a nearest
-// signed fract.
+//! Multiply two integer represetations of unsigned fract and return an
+//! integer representation of a signed fract answer, rounded to a nearest
+//! signed fract.
 static inline uint32_t __stdfix_smul_ur_round_nearest(
 	uint32_t x,
 	uint32_t y)
@@ -630,9 +643,9 @@ static inline uint32_t __stdfix_smul_ur_round_nearest(
 		__stdfix_round_u32((__U32(x) * __U32(y)), 17) >> 17);
 }
 
-// Multiply two integer represetations of unsigned fract and return an
-// integer representation of a signed fract answer, rounded to a neighbouring
-// signed fract stochastically.
+//! Multiply two integer represetations of unsigned fract and return an
+//! integer representation of a signed fract answer, rounded to a neighbouring
+//! signed fract stochastically.
 static inline uint32_t __stdfix_smul_ur_round_stochastic(
 	uint32_t x,
 	uint32_t y)
@@ -650,8 +663,8 @@ static inline uint32_t __stdfix_smul_ur_round_stochastic(
   conventions to be consistent with the functions above and in stdfix-full-iso.
 */
 
-// Multiply an accum and a signed long fract and return an accum answer,
-// without rounding.
+//! Multiply an accum and a signed long fract and return an accum answer,
+//! without rounding.
 static inline accum accum_times_long_fract ( accum x, long fract y )
 {
     register int64_t r;
@@ -661,8 +674,8 @@ static inline accum accum_times_long_fract ( accum x, long fract y )
     return (kbits (((int32_t)(r >> 31))));
 }
 
-// Multiply an accum and a signed long fract and return an accum answer rounded
-// to the nearest accum.
+//! Multiply an accum and a signed long fract and return an accum answer rounded
+//! to the nearest accum.
 static inline accum accum_times_long_fract_nearest ( accum x, long fract y )
 {
     register int64_t r;
@@ -672,8 +685,8 @@ static inline accum accum_times_long_fract_nearest ( accum x, long fract y )
     return (kbits (((int32_t)(r >> 31) + ((int32_t)(r >> 30) & 1))));
 }
 
-// Multiply accum and a signed long fract and return an accum answer rounded
-// to a neighbouring accum stochastically.
+//! Multiply accum and a signed long fract and return an accum answer rounded
+//! to a neighbouring accum stochastically.
 static inline accum accum_times_long_fract_stochastic ( accum x, long fract y )
 {
     register int64_t r;
@@ -684,8 +697,8 @@ static inline accum accum_times_long_fract_stochastic ( accum x, long fract y )
     return (kbits (((int32_t)(r >> 31))));
 }
 
-// Multiply accum and an unsigned long fract and return an accum answer,
-// without rounding.
+//! Multiply accum and an unsigned long fract and return an accum answer,
+//! without rounding.
 static inline accum accum_times_u_long_fract ( accum x, unsigned long fract y )
 {
     register int64_t r;
@@ -695,8 +708,8 @@ static inline accum accum_times_u_long_fract ( accum x, unsigned long fract y )
     return (kbits (((int32_t)(r >> 32))));
 }
 
-// Multiply accum and an unsigned long fract and return an accum answer rounded
-// to the nearest accum.
+//! Multiply accum and an unsigned long fract and return an accum answer rounded
+//! to the nearest accum.
 static inline accum accum_times_u_long_fract_nearest (
 		accum x, unsigned long fract y )
 {
@@ -707,8 +720,8 @@ static inline accum accum_times_u_long_fract_nearest (
     return (kbits (((int32_t)(r >> 32) + ((int32_t)(r >> 31) & 1))));
 }
 
-// Multiply accum and an unsigned long fract and return an accum answer rounded
-// to a neighbouring accum stochastically.
+//! Multiply accum and an unsigned long fract and return an accum answer rounded
+//! to a neighbouring accum stochastically.
 static inline accum accum_times_u_long_fract_stochastic (
 		accum x, unsigned long fract y )
 {
@@ -720,8 +733,8 @@ static inline accum accum_times_u_long_fract_stochastic (
     return (kbits (((int32_t)(r >> 32))));
 }
 
-// Multiply a signed long fract and an unsigned long fract and return a signed
-// long fract answer, without rounding.
+//! Multiply a signed long fract and an unsigned long fract and return a signed
+//! long fract answer, without rounding.
 static inline long fract long_fract_times_u_long_fract (
 		long fract x, unsigned long fract y )
 {
@@ -732,8 +745,8 @@ static inline long fract long_fract_times_u_long_fract (
     return (lrbits (((int32_t)(r >> 32))));
 }
 
-// Multiply a signed long fract and an unsigned long fract and return a signed
-// long fract answer rounded to the nearest signed long fract.
+//! Multiply a signed long fract and an unsigned long fract and return a signed
+//! long fract answer rounded to the nearest signed long fract.
 static inline long fract long_fract_times_u_long_fract_nearest (
 		long fract x, unsigned long fract y )
 {
@@ -744,8 +757,8 @@ static inline long fract long_fract_times_u_long_fract_nearest (
     return (lrbits (((int32_t)(r >> 32) + ((int32_t)(r >> 31) & 1))));
 }
 
-// Multiply a signed long fract and an unsigned long fract and return a signed
-// long fract answer rounded to a signed long fract stochastically.
+//! Multiply a signed long fract and an unsigned long fract and return a signed
+//! long fract answer rounded to a signed long fract stochastically.
 static inline long fract long_fract_times_u_long_fract_stochastic (
 		long fract x, unsigned long fract y )
 {
@@ -763,7 +776,7 @@ static inline long fract long_fract_times_u_long_fract_stochastic (
 
 */
 
-// Multiply two short accums and return a short accum answer without rounding.
+//! Multiply two short accums and return a short accum answer without rounding.
 static inline short accum short_accum_times_fract ( short accum x, fract y )
 {
     register int32_t r;
@@ -773,8 +786,8 @@ static inline short accum short_accum_times_fract ( short accum x, fract y )
     return (hkbits (((int32_t)(r >> 15))));
 }
 
-// Multiply two short accums and return a short accum answer rounded to the
-// nearest short accum.
+//! Multiply two short accums and return a short accum answer rounded to the
+//! nearest short accum.
 static inline short accum short_accum_times_fract_nearest (
 		short accum x, fract y )
 {
@@ -785,8 +798,8 @@ static inline short accum short_accum_times_fract_nearest (
     return (hkbits (((int32_t)(r >> 15) + ((int32_t)(r >> 14) & 1))));
 }
 
-// Multiply two short accums and return a short accum answer rounded to
-// a neighbouring short accum stochastically.
+//! Multiply two short accums and return a short accum answer rounded to
+//! a neighbouring short accum stochastically.
 static inline short accum short_accum_times_fract_stochastic (
 		short accum x, fract y )
 {
@@ -798,8 +811,8 @@ static inline short accum short_accum_times_fract_stochastic (
     return (hkbits (((int32_t)(r >> 15))));
 }
 
-// Multiply a short accum and an unsigned fract and return a short accum answer
-// without rounding.
+//! Multiply a short accum and an unsigned fract and return a short accum answer
+//! without rounding.
 static inline short accum short_accum_times_u_fract (
 		short accum x, unsigned fract y )
 {
@@ -810,8 +823,8 @@ static inline short accum short_accum_times_u_fract (
     return (hkbits (((int32_t)(r >> 16))));
 }
 
-// Multiply a short accum and an unsigned fract and return a short accum answer
-// rounded to the nearest short accum.
+//! Multiply a short accum and an unsigned fract and return a short accum answer
+//! rounded to the nearest short accum.
 static inline short accum short_accum_times_u_fract_nearest (
 		short accum x, unsigned fract y )
 {
@@ -822,8 +835,8 @@ static inline short accum short_accum_times_u_fract_nearest (
     return (hkbits (((int32_t)(r >> 16) + ((int32_t)(r >> 15) & 1))));
 }
 
-// Multiply a short accum and an unsigned fract and return a short accum answer
-// rounded to a neighbouring short accum stochastically.
+//! Multiply a short accum and an unsigned fract and return a short accum answer
+//! rounded to a neighbouring short accum stochastically.
 static inline short accum short_accum_times_u_fract_stochastic (
 		short accum x, unsigned fract y )
 {
@@ -835,8 +848,8 @@ static inline short accum short_accum_times_u_fract_stochastic (
     return (hkbits (((int32_t)(r >> 16))));
 }
 
-// Multiply an unsigned fract and a signed fract and return a signed fract
-// answer without rounding.
+//! Multiply an unsigned fract and a signed fract and return a signed fract
+//! answer without rounding.
 static inline fract fract_times_u_fract ( fract x, unsigned fract y )
 {
     register int32_t r;
@@ -846,8 +859,8 @@ static inline fract fract_times_u_fract ( fract x, unsigned fract y )
     return (rbits (((int32_t)(r >> 16))));
 }
 
-// Multiply an unsigned fract and a signed fract and return a signed fract
-// answer rounded to a nearest signed fract.
+//! Multiply an unsigned fract and a signed fract and return a signed fract
+//! answer rounded to a nearest signed fract.
 static inline fract fract_times_u_fract_nearest ( fract x, unsigned fract y )
 {
     register int32_t r;
@@ -857,8 +870,8 @@ static inline fract fract_times_u_fract_nearest ( fract x, unsigned fract y )
     return (rbits (((int32_t)(r >> 16) + ((int32_t)(r >> 15) & 1))));
 }
 
-// Multiply an unsigned fract and a signed fract and return a signed fract
-// answer without rounding.
+//! Multiply an unsigned fract and a signed fract and return a signed fract
+//! answer without rounding.
 static inline fract fract_times_u_fract_stochastic (
 		fract x, unsigned fract y )
 {

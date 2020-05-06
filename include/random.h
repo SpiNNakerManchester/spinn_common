@@ -64,9 +64,8 @@
 */
 
 //! \brief Marsaglia 32-bit KISS generator using no multiplication
-//! instructions.
+//!     instructions.
 //! \return A pseudo-random unsigned 32-bit integer.
-
 uint32_t mars_kiss32(void);
 
 /*
@@ -92,11 +91,11 @@ uint32_t mars_kiss64_simp(void);
    294.9 nanosecs (i.e. 59 ticks) per call
 */
 
-// The initialiser function that MUST BE CALLED ONCE before WELLRNG1024a()
-// is used global WELL1024a seed is randomised each time it is called
+//! The initialiser function that MUST BE CALLED ONCE before WELLRNG1024a()
+//! is used global WELL1024a seed is randomised each time it is called
 void init_WELL1024a_simp(void);
 
-// the generator itself
+//! the generator itself
 uint32_t WELL1024a_simp(void);
 
 //////////////////////////////
@@ -106,17 +105,17 @@ uint32_t WELL1024a_simp(void);
 //! \brief Seed type for the Marsaglia KISS 64 RNG
 typedef uint32_t mars_kiss64_seed_t[4];
 
-// MUST USE THIS before working with proposed seed
+//! **MUST USE THIS** before working with proposed seed
 void validate_mars_kiss64_seed(mars_kiss64_seed_t seed);
 
-// the Marsaglia KISS 64 RNG with custom seed
+//! the Marsaglia KISS 64 RNG with custom seed
 uint32_t mars_kiss64_seed(mars_kiss64_seed_t seed);
 
 //! \brief Seed type for the L'Ecuyer WELL 1024a RNG.
 //! The 33rd element is the static variable used in simple version.
 typedef uint32_t WELL1024a_seed_t[33];
 
-// MUST USE THIS before working with proposed seed
+//! **MUST USE THIS** before working with proposed seed
 void validate_WELL1024a_seed(WELL1024a_seed_t seed);
 
 //! \brief The WELL 1024a RNG with custom seed.
@@ -130,7 +129,7 @@ uint32_t WELL1024a_seed(WELL1024a_seed_t seed);
 	fixed-point transcendentals and optimised multiplies become available
 
 ****************************************************/
-/*
+/*!
   Interface to a generic uniform random number generator is defined as follows
 
     - for a simple type call as ( rng_type, NULL, .. )
@@ -143,23 +142,23 @@ uint32_t WELL1024a_seed(WELL1024a_seed_t seed);
 
 typedef uint32_t (*uniform_rng)(uint32_t*);
 
-/*
+/*!
  * Von Neuman's Exponential distribution generator
  */
 accum exponential_dist_variate(uniform_rng uni_rng, uint32_t* seed_arg);
 
-// Returns standard Gaussian deviate
-// translation of NR in C version of Box-Muller
+//! Returns standard Gaussian deviate
+//! translation of NR in C version of Box-Muller
 accum gaussian_dist_variate(uniform_rng uni_rng, uint32_t* seed_arg);
 
-// Returns Poisson variate using Knuth's method
-// O(n) for returned value so don't use for large lambda
+//! Returns Poisson variate using Knuth's method
+//! O(n) for returned value so don't use for large lambda
 uint32_t poisson_dist_variate(
 	uniform_rng uni_rng,
 	uint32_t*   seed_arg,
 	accum       lambda);
 
-// Use this version for Poisson with pre-calculated exp(-lambda) for speed gain
+//! Use this version for Poisson with pre-calculated exp(-lambda) for speed gain
 uint32_t poisson_dist_variate_exp_minus_lambda(
 	uniform_rng         uni_rng,
 	uint32_t*           seed_arg,

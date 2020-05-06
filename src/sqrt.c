@@ -47,8 +47,12 @@
 #include "arm_acle.h"
 #include "arm.h"
 
+#ifndef NO_INLINE
 #define NO_INLINE	__attribute__((noinline))
+#endif
+#ifndef UNIMPLEMENTED
 #define UNIMPLEMENTED	__attribute__((deprecated("Not implemented")))
+#endif
 
 #define __SQRT_HALF	UINT32_C(3037000500)
 

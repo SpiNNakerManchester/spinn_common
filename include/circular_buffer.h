@@ -15,21 +15,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//! \file
+//! \brief Fast circular buffer
 #ifndef _CIRCULAR_BUFFER_H_
 #define _CIRCULAR_BUFFER_H_
 
 #include <stdint.h>
 #include <stdbool.h>
 
+//! Implementation of a circular buffer
 typedef struct _circular_buffer {
+    //! The size of the buffer. One less than a power of two.
     uint32_t buffer_size;
+    //! The index of the next position in the buffer to read from
     uint32_t output;
+    //! The index of the next position in the buffer to write to
     uint32_t input;
+    //! The number of times an insertion has failed due to the buffer being
+    //! full
     uint32_t overflows;
+    //! The buffer itself
     uint32_t buffer[];
-} _circular_buffer, *circular_buffer;
+} _circular_buffer;
+//! The public interface type is a pointer to the implementation
+typedef _circular_buffer *circular_buffer;
 
-// Returns the index of the next position in the buffer from the given value
+//! Returns the index of the next position in the buffer from the given value
 static inline uint32_t _circular_buffer_next(
         circular_buffer buffer,
 	uint32_t current)
@@ -37,14 +48,14 @@ static inline uint32_t _circular_buffer_next(
     return (current + 1) & buffer->buffer_size;
 }
 
-// Returns true if the buffer is not empty
+//! Returns true if the buffer is not empty
 static inline bool _circular_buffer_not_empty(
 	circular_buffer buffer)
 {
     return buffer->input != buffer->output;
 }
 
-// Returns true if the buffer is not full
+//! Returns true if the buffer is not full
 static inline bool _circular_buffer_not_full(
 	circular_buffer buffer)
 {
@@ -53,13 +64,13 @@ static inline bool _circular_buffer_not_full(
 
 //! \brief Creates a new FIFO circular buffer of at least the given size.  For
 //!        efficiency, the buffer can be bigger than requested
-//! \param[in] size The minimum number of elements in the buffer to be created
+//! \param[in] size: The minimum number of elements in the buffer to be created
 //! \return A struct representing the created buffer
 circular_buffer circular_buffer_initialize(uint32_t size);
 
 //! \brief Adds an item to an existing buffer
-//! \param[in] buffer The buffer struct to add to
-//! \param[in] item The item to add
+//! \param[in] buffer: The buffer struct to add to
+//! \param[in] item: The item to add
 //! \return True if the item was added, False if the buffer was full
 static inline bool circular_buffer_add(
 	circular_buffer buffer,
@@ -78,8 +89,8 @@ static inline bool circular_buffer_add(
 }
 
 //! \brief Get the next item from an existing buffer
-//! \param[in] buffer The buffer to get the next item from
-//! \param[out] item  A pointer to receive the next item
+//! \param[in] buffer: The buffer to get the next item from
+//! \param[out] item: A pointer to receive the next item
 //! \return True if an item was retrieved, False if the buffer was empty
 static inline bool circular_buffer_get_next(
 	circular_buffer buffer,
@@ -96,8 +107,8 @@ static inline bool circular_buffer_get_next(
 }
 
 //! \brief Advances the buffer if the next item is equal to the given value
-//! \param[in] buffer The buffer to advance
-//! \param[in] The item to check
+//! \param[in] buffer: The buffer to advance
+//! \param[in] item: The item to check
 //! \return True if the buffer was advanced, False otherwise
 static inline bool circular_buffer_advance_if_next_equals(
         circular_buffer buffer,
@@ -114,7 +125,7 @@ static inline bool circular_buffer_advance_if_next_equals(
 }
 
 //! \brief Gets the size of the buffer
-//! \param[in] buffer The buffer to get the size of
+//! \param[in] buffer: The buffer to get the size of
 //! \return The number of elements currently in the buffer
 static inline uint32_t circular_buffer_size(
 	circular_buffer buffer)
@@ -126,7 +137,7 @@ static inline uint32_t circular_buffer_size(
 
 //! \brief Gets the number of overflows that have occurred when adding to
 //!        the buffer
-//! \param[in] buffer The buffer to check for overflows
+//! \param[in] buffer: The buffer to check for overflows
 //! \return The number of times add was called and returned False
 static inline uint32_t circular_buffer_get_n_buffer_overflows(
 	circular_buffer buffer)
@@ -135,7 +146,7 @@ static inline uint32_t circular_buffer_get_n_buffer_overflows(
 }
 
 //! \brief clears the circular buffer
-//! \param[in] buffer The buffer to clear
+//! \param[in] buffer: The buffer to clear
 static inline void circular_buffer_clear(
 	circular_buffer buffer)
 {
@@ -144,31 +155,35 @@ static inline void circular_buffer_clear(
 }
 
 //! \brief Prints the contents of the buffer.
-//! Do not use if the sark IO_BUF is being used for binary data.
-//! \param[in] The buffer to print
+//! Do not use if the sark `IO_BUF` is being used for binary data.
+//! \param[in] buffer: The buffer to print
 void circular_buffer_print_buffer(circular_buffer buffer);
 
 //---------------------------------------
 // Synaptic rewiring support functions
 //---------------------------------------
+//! Get the input index
 static inline uint32_t circular_buffer_input(
 	circular_buffer buffer)
 {
     return buffer->input;
 }
 
+//! Get the output index
 static inline uint32_t circular_buffer_output(
 	circular_buffer buffer)
 {
     return buffer->output;
 }
 
+//! Get the buffer size
 static inline uint32_t circular_buffer_real_size(
 	circular_buffer buffer)
 {
     return buffer->buffer_size;
 }
 
+//! Get the buffer at a particular index
 static inline uint32_t circular_buffer_value_at_index(
 	circular_buffer buffer,
 	uint32_t index)

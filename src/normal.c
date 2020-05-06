@@ -15,14 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//! \file
+//! \brief Support code for random.h
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdfix.h>
 #include "stdfix-full-iso.h"
 #include "polynomial.h"
 
+#ifndef NO_INLINE
 #define NO_INLINE	__attribute__((noinline))
+#endif
 
+//! extreme values of the normal CDF
 static int32_t low_values[] = {
       229376,  // 7.0
       136628,  // 4.1695693238150016769941586303372689400327
@@ -131,12 +137,11 @@ static int polynomials[11][5] = {
                   0}  //
 };
 
-//! \brief Access to the tail approximation functions
-//! \param[in] approx The number of the approximation.
-//! \param[in] x The point at which the function is approximated.
+//! \brief Access to the tail approximation polynomial table evaluation
+//! \param[in] approx: The number of the approximation.
+//! \param[in] x: The point at which the function is approximated.
 //! \return ???
-
-int lo_approx(
+static int lo_approx(
 	unsigned int approx,
 	int x)
 {
@@ -151,12 +156,11 @@ int lo_approx(
     return r;
 }
 
-//! \brief Access to the central approximation functions
-//! \param[in] approx The number of the approximation.
-//! \param[in] x The point at which the function is approximated.
+//! \brief Access to the central approximation polynomial table evaluation
+//! \param[in] approx: The number of the approximation.
+//! \param[in] x: The point at which the function is approximated.
 //! \return ???
-
-int mid_approx(
+static int mid_approx(
 	unsigned int approx,
 	int x)
 {
@@ -171,14 +175,20 @@ int mid_approx(
 }
 
 #ifndef abs
+//! Absolute value
 #define abs(x)		(((x) < 0) ? -(x) : (x))
 #endif
 
 #ifndef negative
+//! Is-negative test
 #define negative(x)	((x) < 0)
 #endif
 
-int tail_approx(
+//! \brief Access to the tail approximation functions
+//! \param[in] approx: The number of the approximation.
+//! \param[in] p: The point at which the function is approximated.
+//! \return ???
+static int tail_approx(
 	unsigned int approx,
 	int p)
 {
@@ -193,7 +203,11 @@ int tail_approx(
     return r;
 }
 
-int central_approx(
+//! \brief Access to the central approximation functions
+//! \param[in] approx: The number of the approximation.
+//! \param[in] p: The point at which the function is approximated.
+//! \return ???
+static int central_approx(
 	unsigned int approx,
 	int p)
 {
@@ -221,11 +235,10 @@ int central_approx(
 }
 
 //! \brief Given an 16-bit signed integer value, representing p - 0.5,
-//! return the cumulative normal value associated with that probability.
-//! \param[in] x A 32-bit integer with s0.16 (not s0.15!!) representation.
+//!     return the cumulative normal value associated with that probability.
+//! \param[in] x: A 32-bit integer with s0.16 (not s0.15!!) representation.
 //! \return A 32-bit integer representing the cumulative normal distribution
-//! This is in s16.15 (i.e. standard accum) format.
-
+//!     This is in s16.15 (i.e. standard accum) format.
 int NO_INLINE __norminv_rbits(
 	int x)
 {

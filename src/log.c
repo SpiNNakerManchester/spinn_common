@@ -44,7 +44,9 @@
 #include "assert.h"
 #include "arm_acle.h"
 
+#ifndef NO_INLINE
 #define NO_INLINE	__attribute__((noinline))
+#endif
 
 // ck = 1 + k/64
 //

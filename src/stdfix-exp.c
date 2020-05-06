@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* stdfix-exp.c
+/*! \file stdfix-exp.c
  *
- *  SUMMARY
- *   An implementation of exponential for fixpoint accum
+ * \brief
+ *    An implementation of exponential for fixpoint accum
  *
- *  AUTHOR
+ * \author
  *    Dave Lester (david.r.lester@manchester.ac.uk)
  *
- *  COPYRIGHT
+ * \section COPYRIGHT
  *    Copyright (c) Dave Lester and The University of Manchester, 2013.
  *    All rights reserved.
  *    SpiNNaker Project
@@ -32,13 +32,12 @@
  *    The University of Manchester
  *    Manchester M13 9PL, UK
  *
- *  DESCRIPTION
+ * \section DESCRIPTION
  *
- *  CREATION DATE
+ * \section CREATION DATE
  *    20 February, 2014
  *
- *  HISTORY
- * *  DETAILS
+ * \section DETAILS
  *    Created on       : 20 February 2014
  *    Version          : $Revision$
  *    Last modified on : $Date$
@@ -52,7 +51,9 @@
 //#include "stdfix-exp-impl.h"
 //#include "debug.h"
 
+#ifndef NO_INLINE
 #define NO_INLINE	__attribute__((noinline))
+#endif
 
 // The following array has entry [n]
 static uint64_t __exp_hi[26] = {

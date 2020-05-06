@@ -15,6 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//! \file
+//! \brief Exponential functions for fixed point
+//! \author Dave Lester (david.r.lester@manchester.ac.uk)
+//! \copyright
+//!    &copy; Dave Lester and The University of Manchester, 2013.
+//!    All rights reserved. <br>
+//!    SpiNNaker Project <br>
+//!    Advanced Processor Technologies Group <br>
+//!    School of Computer Science <br>
+//!    The University of Manchester <br>
+//!    Manchester M13 9PL, UK
+//! \date 20 February, 2014
+
 /*
  * stdfix-exp.h
  *
@@ -61,8 +74,10 @@
 
 // stdfix-exp API
 
+//! \brief Fixed point exponential
 accum expk(accum x);
 
+//! \brief Exponential series, part of implementation of expk()
 uint32_t exp_series(uint32_t x);
 
 #endif /*__STDFIX_EXP_H__*/
