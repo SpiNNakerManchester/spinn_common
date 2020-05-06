@@ -75,9 +75,8 @@
 // stdfix-exp API
 
 //! \brief Fixed point exponential
+//! \param[in] x: Value to compute the exponential of.
+//! \return The best approximation to e<sup>\p x</sup> possible in an `accum`
 accum expk(accum x);
-
-//! \brief Exponential series, part of implementation of expk()
-uint32_t exp_series(uint32_t x);
 
 #endif /*__STDFIX_EXP_H__*/

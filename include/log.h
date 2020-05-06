@@ -24,6 +24,9 @@
 #include "stdfix-full-iso.h"
 #include "arm_acle.h"
 
+//! \brief Logarithm: `log(x)`
+//! \param[in] x: Value to compute the logarithm of
+//! \return The logarithm of \p x
 s1615 logk(s1615 x);
 
 #endif /*__LOG_H__*/
