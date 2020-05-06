@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['abort',['abort',['../assert_8h.html#ac8524c0729a978ab0eeaf92c318c30e0',1,'assert.h']]],
+  ['abs',['abs',['../normal_8c.html#a3aa069ac3980707dae1e0530f50d59e4',1,'normal.c']]],
+  ['absfx',['absfx',['../stdfix-full-iso_8h.html#a8cd37e2e4eb708dc79ba931dc24287ba',1,'stdfix-full-iso.h']]],
+  ['abshk',['abshk',['../stdfix-full-iso_8h.html#a7e653b7aa314b5e3c1f030a68c477bec',1,'stdfix-full-iso.h']]],
+  ['abshr',['abshr',['../stdfix-full-iso_8h.html#afbb218363bd188cb122a560d91e885f1',1,'stdfix-full-iso.h']]],
+  ['absk',['absk',['../stdfix-full-iso_8h.html#a759b79056304d1ee7b8d2d526bd69d04',1,'stdfix-full-iso.h']]],
+  ['abslk',['abslk',['../stdfix-full-iso_8h.html#a7ca1d6277c124953afd1f5ca4b8a6097',1,'stdfix-full-iso.h']]],
+  ['abslr',['abslr',['../stdfix-full-iso_8h.html#aa1a3a3da26b36bc6b0e85e227f355baf',1,'stdfix-full-iso.h']]],
+  ['absr',['absr',['../stdfix-full-iso_8h.html#ad8b6efdd5f3b9fcbc0b1aa51ee7a6e4b',1,'stdfix-full-iso.h']]],
+  ['accum_5ftimes_5flong_5ffract',['accum_times_long_fract',['../round_8h.html#aadebfcde4763dff1ca127e6deabedb27',1,'round.h']]],
+  ['accum_5ftimes_5flong_5ffract_5fnearest',['accum_times_long_fract_nearest',['../round_8h.html#ae268ec0025e41770602ea4e30feb44bb',1,'round.h']]],
+  ['accum_5ftimes_5flong_5ffract_5fstochastic',['accum_times_long_fract_stochastic',['../round_8h.html#a000c9e0091ede6746eecc1819e2dea23',1,'round.h']]],
+  ['accum_5ftimes_5fu_5flong_5ffract',['accum_times_u_long_fract',['../round_8h.html#ade7b2c32513f6e75afa64296b2378bde',1,'round.h']]],
+  ['accum_5ftimes_5fu_5flong_5ffract_5fnearest',['accum_times_u_long_fract_nearest',['../round_8h.html#af259b021435b18959d70c70e8dfdeb6a',1,'round.h']]],
+  ['accum_5ftimes_5fu_5flong_5ffract_5fstochastic',['accum_times_u_long_fract_stochastic',['../round_8h.html#ab73de091f4ae229f15d1d08dfee3eded',1,'round.h']]],
+  ['and_5fbit_5ffields',['and_bit_fields',['../bit__field_8h.html#a934a68e8fbe7c45bb00732362e626bbe',1,'bit_field.h']]],
+  ['arm_2eh',['arm.h',['../arm_8h.html',1,'']]],
+  ['assert',['assert',['../assert_8h.html#a6fa4a6ccde686d8d3c546794f4af6601',1,'assert.h']]],
+  ['assert_2eh',['assert.h',['../assert_8h.html',1,'']]],
+  ['assert_5finfo',['assert_info',['../assert_8h.html#a7ce50a27414283b56cd421077b5e1e27',1,'assert.h']]]
+];
