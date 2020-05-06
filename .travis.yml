@@ -17,8 +17,6 @@ dist: xenial
 language: c
 addons:
   apt:
-    sources:
-      - sourceline: 'deb http://us.archive.ubuntu.com/ubuntu/ trusty universe'
     packages:
       - vera++
       - gcc-arm-none-eabi
