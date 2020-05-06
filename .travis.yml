@@ -55,18 +55,18 @@ script:
   - doxygen
 
 deploy:
-  - provider: pages
-    skip_cleanup: true
-    keep_history: true
-    # Inject magic environment variable from Travis Job Configuration page
-    token: $GITHUB_TOKEN
-    local_dir: $DEPLOY_DIR
-    on:
-      # Only enable deployment of any branch if we actually have supplied a token
-      # Which branches to deploy is then controlled through Travis config page
-      # We also limit deployment to the named branches; others are not to be 
-      # deployed by policy anyway.
-      branch:
-        - doxygen
-        - master
-      condition: -n "$GITHUB_TOKEN"
+  provider: pages
+  skip_cleanup: true
+  keep_history: true
+  # Inject magic environment variable from Travis Job Configuration page
+  token: $GITHUB_TOKEN
+  local_dir: $DEPLOY_DIR
+  on:
+    # Only enable deployment of any branch if we actually have supplied a token
+    # Which branches to deploy is then controlled through Travis config page
+    # We also limit deployment to the named branches; others are not to be 
+    # deployed by policy anyway.
+    branch:
+      - doxygen
+      - master
+    condition: -n "$GITHUB_TOKEN"
