@@ -62,7 +62,7 @@ install: $(SPINN_COMMON_BUILD)/libspinn_common.a
 
 clean:
 	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS) \
-	$(SPINN_LIB_DIR)/*.dict $(SPINN_LIB_DIR)/*.ranges $(INSTALL_HEADERS)
+	$(SPINN_DIRS)/logs.sqlite3 $(INSTALL_HEADERS)
 
 install-clean:
 	$(RM) $(INSTALL_HEADERS)
