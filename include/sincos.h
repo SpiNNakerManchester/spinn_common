@@ -21,15 +21,15 @@
 #ifndef __SINCOS_H__
 #define __SINCOS_H__
 
-#include <stdfix.h>
+#include <stdfix-full-iso.h>
 
-//! \brief This function calculates the sin function for the accum type (s16.15).
-//! \param[in] x: is positive value represented as an accum.
-//! \return A value representing sin(x) in accum format.
-accum    sink(accum x);
-//! \brief This function calculates the cos function for the accum type (s16.15).
-//! \param[in] x: is positive value represented as an accum.
-//! \return A value representing cos(x) in accum format.
-accum    cosk(accum x);
+//! \brief This function calculates the sin function for the ::s1615 type.
+//! \param[in] x: is positive value represented as an ::s1615.
+//! \return A value representing sin(x) in ::s1615 format.
+s1615    sink(s1615 x);
+//! \brief This function calculates the cos function for the ::s1615 type.
+//! \param[in] x: is positive value represented as an ::s1615.
+//! \return A value representing cos(x) in ::s1615 format.
+s1615    cosk(s1615 x);
 
 #endif /*__SINCOS_H__*/

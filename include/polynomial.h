@@ -61,15 +61,15 @@
 #include "arm_acle.h"
 #include "assert.h"
 
-//! \brief Horner evaluation of a polynomial of signed accum at
+//! \brief Horner evaluation of a polynomial of ::s1615 at
 //!     a point given by the lower (signed) 16-bits of x.
 //! \param[in] a: The 32-bit signed polynomial coefficients. These can
-//!     be treated as either accum or long fract (or any other signed 32-bit
+//!     be treated as either ::s1615 or ::s031 (or any other signed 32-bit
 //!     quantity).
 //! \param[in] x: The point at which the polynomial is to be evaluated
 //!     is given by treating the lower 16-bits of the argument as s0.16.
-//!     Note this is _not_ a fract (s0.15), thus, if we are using a fract here,
-//!     we must treat the fract value of -1.0 as if it were only -0.5.
+//!     Note this is _not_ a ::s015, thus, if we are using a ::s015 here,
+//!     we must treat the ::s015 value of -1.0 as if it were only -0.5.
 //! \param[in] n: The number of coefficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 static inline int __horner_int_b(
@@ -97,15 +97,15 @@ static inline int __horner_int_b(
 #endif /*__ARM_FEATURE_DSP*/
 }
 
-//! \brief Horner evaluation of a polynomial of signed accum at
+//! \brief Horner evaluation of a polynomial of ::s1615 at
 //!     a point given by the upper (signed) 16-bits of x.
 //! \param[in] a: The 32-bit signed polynomial coefficients. These can
-//!     be treated as either accum or long fract (or any other signed 32-bit
+//!     be treated as either ::s1615 or ::s031 (or any other signed 32-bit
 //!     quantity.
 //! \param[in] x: The point at which the polynomial is to be evaluated
 //!     is given by treating the upper 16-bits of the argument as s0.16.
-//!     Note this is _not_ a fract (s0.15), thus, if we are using a fract here,
-//!     we must treat the fract value of -1.0 as if it were only -0.5.
+//!     Note this is _not_ a ::s015, thus, if we are using a ::s015 here,
+//!     we must treat the ::s015 value of -1.0 as if it were only -0.5.
 //! \param[in] n: The number of coefficients in the polynomial.
 //! \return The result as a signed 32-bit quantity.
 static inline int __horner_int_t(

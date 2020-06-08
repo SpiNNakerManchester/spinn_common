@@ -66,34 +66,33 @@
 //! chosen above. These are the highest level of macros that the users
 //! should use.
 //!
-//! #FX_MUL returns an accum, #FX_MUL_SHORT_ACCUM return a short accum,
-//! #FX_MUL_FRACT32 return a signed long fract, and #FX_MUL_FRACT16 return
-//! a signed fract.
+//! #FX_MUL returns a ::s1615, #FX_MUL_SHORT_ACCUM returns a ::s87,
+//! #FX_MUL_FRACT32 returns a ::s031, and #FX_MUL_FRACT16 returns a ::s015.
 //! \{
 #ifdef ROUNDING_NONE_GCC
-    #define FX_MUL( x, y ) MULT_NO_ROUND_GCC( x, y )
-    #define FX_MUL_SHORT_ACCUM(x, y) MULT_NO_ROUND_GCC( x, y)
-    #define FX_MUL_FRACT32( x, y ) MULT_NO_ROUND_GCC( x, y )
-    #define FX_MUL_FRACT16( x, y ) MULT_NO_ROUND_GCC( x, y )
+    #define FX_MUL(x, y)                MULT_NO_ROUND_GCC(x, y)
+    #define FX_MUL_SHORT_ACCUM(x, y)    MULT_NO_ROUND_GCC(x, y)
+    #define FX_MUL_FRACT32(x, y)        MULT_NO_ROUND_GCC(x, y)
+    #define FX_MUL_FRACT16(x, y)        MULT_NO_ROUND_GCC(x, y)
 #elif defined ROUNDING_NONE_CUSTOM
-    #define FX_MUL( x, y ) MULT_NO_ROUND_CUSTOM_ACCUM( x, y )
-    #define FX_MUL_SHORT_ACCUM( x, y ) MULT_NO_ROUND_CUSTOM_SHORT_ACCUM( x, y )
-    #define FX_MUL_FRACT32( x, y ) MULT_NO_ROUND_CUSTOM_FRACT32( x, y )
-    #define FX_MUL_FRACT16( x, y ) MULT_NO_ROUND_CUSTOM_FRACT16( x, y )
+    #define FX_MUL(x, y)                MULT_NO_ROUND_CUSTOM_ACCUM(x, y)
+    #define FX_MUL_SHORT_ACCUM(x, y)    MULT_NO_ROUND_CUSTOM_SHORT_ACCUM(x, y)
+    #define FX_MUL_FRACT32(x, y)        MULT_NO_ROUND_CUSTOM_FRACT32(x, y)
+    #define FX_MUL_FRACT16(x, y)        MULT_NO_ROUND_CUSTOM_FRACT16(x, y)
 #elif defined ROUNDING_NEAREST
-    #define FX_MUL( x, y ) MULT_ROUND_NEAREST_ACCUM( x, y )
-    #define FX_MUL_SHORT_ACCUM( x, y ) MULT_ROUND_NEAREST_SHORT_ACCUM( x, y )
-    #define FX_MUL_FRACT32( x, y ) MULT_ROUND_NEAREST_FRACT32( x, y )
-    #define FX_MUL_FRACT16( x, y ) MULT_ROUND_NEAREST_FRACT16( x, y )
+    #define FX_MUL(x, y)                MULT_ROUND_NEAREST_ACCUM(x, y)
+    #define FX_MUL_SHORT_ACCUM(x, y)    MULT_ROUND_NEAREST_SHORT_ACCUM(x, y)
+    #define FX_MUL_FRACT32(x, y)        MULT_ROUND_NEAREST_FRACT32(x, y)
+    #define FX_MUL_FRACT16(x, y)        MULT_ROUND_NEAREST_FRACT16(x, y)
 #elif defined ROUNDING_STOCHASTIC
-    //! Multiply two `accum` values with rounding
-    #define FX_MUL( x, y ) MULT_ROUND_STOCHASTIC_ACCUM( x, y )
-    //! Multiply two `short accum` values with rounding
-    #define FX_MUL_SHORT_ACCUM( x, y ) MULT_ROUND_STOCHASTIC_SHORT_ACCUM(x, y)
-    //! Multiply two `fract` values with rounding
-    #define FX_MUL_FRACT32( x, y ) MULT_ROUND_STOCHASTIC_FRACT32( x, y )
-    //! Multiply two `short fract` values with rounding
-    #define FX_MUL_FRACT16( x, y ) MULT_ROUND_STOCHASTIC_FRACT16( x, y )
+    //! Multiply two ::s1615 values with rounding
+    #define FX_MUL(x, y)                MULT_ROUND_STOCHASTIC_ACCUM(x, y)
+    //! Multiply two ::s87 values with rounding
+    #define FX_MUL_SHORT_ACCUM(x, y)    MULT_ROUND_STOCHASTIC_SHORT_ACCUM(x, y)
+    //! Multiply two ::s031 values with rounding
+    #define FX_MUL_FRACT32(x, y)        MULT_ROUND_STOCHASTIC_FRACT32(x, y)
+    //! Multiply two ::s015 values with rounding
+    #define FX_MUL_FRACT16(x, y)        MULT_ROUND_STOCHASTIC_FRACT16(x, y)
 #endif
 //! \}
 
@@ -108,36 +107,37 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_NO_ROUND_GCC(x, y) ( (x) * (y) )
+#define MULT_NO_ROUND_GCC(x, y) ((x) * (y))
 
 //! \brief Multiply fixed point numbers to make s1615; no rounding
 //! \hideinitializer
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_NO_ROUND_CUSTOM_ACCUM(x, y)				\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    accum result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), s1615) && 		\
-        __builtin_types_compatible_p(__typeof__(y), s1615)) {		\
-        result = (kbits(__stdfix_smul_k(bitsk(temp0), bitsk(temp1))));	\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s031))) {	\
-        result = (accum_times_long_fract(temp0, temp1));		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {	\
-        result = (accum_times_long_fract(temp1, temp0));		\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u032))) {	\
-        result = (accum_times_u_long_fract(temp0, temp1));		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {	\
-        result = (accum_times_u_long_fract(temp1, temp0));		\
-    } else {								\
-    }									\
-    result;								\
+#define MULT_NO_ROUND_CUSTOM_ACCUM(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s1615 result;               \
+    if (__builtin_types_compatible_p(__typeof__(x), s1615) &&           \
+        __builtin_types_compatible_p(__typeof__(y), s1615)) {           \
+        result = kbits(__stdfix_smul_k(bitsk(temp0), bitsk(temp1)));    \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&   \
+               __builtin_types_compatible_p(__typeof__(y), s031))) {    \
+        result = accum_times_long_fract(temp0, temp1);                  \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&     \
+               __builtin_types_compatible_p(__typeof__(y), s1615)) {    \
+        result = accum_times_long_fract(temp1, temp0);                  \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&   \
+               __builtin_types_compatible_p(__typeof__(y), u032))) {    \
+        result = accum_times_u_long_fract(temp0, temp1);                \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&     \
+               __builtin_types_compatible_p(__typeof__(y), s1615)) {    \
+        result = accum_times_u_long_fract(temp1, temp0);                \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 
 //! \brief Multiply fixed point numbers to make s87; no rounding
@@ -145,29 +145,30 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_NO_ROUND_CUSTOM_SHORT_ACCUM(x, y)				\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    short accum result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), s87) &&		\
-        __builtin_types_compatible_p(__typeof__(y), s87)) {		\
-        result = (hkbits(__stdfix_smul_hk(bitshk(temp0), bitshk(temp1)))); \
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s015))) {	\
-        result = (short_accum_times_fract(temp0, temp1));		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {	\
-        result = (short_accum_times_fract(temp1, temp0));		\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u016))) {	\
-        result = (short_accum_times_u_fract(temp0, temp1));		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {	\
-        result = (short_accum_times_u_fract(temp1, temp0));		\
-    } else {								\
-    }									\
-    result;								\
+#define MULT_NO_ROUND_CUSTOM_SHORT_ACCUM(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s87 result;                 \
+    if (__builtin_types_compatible_p(__typeof__(x), s87) &&             \
+        __builtin_types_compatible_p(__typeof__(y), s87)) {             \
+        result = hkbits(__stdfix_smul_hk(bitshk(temp0), bitshk(temp1))); \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&     \
+               __builtin_types_compatible_p(__typeof__(y), s015))) {    \
+        result = short_accum_times_fract(temp0, temp1);                 \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&     \
+               __builtin_types_compatible_p(__typeof__(y), s87)) {      \
+        result = short_accum_times_fract(temp1, temp0);                 \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&     \
+               __builtin_types_compatible_p(__typeof__(y), u016))) {    \
+        result = short_accum_times_u_fract(temp0, temp1);               \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&     \
+               __builtin_types_compatible_p(__typeof__(y), s87)) {      \
+        result = short_accum_times_u_fract(temp1, temp0);               \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 
 //! \brief Multiply fixed point numbers to make s031; no rounding
@@ -175,24 +176,24 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_NO_ROUND_CUSTOM_FRACT32(x, y)				\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    long fract result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), u032) &&		\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {	\
-        result = (ulrbits(__stdfix_smul_ulr(bitsulr(temp0),		\
-				bitsulr(temp1))));			\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {	\
-        result = (long_fract_times_u_long_fract(temp0, temp1));		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s031)) {	\
-        result = (long_fract_times_u_long_fract(temp1, temp0));		\
-    } else {								\
-    }									\
-    result;								\
+#define MULT_NO_ROUND_CUSTOM_FRACT32(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s031 result;                \
+    if (__builtin_types_compatible_p(__typeof__(x), u032) &&            \
+               __builtin_types_compatible_p(__typeof__(y), u032)) {     \
+        result = ulrbits(__stdfix_smul_ulr(bitsulr(temp0), bitsulr(temp1))); \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&     \
+               __builtin_types_compatible_p(__typeof__(y), u032)) {     \
+        result = long_fract_times_u_long_fract(temp0, temp1);           \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&     \
+               __builtin_types_compatible_p(__typeof__(y), s031)) {     \
+        result = long_fract_times_u_long_fract(temp1, temp0);           \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 
 //! \brief Multiply fixed point numbers to make s015; no rounding
@@ -200,23 +201,24 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_NO_ROUND_CUSTOM_FRACT16(x, y)				\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    fract result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), u016) &&		\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {	\
-        result = (urbits(__stdfix_smul_ur(bitsur(temp0), bitsur(temp1)))); \
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {	\
-        result = (fract_times_u_fract(temp0, temp1));			\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s015)) {	\
-        result = (fract_times_u_fract(temp1, temp0));			\
-    } else {								\
-    }									\
-    result;								\
+#define MULT_NO_ROUND_CUSTOM_FRACT16(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s015 result;                \
+    if (__builtin_types_compatible_p(__typeof__(x), u016) &&            \
+               __builtin_types_compatible_p(__typeof__(y), u016)) {     \
+        result = urbits(__stdfix_smul_ur(bitsur(temp0), bitsur(temp1))); \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&     \
+               __builtin_types_compatible_p(__typeof__(y), u016)) {     \
+        result = fract_times_u_fract(temp0, temp1);                     \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&     \
+               __builtin_types_compatible_p(__typeof__(y), s015)) {     \
+        result = fract_times_u_fract(temp1, temp0);                     \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 
 //! \brief Multiply fixed point numbers to make s1615; round to nearest
@@ -224,30 +226,31 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_ROUND_NEAREST_ACCUM(x, y)					\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    accum result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), s1615) &&		\
-        __builtin_types_compatible_p(__typeof__(y), s1615)) {		\
-        result =  (kbits(__stdfix_smul_k_round_nearest(bitsk(temp0),	\
-				bitsk(temp1))));			\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s031))) {	\
-        result =  (accum_times_long_fract_nearest(temp0, temp1));	\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {	\
-        result = (accum_times_long_fract_nearest(temp1, temp0));	\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u032))) {	\
-        result =  (accum_times_u_long_fract_nearest(temp0, temp1));	\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {	\
-        result = (accum_times_u_long_fract_nearest(temp1, temp0));	\
-    } else {								\
-    }									\
-    result;								\
+#define MULT_ROUND_NEAREST_ACCUM(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s1615 result;               \
+    if (__builtin_types_compatible_p(__typeof__(x), s1615) &&           \
+            __builtin_types_compatible_p(__typeof__(y), s1615)) {       \
+        result =  kbits(__stdfix_smul_k_round_nearest(bitsk(temp0),     \
+                bitsk(temp1)));                                         \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&   \
+            __builtin_types_compatible_p(__typeof__(y), s031))) {       \
+        result = accum_times_long_fract_nearest(temp0, temp1);          \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s1615)) {       \
+        result = accum_times_long_fract_nearest(temp1, temp0);          \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&   \
+            __builtin_types_compatible_p(__typeof__(y), u032))) {       \
+        result = accum_times_u_long_fract_nearest(temp0, temp1);        \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s1615)) {       \
+        result = accum_times_u_long_fract_nearest(temp1, temp0);        \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 
 //! \brief Multiply fixed point numbers to make s87; round to nearest
@@ -255,30 +258,31 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_ROUND_NEAREST_SHORT_ACCUM(x, y)				\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    short accum result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), s87) &&		\
-        __builtin_types_compatible_p(__typeof__(y), s87)) {		\
-        result = (hkbits(__stdfix_smul_hk_round_nearest(bitshk(temp0),	\
-                bitshk(temp1))));					\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s015))) {	\
-        result = (short_accum_times_fract_nearest(temp0, temp1));	\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {	\
-        result = (short_accum_times_fract_nearest(temp1, temp0));	\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u016))) {	\
-        result = (short_accum_times_u_fract_nearest(temp0, temp1));	\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {	\
-        result = (short_accum_times_u_fract_nearest(temp1, temp0));	\
-    } else {								\
-    }									\
-    result;								\
+#define MULT_ROUND_NEAREST_SHORT_ACCUM(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s87 result;                 \
+    if (__builtin_types_compatible_p(__typeof__(x), s87) &&             \
+            __builtin_types_compatible_p(__typeof__(y), s87)) {         \
+        result = hkbits(__stdfix_smul_hk_round_nearest(bitshk(temp0),   \
+                bitshk(temp1)));                                        \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s015))) {       \
+        result = short_accum_times_fract_nearest(temp0, temp1);         \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s87)) {         \
+        result = short_accum_times_fract_nearest(temp1, temp0);         \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&     \
+            __builtin_types_compatible_p(__typeof__(y), u016))) {       \
+        result = short_accum_times_u_fract_nearest(temp0, temp1);       \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s87)) {         \
+        result = short_accum_times_u_fract_nearest(temp1, temp0);       \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 
 //! \brief Multiply fixed point numbers to make s031; round to nearest
@@ -286,24 +290,25 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_ROUND_NEAREST_FRACT32(x, y)				\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    long fract result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), u032) &&		\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {	\
-        result = (lrbits(__stdfix_smul_ulr_round_nearest(bitsulr(temp0), \
-                bitsulr(temp1))));					\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {	\
-        result = (long_fract_times_u_long_fract_nearest(temp0, temp1)); \
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s031)) {	\
-        result = (long_fract_times_u_long_fract_nearest(temp1, temp0)); \
-    } else {								\
-    }									\
-    result;								\
+#define MULT_ROUND_NEAREST_FRACT32(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s031 result;                \
+    if (__builtin_types_compatible_p(__typeof__(x), u032) &&            \
+            __builtin_types_compatible_p(__typeof__(y), u032)) {        \
+        result = lrbits(__stdfix_smul_ulr_round_nearest(bitsulr(temp0), \
+                bitsulr(temp1)));                                       \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&     \
+            __builtin_types_compatible_p(__typeof__(y), u032)) {        \
+        result = long_fract_times_u_long_fract_nearest(temp0, temp1);   \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s031)) {        \
+        result = long_fract_times_u_long_fract_nearest(temp1, temp0);   \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 
 //! \brief Multiply fixed point numbers to make s015; round to nearest
@@ -311,24 +316,25 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_ROUND_NEAREST_FRACT16(x, y)				\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    fract result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), u016) &&		\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {	\
-        result = (rbits(__stdfix_smul_ur_round_nearest(bitsur(temp0),	\
- 				bitsur(temp1))));			\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {	\
-        result = (fract_times_u_fract_nearest(temp0, temp1));		\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s015)) {	\
-        result = (fract_times_u_fract_nearest(temp1, temp0));		\
-    } else {								\
-    }									\
-    result;								\
+#define MULT_ROUND_NEAREST_FRACT16(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s015 result;                \
+    if (__builtin_types_compatible_p(__typeof__(x), u016) &&            \
+            __builtin_types_compatible_p(__typeof__(y), u016)) {        \
+        result = rbits(__stdfix_smul_ur_round_nearest(bitsur(temp0),    \
+                bitsur(temp1)));                                        \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&     \
+            __builtin_types_compatible_p(__typeof__(y), u016)) {        \
+        result = fract_times_u_fract_nearest(temp0, temp1);             \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s015)) {        \
+        result = fract_times_u_fract_nearest(temp1, temp0);             \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 
 //! \brief Multiply fixed point numbers to make s1615; stochastic rounding
@@ -336,30 +342,31 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_ROUND_STOCHASTIC_ACCUM(x, y)				\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    accum result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), s1615) &&		\
-        __builtin_types_compatible_p(__typeof__(y), s1615)) {		\
-        result = (kbits(__stdfix_smul_k_round_stochastic(bitsk(temp0),	\
-			 	 bitsk(temp1))));			\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s031))) {	\
-        result = (accum_times_long_fract_stochastic(temp0, temp1));	\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {	\
-        result = (accum_times_long_fract_stochastic(temp1, temp0));	\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u032))) {	\
-        result = (accum_times_u_long_fract_stochastic(temp0, temp1));	\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s1615)) {	\
-        result = (accum_times_u_long_fract_stochastic(temp1, temp0));	\
-    } else {								\
-    }									\
-    result;								\
+#define MULT_ROUND_STOCHASTIC_ACCUM(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s1615 result;               \
+    if (__builtin_types_compatible_p(__typeof__(x), s1615) &&           \
+            __builtin_types_compatible_p(__typeof__(y), s1615)) {       \
+        result = kbits(__stdfix_smul_k_round_stochastic(bitsk(temp0),   \
+                bitsk(temp1)));                                         \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&   \
+            __builtin_types_compatible_p(__typeof__(y), s031))) {       \
+        result = accum_times_long_fract_stochastic(temp0, temp1);       \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s1615)) {       \
+        result = accum_times_long_fract_stochastic(temp1, temp0);       \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s1615) &&   \
+            __builtin_types_compatible_p(__typeof__(y), u032))) {       \
+        result = accum_times_u_long_fract_stochastic(temp0, temp1);     \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s1615)) {       \
+        result = accum_times_u_long_fract_stochastic(temp1, temp0);     \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 
 //! \brief Multiply fixed point numbers to make s87; stochastic rounding
@@ -367,30 +374,31 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_ROUND_STOCHASTIC_SHORT_ACCUM(x, y)				\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    short accum result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), s87) &&		\
-        __builtin_types_compatible_p(__typeof__(y), s87)) {		\
-        result = (hkbits(__stdfix_smul_hk_round_stochastic(bitshk(temp0), \
-				bitshk(temp1))));			\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s015))) {	\
-        result = (short_accum_times_fract_stochastic(temp0, temp1));	\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {	\
-        result = (short_accum_times_fract_stochastic(temp1, temp0));	\
-    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u016))) {	\
-        result = (short_accum_times_u_fract_stochastic(temp0, temp1));	\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s87)) {	\
-        result = (short_accum_times_u_fract_stochastic(temp1, temp0));	\
-    } else {								\
-    }									\
-    result;								\
+#define MULT_ROUND_STOCHASTIC_SHORT_ACCUM(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s87 result;                 \
+    if (__builtin_types_compatible_p(__typeof__(x), s87) &&             \
+            __builtin_types_compatible_p(__typeof__(y), s87)) {         \
+        result = hkbits(__stdfix_smul_hk_round_stochastic(bitshk(temp0), \
+                bitshk(temp1)));                                        \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s015))) {       \
+        result = short_accum_times_fract_stochastic(temp0, temp1);      \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s87)) {         \
+        result = short_accum_times_fract_stochastic(temp1, temp0);      \
+    } else if ((__builtin_types_compatible_p(__typeof__(x), s87) &&     \
+            __builtin_types_compatible_p(__typeof__(y), u016))) {       \
+        result = short_accum_times_u_fract_stochastic(temp0, temp1);    \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s87)) {         \
+        result = short_accum_times_u_fract_stochastic(temp1, temp0);    \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 
 //! \brief Multiply fixed point numbers to make s031; stochastic rounding
@@ -398,24 +406,25 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_ROUND_STOCHASTIC_FRACT32(x, y)				\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    long fract result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), u032) &&		\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {	\
-        result = (lrbits(__stdfix_smul_ulr_round_stochastic(bitsulr(temp0), \
-				bitsulr(temp1))));			\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u032)) {	\
-        result = (long_fract_times_u_long_fract_stochastic(temp0, temp1)); \
-    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s031)) {	\
-        result = (long_fract_times_u_long_fract_stochastic(temp1, temp0)); \
-    } else {								\
-    }									\
-    result;								\
+#define MULT_ROUND_STOCHASTIC_FRACT32(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s031 result;                \
+    if (__builtin_types_compatible_p(__typeof__(x), u032) &&            \
+            __builtin_types_compatible_p(__typeof__(y), u032)) {        \
+        result = lrbits(__stdfix_smul_ulr_round_stochastic(bitsulr(temp0), \
+                bitsulr(temp1)));                                       \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s031) &&     \
+            __builtin_types_compatible_p(__typeof__(y), u032)) {        \
+        result = long_fract_times_u_long_fract_stochastic(temp0, temp1); \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u032) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s031)) {        \
+        result = long_fract_times_u_long_fract_stochastic(temp1, temp0); \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 
 //! \brief Multiply fixed point numbers to make s015; stochastic rounding
@@ -423,24 +432,25 @@
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-#define MULT_ROUND_STOCHASTIC_FRACT16(x, y)				\
-    ({									\
-    __typeof__(x) temp0 = (x);						\
-    __typeof__(y) temp1 = (y);						\
-    fract result;							\
-    if (__builtin_types_compatible_p(__typeof__(x), u016) &&		\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {	\
-        result = (rbits(__stdfix_smul_ur_round_stochastic(bitsur(temp0), \
-				bitsur(temp1))));			\
-    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&	\
-               __builtin_types_compatible_p(__typeof__(y), u016)) {	\
-        result = (fract_times_u_fract_stochastic(temp0, temp1));	\
-    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&	\
-               __builtin_types_compatible_p(__typeof__(y), s015)) {	\
-        result = (fract_times_u_fract_stochastic(temp1, temp0));	\
-    } else {								\
-    }									\
-    result;								\
+#define MULT_ROUND_STOCHASTIC_FRACT16(x, y) \
+    ({                          \
+    __typeof__(x) temp0 = (x);  \
+    __typeof__(y) temp1 = (y);  \
+    s015 result;                \
+    if (__builtin_types_compatible_p(__typeof__(x), u016) &&            \
+            __builtin_types_compatible_p(__typeof__(y), u016)) {        \
+        result = rbits(__stdfix_smul_ur_round_stochastic(bitsur(temp0), \
+                bitsur(temp1)));                                        \
+    } else if (__builtin_types_compatible_p(__typeof__(x), s015) &&     \
+            __builtin_types_compatible_p(__typeof__(y), u016)) {        \
+        result = fract_times_u_fract_stochastic(temp0, temp1);          \
+    } else if (__builtin_types_compatible_p(__typeof__(x), u016) &&     \
+            __builtin_types_compatible_p(__typeof__(y), s015)) {        \
+        result = fract_times_u_fract_stochastic(temp1, temp0);          \
+    } else {                    \
+        __builtin_trap();       \
+    }                           \
+    result;                     \
     })
 //! \}
 
@@ -521,8 +531,7 @@ static inline uint32_t cheap_generator(void) {
 //! \param[in] n: The number of least-significant bits to remove via rounding.
 //!     For efficiency, should be a constant.
 //! \return The rounded value
-static int64_t __stdfix_stochastic_round_s64(
-        int64_t x, int n)
+static int64_t __stdfix_stochastic_round_s64(int64_t x, int n)
 {
     register int64_t r;
     register uint64_t p, dropped_bits;
@@ -543,8 +552,7 @@ static int64_t __stdfix_stochastic_round_s64(
 //! \param[in] n: The number of least-significant bits to remove via rounding.
 //!     For efficiency, should be a constant.
 //! \return The rounded value
-static int64_t __stdfix_stochastic_round_s64_alternative(
-        int64_t x, int n)
+static int64_t __stdfix_stochastic_round_s64_alternative(int64_t x, int n)
 {
     register int64_t r;
     register uint64_t p;
@@ -559,8 +567,7 @@ static int64_t __stdfix_stochastic_round_s64_alternative(
 //! \param[in] n: The number of least-significant bits to remove via rounding.
 //!     For efficiency, should be a constant.
 //! \return The rounded value
-static inline int32_t __stdfix_stochastic_round_s32(
-        int32_t x, int n)
+static inline int32_t __stdfix_stochastic_round_s32(int32_t x, int n)
 {
     register int32_t r;
     register uint32_t p, dropped_bits;
@@ -581,8 +588,7 @@ static inline int32_t __stdfix_stochastic_round_s32(
 //! \param[in] n: The number of least-significant bits to remove via rounding.
 //!     For efficiency, should be a constant.
 //! \return The rounded value
-static inline int16_t __stdfix_stochastic_round_s16(
-        int16_t x, int n)
+static inline int16_t __stdfix_stochastic_round_s16(int16_t x, int n)
 {
     register int16_t r;
     register uint16_t p, dropped_bits;
@@ -603,8 +609,7 @@ static inline int16_t __stdfix_stochastic_round_s16(
 //! \param[in] n: The number of least-significant bits to remove via rounding.
 //!     For efficiency, should be a constant.
 //! \return The rounded value
-static inline uint64_t __stdfix_stochastic_round_u64(
-        uint64_t x, int n)
+static inline uint64_t __stdfix_stochastic_round_u64(uint64_t x, int n)
 {
     register uint64_t r;
     register uint64_t p, dropped_bits;
@@ -625,8 +630,7 @@ static inline uint64_t __stdfix_stochastic_round_u64(
 //! \param[in] n: The number of least-significant bits to remove via rounding.
 //!     For efficiency, should be a constant.
 //! \return The rounded value
-static inline uint32_t __stdfix_stochastic_round_u32(
-        uint32_t x, int n)
+static inline uint32_t __stdfix_stochastic_round_u32(uint32_t x, int n)
 {
     register uint32_t r;
     register uint32_t p, dropped_bits;
@@ -647,8 +651,7 @@ static inline uint32_t __stdfix_stochastic_round_u32(
 //! \param[in] n: The number of least-significant bits to remove via rounding.
 //!     For efficiency, should be a constant.
 //! \return The rounded value
-static inline uint16_t __stdfix_stochastic_round_u16(
-        uint16_t x, int n)
+static inline uint16_t __stdfix_stochastic_round_u16(uint16_t x, int n)
 {
     register uint16_t r;
     register uint16_t p, dropped_bits;
@@ -669,13 +672,12 @@ static inline uint16_t __stdfix_stochastic_round_u16(
  * \{
  */
 
-//! \brief Multiply two integer representations of accum and return an integer
-//! representation of an accum answer, rounded to nearest accum.
+//! \brief Multiply two integer representations of ::s1615 and return an integer
+//! representation of an ::s1615 answer, rounded to nearest ::s1615.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline int32_t __stdfix_smul_k_round_nearest(
-        int32_t x, int32_t y)
+static inline int32_t __stdfix_smul_k_round_nearest(int32_t x, int32_t y)
 {
     if (x == INT32_MIN && y == INT32_MIN) { // special case for -1.0*-1.0
         return INT32_MAX;
@@ -685,14 +687,13 @@ static inline int32_t __stdfix_smul_k_round_nearest(
             (__I64(x) * __I64(y)), 15) >> 15);
 }
 
-//! \brief Multiply two integer representations of accum and return an integer
-//! representation of an accum answer, rounded to a neighbouring accum
+//! \brief Multiply two integer representations of ::s1615 and return an integer
+//! representation of an ::s1615 answer, rounded to a neighbouring ::s1615
 //! stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline int32_t __stdfix_smul_k_round_stochastic(
-        int32_t x, int32_t y)
+static inline int32_t __stdfix_smul_k_round_stochastic(int32_t x, int32_t y)
 {
     if (x == INT32_MIN && y == INT32_MIN) { // special case for -1.0*-1.0
         return INT32_MAX;
@@ -702,22 +703,21 @@ static inline int32_t __stdfix_smul_k_round_stochastic(
             __stdfix_stochastic_round_s64((__I64(x) * __I64(y)), 15) >> 15);
 }
 
-//! \brief Multiply two integer representations of unsigned long fract and
-//! return an integer representation of a signed long fract answer, rounded to
-//! nearest accum.
+//! \brief Multiply two integer representations of ::u032 and
+//! return an integer representation of a ::s031 answer, rounded to
+//! nearest ::s1615.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline uint32_t __stdfix_smul_ulr_round_nearest(
-        uint32_t x, uint32_t y)
+static inline uint32_t __stdfix_smul_ulr_round_nearest(uint32_t x, uint32_t y)
 {
     return __stdfix_sat_ulr(__stdfix_round_u64(
             (__U64(x) * __U64(y)), 33) >> 33);
 }
 
-//! \brief Multiply two integer representations of unsigned long fract and
-//! return an integer representation of a signed long fract answer, rounded to
-//! a neighbouring signed long fract stochastically.
+//! \brief Multiply two integer representations of ::u032 and
+//! return an integer representation of a ::s031 answer, rounded to
+//! a neighbouring ::s031 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -735,14 +735,12 @@ static inline uint32_t __stdfix_smul_ulr_round_stochastic(
  * \{
  */
 
-//! \brief Multiply two integer representations of short accum and return an
-//! integer representation of a short accum answer, rounded to a nearest
-//! short accum.
+//! \brief Multiply two integer representations of ::s87 and return an
+//! integer representation of a ::s87 answer, rounded to a nearest ::s87.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline int32_t __stdfix_smul_hk_round_nearest(
-        int32_t x, int32_t y)
+static inline int32_t __stdfix_smul_hk_round_nearest(int32_t x, int32_t y)
 {
     if (x == INT16_MIN && y == INT16_MIN) { // special case for -1.0*-1.0
         return INT16_MAX;
@@ -751,14 +749,13 @@ static inline int32_t __stdfix_smul_hk_round_nearest(
     return __stdfix_sat_hk(__stdfix_round_s32((__I32(x) * __I32(y)), 7) >> 7);
 }
 
-//! \brief Multiply two integer representations of short accum and return an
-//! integer representation of a short accum answer, rounded to a neighbouring
-//! short accum stochastically.
+//! \brief Multiply two integer representations of ::s87 and return an
+//! integer representation of a ::s87 answer, rounded to a neighbouring
+//! ::s87 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline int32_t __stdfix_smul_hk_round_stochastic(
-        int32_t x, int32_t y)
+static inline int32_t __stdfix_smul_hk_round_stochastic(int32_t x, int32_t y)
 {
     if (x == INT16_MIN && y == INT16_MIN) { // special case for -1.0*-1.0
         return INT16_MAX;
@@ -768,29 +765,25 @@ static inline int32_t __stdfix_smul_hk_round_stochastic(
             __stdfix_stochastic_round_s32((__I32(x) * __I32(y)), 7) >> 7);
 }
 
-//! \brief Multiply two integer represetations of unsigned fract and return an
-//! integer representation of a signed fract answer, rounded to a nearest
-//! signed fract.
+//! \brief Multiply two integer representations of ::u016 and return an
+//! integer representation of a ::s015 answer, rounded to a nearest ::s015.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline uint32_t __stdfix_smul_ur_round_nearest(
-        uint32_t x,
-        uint32_t y)
+static inline uint32_t __stdfix_smul_ur_round_nearest(uint32_t x, uint32_t y)
 {
     return __stdfix_sat_ur(
             __stdfix_round_u32((__U32(x) * __U32(y)), 17) >> 17);
 }
 
-//! \brief Multiply two integer represetations of unsigned fract and return an
-//! integer representation of a signed fract answer, rounded to a neighbouring
-//! signed fract stochastically.
+//! \brief Multiply two integer representations of ::u016 and return an
+//! integer representation of a ::s015 answer, rounded to a neighbouring
+//! ::s015 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
 static inline uint32_t __stdfix_smul_ur_round_stochastic(
-        uint32_t x,
-        uint32_t y)
+        uint32_t x, uint32_t y)
 {
     return __stdfix_sat_ur(
             __stdfix_stochastic_round_u32((__U32(x) * __U32(y)), 17) >> 17);
@@ -804,19 +797,19 @@ static inline uint32_t __stdfix_smul_ur_round_stochastic(
  * accum_times_long_fract() and so have a different format than a set of
  * functions above.
  *
- * \todo Make these functions take integer represetations and use the naming
+ * \todo Make these functions take integer representations and use the naming
  * conventions to be consistent with the functions above and in
  * stdfix-full-iso.h
  *
  * \{
  */
 
-//! \brief Multiply an accum and a signed long fract and return an accum answer,
-//! without rounding.
+//! \brief Multiply a ::s1615 and a ::s031 and return a ::s1615
+//! answer, without rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline accum accum_times_long_fract(accum x, long fract y)
+static inline s1615 accum_times_long_fract(s1615 x, s031 y)
 {
     register int64_t r;
 
@@ -825,12 +818,12 @@ static inline accum accum_times_long_fract(accum x, long fract y)
     return (kbits (((int32_t)(r >> 31))));
 }
 
-//! \brief Multiply an accum and a signed long fract and return an accum answer
-//! rounded to the nearest accum.
+//! \brief Multiply a ::s1615 and a ::s031 and return a ::s1615
+//! answer rounded to the nearest ::s1615.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline accum accum_times_long_fract_nearest(accum x, long fract y)
+static inline s1615 accum_times_long_fract_nearest(s1615 x, s031 y)
 {
     register int64_t r;
 
@@ -839,12 +832,12 @@ static inline accum accum_times_long_fract_nearest(accum x, long fract y)
     return (kbits (((int32_t)(r >> 31) + ((int32_t)(r >> 30) & 1))));
 }
 
-//! \brief Multiply accum and a signed long fract and return an accum answer
-//! rounded to a neighbouring accum stochastically.
+//! \brief Multiply ::s1615 and a ::s031 and return a ::s1615 answer
+//! rounded to a neighbouring ::s1615 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline accum accum_times_long_fract_stochastic(accum x, long fract y)
+static inline s1615 accum_times_long_fract_stochastic(s1615 x, s031 y)
 {
     register int64_t r;
 
@@ -854,12 +847,12 @@ static inline accum accum_times_long_fract_stochastic(accum x, long fract y)
     return (kbits (((int32_t)(r >> 31))));
 }
 
-//! \brief Multiply accum and an unsigned long fract and return an accum answer,
-//! without rounding.
+//! \brief Multiply ::s1615 and an ::u032 and return a ::s1615
+//! answer, without rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline accum accum_times_u_long_fract(accum x, unsigned long fract y)
+static inline s1615 accum_times_u_long_fract(s1615 x, u032 y)
 {
     register int64_t r;
 
@@ -868,13 +861,12 @@ static inline accum accum_times_u_long_fract(accum x, unsigned long fract y)
     return (kbits (((int32_t)(r >> 32))));
 }
 
-//! \brief Multiply accum and an unsigned long fract and return an accum answer
-//! rounded to the nearest accum.
+//! \brief Multiply ::s1615 and an ::u032 and return a ::s1615
+//! answer rounded to the nearest ::s1615.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline accum accum_times_u_long_fract_nearest(
-        accum x, unsigned long fract y)
+static inline s1615 accum_times_u_long_fract_nearest(s1615 x, u032 y)
 {
     register int64_t r;
 
@@ -883,13 +875,12 @@ static inline accum accum_times_u_long_fract_nearest(
     return (kbits (((int32_t)(r >> 32) + ((int32_t)(r >> 31) & 1))));
 }
 
-//! \brief Multiply accum and an unsigned long fract and return an accum answer
-//! rounded to a neighbouring accum stochastically.
+//! \brief Multiply ::s1615 and an ::u032 and return a ::s1615
+//! answer rounded to a neighbouring ::s1615 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline accum accum_times_u_long_fract_stochastic(
-        accum x, unsigned long fract y)
+static inline s1615 accum_times_u_long_fract_stochastic(s1615 x, u032 y)
 {
     register int64_t r;
 
@@ -899,13 +890,12 @@ static inline accum accum_times_u_long_fract_stochastic(
     return kbits((int32_t) (r >> 32));
 }
 
-//! \brief Multiply a signed long fract and an unsigned long fract and return a
-//! signed long fract answer, without rounding.
+//! \brief Multiply a ::s031 and an ::u032 and return a
+//! ::s031 answer, without rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline long fract long_fract_times_u_long_fract(
-        long fract x, unsigned long fract y)
+static inline s031 long_fract_times_u_long_fract(s031 x, u032 y)
 {
     register int64_t r;
 
@@ -914,13 +904,12 @@ static inline long fract long_fract_times_u_long_fract(
     return lrbits((int32_t) (r >> 32));
 }
 
-//! \brief Multiply a signed long fract and an unsigned long fract and return a
-//! signed long fract answer rounded to the nearest signed long fract.
+//! \brief Multiply a ::s031 and an ::u032 and return a
+//! ::s031 answer rounded to the nearest ::s031.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline long fract long_fract_times_u_long_fract_nearest(
-        long fract x, unsigned long fract y)
+static inline s031 long_fract_times_u_long_fract_nearest(s031 x, u032 y)
 {
     register int64_t r;
 
@@ -929,13 +918,12 @@ static inline long fract long_fract_times_u_long_fract_nearest(
     return lrbits(((int32_t)(r >> 32) + ((int32_t)(r >> 31) & 1)));
 }
 
-//! \brief Multiply a signed long fract and an unsigned long fract and return a
-//! signed long fract answer rounded to a signed long fract stochastically.
+//! \brief Multiply a ::s031 and an ::u032 and return a
+//! ::s031 answer rounded to a ::s031 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline long fract long_fract_times_u_long_fract_stochastic(
-        long fract x, unsigned long fract y)
+static inline s031 long_fract_times_u_long_fract_stochastic(s031 x, u032 y)
 {
     register int64_t r;
 
@@ -949,12 +937,12 @@ static inline long fract long_fract_times_u_long_fract_stochastic(
  * 16-bit multiplies
  */
 
-//! \brief Multiply two short accums and return a short accum answer without
+//! \brief Multiply two ::s87 numbers and return a ::s87 answer without
 //! rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline short accum short_accum_times_fract(short accum x, fract y)
+static inline s87 short_accum_times_fract(s87 x, s015 y)
 {
     register int32_t r;
 
@@ -963,13 +951,12 @@ static inline short accum short_accum_times_fract(short accum x, fract y)
     return hkbits((int32_t) (r >> 15));
 }
 
-//! \brief Multiply two short accums and return a short accum answer rounded to
-//! the nearest short accum.
+//! \brief Multiply two ::s87 values and return a ::s87 answer rounded to
+//! the nearest ::s87.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline short accum short_accum_times_fract_nearest(
-        short accum x, fract y)
+static inline s87 short_accum_times_fract_nearest(s87 x, s015 y)
 {
     register int32_t r;
 
@@ -978,13 +965,12 @@ static inline short accum short_accum_times_fract_nearest(
     return hkbits((int32_t) (r >> 15) + ((int32_t) (r >> 14) & 1));
 }
 
-//! \brief Multiply two short accums and return a short accum answer rounded to
-//! a neighbouring short accum stochastically.
+//! \brief Multiply two ::s87 values and return a ::s87 answer rounded to
+//! a neighbouring ::s87 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline short accum short_accum_times_fract_stochastic(
-        short accum x, fract y)
+static inline s87 short_accum_times_fract_stochastic(s87 x, s015 y)
 {
     register int32_t r;
 
@@ -994,13 +980,12 @@ static inline short accum short_accum_times_fract_stochastic(
     return hkbits((int32_t) (r >> 15));
 }
 
-//! \brief Multiply a short accum and an unsigned fract and return a short
-//! accum answer without rounding.
+//! \brief Multiply a ::s87 and an ::u016 and return a ::s87 answer
+//! without rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline short accum short_accum_times_u_fract(
-        short accum x, unsigned fract y)
+static inline s87 short_accum_times_u_fract(s87 x, u016 y)
 {
     register int32_t r;
 
@@ -1009,13 +994,12 @@ static inline short accum short_accum_times_u_fract(
     return hkbits((int32_t) (r >> 16));
 }
 
-//! \brief Multiply a short accum and an unsigned fract and return a short
-//! accum answer rounded to the nearest short accum.
+//! \brief Multiply a ::s87 and an ::u016 and return a ::s87 answer
+//! rounded to the nearest ::s87.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline short accum short_accum_times_u_fract_nearest(
-        short accum x, unsigned fract y)
+static inline s87 short_accum_times_u_fract_nearest(s87 x, u016 y)
 {
     register int32_t r;
 
@@ -1024,13 +1008,12 @@ static inline short accum short_accum_times_u_fract_nearest(
     return hkbits((int32_t) (r >> 16) + ((int32_t) (r >> 15) & 1));
 }
 
-//! \brief Multiply a short accum and an unsigned fract and return a short
-//! accum answer rounded to a neighbouring short accum stochastically.
+//! \brief Multiply a ::s87 and an ::u016 and return a ::s87 answer
+//! rounded to a neighbouring ::s87 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline short accum short_accum_times_u_fract_stochastic(
-        short accum x, unsigned fract y)
+static inline s87 short_accum_times_u_fract_stochastic(s87 x, u016 y)
 {
     register int32_t r;
 
@@ -1040,13 +1023,12 @@ static inline short accum short_accum_times_u_fract_stochastic(
     return hkbits((int32_t) (r >> 16));
 }
 
-//! \brief Multiply an unsigned fract and a signed fract and return a signed
-//! fract answer without rounding.
+//! \brief Multiply an ::u016 and a ::s015 and return a ::s015
+//! answer without rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline fract fract_times_u_fract(
-        fract x, unsigned fract y)
+static inline s015 fract_times_u_fract(s015 x, u016 y)
 {
     register int32_t r;
 
@@ -1055,13 +1037,12 @@ static inline fract fract_times_u_fract(
     return rbits((int32_t) (r >> 16));
 }
 
-//! \brief Multiply an unsigned fract and a signed fract and return a signed
-//! fract answer rounded to a nearest signed fract.
+//! \brief Multiply an ::u016 and a ::s015 and return a ::s015
+//! answer rounded to a nearest ::s015.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline fract fract_times_u_fract_nearest(
-        fract x, unsigned fract y)
+static inline s015 fract_times_u_fract_nearest(s015 x, u016 y)
 {
     register int32_t r;
 
@@ -1070,13 +1051,12 @@ static inline fract fract_times_u_fract_nearest(
     return rbits((int32_t) (r >> 16) + ((int32_t) (r >> 15) & 1));
 }
 
-//! \brief Multiply an unsigned fract and a signed fract and return a signed
-//! fract answer without rounding.
+//! \brief Multiply an ::u016 and a ::s015 and return a ::s015 answer
+//! with stochastic rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
-static inline fract fract_times_u_fract_stochastic(
-        fract x, unsigned fract y)
+static inline s015 fract_times_u_fract_stochastic(s015 x, u016 y)
 {
     register int32_t r;
 

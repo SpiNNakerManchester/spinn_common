@@ -59,11 +59,11 @@ static inline int __norminv_b_bits(int x) {
 }
 
 //! \brief This function takes a uniformly distributed 16-bit
-//!     PRNG value, \p x, and returns a normally distributed accum PRNG.
+//!     PRNG value, \p x, and returns a normally distributed ::s1615 PRNG.
 //! \param[in] x: A uniformly distributed 16-bit PRNG, in the bottom
 //!     16 bits of \p x.
-//! \return A normally distributed accum PRNG.
-static inline accum norminv_urb(unsigned int x) {
+//! \return A normally distributed ::s1615 PRNG.
+static inline s1615 norminv_urb(unsigned int x) {
     union { unsigned int u; int s; } tmp;
 
     tmp.u = x;
@@ -71,11 +71,11 @@ static inline accum norminv_urb(unsigned int x) {
 }
 
 //! \brief This function takes a uniformly distributed 16-bit
-//!     PRNG value, \p x, and returns a normally distributed accum PRNG.
+//!     PRNG value, \p x, and returns a normally distributed ::s1615 PRNG.
 //! \param[in] x: A uniformly distributed 16-bit PRNG, in the top
 //!     16 bits of \p x.
-//! \return A normally distributed accum PRNG.
-static inline accum norminv_urt(unsigned int x) {
+//! \return A normally distributed ::s1615 PRNG.
+static inline s1615 norminv_urt(unsigned int x) {
     union { unsigned int u; int s; } tmp;
 
     tmp.u = x;
@@ -83,10 +83,10 @@ static inline accum norminv_urt(unsigned int x) {
 }
 
 //! \brief This function takes a uniformly distributed 16-bit
-//!     PRNG value, \p x, and returns a normally distributed accum PRNG.
+//!     PRNG value, \p x, and returns a normally distributed ::s1615 PRNG.
 //! \param[in] x: A uniformly distributed unsigned fract.
-//! \return A normally distributed accum PRNG.
-static inline accum norminv_ur(unsigned fract x) {
+//! \return A normally distributed ::s1615 PRNG.
+static inline s1615 norminv_ur(u016 x) {
     union { unsigned int u; int s; } tmp;
 
     tmp.u = bitsur(x);
@@ -94,20 +94,20 @@ static inline accum norminv_ur(unsigned fract x) {
 }
 
 //! \brief This function takes a uniformly distributed 16-bit
-//!     PRNG value, \p x, and returns a normally distributed accum PRNG.
+//!     PRNG value, \p x, and returns a normally distributed ::s1615 PRNG.
 //! \param[in] x: A uniformly distributed unsigned fract.
-//! \return A normally distributed accum PRNG.
-UNIMPLEMENTED accum norminv_ulr(unsigned long fract x);
+//! \return A normally distributed ::s1615 PRNG.
+UNIMPLEMENTED s1615 norminv_ulr(u032 x);
 
 //! \brief This function takes a uniformly distributed
-//!     PRNG value, \p f, and returns a normally distributed accum PRNG.
+//!     PRNG value, \p f, and returns a normally distributed ::s1615 PRNG.
 //! \param[in] f: A uniformly distributed unsigned fract.
-//! \return A normally distributed accum PRNG.
+//! \return A normally distributed ::s1615 PRNG.
 #define norminv_fx(f) \
     _Generic((f), \
-	unsigned fract:      norminv_ur(f), \
-	unsigned long fract: norminv_ulr(f), \
-	default:             abort(1) \
+	u016:     norminv_ur(f), \
+	u032:     norminv_ulr(f), \
+	default:  __builtin_trap() \
     )
 
 #endif /*__NORMAL_H__*/

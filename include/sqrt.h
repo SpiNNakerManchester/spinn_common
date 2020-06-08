@@ -17,8 +17,8 @@
 
 /*! \file
  *
- *  \brief Implementation of sqrt for the signed accum type, returning a
- *  s16.15 result.
+ *  \brief Implementation of square root for the ::s1615 type, returning a
+ *  ::s1615 result.
  *
  *  \details The details of the algorithm are from
  *     <em>"Elementary Functions: Algorithms and Implementation",</em> 2nd edn,
@@ -52,7 +52,7 @@
 //! \brief Square root.
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-extern accum				sqrtk(accum x);
+extern s1615                sqrtk(s1615 x);
 
 /*
  * All these functions have no implementation in this library. They will
@@ -63,57 +63,57 @@ extern accum				sqrtk(accum x);
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-UNIMPLEMENTED short fract		sqrthr(short fract x);
+UNIMPLEMENTED s07           sqrthr(s07 x);
 //! \brief Square root.
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-UNIMPLEMENTED fract			sqrtr(fract x);
+UNIMPLEMENTED s015          sqrtr(s015 x);
 //! \brief Square root.
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-UNIMPLEMENTED long fract		sqrtlr(long fract x);
+UNIMPLEMENTED s031          sqrtlr(s031 x);
 //! \brief Square root.
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-UNIMPLEMENTED short accum		sqrthk(short accum x);
+UNIMPLEMENTED s87           sqrthk(s87 x);
 //! \brief Square root.
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-UNIMPLEMENTED long accum		sqrtlk(long accum x);
+UNIMPLEMENTED s3231         sqrtlk(s3231 x);
 //! \brief Square root.
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-UNIMPLEMENTED unsigned short fract	sqrtuhr(unsigned short fract x);
+UNIMPLEMENTED u08           sqrtuhr(u08 x);
 //! \brief Square root.
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-UNIMPLEMENTED unsigned fract		sqrtur(unsigned fract x);
+UNIMPLEMENTED u016          sqrtur(u016 x);
 //! \brief Square root.
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-UNIMPLEMENTED unsigned long fract	sqrtulr(unsigned long fract x);
+UNIMPLEMENTED u032          sqrtulr(u032 x);
 //! \brief Square root.
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-UNIMPLEMENTED unsigned short accum	sqrtuhk(unsigned short accum x);
+UNIMPLEMENTED u88           sqrtuhk(u88 x);
 //! \brief Square root.
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-UNIMPLEMENTED unsigned accum		sqrtuk(unsigned accum x);
+UNIMPLEMENTED u1616         sqrtuk(u1616 x);
 //! \brief Square root.
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
-UNIMPLEMENTED unsigned long accum	sqrtulk(unsigned long accum x);
+UNIMPLEMENTED u3232         sqrtulk(u3232 x);
 
 //! \brief Square root.
 //! \param[in] f: Non-negative value to get the square root of
