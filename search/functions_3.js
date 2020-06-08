@@ -19,7 +19,7 @@ var searchData=
   ['cos_5fapprox',['cos_approx',['../sincos_8c.html#a229cb5c10da5d80409b6fd42fa20148a',1,'sincos.c']]],
   ['cos_5fpi4',['cos_pi4',['../sincos_8c.html#a03338d7abdfac12ffe0ab66833102966',1,'sincos.c']]],
   ['cos_5fpi4_5fx_5fsqrt_5fhalf',['cos_pi4_x_sqrt_half',['../sincos_8c.html#a2a83b4e2e2afe97a6dc9da5a3e86677e',1,'sincos.c']]],
-  ['cosk',['cosk',['../sincos_8h.html#a7f0e28f57e5bc7852f50340f327efc94',1,'cosk(accum x):&#160;sincos.c'],['../sincos_8c.html#a7f0e28f57e5bc7852f50340f327efc94',1,'cosk(accum x):&#160;sincos.c']]],
+  ['cosk',['cosk',['../sincos_8h.html#aa9a61594cab244a2e1222f5325b182fb',1,'cosk(s1615 x):&#160;sincos.c'],['../sincos_8c.html#a7f0e28f57e5bc7852f50340f327efc94',1,'cosk(accum x):&#160;sincos.c']]],
   ['coskbits',['coskbits',['../sincos_8c.html#a9633249b4598a0527b8e9ffd2df74845',1,'sincos.c']]],
   ['count_5fbit_5ffield',['count_bit_field',['../bit__field_8h.html#a9c11ccfb67f05892d4e38a8743aed640',1,'bit_field.h']]],
   ['countlshk',['countlshk',['../stdfix-full-iso_8h.html#a8d4e96c1753d97baec6f7b069aff7b76',1,'stdfix-full-iso.h']]],

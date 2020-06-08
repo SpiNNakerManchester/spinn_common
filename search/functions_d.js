@@ -8,9 +8,9 @@ var searchData=
   ['newton_5fxr2',['newton_xr2',['../sqrt_8c.html#a314884e3e62ac3fb6af5000f31636c2b',1,'sqrt.c']]],
   ['next_5fpower_5fof_5f2',['next_power_of_2',['../utils_8h.html#a1740b680263b2b5d88ff015b820c80e3',1,'utils.h']]],
   ['nonempty_5fbit_5ffield',['nonempty_bit_field',['../bit__field_8h.html#acc2816dc84e48f5fef73426787a5a526',1,'bit_field.h']]],
-  ['norminv_5fulr',['norminv_ulr',['../normal_8h.html#aaf0fa807cb94755916940cc6c7f69550',1,'normal.h']]],
-  ['norminv_5fur',['norminv_ur',['../normal_8h.html#a1e9d1b37d3a4b4e3245ac64257d55593',1,'normal.h']]],
-  ['norminv_5furb',['norminv_urb',['../normal_8h.html#a611bf096310c5907eaf0e8887b3ddd66',1,'normal.h']]],
-  ['norminv_5furt',['norminv_urt',['../normal_8h.html#a6dee1aab44b42c8c7a1ba3d5baa5a56c',1,'normal.h']]],
+  ['norminv_5fulr',['norminv_ulr',['../normal_8h.html#a1da4b70b13db036144c4595e74666364',1,'normal.h']]],
+  ['norminv_5fur',['norminv_ur',['../normal_8h.html#af9a4d03022b4b5173add37b9e1a17b49',1,'normal.h']]],
+  ['norminv_5furb',['norminv_urb',['../normal_8h.html#af795c1010c5ca22b59931faa527c34c6',1,'normal.h']]],
+  ['norminv_5furt',['norminv_urt',['../normal_8h.html#ae2e235fbce3577e46deb5e39bc05c356',1,'normal.h']]],
   ['not_5fbit_5ffield',['not_bit_field',['../bit__field_8h.html#a6e5c40927001f3a4793bc6fda11e30bf',1,'bit_field.h']]]
 ];

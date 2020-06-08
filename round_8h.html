@@ -121,23 +121,23 @@ Macros</h2></td></tr>
 <tr class="separator:ac7b933bc713c20406e9c9324c63fdce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">High-level interface macros</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Set up various multiplication macros depending on the rounding method chosen above. These are the highest level of macros that the users should use.</p>
-<p><a class="el" href="round_8h.html#ad7d96d08e3ec65758ac376824dd5fa16" title="Multiply two accum values with rounding. ">FX_MUL</a> returns an accum, <a class="el" href="round_8h.html#ad8c9c22c06fcda821f7d88ac60b62de3" title="Multiply two short accum values with rounding. ">FX_MUL_SHORT_ACCUM</a> return a short accum, <a class="el" href="round_8h.html#a9b197aa7906112f68f47aa5ea47ad509" title="Multiply two fract values with rounding. ">FX_MUL_FRACT32</a> return a signed long fract, and <a class="el" href="round_8h.html#afc99937078fa98b142f633f810ef28f1" title="Multiply two short fract values with rounding. ">FX_MUL_FRACT16</a> return a signed fract. </p>
+<p><a class="el" href="round_8h.html#ad7d96d08e3ec65758ac376824dd5fa16" title="Multiply two s1615 values with rounding. ">FX_MUL</a> returns a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a>, <a class="el" href="round_8h.html#ad8c9c22c06fcda821f7d88ac60b62de3" title="Multiply two s87 values with rounding. ">FX_MUL_SHORT_ACCUM</a> returns a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a>, <a class="el" href="round_8h.html#a9b197aa7906112f68f47aa5ea47ad509" title="Multiply two s031 values with rounding. ">FX_MUL_FRACT32</a> returns a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a>, and <a class="el" href="round_8h.html#afc99937078fa98b142f633f810ef28f1" title="Multiply two s015 values with rounding. ">FX_MUL_FRACT16</a> returns a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a>. </p>
 </div></td></tr>
 <tr class="memitem:ad7d96d08e3ec65758ac376824dd5fa16"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad7d96d08e3ec65758ac376824dd5fa16"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ad7d96d08e3ec65758ac376824dd5fa16">FX_MUL</a>(x,  y)&#160;&#160;&#160;<a class="el" href="round_8h.html#a6d12682d2d6059b96ffaf5bf01a02681">MULT_ROUND_STOCHASTIC_ACCUM</a>( x, y )</td></tr>
-<tr class="memdesc:ad7d96d08e3ec65758ac376824dd5fa16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two <code>accum</code> values with rounding. <br /></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ad7d96d08e3ec65758ac376824dd5fa16">FX_MUL</a>(x,  y)&#160;&#160;&#160;<a class="el" href="round_8h.html#a6d12682d2d6059b96ffaf5bf01a02681">MULT_ROUND_STOCHASTIC_ACCUM</a>(x, y)</td></tr>
+<tr class="memdesc:ad7d96d08e3ec65758ac376824dd5fa16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> values with rounding. <br /></td></tr>
 <tr class="separator:ad7d96d08e3ec65758ac376824dd5fa16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8c9c22c06fcda821f7d88ac60b62de3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad8c9c22c06fcda821f7d88ac60b62de3"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ad8c9c22c06fcda821f7d88ac60b62de3">FX_MUL_SHORT_ACCUM</a>(x,  y)&#160;&#160;&#160;<a class="el" href="round_8h.html#a6f5b4c708787bfb4bf3bea2e2585453a">MULT_ROUND_STOCHASTIC_SHORT_ACCUM</a>(x, y)</td></tr>
-<tr class="memdesc:ad8c9c22c06fcda821f7d88ac60b62de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two <code>short accum</code> values with rounding. <br /></td></tr>
+<tr class="memdesc:ad8c9c22c06fcda821f7d88ac60b62de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> values with rounding. <br /></td></tr>
 <tr class="separator:ad8c9c22c06fcda821f7d88ac60b62de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b197aa7906112f68f47aa5ea47ad509"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b197aa7906112f68f47aa5ea47ad509"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a9b197aa7906112f68f47aa5ea47ad509">FX_MUL_FRACT32</a>(x,  y)&#160;&#160;&#160;<a class="el" href="round_8h.html#aa2ea3213ec2b159071fea470e35b4c2b">MULT_ROUND_STOCHASTIC_FRACT32</a>( x, y )</td></tr>
-<tr class="memdesc:a9b197aa7906112f68f47aa5ea47ad509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two <code>fract</code> values with rounding. <br /></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a9b197aa7906112f68f47aa5ea47ad509">FX_MUL_FRACT32</a>(x,  y)&#160;&#160;&#160;<a class="el" href="round_8h.html#aa2ea3213ec2b159071fea470e35b4c2b">MULT_ROUND_STOCHASTIC_FRACT32</a>(x, y)</td></tr>
+<tr class="memdesc:a9b197aa7906112f68f47aa5ea47ad509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> values with rounding. <br /></td></tr>
 <tr class="separator:a9b197aa7906112f68f47aa5ea47ad509"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc99937078fa98b142f633f810ef28f1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afc99937078fa98b142f633f810ef28f1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#afc99937078fa98b142f633f810ef28f1">FX_MUL_FRACT16</a>(x,  y)&#160;&#160;&#160;<a class="el" href="round_8h.html#a21c5339c3aacc164bfe3c9c70fd4577e">MULT_ROUND_STOCHASTIC_FRACT16</a>( x, y )</td></tr>
-<tr class="memdesc:afc99937078fa98b142f633f810ef28f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two <code>short fract</code> values with rounding. <br /></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#afc99937078fa98b142f633f810ef28f1">FX_MUL_FRACT16</a>(x,  y)&#160;&#160;&#160;<a class="el" href="round_8h.html#a21c5339c3aacc164bfe3c9c70fd4577e">MULT_ROUND_STOCHASTIC_FRACT16</a>(x, y)</td></tr>
+<tr class="memdesc:afc99937078fa98b142f633f810ef28f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> values with rounding. <br /></td></tr>
 <tr class="separator:afc99937078fa98b142f633f810ef28f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Low-level interface macros</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>The following macros choose a correct multiplication function depending on the types of arguments. </p>
@@ -229,88 +229,88 @@ Functions</h2></td></tr>
 <tr class="separator:a43a7b7f4d641d6e05f80d7e9a3313ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">32-bit multiplication routines with rounding.</div></td></tr>
 <tr class="memitem:aa0d0f8f12ade28d3e6d17ec9968d1f60"><td class="memItemLeft" align="right" valign="top">static int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#aa0d0f8f12ade28d3e6d17ec9968d1f60">__stdfix_smul_k_round_nearest</a> (int32_t x, int32_t y)</td></tr>
-<tr class="memdesc:aa0d0f8f12ade28d3e6d17ec9968d1f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of accum and return an integer representation of an accum answer, rounded to nearest accum.  <a href="#aa0d0f8f12ade28d3e6d17ec9968d1f60">More...</a><br /></td></tr>
+<tr class="memdesc:aa0d0f8f12ade28d3e6d17ec9968d1f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and return an integer representation of an <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer, rounded to nearest <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a>.  <a href="#aa0d0f8f12ade28d3e6d17ec9968d1f60">More...</a><br /></td></tr>
 <tr class="separator:aa0d0f8f12ade28d3e6d17ec9968d1f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e5056560fb46e7521cbf5183a26a40c"><td class="memItemLeft" align="right" valign="top">static int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a2e5056560fb46e7521cbf5183a26a40c">__stdfix_smul_k_round_stochastic</a> (int32_t x, int32_t y)</td></tr>
-<tr class="memdesc:a2e5056560fb46e7521cbf5183a26a40c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of accum and return an integer representation of an accum answer, rounded to a neighbouring accum stochastically.  <a href="#a2e5056560fb46e7521cbf5183a26a40c">More...</a><br /></td></tr>
+<tr class="memdesc:a2e5056560fb46e7521cbf5183a26a40c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and return an integer representation of an <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer, rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> stochastically.  <a href="#a2e5056560fb46e7521cbf5183a26a40c">More...</a><br /></td></tr>
 <tr class="separator:a2e5056560fb46e7521cbf5183a26a40c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a693001217129435bb91723b70ad465fd"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a693001217129435bb91723b70ad465fd">__stdfix_smul_ulr_round_nearest</a> (uint32_t x, uint32_t y)</td></tr>
-<tr class="memdesc:a693001217129435bb91723b70ad465fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of unsigned long fract and return an integer representation of a signed long fract answer, rounded to nearest accum.  <a href="#a693001217129435bb91723b70ad465fd">More...</a><br /></td></tr>
+<tr class="memdesc:a693001217129435bb91723b70ad465fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> answer, rounded to nearest <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a>.  <a href="#a693001217129435bb91723b70ad465fd">More...</a><br /></td></tr>
 <tr class="separator:a693001217129435bb91723b70ad465fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09eb97b1153668da6087c73682bd196f"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a09eb97b1153668da6087c73682bd196f">__stdfix_smul_ulr_round_stochastic</a> (uint32_t x, uint32_t y)</td></tr>
-<tr class="memdesc:a09eb97b1153668da6087c73682bd196f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of unsigned long fract and return an integer representation of a signed long fract answer, rounded to a neighbouring signed long fract stochastically.  <a href="#a09eb97b1153668da6087c73682bd196f">More...</a><br /></td></tr>
+<tr class="memdesc:a09eb97b1153668da6087c73682bd196f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> answer, rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> stochastically.  <a href="#a09eb97b1153668da6087c73682bd196f">More...</a><br /></td></tr>
 <tr class="separator:a09eb97b1153668da6087c73682bd196f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">16-bit multiplications.</div></td></tr>
 <tr class="memitem:a6393bb9410f925e303330b092c3f26d0"><td class="memItemLeft" align="right" valign="top">static int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a6393bb9410f925e303330b092c3f26d0">__stdfix_smul_hk_round_nearest</a> (int32_t x, int32_t y)</td></tr>
-<tr class="memdesc:a6393bb9410f925e303330b092c3f26d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of short accum and return an integer representation of a short accum answer, rounded to a nearest short accum.  <a href="#a6393bb9410f925e303330b092c3f26d0">More...</a><br /></td></tr>
+<tr class="memdesc:a6393bb9410f925e303330b092c3f26d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer, rounded to a nearest <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a>.  <a href="#a6393bb9410f925e303330b092c3f26d0">More...</a><br /></td></tr>
 <tr class="separator:a6393bb9410f925e303330b092c3f26d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a60bde123cfdabbd6f9798efb5db661"><td class="memItemLeft" align="right" valign="top">static int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a9a60bde123cfdabbd6f9798efb5db661">__stdfix_smul_hk_round_stochastic</a> (int32_t x, int32_t y)</td></tr>
-<tr class="memdesc:a9a60bde123cfdabbd6f9798efb5db661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of short accum and return an integer representation of a short accum answer, rounded to a neighbouring short accum stochastically.  <a href="#a9a60bde123cfdabbd6f9798efb5db661">More...</a><br /></td></tr>
+<tr class="memdesc:a9a60bde123cfdabbd6f9798efb5db661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer, rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> stochastically.  <a href="#a9a60bde123cfdabbd6f9798efb5db661">More...</a><br /></td></tr>
 <tr class="separator:a9a60bde123cfdabbd6f9798efb5db661"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa20977a7efa6e23b7b6c1cac118c3f86"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#aa20977a7efa6e23b7b6c1cac118c3f86">__stdfix_smul_ur_round_nearest</a> (uint32_t x, uint32_t y)</td></tr>
-<tr class="memdesc:aa20977a7efa6e23b7b6c1cac118c3f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer represetations of unsigned fract and return an integer representation of a signed fract answer, rounded to a nearest signed fract.  <a href="#aa20977a7efa6e23b7b6c1cac118c3f86">More...</a><br /></td></tr>
+<tr class="memdesc:aa20977a7efa6e23b7b6c1cac118c3f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> answer, rounded to a nearest <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a>.  <a href="#aa20977a7efa6e23b7b6c1cac118c3f86">More...</a><br /></td></tr>
 <tr class="separator:aa20977a7efa6e23b7b6c1cac118c3f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2962126873bd0c0e334e2930d6244b2"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ac2962126873bd0c0e334e2930d6244b2">__stdfix_smul_ur_round_stochastic</a> (uint32_t x, uint32_t y)</td></tr>
-<tr class="memdesc:ac2962126873bd0c0e334e2930d6244b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer represetations of unsigned fract and return an integer representation of a signed fract answer, rounded to a neighbouring signed fract stochastically.  <a href="#ac2962126873bd0c0e334e2930d6244b2">More...</a><br /></td></tr>
+<tr class="memdesc:ac2962126873bd0c0e334e2930d6244b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> answer, rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> stochastically.  <a href="#ac2962126873bd0c0e334e2930d6244b2">More...</a><br /></td></tr>
 <tr class="separator:ac2962126873bd0c0e334e2930d6244b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Mixed format multiplications</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>The following functions do mixed format multiplications. Most of them are reworked from Dave Lester's original implementation <a class="el" href="round_8h.html#aadebfcde4763dff1ca127e6deabedb27" title="Multiply an accum and a signed long fract and return an accum answer, without rounding. ">accum_times_long_fract()</a> and so have a different format than a set of functions above.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Make these functions take integer represetations and use the naming conventions to be consistent with the functions above and in <a class="el" href="stdfix-full-iso_8h.html" title="Additions to the stdfix.h file to support full Draft ISO/IEC standards compliance. ">stdfix-full-iso.h</a></dd></dl>
+<tr><td colspan="2"><div class="groupText"><p>The following functions do mixed format multiplications. Most of them are reworked from Dave Lester's original implementation <a class="el" href="round_8h.html#ab24bb28e91b32d468ce1ad5cd319de67" title="Multiply a s1615 and a s031 and return a s1615 answer, without rounding. ">accum_times_long_fract()</a> and so have a different format than a set of functions above.</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Make these functions take integer representations and use the naming conventions to be consistent with the functions above and in <a class="el" href="stdfix-full-iso_8h.html" title="Additions to the stdfix.h file to support full Draft ISO/IEC standards compliance. ">stdfix-full-iso.h</a></dd></dl>
 </div></td></tr>
-<tr class="memitem:aadebfcde4763dff1ca127e6deabedb27"><td class="memItemLeft" align="right" valign="top">static accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#aadebfcde4763dff1ca127e6deabedb27">accum_times_long_fract</a> (accum x, long fract y)</td></tr>
-<tr class="memdesc:aadebfcde4763dff1ca127e6deabedb27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply an accum and a signed long fract and return an accum answer, without rounding.  <a href="#aadebfcde4763dff1ca127e6deabedb27">More...</a><br /></td></tr>
-<tr class="separator:aadebfcde4763dff1ca127e6deabedb27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae268ec0025e41770602ea4e30feb44bb"><td class="memItemLeft" align="right" valign="top">static accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ae268ec0025e41770602ea4e30feb44bb">accum_times_long_fract_nearest</a> (accum x, long fract y)</td></tr>
-<tr class="memdesc:ae268ec0025e41770602ea4e30feb44bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply an accum and a signed long fract and return an accum answer rounded to the nearest accum.  <a href="#ae268ec0025e41770602ea4e30feb44bb">More...</a><br /></td></tr>
-<tr class="separator:ae268ec0025e41770602ea4e30feb44bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a000c9e0091ede6746eecc1819e2dea23"><td class="memItemLeft" align="right" valign="top">static accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a000c9e0091ede6746eecc1819e2dea23">accum_times_long_fract_stochastic</a> (accum x, long fract y)</td></tr>
-<tr class="memdesc:a000c9e0091ede6746eecc1819e2dea23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply accum and a signed long fract and return an accum answer rounded to a neighbouring accum stochastically.  <a href="#a000c9e0091ede6746eecc1819e2dea23">More...</a><br /></td></tr>
-<tr class="separator:a000c9e0091ede6746eecc1819e2dea23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade7b2c32513f6e75afa64296b2378bde"><td class="memItemLeft" align="right" valign="top">static accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ade7b2c32513f6e75afa64296b2378bde">accum_times_u_long_fract</a> (accum x, unsigned long fract y)</td></tr>
-<tr class="memdesc:ade7b2c32513f6e75afa64296b2378bde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply accum and an unsigned long fract and return an accum answer, without rounding.  <a href="#ade7b2c32513f6e75afa64296b2378bde">More...</a><br /></td></tr>
-<tr class="separator:ade7b2c32513f6e75afa64296b2378bde"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af259b021435b18959d70c70e8dfdeb6a"><td class="memItemLeft" align="right" valign="top">static accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#af259b021435b18959d70c70e8dfdeb6a">accum_times_u_long_fract_nearest</a> (accum x, unsigned long fract y)</td></tr>
-<tr class="memdesc:af259b021435b18959d70c70e8dfdeb6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply accum and an unsigned long fract and return an accum answer rounded to the nearest accum.  <a href="#af259b021435b18959d70c70e8dfdeb6a">More...</a><br /></td></tr>
-<tr class="separator:af259b021435b18959d70c70e8dfdeb6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab73de091f4ae229f15d1d08dfee3eded"><td class="memItemLeft" align="right" valign="top">static accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ab73de091f4ae229f15d1d08dfee3eded">accum_times_u_long_fract_stochastic</a> (accum x, unsigned long fract y)</td></tr>
-<tr class="memdesc:ab73de091f4ae229f15d1d08dfee3eded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply accum and an unsigned long fract and return an accum answer rounded to a neighbouring accum stochastically.  <a href="#ab73de091f4ae229f15d1d08dfee3eded">More...</a><br /></td></tr>
-<tr class="separator:ab73de091f4ae229f15d1d08dfee3eded"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36df10d24f2d2f95b124866ebedbf6a6"><td class="memItemLeft" align="right" valign="top">static long fract&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a36df10d24f2d2f95b124866ebedbf6a6">long_fract_times_u_long_fract</a> (long fract x, unsigned long fract y)</td></tr>
-<tr class="memdesc:a36df10d24f2d2f95b124866ebedbf6a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a signed long fract and an unsigned long fract and return a signed long fract answer, without rounding.  <a href="#a36df10d24f2d2f95b124866ebedbf6a6">More...</a><br /></td></tr>
-<tr class="separator:a36df10d24f2d2f95b124866ebedbf6a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba812f5fbc36056def549addcb28a956"><td class="memItemLeft" align="right" valign="top">static long fract&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#aba812f5fbc36056def549addcb28a956">long_fract_times_u_long_fract_nearest</a> (long fract x, unsigned long fract y)</td></tr>
-<tr class="memdesc:aba812f5fbc36056def549addcb28a956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a signed long fract and an unsigned long fract and return a signed long fract answer rounded to the nearest signed long fract.  <a href="#aba812f5fbc36056def549addcb28a956">More...</a><br /></td></tr>
-<tr class="separator:aba812f5fbc36056def549addcb28a956"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae941da60821f34ab1b2ac590f3377ce0"><td class="memItemLeft" align="right" valign="top">static long fract&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ae941da60821f34ab1b2ac590f3377ce0">long_fract_times_u_long_fract_stochastic</a> (long fract x, unsigned long fract y)</td></tr>
-<tr class="memdesc:ae941da60821f34ab1b2ac590f3377ce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a signed long fract and an unsigned long fract and return a signed long fract answer rounded to a signed long fract stochastically.  <a href="#ae941da60821f34ab1b2ac590f3377ce0">More...</a><br /></td></tr>
-<tr class="separator:ae941da60821f34ab1b2ac590f3377ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa45b4fb02b27fcad566d5eb9e8e62199"><td class="memItemLeft" align="right" valign="top">static short accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#aa45b4fb02b27fcad566d5eb9e8e62199">short_accum_times_fract</a> (short accum x, fract y)</td></tr>
-<tr class="memdesc:aa45b4fb02b27fcad566d5eb9e8e62199"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two short accums and return a short accum answer without rounding.  <a href="#aa45b4fb02b27fcad566d5eb9e8e62199">More...</a><br /></td></tr>
-<tr class="separator:aa45b4fb02b27fcad566d5eb9e8e62199"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4aac77b37db414297fc9b60859213366"><td class="memItemLeft" align="right" valign="top">static short accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a4aac77b37db414297fc9b60859213366">short_accum_times_fract_nearest</a> (short accum x, fract y)</td></tr>
-<tr class="memdesc:a4aac77b37db414297fc9b60859213366"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two short accums and return a short accum answer rounded to the nearest short accum.  <a href="#a4aac77b37db414297fc9b60859213366">More...</a><br /></td></tr>
-<tr class="separator:a4aac77b37db414297fc9b60859213366"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15aed21408d2b5eefb443f2d0253933a"><td class="memItemLeft" align="right" valign="top">static short accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a15aed21408d2b5eefb443f2d0253933a">short_accum_times_fract_stochastic</a> (short accum x, fract y)</td></tr>
-<tr class="memdesc:a15aed21408d2b5eefb443f2d0253933a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two short accums and return a short accum answer rounded to a neighbouring short accum stochastically.  <a href="#a15aed21408d2b5eefb443f2d0253933a">More...</a><br /></td></tr>
-<tr class="separator:a15aed21408d2b5eefb443f2d0253933a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fa4dd67e23a8d6225205e6494166805"><td class="memItemLeft" align="right" valign="top">static short accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a4fa4dd67e23a8d6225205e6494166805">short_accum_times_u_fract</a> (short accum x, unsigned fract y)</td></tr>
-<tr class="memdesc:a4fa4dd67e23a8d6225205e6494166805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a short accum and an unsigned fract and return a short accum answer without rounding.  <a href="#a4fa4dd67e23a8d6225205e6494166805">More...</a><br /></td></tr>
-<tr class="separator:a4fa4dd67e23a8d6225205e6494166805"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ca13a191d82c39d72b19a4c1d82bb48"><td class="memItemLeft" align="right" valign="top">static short accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a4ca13a191d82c39d72b19a4c1d82bb48">short_accum_times_u_fract_nearest</a> (short accum x, unsigned fract y)</td></tr>
-<tr class="memdesc:a4ca13a191d82c39d72b19a4c1d82bb48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a short accum and an unsigned fract and return a short accum answer rounded to the nearest short accum.  <a href="#a4ca13a191d82c39d72b19a4c1d82bb48">More...</a><br /></td></tr>
-<tr class="separator:a4ca13a191d82c39d72b19a4c1d82bb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada6ed2b892959c9b2dc4cfdcbf461df9"><td class="memItemLeft" align="right" valign="top">static short accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ada6ed2b892959c9b2dc4cfdcbf461df9">short_accum_times_u_fract_stochastic</a> (short accum x, unsigned fract y)</td></tr>
-<tr class="memdesc:ada6ed2b892959c9b2dc4cfdcbf461df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a short accum and an unsigned fract and return a short accum answer rounded to a neighbouring short accum stochastically.  <a href="#ada6ed2b892959c9b2dc4cfdcbf461df9">More...</a><br /></td></tr>
-<tr class="separator:ada6ed2b892959c9b2dc4cfdcbf461df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7ed7776c82c52d98c7f25653fa6dea1"><td class="memItemLeft" align="right" valign="top">static fract&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#af7ed7776c82c52d98c7f25653fa6dea1">fract_times_u_fract</a> (fract x, unsigned fract y)</td></tr>
-<tr class="memdesc:af7ed7776c82c52d98c7f25653fa6dea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply an unsigned fract and a signed fract and return a signed fract answer without rounding.  <a href="#af7ed7776c82c52d98c7f25653fa6dea1">More...</a><br /></td></tr>
-<tr class="separator:af7ed7776c82c52d98c7f25653fa6dea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a718ec926ee8972da1b77f106698481b9"><td class="memItemLeft" align="right" valign="top">static fract&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a718ec926ee8972da1b77f106698481b9">fract_times_u_fract_nearest</a> (fract x, unsigned fract y)</td></tr>
-<tr class="memdesc:a718ec926ee8972da1b77f106698481b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply an unsigned fract and a signed fract and return a signed fract answer rounded to a nearest signed fract.  <a href="#a718ec926ee8972da1b77f106698481b9">More...</a><br /></td></tr>
-<tr class="separator:a718ec926ee8972da1b77f106698481b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af04808384b4a6111a4b45243f5676ffe"><td class="memItemLeft" align="right" valign="top">static fract&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#af04808384b4a6111a4b45243f5676ffe">fract_times_u_fract_stochastic</a> (fract x, unsigned fract y)</td></tr>
-<tr class="memdesc:af04808384b4a6111a4b45243f5676ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply an unsigned fract and a signed fract and return a signed fract answer without rounding.  <a href="#af04808384b4a6111a4b45243f5676ffe">More...</a><br /></td></tr>
-<tr class="separator:af04808384b4a6111a4b45243f5676ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab24bb28e91b32d468ce1ad5cd319de67"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ab24bb28e91b32d468ce1ad5cd319de67">accum_times_long_fract</a> (<a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> x, <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a> y)</td></tr>
+<tr class="memdesc:ab24bb28e91b32d468ce1ad5cd319de67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer, without rounding.  <a href="#ab24bb28e91b32d468ce1ad5cd319de67">More...</a><br /></td></tr>
+<tr class="separator:ab24bb28e91b32d468ce1ad5cd319de67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b8698974ffcf5e94620e0382ff95be4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a3b8698974ffcf5e94620e0382ff95be4">accum_times_long_fract_nearest</a> (<a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> x, <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a> y)</td></tr>
+<tr class="memdesc:a3b8698974ffcf5e94620e0382ff95be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer rounded to the nearest <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a>.  <a href="#a3b8698974ffcf5e94620e0382ff95be4">More...</a><br /></td></tr>
+<tr class="separator:a3b8698974ffcf5e94620e0382ff95be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5d1515c6b8ba9550a539daddcda6342"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ac5d1515c6b8ba9550a539daddcda6342">accum_times_long_fract_stochastic</a> (<a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> x, <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a> y)</td></tr>
+<tr class="memdesc:ac5d1515c6b8ba9550a539daddcda6342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> stochastically.  <a href="#ac5d1515c6b8ba9550a539daddcda6342">More...</a><br /></td></tr>
+<tr class="separator:ac5d1515c6b8ba9550a539daddcda6342"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5273f3155163fb1e089b1542d6d7badd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a5273f3155163fb1e089b1542d6d7badd">accum_times_u_long_fract</a> (<a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> x, <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a> y)</td></tr>
+<tr class="memdesc:a5273f3155163fb1e089b1542d6d7badd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer, without rounding.  <a href="#a5273f3155163fb1e089b1542d6d7badd">More...</a><br /></td></tr>
+<tr class="separator:a5273f3155163fb1e089b1542d6d7badd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa321b99179b7c1943332095e823d7597"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#aa321b99179b7c1943332095e823d7597">accum_times_u_long_fract_nearest</a> (<a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> x, <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a> y)</td></tr>
+<tr class="memdesc:aa321b99179b7c1943332095e823d7597"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer rounded to the nearest <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a>.  <a href="#aa321b99179b7c1943332095e823d7597">More...</a><br /></td></tr>
+<tr class="separator:aa321b99179b7c1943332095e823d7597"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab757d5177e69d2badf31fe10ce372dd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#aab757d5177e69d2badf31fe10ce372dd">accum_times_u_long_fract_stochastic</a> (<a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> x, <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a> y)</td></tr>
+<tr class="memdesc:aab757d5177e69d2badf31fe10ce372dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> stochastically.  <a href="#aab757d5177e69d2badf31fe10ce372dd">More...</a><br /></td></tr>
+<tr class="separator:aab757d5177e69d2badf31fe10ce372dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a464f0876a10e68445a2bb773f166d6ef"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a464f0876a10e68445a2bb773f166d6ef">long_fract_times_u_long_fract</a> (<a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a> x, <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a> y)</td></tr>
+<tr class="memdesc:a464f0876a10e68445a2bb773f166d6ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> answer, without rounding.  <a href="#a464f0876a10e68445a2bb773f166d6ef">More...</a><br /></td></tr>
+<tr class="separator:a464f0876a10e68445a2bb773f166d6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2fc856dbdc8940ae5940c3aed08ba06"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ae2fc856dbdc8940ae5940c3aed08ba06">long_fract_times_u_long_fract_nearest</a> (<a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a> x, <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a> y)</td></tr>
+<tr class="memdesc:ae2fc856dbdc8940ae5940c3aed08ba06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> answer rounded to the nearest <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a>.  <a href="#ae2fc856dbdc8940ae5940c3aed08ba06">More...</a><br /></td></tr>
+<tr class="separator:ae2fc856dbdc8940ae5940c3aed08ba06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a7962971a595fd90603aaedfd956dd2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a1a7962971a595fd90603aaedfd956dd2">long_fract_times_u_long_fract_stochastic</a> (<a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a> x, <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a> y)</td></tr>
+<tr class="memdesc:a1a7962971a595fd90603aaedfd956dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> answer rounded to a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> stochastically.  <a href="#a1a7962971a595fd90603aaedfd956dd2">More...</a><br /></td></tr>
+<tr class="separator:a1a7962971a595fd90603aaedfd956dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc6dca28109e1e54043fefd92e351463"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#acc6dca28109e1e54043fefd92e351463">short_accum_times_fract</a> (<a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> x, <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a> y)</td></tr>
+<tr class="memdesc:acc6dca28109e1e54043fefd92e351463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> numbers and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer without rounding.  <a href="#acc6dca28109e1e54043fefd92e351463">More...</a><br /></td></tr>
+<tr class="separator:acc6dca28109e1e54043fefd92e351463"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4fbd82e80a3abf051be4f053bcd7ca6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ab4fbd82e80a3abf051be4f053bcd7ca6">short_accum_times_fract_nearest</a> (<a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> x, <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a> y)</td></tr>
+<tr class="memdesc:ab4fbd82e80a3abf051be4f053bcd7ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> values and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer rounded to the nearest <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a>.  <a href="#ab4fbd82e80a3abf051be4f053bcd7ca6">More...</a><br /></td></tr>
+<tr class="separator:ab4fbd82e80a3abf051be4f053bcd7ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02e8015ea50254d1f5e89d21793433cd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a02e8015ea50254d1f5e89d21793433cd">short_accum_times_fract_stochastic</a> (<a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> x, <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a> y)</td></tr>
+<tr class="memdesc:a02e8015ea50254d1f5e89d21793433cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> values and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> stochastically.  <a href="#a02e8015ea50254d1f5e89d21793433cd">More...</a><br /></td></tr>
+<tr class="separator:a02e8015ea50254d1f5e89d21793433cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c0d0ed8009ef821b2b391e1a7e89684"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a3c0d0ed8009ef821b2b391e1a7e89684">short_accum_times_u_fract</a> (<a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> x, <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a> y)</td></tr>
+<tr class="memdesc:a3c0d0ed8009ef821b2b391e1a7e89684"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> and an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer without rounding.  <a href="#a3c0d0ed8009ef821b2b391e1a7e89684">More...</a><br /></td></tr>
+<tr class="separator:a3c0d0ed8009ef821b2b391e1a7e89684"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0255bd234fb263edf7f6a40df202623c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a0255bd234fb263edf7f6a40df202623c">short_accum_times_u_fract_nearest</a> (<a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> x, <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a> y)</td></tr>
+<tr class="memdesc:a0255bd234fb263edf7f6a40df202623c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> and an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer rounded to the nearest <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a>.  <a href="#a0255bd234fb263edf7f6a40df202623c">More...</a><br /></td></tr>
+<tr class="separator:a0255bd234fb263edf7f6a40df202623c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac37d036aee9ce49aeadb0f26eccbd6b0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#ac37d036aee9ce49aeadb0f26eccbd6b0">short_accum_times_u_fract_stochastic</a> (<a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> x, <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a> y)</td></tr>
+<tr class="memdesc:ac37d036aee9ce49aeadb0f26eccbd6b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> and an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> stochastically.  <a href="#ac37d036aee9ce49aeadb0f26eccbd6b0">More...</a><br /></td></tr>
+<tr class="separator:ac37d036aee9ce49aeadb0f26eccbd6b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a5e36e58d6f18b82790eca0831661ed"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a8a5e36e58d6f18b82790eca0831661ed">fract_times_u_fract</a> (<a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a> x, <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a> y)</td></tr>
+<tr class="memdesc:a8a5e36e58d6f18b82790eca0831661ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> and return a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> answer without rounding.  <a href="#a8a5e36e58d6f18b82790eca0831661ed">More...</a><br /></td></tr>
+<tr class="separator:a8a5e36e58d6f18b82790eca0831661ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cb8b44ca9b06d42b014298762c078a2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a9cb8b44ca9b06d42b014298762c078a2">fract_times_u_fract_nearest</a> (<a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a> x, <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a> y)</td></tr>
+<tr class="memdesc:a9cb8b44ca9b06d42b014298762c078a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> and return a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> answer rounded to a nearest <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a>.  <a href="#a9cb8b44ca9b06d42b014298762c078a2">More...</a><br /></td></tr>
+<tr class="separator:a9cb8b44ca9b06d42b014298762c078a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11861086b08591b238d33baf9341dc5b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="round_8h.html#a11861086b08591b238d33baf9341dc5b">fract_times_u_fract_stochastic</a> (<a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a> x, <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a> y)</td></tr>
+<tr class="memdesc:a11861086b08591b238d33baf9341dc5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> and return a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> answer with stochastic rounding.  <a href="#a11861086b08591b238d33baf9341dc5b">More...</a><br /></td></tr>
+<tr class="separator:a11861086b08591b238d33baf9341dc5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fixed-point multiplication with controlled rounding. </p>
@@ -1352,7 +1352,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply two integer representations of accum and return an integer representation of an accum answer, rounded to nearest accum. </p>
+<p>Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and return an integer representation of an <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer, rounded to nearest <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1396,7 +1396,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply two integer representations of accum and return an integer representation of an accum answer, rounded to a neighbouring accum stochastically. </p>
+<p>Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and return an integer representation of an <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer, rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> stochastically. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1440,7 +1440,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply two integer representations of unsigned long fract and return an integer representation of a signed long fract answer, rounded to nearest accum. </p>
+<p>Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> answer, rounded to nearest <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1484,7 +1484,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply two integer representations of unsigned long fract and return an integer representation of a signed long fract answer, rounded to a neighbouring signed long fract stochastically. </p>
+<p>Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> answer, rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> stochastically. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1528,7 +1528,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply two integer representations of short accum and return an integer representation of a short accum answer, rounded to a nearest short accum. </p>
+<p>Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer, rounded to a nearest <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1572,7 +1572,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply two integer representations of short accum and return an integer representation of a short accum answer, rounded to a neighbouring short accum stochastically. </p>
+<p>Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer, rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> stochastically. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1616,7 +1616,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply two integer represetations of unsigned fract and return an integer representation of a signed fract answer, rounded to a nearest signed fract. </p>
+<p>Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> answer, rounded to a nearest <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1660,7 +1660,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply two integer represetations of unsigned fract and return an integer representation of a signed fract answer, rounded to a neighbouring signed fract stochastically. </p>
+<p>Multiply two integer representations of <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and return an integer representation of a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> answer, rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> stochastically. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1672,7 +1672,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aadebfcde4763dff1ca127e6deabedb27"></a>
+<a class="anchor" id="ab24bb28e91b32d468ce1ad5cd319de67"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1680,15 +1680,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static accum accum_times_long_fract </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> accum_times_long_fract </td>
           <td>(</td>
-          <td class="paramtype">accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -1704,7 +1704,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply an accum and a signed long fract and return an accum answer, without rounding. </p>
+<p>Multiply a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer, without rounding. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1716,7 +1716,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae268ec0025e41770602ea4e30feb44bb"></a>
+<a class="anchor" id="a3b8698974ffcf5e94620e0382ff95be4"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1724,15 +1724,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static accum accum_times_long_fract_nearest </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> accum_times_long_fract_nearest </td>
           <td>(</td>
-          <td class="paramtype">accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -1748,7 +1748,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply an accum and a signed long fract and return an accum answer rounded to the nearest accum. </p>
+<p>Multiply a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer rounded to the nearest <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1760,7 +1760,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a000c9e0091ede6746eecc1819e2dea23"></a>
+<a class="anchor" id="ac5d1515c6b8ba9550a539daddcda6342"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1768,15 +1768,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static accum accum_times_long_fract_stochastic </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> accum_times_long_fract_stochastic </td>
           <td>(</td>
-          <td class="paramtype">accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -1792,7 +1792,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply accum and a signed long fract and return an accum answer rounded to a neighbouring accum stochastically. </p>
+<p>Multiply <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> stochastically. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1804,7 +1804,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ade7b2c32513f6e75afa64296b2378bde"></a>
+<a class="anchor" id="a5273f3155163fb1e089b1542d6d7badd"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1812,15 +1812,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static accum accum_times_u_long_fract </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> accum_times_u_long_fract </td>
           <td>(</td>
-          <td class="paramtype">accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -1836,7 +1836,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply accum and an unsigned long fract and return an accum answer, without rounding. </p>
+<p>Multiply <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer, without rounding. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1848,7 +1848,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af259b021435b18959d70c70e8dfdeb6a"></a>
+<a class="anchor" id="aa321b99179b7c1943332095e823d7597"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1856,15 +1856,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static accum accum_times_u_long_fract_nearest </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> accum_times_u_long_fract_nearest </td>
           <td>(</td>
-          <td class="paramtype">accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -1880,7 +1880,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply accum and an unsigned long fract and return an accum answer rounded to the nearest accum. </p>
+<p>Multiply <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer rounded to the nearest <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1892,7 +1892,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab73de091f4ae229f15d1d08dfee3eded"></a>
+<a class="anchor" id="aab757d5177e69d2badf31fe10ce372dd"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1900,15 +1900,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static accum accum_times_u_long_fract_stochastic </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> accum_times_u_long_fract_stochastic </td>
           <td>(</td>
-          <td class="paramtype">accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -1924,7 +1924,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply accum and an unsigned long fract and return an accum answer rounded to a neighbouring accum stochastically. </p>
+<p>Multiply <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> answer rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> stochastically. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1936,7 +1936,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a36df10d24f2d2f95b124866ebedbf6a6"></a>
+<a class="anchor" id="a464f0876a10e68445a2bb773f166d6ef"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1944,15 +1944,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static long fract long_fract_times_u_long_fract </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a> long_fract_times_u_long_fract </td>
           <td>(</td>
-          <td class="paramtype">long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -1968,7 +1968,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply a signed long fract and an unsigned long fract and return a signed long fract answer, without rounding. </p>
+<p>Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> answer, without rounding. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -1980,7 +1980,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aba812f5fbc36056def549addcb28a956"></a>
+<a class="anchor" id="ae2fc856dbdc8940ae5940c3aed08ba06"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1988,15 +1988,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static long fract long_fract_times_u_long_fract_nearest </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a> long_fract_times_u_long_fract_nearest </td>
           <td>(</td>
-          <td class="paramtype">long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -2012,7 +2012,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply a signed long fract and an unsigned long fract and return a signed long fract answer rounded to the nearest signed long fract. </p>
+<p>Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> answer rounded to the nearest <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -2024,7 +2024,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae941da60821f34ab1b2ac590f3377ce0"></a>
+<a class="anchor" id="a1a7962971a595fd90603aaedfd956dd2"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -2032,15 +2032,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static long fract long_fract_times_u_long_fract_stochastic </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a> long_fract_times_u_long_fract_stochastic </td>
           <td>(</td>
-          <td class="paramtype">long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned long fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -2056,7 +2056,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply a signed long fract and an unsigned long fract and return a signed long fract answer rounded to a signed long fract stochastically. </p>
+<p>Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> and an <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> answer rounded to a <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6" title="An alternative name for the signed long fract type. ">s031</a> stochastically. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -2068,7 +2068,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa45b4fb02b27fcad566d5eb9e8e62199"></a>
+<a class="anchor" id="acc6dca28109e1e54043fefd92e351463"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -2076,15 +2076,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static short accum short_accum_times_fract </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> short_accum_times_fract </td>
           <td>(</td>
-          <td class="paramtype">short accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -2100,7 +2100,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply two short accums and return a short accum answer without rounding. </p>
+<p>Multiply two <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> numbers and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer without rounding. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -2112,7 +2112,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4aac77b37db414297fc9b60859213366"></a>
+<a class="anchor" id="ab4fbd82e80a3abf051be4f053bcd7ca6"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -2120,15 +2120,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static short accum short_accum_times_fract_nearest </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> short_accum_times_fract_nearest </td>
           <td>(</td>
-          <td class="paramtype">short accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -2144,7 +2144,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply two short accums and return a short accum answer rounded to the nearest short accum. </p>
+<p>Multiply two <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> values and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer rounded to the nearest <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -2156,7 +2156,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a15aed21408d2b5eefb443f2d0253933a"></a>
+<a class="anchor" id="a02e8015ea50254d1f5e89d21793433cd"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -2164,15 +2164,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static short accum short_accum_times_fract_stochastic </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> short_accum_times_fract_stochastic </td>
           <td>(</td>
-          <td class="paramtype">short accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -2188,7 +2188,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply two short accums and return a short accum answer rounded to a neighbouring short accum stochastically. </p>
+<p>Multiply two <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> values and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> stochastically. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -2200,7 +2200,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4fa4dd67e23a8d6225205e6494166805"></a>
+<a class="anchor" id="a3c0d0ed8009ef821b2b391e1a7e89684"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -2208,15 +2208,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static short accum short_accum_times_u_fract </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> short_accum_times_u_fract </td>
           <td>(</td>
-          <td class="paramtype">short accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -2232,7 +2232,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply a short accum and an unsigned fract and return a short accum answer without rounding. </p>
+<p>Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> and an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer without rounding. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -2244,7 +2244,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4ca13a191d82c39d72b19a4c1d82bb48"></a>
+<a class="anchor" id="a0255bd234fb263edf7f6a40df202623c"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -2252,15 +2252,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static short accum short_accum_times_u_fract_nearest </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> short_accum_times_u_fract_nearest </td>
           <td>(</td>
-          <td class="paramtype">short accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -2276,7 +2276,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply a short accum and an unsigned fract and return a short accum answer rounded to the nearest short accum. </p>
+<p>Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> and an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer rounded to the nearest <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -2288,7 +2288,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ada6ed2b892959c9b2dc4cfdcbf461df9"></a>
+<a class="anchor" id="ac37d036aee9ce49aeadb0f26eccbd6b0"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -2296,15 +2296,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static short accum short_accum_times_u_fract_stochastic </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a> short_accum_times_u_fract_stochastic </td>
           <td>(</td>
-          <td class="paramtype">short accum&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -2320,7 +2320,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply a short accum and an unsigned fract and return a short accum answer rounded to a neighbouring short accum stochastically. </p>
+<p>Multiply a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> and an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and return a <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> answer rounded to a neighbouring <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e" title="An alternative name for the signed short accum type. ">s87</a> stochastically. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -2332,7 +2332,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af7ed7776c82c52d98c7f25653fa6dea1"></a>
+<a class="anchor" id="a8a5e36e58d6f18b82790eca0831661ed"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -2340,15 +2340,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static fract fract_times_u_fract </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a> fract_times_u_fract </td>
           <td>(</td>
-          <td class="paramtype">fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -2364,7 +2364,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply an unsigned fract and a signed fract and return a signed fract answer without rounding. </p>
+<p>Multiply an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> and return a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> answer without rounding. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -2376,7 +2376,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a718ec926ee8972da1b77f106698481b9"></a>
+<a class="anchor" id="a9cb8b44ca9b06d42b014298762c078a2"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -2384,15 +2384,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static fract fract_times_u_fract_nearest </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a> fract_times_u_fract_nearest </td>
           <td>(</td>
-          <td class="paramtype">fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -2408,7 +2408,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply an unsigned fract and a signed fract and return a signed fract answer rounded to a nearest signed fract. </p>
+<p>Multiply an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> and return a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> answer rounded to a nearest <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -2420,7 +2420,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af04808384b4a6111a4b45243f5676ffe"></a>
+<a class="anchor" id="a11861086b08591b238d33baf9341dc5b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -2428,15 +2428,15 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static fract fract_times_u_fract_stochastic </td>
+          <td class="memname">static <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a> fract_times_u_fract_stochastic </td>
           <td>(</td>
-          <td class="paramtype">fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned fract&#160;</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a>&#160;</td>
           <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
@@ -2452,7 +2452,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Multiply an unsigned fract and a signed fract and return a signed fract answer without rounding. </p>
+<p>Multiply an <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> and a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> and return a <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea" title="An alternative name for the signed fract type. ">s015</a> answer with stochastic rounding. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The first value </td></tr>
@@ -2467,7 +2467,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2020 14:56:53 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 8 2020 16:14:37 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>
