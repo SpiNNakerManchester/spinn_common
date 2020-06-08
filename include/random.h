@@ -49,7 +49,7 @@
 #define __RANDOM_H__
 
 #include <stdint.h>
-#include <stdfix.h>
+#include <stdfix-full-iso.h>
 
 /*!
  * \name Marsaglia 32-bit KISS uniform random number generator
