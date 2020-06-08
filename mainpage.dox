@@ -1,0 +1,45 @@
+/*!
+* @cond copright_declaration
+* Copyright (c) 2020 The University of Manchester
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+* @endcond
+*
+* @mainpage spinn_common: A support library for SpiNNaker applications
+*
+* The spinn_common library provides miscellaneous support functions to
+* SpiNNaker applications. These are mainly:
+*
+* * assert.h — a general assertion framework
+* * bit_field.h — a bit-field system (used particularly for recording spike
+*   events in sPyNNaker)
+* * circular_buffer.h — a high-speed lock-free circular buffer implementation
+* * pair.h — a type of a pair of words
+* * arm.h — access to low-level ARM instructions
+* * random.h — various validated random number generators
+*
+* In addition, the following libraries are provided for access to mathematical
+* operations and types:
+*
+* * stdfix-full-iso.h — extends the standard stdfix.h header to support more of
+*   the optional parts of the ISO specification for fixed point arithmetic in C
+* * log.h — fixed point logarithm
+* * normal.h — fixed point normally distributed random numbers
+* * round.h — fixed point multiplication with rounding control (especially
+*   stochastic rounding)
+* * sincos.h — basic fixed point trigonometric functions
+* * sqrt.h — fixed point square root
+* * stdfix-exp.h — fixed point exponential
+* * utils.h — miscellaneous fixed point functions
+*/
