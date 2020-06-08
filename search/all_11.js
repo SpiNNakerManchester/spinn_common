@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['r',['R',['../random_8c.html#a5c71a5e59a53413cd6c270266d63b031',1,'random.c']]],
   ['r_5fsquared',['r_squared',['../sqrt_8c.html#a3f24b284cc7fa3d9ae6631f1a1fd7ca1',1,'sqrt.c']]],
   ['random',['random',['../spin-print_8h.html#aaac7e8b42546e8a2fd07b71fd5b12ba0',1,'random():&#160;spin-print.h'],['../round_8h.html#a69f1bba01cab6b4ca24a6f755e9a1980',1,'RANDOM():&#160;round.h']]],
   ['random_2ec',['random.c',['../random_8c.html',1,'']]],
@@ -7,7 +8,8 @@ var searchData=
   ['random_5fbit_5ffield',['random_bit_field',['../bit__field_8h.html#a9e722fd2aa1dfa5adc655bea080a7650',1,'random_bit_field(bit_field_t restrict b, size_t s):&#160;bit_field.c'],['../bit__field_8c.html#a9e722fd2aa1dfa5adc655bea080a7650',1,'random_bit_field(bit_field_t restrict b, size_t s):&#160;bit_field.c']]],
   ['rbits',['rbits',['../stdfix-full-iso_8h.html#ac2e2df190c6bedb46e18d72c22118c04',1,'stdfix-full-iso.h']]],
   ['rdivi',['rdivi',['../stdfix-full-iso_8h.html#afd0a87d3062b32f890544366e37a867f',1,'stdfix-full-iso.h']]],
-  ['recip_5fnormalized_5froot',['recip_normalized_root',['../sqrt_8c.html#a2c7dd30a7872443b4a5ce450d7b8a3d1',1,'sqrt.c']]],
+  ['recip_5fnormalized_5froot',['recip_normalized_root',['../sqrt_8c.html#a2be8970b31124dbdba156c576488354f',1,'sqrt.c']]],
+  ['recip_5ftable',['recip_table',['../log_8c.html#a593da745e133d41b43f5b9be6f044bd9',1,'log.c']]],
   ['reduced',['reduced',['../sincos_8c.html#a01bff5456c96d07411785fcbec11cc96',1,'sincos.c']]],
   ['round_2eh',['round.h',['../round_8h.html',1,'']]],
   ['round64',['round64',['../utils_8h.html#a2d346e7d7591a894eae4628117969af9',1,'utils.h']]],

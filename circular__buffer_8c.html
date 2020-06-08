@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -108,10 +109,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac085d58956375e327c27d2c79734c77b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="circular__buffer_8h.html#a549d5bcaed4164249aee6a6828a51e6f">circular_buffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="circular__buffer_8c.html#ac085d58956375e327c27d2c79734c77b">circular_buffer_initialize</a> (uint32_t size)</td></tr>
-<tr class="memdesc:ac085d58956375e327c27d2c79734c77b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new FIFO circular buffer of at least the given size. For efficiency, the buffer can be bigger than requested.  <a href="#ac085d58956375e327c27d2c79734c77b">More...</a><br /></td></tr>
+<tr class="memdesc:ac085d58956375e327c27d2c79734c77b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new FIFO circular buffer of at least the given size. For efficiency, the buffer can be bigger than requested.  <a href="#ac085d58956375e327c27d2c79734c77b">More...</a><br /></td></tr>
 <tr class="separator:ac085d58956375e327c27d2c79734c77b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac46ed6630f12b3ff45541501f63689a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="circular__buffer_8c.html#ac46ed6630f12b3ff45541501f63689a6">circular_buffer_print_buffer</a> (<a class="el" href="circular__buffer_8h.html#a549d5bcaed4164249aee6a6828a51e6f">circular_buffer</a> buffer)</td></tr>
-<tr class="memdesc:ac46ed6630f12b3ff45541501f63689a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the contents of the buffer. Do not use if the sark <code>IO_BUF</code> is being used for binary data.  <a href="#ac46ed6630f12b3ff45541501f63689a6">More...</a><br /></td></tr>
+<tr class="memdesc:ac46ed6630f12b3ff45541501f63689a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the contents of the buffer.  <a href="#ac46ed6630f12b3ff45541501f63689a6">More...</a><br /></td></tr>
 <tr class="separator:ac46ed6630f12b3ff45541501f63689a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -135,14 +136,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new FIFO circular buffer of at least the given size. For efficiency, the buffer can be bigger than requested. </p>
+<p>Create a new FIFO circular buffer of at least the given size. For efficiency, the buffer can be bigger than requested. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>The minimum number of elements in the buffer to be created </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A struct representing the created buffer </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the created buffer. </dd></dl>
 
 </div>
 </div>
@@ -160,8 +161,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Prints the contents of the buffer. Do not use if the sark <code>IO_BUF</code> is being used for binary data. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Print the contents of the buffer. </p>
+<p>Do not use if the sark <code>IO_BUF</code> is being used for binary data. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">buffer</td><td>The buffer to print </td></tr>
   </table>
@@ -173,7 +174,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 6 2020 16:55:49 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 8 2020 14:56:53 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

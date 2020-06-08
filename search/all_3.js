@@ -1,7 +1,7 @@
 var searchData=
 [
   ['central_5fapprox',['central_approx',['../normal_8c.html#aecb9dd7f3c96e0cd489c887f31fba2a0',1,'normal.c']]],
-  ['cheap_5fgenerator',['cheap_generator',['../round_8h.html#a2eeec50831870fb57b317339d3a1e06b',1,'round.h']]],
+  ['cheap_5fgenerator',['cheap_generator',['../round_8h.html#acc5ae438d355858fa71fae691212da84',1,'round.h']]],
   ['check',['check',['../assert_8h.html#a661711421920c1f3f5d99c66d07ac938',1,'assert.h']]],
   ['check_5fdtcm',['check_dtcm',['../assert_8h.html#a8c8e7a6bd385d9d737b1a6b476fb024b',1,'assert.h']]],
   ['check_5fitcm',['check_itcm',['../assert_8h.html#a534cf39313033a1710db01e2d4d2f55d',1,'assert.h']]],
@@ -46,5 +46,6 @@ var searchData=
   ['countlsuk',['countlsuk',['../stdfix-full-iso_8h.html#a14e646814845f5c7e38ef195c4d1ee1a',1,'stdfix-full-iso.h']]],
   ['countlsulk',['countlsulk',['../stdfix-full-iso_8h.html#a944ec5d1a462a246e73458fe30f19fe9',1,'stdfix-full-iso.h']]],
   ['countlsulr',['countlsulr',['../stdfix-full-iso_8h.html#a11c849c7e7ea5683a9b860561302d684',1,'stdfix-full-iso.h']]],
-  ['countlsur',['countlsur',['../stdfix-full-iso_8h.html#a2a234b2e60f6bb6b7d6ea2e14931f16b',1,'stdfix-full-iso.h']]]
+  ['countlsur',['countlsur',['../stdfix-full-iso_8h.html#a2a234b2e60f6bb6b7d6ea2e14931f16b',1,'stdfix-full-iso.h']]],
+  ['cubic_5fterm',['cubic_term',['../log_8c.html#ab96f2db4207e232039883ddb8d456069',1,'log.c']]]
 ];

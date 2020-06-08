@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['spinn_5fcommon_3a_20a_20support_20library_20for_20spinnaker_20applications',['spinn_common: A support library for SpiNNaker applications',['../index.html',1,'']]],
   ['s015',['s015',['../stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea',1,'stdfix-full-iso.h']]],
   ['s031',['s031',['../stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6',1,'stdfix-full-iso.h']]],
   ['s07',['s07',['../stdfix-full-iso_8h.html#a03a75727483f91757c1d0ab1021e06ca',1,'stdfix-full-iso.h']]],

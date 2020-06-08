@@ -1,11 +1,13 @@
 var searchData=
 [
+  ['leading_5fterms',['leading_terms',['../normal_8c.html#a7068ffe2e6761582a77f19b06321abb0',1,'normal.c']]],
   ['lkbits',['lkbits',['../stdfix-full-iso_8h.html#a07b3c7217d721b3d3af43a7f19afdd6c',1,'stdfix-full-iso.h']]],
   ['lkdivi',['lkdivi',['../stdfix-full-iso_8h.html#ab7ce3fdc22046bd568fec4b936864575',1,'stdfix-full-iso.h']]],
   ['lo_5fapprox',['lo_approx',['../normal_8c.html#a7010828e3b4e27e513884662411484b9',1,'normal.c']]],
   ['log_2ec',['log.c',['../log_8c.html',1,'']]],
   ['log_2eh',['log.h',['../log_8h.html',1,'']]],
   ['log_5f1_5f2',['log_1_2',['../log_8c.html#a228be57b698be5e17c23ea60cf0bf076',1,'log.c']]],
+  ['log_5fck',['log_ck',['../log_8c.html#aff0accc8c238a854e8bbfba8df48084c',1,'log.c']]],
   ['log_5fdebug',['LOG_DEBUG',['../assert_8h.html#a6ff63e8955665c4a58b1598f2b07c51a',1,'assert.h']]],
   ['log_5ferror',['LOG_ERROR',['../assert_8h.html#aced66975c154ea0e2a8ec3bc818b4e08',1,'assert.h']]],
   ['log_5finfo',['LOG_INFO',['../assert_8h.html#aeb4f36db01bd128c7afeac5889dac311',1,'assert.h']]],

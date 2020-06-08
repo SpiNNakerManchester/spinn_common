@@ -8,6 +8,7 @@ var searchData=
   ['u88',['u88',['../stdfix-full-iso_8h.html#abad4c3c7cb3f6589e59aaddaba1fdb51',1,'stdfix-full-iso.h']]],
   ['uhkbits',['uhkbits',['../stdfix-full-iso_8h.html#a6fe3a6a0968a6e4e84132dfd0e26e7b3',1,'stdfix-full-iso.h']]],
   ['uhrbits',['uhrbits',['../stdfix-full-iso_8h.html#a4f4eaefdfddacdc48aba39d0cc0155f3',1,'stdfix-full-iso.h']]],
+  ['uint32_5fround',['uint32_round',['../log_8c.html#ac35af12a1ead550680545af3b7553682',1,'log.c']]],
   ['uint_5fuhk_5ft',['uint_uhk_t',['../stdfix-full-iso_8h.html#a9081a4b951a84429f8c261f9f38edb38',1,'stdfix-full-iso.h']]],
   ['uint_5fuhr_5ft',['uint_uhr_t',['../stdfix-full-iso_8h.html#a3067c24977563a175261454e9d925f3d',1,'stdfix-full-iso.h']]],
   ['uint_5fuk_5ft',['uint_uk_t',['../stdfix-full-iso_8h.html#a556369e681a04b9e9c193db0d7ae3a71',1,'stdfix-full-iso.h']]],

@@ -5,5 +5,5 @@ var searchData=
   ['exit',['exit',['../spin-print_8h.html#ae89e499e2d2433815526bd7725377a5a',1,'spin-print.h']]],
   ['exp_5fseries',['exp_series',['../stdfix-exp_8c.html#a3acd9fc8090aa16ed29495f13343a1ca',1,'stdfix-exp.c']]],
   ['expk',['expk',['../stdfix-exp_8h.html#ae3876945bcf9be81eb585aad4902190c',1,'expk(accum x):&#160;stdfix-exp.c'],['../stdfix-exp_8c.html#ae3876945bcf9be81eb585aad4902190c',1,'expk(accum x):&#160;stdfix-exp.c']]],
-  ['exponential_5fdist_5fvariate',['exponential_dist_variate',['../random_8h.html#aacbb3c577e4a274f552a2fd4c2b84ff4',1,'exponential_dist_variate(uniform_rng uni_rng, uint32_t *seed_arg):&#160;random.c'],['../random_8c.html#aacbb3c577e4a274f552a2fd4c2b84ff4',1,'exponential_dist_variate(uniform_rng uni_rng, uint32_t *seed_arg):&#160;random.c']]]
+  ['exponential_5fdist_5fvariate',['exponential_dist_variate',['../random_8h.html#afcdc0d5b02715e225d469c8194395978',1,'exponential_dist_variate(uniform_rng uni_rng, uint32_t *seed_arg):&#160;random.c'],['../random_8c.html#afcdc0d5b02715e225d469c8194395978',1,'exponential_dist_variate(uniform_rng uni_rng, uint32_t *seed_arg):&#160;random.c']]]
 ];

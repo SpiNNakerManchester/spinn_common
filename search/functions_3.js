@@ -1,7 +1,7 @@
 var searchData=
 [
   ['central_5fapprox',['central_approx',['../normal_8c.html#aecb9dd7f3c96e0cd489c887f31fba2a0',1,'normal.c']]],
-  ['cheap_5fgenerator',['cheap_generator',['../round_8h.html#a2eeec50831870fb57b317339d3a1e06b',1,'round.h']]],
+  ['cheap_5fgenerator',['cheap_generator',['../round_8h.html#acc5ae438d355858fa71fae691212da84',1,'round.h']]],
   ['circular_5fbuffer_5fadd',['circular_buffer_add',['../circular__buffer_8h.html#a9126eadd9237493500903c3a667afe63',1,'circular_buffer.h']]],
   ['circular_5fbuffer_5fadvance_5fif_5fnext_5fequals',['circular_buffer_advance_if_next_equals',['../circular__buffer_8h.html#aeaa45321badf25c184d00041c55ecf5f',1,'circular_buffer.h']]],
   ['circular_5fbuffer_5fclear',['circular_buffer_clear',['../circular__buffer_8h.html#ac213ca99107433fc7757eb8e3255caff',1,'circular_buffer.h']]],
@@ -33,5 +33,6 @@ var searchData=
   ['countlsuk',['countlsuk',['../stdfix-full-iso_8h.html#a14e646814845f5c7e38ef195c4d1ee1a',1,'stdfix-full-iso.h']]],
   ['countlsulk',['countlsulk',['../stdfix-full-iso_8h.html#a944ec5d1a462a246e73458fe30f19fe9',1,'stdfix-full-iso.h']]],
   ['countlsulr',['countlsulr',['../stdfix-full-iso_8h.html#a11c849c7e7ea5683a9b860561302d684',1,'stdfix-full-iso.h']]],
-  ['countlsur',['countlsur',['../stdfix-full-iso_8h.html#a2a234b2e60f6bb6b7d6ea2e14931f16b',1,'stdfix-full-iso.h']]]
+  ['countlsur',['countlsur',['../stdfix-full-iso_8h.html#a2a234b2e60f6bb6b7d6ea2e14931f16b',1,'stdfix-full-iso.h']]],
+  ['cubic_5fterm',['cubic_term',['../log_8c.html#ab96f2db4207e232039883ddb8d456069',1,'log.c']]]
 ];

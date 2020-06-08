@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -101,7 +102,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Support code for <a class="el" href="random_8h.html" title="pseudo-random number generators ">random.h</a>.  
+<p>Support code for <a class="el" href="random_8h.html" title="Pseudo-random number generators. ">random.h</a>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
@@ -135,27 +136,31 @@ Functions</h2></td></tr>
 <tr class="memdesc:aecb9dd7f3c96e0cd489c887f31fba2a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to the central approximation functions.  <a href="#aecb9dd7f3c96e0cd489c887f31fba2a0">More...</a><br /></td></tr>
 <tr class="separator:aecb9dd7f3c96e0cd489c887f31fba2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff6b2faebf125a379d9beee74d9dc6ae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="normal_8c.html#aff6b2faebf125a379d9beee74d9dc6ae">__norminv_rbits</a> (int x)</td></tr>
-<tr class="memdesc:aff6b2faebf125a379d9beee74d9dc6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given an 16-bit signed integer value, representing p - 0.5, return the cumulative normal value associated with that probability.  <a href="#aff6b2faebf125a379d9beee74d9dc6ae">More...</a><br /></td></tr>
+<tr class="memdesc:aff6b2faebf125a379d9beee74d9dc6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed s16.15.  <a href="#aff6b2faebf125a379d9beee74d9dc6ae">More...</a><br /></td></tr>
 <tr class="separator:aff6b2faebf125a379d9beee74d9dc6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:aae986dade2fed93ca05953fdb87ce222"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae986dade2fed93ca05953fdb87ce222"></a>
 static int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="normal_8c.html#aae986dade2fed93ca05953fdb87ce222">low_values</a> []</td></tr>
-<tr class="memdesc:aae986dade2fed93ca05953fdb87ce222"><td class="mdescLeft">&#160;</td><td class="mdescRight">extreme values of the normal CDF <br /></td></tr>
+<tr class="memdesc:aae986dade2fed93ca05953fdb87ce222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precalculated extreme values of the normal distribution. <br /></td></tr>
 <tr class="separator:aae986dade2fed93ca05953fdb87ce222"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a638ef372ed2ec556988b492934d0dcdd"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><b>offset</b> [6]</td></tr>
+<tr class="memitem:a638ef372ed2ec556988b492934d0dcdd"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="normal_8c.html#a638ef372ed2ec556988b492934d0dcdd">offset</a> [6]</td></tr>
+<tr class="memdesc:a638ef372ed2ec556988b492934d0dcdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset terms for <a class="el" href="normal_8c.html#aecb9dd7f3c96e0cd489c887f31fba2a0" title="Access to the central approximation functions. ">central_approx()</a>  <a href="#a638ef372ed2ec556988b492934d0dcdd">More...</a><br /></td></tr>
 <tr class="separator:a638ef372ed2ec556988b492934d0dcdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad09a9e6c0fa86f8f4de580ca42815a8b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><b>multiplier</b> [6]</td></tr>
+<tr class="memitem:ad09a9e6c0fa86f8f4de580ca42815a8b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="normal_8c.html#ad09a9e6c0fa86f8f4de580ca42815a8b">multiplier</a> [6]</td></tr>
+<tr class="memdesc:ad09a9e6c0fa86f8f4de580ca42815a8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplication factors for <a class="el" href="normal_8c.html#aecb9dd7f3c96e0cd489c887f31fba2a0" title="Access to the central approximation functions. ">central_approx()</a>  <a href="#ad09a9e6c0fa86f8f4de580ca42815a8b">More...</a><br /></td></tr>
 <tr class="separator:ad09a9e6c0fa86f8f4de580ca42815a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7068ffe2e6761582a77f19b06321abb0"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><b>leading_terms</b> [11]</td></tr>
+<tr class="memitem:a7068ffe2e6761582a77f19b06321abb0"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="normal_8c.html#a7068ffe2e6761582a77f19b06321abb0">leading_terms</a> [11]</td></tr>
+<tr class="memdesc:a7068ffe2e6761582a77f19b06321abb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Leading terms of the distribution for <a class="el" href="normal_8c.html#a7010828e3b4e27e513884662411484b9" title="Access to the tail approximation polynomial table evaluation. ">lo_approx()</a>  <a href="#a7068ffe2e6761582a77f19b06321abb0">More...</a><br /></td></tr>
 <tr class="separator:a7068ffe2e6761582a77f19b06321abb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee9356542afe3e2b541d337122079a06"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee9356542afe3e2b541d337122079a06"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>polynomials</b> [11][5]</td></tr>
+static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="normal_8c.html#aee9356542afe3e2b541d337122079a06">polynomials</a> [11][5]</td></tr>
+<tr class="memdesc:aee9356542afe3e2b541d337122079a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Patchwise approximation polynomial terms. <br /></td></tr>
 <tr class="separator:aee9356542afe3e2b541d337122079a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Support code for <a class="el" href="random_8h.html" title="pseudo-random number generators ">random.h</a>. </p>
+<div class="textblock"><p>Support code for <a class="el" href="random_8h.html" title="Pseudo-random number generators. ">random.h</a>. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a7010828e3b4e27e513884662411484b9"></a>
 <div class="memitem">
@@ -285,7 +290,7 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>polynomials</b>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>??? </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Normal value (using algorithm relevant for tail regions) </dd></dl>
 
 </div>
 </div>
@@ -329,7 +334,7 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>polynomials</b>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>??? </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Normal value (using algorithm relevant for central region) </dd></dl>
 
 </div>
 </div>
@@ -347,15 +352,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>polynomials</b>
       </table>
 </div><div class="memdoc">
 
-<p>Given an 16-bit signed integer value, representing p - 0.5, return the cumulative normal value associated with that probability. </p>
-<p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed 16-bit PRNG.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed s16.15. </p>
+<p>Given an 16-bit signed integer value, representing p - 0.5, return the cumulative normal value associated with that probability. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit integer with s0.16 (not s0.15!!) representation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A uniformly distributed 16-bit PRNG, in the bottom 16 bits of <code>x</code>. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A 32-bit integer representing the cumulative normal distribution This is in s16.15 (i.e. standard accum) format. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A normally distributed int representation of an s16.15 PRNG. </dd></dl>
 
 </div>
 </div>
@@ -378,6 +382,8 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>polynomials</b>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">    7200, 6272, 4608, 2048, 0, 0</div><div class="line">}</div></div><!-- fragment -->
+<p>Offset terms for <a class="el" href="normal_8c.html#aecb9dd7f3c96e0cd489c887f31fba2a0" title="Access to the central approximation functions. ">central_approx()</a> </p>
+
 </div>
 </div>
 <a class="anchor" id="ad09a9e6c0fa86f8f4de580ca42815a8b"></a>
@@ -398,6 +404,8 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>polynomials</b>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">    32, 16, 8, 6, 6, 0</div><div class="line">}</div></div><!-- fragment -->
+<p>Multiplication factors for <a class="el" href="normal_8c.html#aecb9dd7f3c96e0cd489c887f31fba2a0" title="Access to the central approximation functions. ">central_approx()</a> </p>
+
 </div>
 </div>
 <a class="anchor" id="a7068ffe2e6761582a77f19b06321abb0"></a>
@@ -418,12 +426,14 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>polynomials</b>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">    98304, 98304, 65536, 65536, 65536, 16, 14, 13, 11, 10, 0</div><div class="line">}</div></div><!-- fragment -->
+<p>Leading terms of the distribution for <a class="el" href="normal_8c.html#a7010828e3b4e27e513884662411484b9" title="Access to the tail approximation polynomial table evaluation. ">lo_approx()</a> </p>
+
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 6 2020 16:55:49 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 8 2020 14:56:53 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

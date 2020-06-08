@@ -2,6 +2,7 @@ var searchData=
 [
   ['uhkbits',['uhkbits',['../stdfix-full-iso_8h.html#a6fe3a6a0968a6e4e84132dfd0e26e7b3',1,'stdfix-full-iso.h']]],
   ['uhrbits',['uhrbits',['../stdfix-full-iso_8h.html#a4f4eaefdfddacdc48aba39d0cc0155f3',1,'stdfix-full-iso.h']]],
+  ['uint32_5fround',['uint32_round',['../log_8c.html#ac35af12a1ead550680545af3b7553682',1,'log.c']]],
   ['ukbits',['ukbits',['../stdfix-full-iso_8h.html#acffac5a5edf40cd2248bcd37f227e480',1,'stdfix-full-iso.h']]],
   ['ukdivi',['ukdivi',['../stdfix-full-iso_8h.html#a4bbd29e1e5263d0e03445a863e4b66bd',1,'stdfix-full-iso.h']]],
   ['ulkbits',['ulkbits',['../stdfix-full-iso_8h.html#abe6126b9a4572b83fc2df9dae7ffa3eb',1,'stdfix-full-iso.h']]],
