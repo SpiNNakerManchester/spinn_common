@@ -20,7 +20,7 @@
  *  \brief Implementation of log for the accum type.
  *
  *  \details The details of the algorithm are from
- *     "Elementary Functions: Algorithms and Implemenation", 2nd edn,
+ *     "Elementary Functions: Algorithms and Implementation", 2nd edn,
  *     Jean-Michel Muller, Birkhauser, 2006.
  *
  *  \author

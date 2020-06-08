@@ -69,14 +69,17 @@
 #include <stdbool.h>
 
 //! \brief The use macro allows us to "pretend" to use a variable in a
-//! function; this is useful if we run with -Wextra set for extra warnings.
+//!     function; this is useful if we run with -Wextra set for extra
+//!     warnings.
+//! \note This macro would be unsafe with floating point arguments
 
 #ifndef use
 #define use(x)		do {} while ((x)!=(x))
 #endif
 
 //! \brief bit_field_t is an arbitrary length bit field (vector of bits)
-//! which is used to compactly represent a large number of boolean operations.
+//!     which is used to compactly represent a large number of boolean
+//!     operations.
 typedef uint32_t* bit_field_t;
 
 #ifndef __SIZE_T__

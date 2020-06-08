@@ -32,7 +32,9 @@
 #endif
 
 //! \brief This function takes a uniformly distributed 16-bit
-//!     PRNG value, \p x, and returns a normally distributed 16-bit PRNG.
+//!     PRNG value, \p x, and returns a normally distributed s16.15.
+//! \details Given an 16-bit signed integer value, representing p - 0.5,
+//!     return the cumulative normal value associated with that probability.
 //! \param[in] x: A uniformly distributed 16-bit PRNG, in the bottom
 //!     16 bits of \p x.
 //! \return A normally distributed int representation of an s16.15 PRNG.

@@ -28,7 +28,7 @@
 #define NO_INLINE	__attribute__((noinline))
 #endif
 
-//! extreme values of the normal CDF
+//! Precalculated extreme values of the normal distribution
 static int32_t low_values[] = {
       229376,  // 7.0
       136628,  // 4.1695693238150016769941586303372689400327
@@ -65,13 +65,16 @@ static int32_t low_values[] = {
       108042   // 3.2971933424171863645116941846338065473089
 };
 
+//! Offset terms for central_approx()
 static int offset[6] = {
     7200, 6272, 4608, 2048, 0, 0
 };
+//! Multiplication factors for central_approx()
 static int multiplier[6] = {
     32, 16, 8, 6, 6, 0
 };
 
+//! Leading terms of the distribution for lo_approx()
 static int leading_terms[11] = {
     98304, 98304, 65536, 65536, 65536, 16, 14, 13, 11, 10, 0
 };
@@ -79,6 +82,7 @@ static int leading_terms[11] = {
 /*static int new_poly [5]
   = {*/
 
+//! Patchwise approximation polynomial terms
 static int polynomials[11][5] = {
       {   489693536,  //  0.22803132236003875732421875
          -966086639,  // -0.4498691479675471782684326171875
@@ -187,7 +191,7 @@ static int mid_approx(
 //! \brief Access to the tail approximation functions
 //! \param[in] approx: The number of the approximation.
 //! \param[in] p: The point at which the function is approximated.
-//! \return ???
+//! \return Normal value (using algorithm relevant for tail regions)
 static int tail_approx(
 	unsigned int approx,
 	int p)
@@ -206,7 +210,7 @@ static int tail_approx(
 //! \brief Access to the central approximation functions
 //! \param[in] approx: The number of the approximation.
 //! \param[in] p: The point at which the function is approximated.
-//! \return ???
+//! \return Normal value (using algorithm relevant for central region)
 static int central_approx(
 	unsigned int approx,
 	int p)
@@ -234,11 +238,6 @@ static int central_approx(
     return r;
 }
 
-//! \brief Given an 16-bit signed integer value, representing p - 0.5,
-//!     return the cumulative normal value associated with that probability.
-//! \param[in] x: A 32-bit integer with s0.16 (not s0.15!!) representation.
-//! \return A 32-bit integer representing the cumulative normal distribution
-//!     This is in s16.15 (i.e. standard accum) format.
 int NO_INLINE __norminv_rbits(
 	int x)
 {

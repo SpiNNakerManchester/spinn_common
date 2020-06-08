@@ -43,9 +43,7 @@
 #ifndef __SQRT_H__
 #define __SQRT_H__
 
-#include <stdfix.h>
-#include "debug.h"
-#include "spin-print.h"
+#include <stdfix-full-iso.h>
 
 #ifndef UNIMPLEMENTED
 #define UNIMPLEMENTED extern __attribute__((deprecated("Not implemented")))
@@ -61,32 +59,66 @@ extern accum				sqrtk(accum x);
  * generate a compile-time warning if used, and a link-time error.
  */
 
-//! Square root. Unimplemented
+//! \brief Square root.
+//! \warning Unimplemented
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
 UNIMPLEMENTED short fract		sqrthr(short fract x);
-//! Square root. Unimplemented
+//! \brief Square root.
+//! \warning Unimplemented
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
 UNIMPLEMENTED fract			sqrtr(fract x);
-//! Square root. Unimplemented
+//! \brief Square root.
+//! \warning Unimplemented
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
 UNIMPLEMENTED long fract		sqrtlr(long fract x);
-//! Square root. Unimplemented
+//! \brief Square root.
+//! \warning Unimplemented
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
 UNIMPLEMENTED short accum		sqrthk(short accum x);
-//! Square root. Unimplemented
+//! \brief Square root.
+//! \warning Unimplemented
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
 UNIMPLEMENTED long accum		sqrtlk(long accum x);
-//! Square root. Unimplemented
+//! \brief Square root.
+//! \warning Unimplemented
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
 UNIMPLEMENTED unsigned short fract	sqrtuhr(unsigned short fract x);
-//! Square root. Unimplemented
+//! \brief Square root.
+//! \warning Unimplemented
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
 UNIMPLEMENTED unsigned fract		sqrtur(unsigned fract x);
-//! Square root. Unimplemented
+//! \brief Square root.
+//! \warning Unimplemented
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
 UNIMPLEMENTED unsigned long fract	sqrtulr(unsigned long fract x);
-//! Square root. Unimplemented
+//! \brief Square root.
+//! \warning Unimplemented
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
 UNIMPLEMENTED unsigned short accum	sqrtuhk(unsigned short accum x);
-//! Square root. Unimplemented
+//! \brief Square root.
+//! \warning Unimplemented
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
 UNIMPLEMENTED unsigned accum		sqrtuk(unsigned accum x);
-//! Square root. Unimplemented
+//! \brief Square root.
+//! \warning Unimplemented
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
 UNIMPLEMENTED unsigned long accum	sqrtulk(unsigned long accum x);
 
 //! \brief Square root.
 //! \param[in] f: Non-negative value to get the square root of
 //! \return the square root of \p f
+//! \todo Test that this actually works!
 #define sqrtfx(f) \
     _Generic((f), \
 	s07:   sqrthr(f), \
@@ -101,7 +133,7 @@ UNIMPLEMENTED unsigned long accum	sqrtulk(unsigned long accum x);
 	u88:   sqrtuhk(f), \
 	u1616: sqrtuk(f), \
 	u3232: sqrtulk(f), \
-	default: abort() \
+	default: __builtin_trap() \
     )
 
 #endif /*__SQRT_H__*/
