@@ -15,20 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* circular_buffer.c
- *
- *  SUMMARY
+/*! \file circular_buffer.c
+ * \brief Support functions for fast circular buffer implementation
+ * \details
  *    The essential feature of the buffer used in this implementation is that it
  *    requires no critical-section interlocking --- PROVIDED THERE ARE ONLY TWO
  *    PROCESSES: a producer/consumer pair. If this is changed, then a more
  *    intricate implementation will probably be required, involving the use
  *    of enable/disable interrupts.
  *
- *  AUTHOR
+ * \author
  *    Dave Lester (david.r.lester@manchester.ac.uk)
  *
- *  COPYRIGHT
- *    Copyright (c) Dave Lester and The University of Manchester, 2013.
+ * \copyright
+ *    &copy; Dave Lester and The University of Manchester, 2013.
  *    All rights reserved.
  *    SpiNNaker Project
  *    Advanced Processor Technologies Group
@@ -36,18 +36,8 @@
  *    The University of Manchester
  *    Manchester M13 9PL, UK
  *
- *  DESCRIPTION
- *
- *  CREATION DATE
+ *  \date
  *    10 December, 2013
- *
- *  HISTORY
- * *  DETAILS
- *    Created on       : 10 December 2013
- *    Version          : $Revision$
- *    Last modified on : $Date$
- *    Last modified by : $Author$
- *    $Id$
  */
 
 #include "circular_buffer.h"

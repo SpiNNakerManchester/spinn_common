@@ -33,65 +33,59 @@
  *
  *  \date 12 December, 2013
  *
- *  DETAILS
- *    Created on       : 12 December 2013
- *    Version          : $Revision$
- *    Last modified on : $Date$
- *    Last modified by : $Author$
- *    $Id$
- *
- *  DESCRIPTION
+ *  \details
  *    A header file that can be used to incorporate and control debug information.
  *    It is switched ON by default; to switch OFF, the code is compiled with
- *      -DPRODUCTION_CODE
+ *
+ *        -DPRODUCTION_CODE
+ *
  *    or
- *      -DNDEBUG
+ *
+ *        -DNDEBUG
  *
  *    By default it is used for SpiNNaker ARM code; it can also be used in
- *    host-side C, by compiling with -DDEBUG_ON_HOST
+ *    host-side C, by compiling with `-DDEBUG_ON_HOST`
  *
- *  EXAMPLES
+ *  \section EXAMPLES
  *
  *    To use, you must `hash-include' debug.h:
  *
- *    Assertions:
+ *    **Assertions:**
  *
- *      assert(0.0 < c && c < 1.0);                // assertion checking
+ *        assert(0.0 < c && c < 1.0);             // assertion checking
  *
- *    Checking:
+ *    **Checking:**
  *
- *      check(1==1, "1 !=1 !!!!!!");               // assertion with message
- *      xp = malloc(n); check_memory(xp);          // checks malloc is non-null
+ *        check(1==1, "1 !=1 !!!!!!");            // assertion with message
+ *        xp = malloc(n); check_memory(xp);       // checks malloc is non-null
  *
- *    Sentinels:
+ *    **Sentinels:**
  *
- *      switch(n) {
- *      ...
- *      default: sentinel("switch: out of range"); // used for control flow checks
- *      .... }
+ *        switch(n) {
+ *        ...
+ *        default: sentinel("switch: out of range"); // used for control flow checks
+ *        .... }
  *
- *    SpiNNaker memory checking:
+ *    **SpiNNaker memory checking:**
  *
- *      If we are running on SpiNNaker hardware, we have the following
- *      additional checks available:
+ *    If we are running on SpiNNaker hardware, we have the following
+ *    additional checks available:
  *
- *      check_itcm(addr);
- *      check_dtcm(addr);
- *      check_sysram(addr);
- *      check_sdram(addr);
+ *        check_itcm(addr);
+ *        check_dtcm(addr);
+ *        check_sysram(addr);
+ *        check_sdram(addr);
  *
- *    Controlling the volume of logging information:
+ *    **Controlling the volume of logging information:**
  *
- *      -DNO_DEBUG_INFO            Switches OFF the [INFO] information
- *      -D'DEBUG_LOG(n)=(n>10)'    Switches OFF [ERROR]s with number less than or equal 10
- *      -D'DEBUG_WARN(n)=(n>5)'    Switches OFF [WARNING]s with number less than or equal 5
+ *        -DNO_DEBUG_INFO            Switches OFF the [INFO] information
+ *        -D'DEBUG_LOG(n)=(n>10)'    Switches OFF [ERROR]s with number less than or equal 10
+ *        -D'DEBUG_WARN(n)=(n>5)'    Switches OFF [WARNING]s with number less than or equal 5
  *
  *    By default all information is printed.
  *
  *    There is no way to switch off [ASSERT]s except by using either of the
- *    compilation flags:
- *
- *      -DPRODUCTION_CODE or -DNDEBUG
+ *    compilation flags: `-DPRODUCTION_CODE` or `-DNDEBUG`
  */
 
 #ifndef __ASSERT_H__
@@ -100,7 +94,8 @@
 #include "spin-print.h"
 
 //! \brief This macro is intended to mimic the behaviour of 'C's exit
-//! system call.
+//! 	system call.
+//! \param[in] n: Value to pass to exit()
 #define abort(n)	do { exit(n); } while (0)
 
 //! \brief The log level for errors
@@ -120,6 +115,7 @@
 #if defined(PRODUCTION_CODE) || defined(NDEBUG)
 #define LOG_LEVEL LOG_INFO
 #else // PRODUCTION_CODE
+//! The logging level
 #define LOG_LEVEL LOG_DEBUG
 #endif // PRODUCTION_CODE
 #endif // LOG_LEVEL
@@ -140,8 +136,8 @@
 //! \param[in] message The message to be printed if execution reaches this point
 #define sentinel(message, ...) \
     do {								\
-	io_printf(IO_BUF, "[SENTINEL] ", message, ##__VA_ARGS__);	\
-	abort(0);							\
+        io_printf(IO_BUF, "[SENTINEL] ", message, ##__VA_ARGS__);	\
+        abort(0);							\
     } while (0)
 
 //! \brief This macro performs an assertion check on a condition and aborts if
@@ -175,10 +171,10 @@
 #endif /* PRODUCTION_CODE */
 
 //! \brief This function returns the unsigned integer associated with a
-//! pointer address.
-//! \param[in] ptr The pointer whose address is required.
+//!     pointer address.
+//! \param[in] ptr: The pointer whose address is required.
 //! \return The value as an unsigned integer.
-static inline unsigned int __addr__(void* ptr)
+static inline unsigned int __addr__(void *ptr)
 {
     return (unsigned int) ptr;
 }
@@ -189,25 +185,25 @@ static inline unsigned int __addr__(void* ptr)
 
 #ifndef DEBUG_ON_HOST
 //! \brief This macro tests whether a pointer's address lies in itcm.
-//! \param[in] a The pointer.
+//! \param[in] a: The pointer.
 #define check_itcm(a) \
     check((ITCM_BASE   <= __addr__(a) && __addr__(a) < ITCM_TOP),       \
           "%x is not in ITCM", (a))
 
 //! \brief This macro tests whether a pointer's address lies in dtcm.
-//! \param[in] a The pointer.
+//! \param[in] a: The pointer.
 #define check_dtcm(a) \
     check((DTCM_BASE   <= __addr__(a) && __addr__(a) < DTCM_TOP),       \
           "%x is not in DTCM", (a))
 
 //! \brief This macro tests whether a pointer's address lies in sysram.
-//! \param[in] a The pointer.
+//! \param[in] a: The pointer.
 #define check_sysram(a) \
     check((SYSRAM_BASE <= __addr__(a) && __addr__(a) < SYSRAM_TOP),     \
           "%x is not in sysRAM", (a))
 
 //! \brief This macro tests whether a pointer's address lies in sdram.
-//! \param[in] a The pointer.
+//! \param[in] a: The pointer.
 #define check_sdram(a) \
     check((SDRAM_BASE  <= __addr__(a) && __addr__(a) < SDRAM_TOP),      \
           "%x is not in sdram", (a))

@@ -15,14 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//! \file
+//! \brief Support code for random.h
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdfix.h>
 #include "stdfix-full-iso.h"
 #include "polynomial.h"
 
+#ifndef NO_INLINE
 #define NO_INLINE	__attribute__((noinline))
+#endif
 
+//! Precalculated extreme values of the normal distribution
 static int32_t low_values[] = {
       229376,  // 7.0
       136628,  // 4.1695693238150016769941586303372689400327
@@ -59,13 +65,16 @@ static int32_t low_values[] = {
       108042   // 3.2971933424171863645116941846338065473089
 };
 
+//! Offset terms for central_approx()
 static int offset[6] = {
     7200, 6272, 4608, 2048, 0, 0
 };
+//! Multiplication factors for central_approx()
 static int multiplier[6] = {
     32, 16, 8, 6, 6, 0
 };
 
+//! Leading terms of the distribution for lo_approx()
 static int leading_terms[11] = {
     98304, 98304, 65536, 65536, 65536, 16, 14, 13, 11, 10, 0
 };
@@ -73,6 +82,7 @@ static int leading_terms[11] = {
 /*static int new_poly [5]
   = {*/
 
+//! Patchwise approximation polynomial terms
 static int polynomials[11][5] = {
       {   489693536,  //  0.22803132236003875732421875
          -966086639,  // -0.4498691479675471782684326171875
@@ -131,12 +141,12 @@ static int polynomials[11][5] = {
                   0}  //
 };
 
-//! \brief Access to the tail approximation functions
-//! \param[in] approx The number of the approximation.
-//! \param[in] x The point at which the function is approximated.
-//! \return ???
-
-int lo_approx(
+//! \brief Access to the tail approximation polynomial table evaluation
+//! \param[in] approx: The number of the approximation
+//!     (this selects the polynomial patch).
+//! \param[in] x: The point at which the function is approximated.
+//! \return The corrected value of the polynomial at \p x
+static int lo_approx(
 	unsigned int approx,
 	int x)
 {
@@ -151,12 +161,12 @@ int lo_approx(
     return r;
 }
 
-//! \brief Access to the central approximation functions
-//! \param[in] approx The number of the approximation.
-//! \param[in] x The point at which the function is approximated.
-//! \return ???
-
-int mid_approx(
+//! \brief Access to the central approximation polynomial table evaluation
+//! \param[in] approx: The number of the approximation
+//!     (this selects the polynomial patch).
+//! \param[in] x: The point at which the function is approximated.
+//! \return The corrected value of the polynomial at \p x
+static int mid_approx(
 	unsigned int approx,
 	int x)
 {
@@ -165,20 +175,26 @@ int mid_approx(
     assert(approx <= 5);
     assert(0 <= x);
 
-    r = __horner_int_b(polynomials[approx+5], x, 4);
+    r = __horner_int_b(polynomials[approx + 5], x, 4);
     r += x << 14; // DRL Mod for overflow prevention
     return r;
 }
 
 #ifndef abs
+//! Absolute value
 #define abs(x)		(((x) < 0) ? -(x) : (x))
 #endif
 
 #ifndef negative
+//! Is-negative test
 #define negative(x)	((x) < 0)
 #endif
 
-int tail_approx(
+//! \brief Access to the tail approximation functions
+//! \param[in] approx: The number of the approximation
+//! \param[in] p: The point at which the function is approximated.
+//! \return Normal value (using algorithm relevant for tail regions)
+static int tail_approx(
 	unsigned int approx,
 	int p)
 {
@@ -193,7 +209,11 @@ int tail_approx(
     return r;
 }
 
-int central_approx(
+//! \brief Access to the central approximation functions
+//! \param[in] approx: The number of the approximation.
+//! \param[in] p: The point at which the function is approximated.
+//! \return Normal value (using algorithm relevant for central region)
+static int central_approx(
 	unsigned int approx,
 	int p)
 {
@@ -204,8 +224,8 @@ int central_approx(
     z = p;
     z = __smulbb(z, z) >> 17;		// DRL HACK rounding???
 
-    z -= offset[5-approx];
-    z *= multiplier[5-approx];
+    z -= offset[5 - approx];
+    z *= multiplier[5 - approx];
     z <<= 1;				//DRL HACK!!
 
     assert(0 <= z);
@@ -219,12 +239,6 @@ int central_approx(
     r = (int) __smulwb(r, p);		// DRL HACK rounding???
     return r;
 }
-
-//! \brief Given an 16-bit signed integer value, representing p - 0.5,
-//! return the cumulative normal value associated with that probability.
-//! \param[in] x A 32-bit integer with s0.16 (not s0.15!!) representation.
-//! \return A 32-bit integer representing the cumulative normal distribution
-//! This is in s16.15 (i.e. standard accum) format.
 
 int NO_INLINE __norminv_rbits(
 	int x)
@@ -250,7 +264,7 @@ int NO_INLINE __norminv_rbits(
         if (shift > 4) {
             r = tail_approx(shift, (INT16_MAX + 1) - x);
         } else {
-            r = central_approx(shift+1, x);
+            r = central_approx(shift + 1, x);
         }
     }
 

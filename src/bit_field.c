@@ -28,15 +28,15 @@
  *
  *    The API includes:
  *
- *     - bit_field_test (b, n)
+ *     - bit_field_test()
  *         returns true of false depending on whether bit n is set or clear
- *     - bit_field_set (b, n) / bit_field_clear (b, n)
+ *     - bit_field_set() / bit_field_clear()
  *         used to set or clear bit n
- *     - not_bit_field (b, s)
+ *     - not_bit_field()
  *         logically inverts a bit field of size s.
- *     - and_bit_field / or_bit_field
+ *     - and_bit_fields() / or_bit_fields()
  *         logically ands/ors two bit_fields together. Requires size.
- *     - clear_bit_field/set_bit_field
+ *     - clear_bit_field() / set_bit_field()
  *         Initializes bit_field with all false (= clear) or true (= set).
  *         Requires size.
  *
@@ -60,26 +60,16 @@
  *    Manchester M13 9PL, UK
  *
  *  \date 12 December, 2013
- *
- *  DETAILS
- *    Created on       : 12 December 2013
- *    Version          : $Revision$
- *    Last modified on : $Date$
- *    Last modified by : $Author$
- *    $Id$
- *
- *    $Log$
- *
  */
 
 #include "bit_field.h"
 #include "sark.h"
 
 //! \brief This function prints out an individual word of a bit_field,
-// as a sequence of ones and zeros.
+//!     as a sequence of ones and zeros.
 //! \param[in] e The word of a bit_field to be printed.
 static inline void print_bit_field_entry(
-	uint32_t e)
+        uint32_t e)
 {
     counter_t i = 32;
 
@@ -91,18 +81,14 @@ static inline void print_bit_field_entry(
     io_printf(IO_BUF, "\n");
 }
 
-//! \brief This function prints out an entire bit_field,
-// as a sequence of ones and zeros.
-//! \param[in] b The sequence of words representing a bit_field.
-//! \param[in] s The size of the bit_field.
 void print_bit_field_bits(
-	bit_field_t b,
-	size_t s)
+        const bit_field_t restrict b,
+        size_t s)
 {
     use(b);
     use(s);
 #if LOG_LEVEL >= LOG_DEBUG
-    index_t i; //!< For indexing through the bit field
+    index_t i; // For indexing through the bit field
 
     for (i = 0; i < s; i++) {
 	print_bit_field_entry(b[i]);
@@ -110,18 +96,14 @@ void print_bit_field_bits(
 #endif // LOG_LEVEL >= LOG_DEBUG
 }
 
-//! \brief This function prints out an entire bit_field,
-// as a sequence of hexadecimal numbers, one per line.
-//! \param[in] b The sequence of words representing a bit_field.
-//! \param[in] s The size of the bit_field.
 void print_bit_field(
-		bit_field_t b,
-		size_t s)
+        const bit_field_t restrict b,
+        size_t s)
 {
     use(b);
     use(s);
 #if LOG_LEVEL >= LOG_DEBUG
-    index_t i; //!< For indexing through the bit field
+    index_t i; // For indexing through the bit field
 
     for (i = 0; i < s; i++) {
 	    io_printf(IO_BUF, "%08x\n", b[i]);
@@ -129,18 +111,14 @@ void print_bit_field(
 #endif // LOG_LEVEL >= LOG_DEBUG
 }
 
-//! \brief This function generates a random bit_field.
-//! \param[in] b The sequence of words representing a bit_field.
-//! \param[in] s The size of the bit_field.
-
 void random_bit_field(
-		bit_field_t b,
-		size_t s)
+        bit_field_t restrict b,
+        size_t s)
 {
     use(b);
     use(s);
 #if LOG_LEVEL >= LOG_DEBUG
-    index_t i; //!< For indexing through the bit field
+    index_t i; // For indexing through the bit field
 
     for (i = 0; i < s; i++) {
 	b[i] = sark_rand();
@@ -148,9 +126,7 @@ void random_bit_field(
 #endif // LOG_LEVEL >= LOG_DEBUG
 }
 
-//! \brief allocates a bit_field_t object
-//! \param[in] n_atoms: the number of atoms to cover with this bitfield
-bit_field_t bit_field_alloc(uint32_t n_atoms){
+bit_field_t bit_field_alloc(uint32_t n_atoms) {
     uint32_t n_words = get_bit_field_size(n_atoms);
     return (bit_field_t) sark_alloc(n_words * sizeof(bit_field_t), 1);
 }

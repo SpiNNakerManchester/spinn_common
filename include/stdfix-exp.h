@@ -15,6 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//! \file
+//! \brief Exponential functions for fixed point
+//! \author Dave Lester (david.r.lester@manchester.ac.uk)
+//! \copyright
+//!    &copy; Dave Lester and The University of Manchester, 2013.
+//!    All rights reserved. <br>
+//!    SpiNNaker Project <br>
+//!    Advanced Processor Technologies Group <br>
+//!    School of Computer Science <br>
+//!    The University of Manchester <br>
+//!    Manchester M13 9PL, UK
+//! \date 20 February, 2014
+
 /*
  * stdfix-exp.h
  *
@@ -57,12 +70,13 @@
 #include <stdfix.h>
 #include <stdbool.h>
 
-#include "stdfix-full-iso.h"
+#include <stdfix-full-iso.h>
 
 // stdfix-exp API
 
-accum expk(accum x);
-
-uint32_t exp_series(uint32_t x);
+//! \brief Fixed point exponential
+//! \param[in] x: Value to compute the exponential of.
+//! \return The best approximation to e<sup>\p x</sup> possible in an ::s1615
+s1615 expk(s1615 x);
 
 #endif /*__STDFIX_EXP_H__*/
