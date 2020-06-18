@@ -136,7 +136,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:aecb9dd7f3c96e0cd489c887f31fba2a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to the central approximation functions.  <a href="#aecb9dd7f3c96e0cd489c887f31fba2a0">More...</a><br /></td></tr>
 <tr class="separator:aecb9dd7f3c96e0cd489c887f31fba2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff6b2faebf125a379d9beee74d9dc6ae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="normal_8c.html#aff6b2faebf125a379d9beee74d9dc6ae">__norminv_rbits</a> (int x)</td></tr>
-<tr class="memdesc:aff6b2faebf125a379d9beee74d9dc6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed s16.15.  <a href="#aff6b2faebf125a379d9beee74d9dc6ae">More...</a><br /></td></tr>
+<tr class="memdesc:aff6b2faebf125a379d9beee74d9dc6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed s16.15 in <code>int</code> representation.  <a href="#aff6b2faebf125a379d9beee74d9dc6ae">More...</a><br /></td></tr>
 <tr class="separator:aff6b2faebf125a379d9beee74d9dc6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -197,12 +197,12 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <p>Access to the tail approximation polynomial table evaluation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">approx</td><td>The number of the approximation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">approx</td><td>The number of the approximation (this selects the polynomial patch). </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The point at which the function is approximated. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>??? </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The corrected value of the polynomial at <code>x</code> </dd></dl>
 
 </div>
 </div>
@@ -241,12 +241,12 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <p>Access to the central approximation polynomial table evaluation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">approx</td><td>The number of the approximation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">approx</td><td>The number of the approximation (this selects the polynomial patch). </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>The point at which the function is approximated. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>??? </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The corrected value of the polynomial at <code>x</code> </dd></dl>
 
 </div>
 </div>
@@ -285,7 +285,7 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <p>Access to the tail approximation functions. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">approx</td><td>The number of the approximation. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">approx</td><td>The number of the approximation </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">p</td><td>The point at which the function is approximated. </td></tr>
   </table>
   </dd>
@@ -352,7 +352,7 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
       </table>
 </div><div class="memdoc">
 
-<p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed s16.15. </p>
+<p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed s16.15 in <code>int</code> representation. </p>
 <p>Given an 16-bit signed integer value, representing p - 0.5, return the cumulative normal value associated with that probability. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A uniformly distributed 16-bit PRNG, in the bottom 16 bits of <code>x</code>. </td></tr>
@@ -433,7 +433,7 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2020 16:14:37 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 18 2020 12:05:35 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

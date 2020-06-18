@@ -120,7 +120,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ac299266028eaf7945bf2e71199759e39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum of two arguments.  <a href="#ac299266028eaf7945bf2e71199759e39">More...</a><br /></td></tr>
 <tr class="separator:ac299266028eaf7945bf2e71199759e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89b73c7485c7d90d63578af40a3ee137"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a89b73c7485c7d90d63578af40a3ee137">__stdfix_use</a>(a)&#160;&#160;&#160;do {} while ((a)!=(a))</td></tr>
-<tr class="memdesc:a89b73c7485c7d90d63578af40a3ee137"><td class="mdescLeft">&#160;</td><td class="mdescRight">An macro definition which pretends to use variable a.  <a href="#a89b73c7485c7d90d63578af40a3ee137">More...</a><br /></td></tr>
+<tr class="memdesc:a89b73c7485c7d90d63578af40a3ee137"><td class="mdescLeft">&#160;</td><td class="mdescRight">A macro definition which pretends to use variable <code>a</code>.  <a href="#a89b73c7485c7d90d63578af40a3ee137">More...</a><br /></td></tr>
 <tr class="separator:a89b73c7485c7d90d63578af40a3ee137"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5808d6dc793b587b0117edf3d0fcef8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a5808d6dc793b587b0117edf3d0fcef8d">__stdfix_abs</a>(a)&#160;&#160;&#160;(((a)&lt;0) ? -(a) : (a))</td></tr>
 <tr class="memdesc:a5808d6dc793b587b0117edf3d0fcef8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute value of its argument.  <a href="#a5808d6dc793b587b0117edf3d0fcef8d">More...</a><br /></td></tr>
@@ -385,10 +385,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a65b8c9314b4dad5e816ad955271b6e14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplication of the underlying integer representations.  <a href="#a65b8c9314b4dad5e816ad955271b6e14">More...</a><br /></td></tr>
 <tr class="separator:a65b8c9314b4dad5e816ad955271b6e14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78522ccc3bdf075af8b95ec5d53a9e9f"><td class="memItemLeft" align="right" valign="top">static int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a78522ccc3bdf075af8b95ec5d53a9e9f">__stdfix_smul_k</a> (int32_t x, int32_t y)</td></tr>
-<tr class="memdesc:a78522ccc3bdf075af8b95ec5d53a9e9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplicaion of the underlying integer representations.  <a href="#a78522ccc3bdf075af8b95ec5d53a9e9f">More...</a><br /></td></tr>
+<tr class="memdesc:a78522ccc3bdf075af8b95ec5d53a9e9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplication of the underlying integer representations.  <a href="#a78522ccc3bdf075af8b95ec5d53a9e9f">More...</a><br /></td></tr>
 <tr class="separator:a78522ccc3bdf075af8b95ec5d53a9e9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dc6e7ff6c43f137387990ea979d054d"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a9dc6e7ff6c43f137387990ea979d054d">__stdfix_smul_lk</a> (int64_t x, int64_t y)</td></tr>
-<tr class="memdesc:a9dc6e7ff6c43f137387990ea979d054d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplicaion of the underlying integer representations.  <a href="#a9dc6e7ff6c43f137387990ea979d054d">More...</a><br /></td></tr>
+<tr class="memdesc:a9dc6e7ff6c43f137387990ea979d054d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplication of the underlying integer representations.  <a href="#a9dc6e7ff6c43f137387990ea979d054d">More...</a><br /></td></tr>
 <tr class="separator:a9dc6e7ff6c43f137387990ea979d054d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7e12ff97b017ae2f77eea382e34626f"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#ad7e12ff97b017ae2f77eea382e34626f">__stdfix_sadd_uhr</a> (uint32_t x, uint32_t y)</td></tr>
 <tr class="memdesc:ad7e12ff97b017ae2f77eea382e34626f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated addition of the underlying unsigned integer representations.  <a href="#ad7e12ff97b017ae2f77eea382e34626f">More...</a><br /></td></tr>
@@ -430,19 +430,19 @@ Functions</h2></td></tr>
 <tr class="memdesc:a32e04e2f276a74aea6cf3c25866505b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplication of the underlying unsigned integer representations.  <a href="#a32e04e2f276a74aea6cf3c25866505b4">More...</a><br /></td></tr>
 <tr class="separator:a32e04e2f276a74aea6cf3c25866505b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad54fd1d198fa546714dd0c7e443835e4"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#ad54fd1d198fa546714dd0c7e443835e4">__stdfix_smul_ur</a> (uint32_t x, uint32_t y)</td></tr>
-<tr class="memdesc:ad54fd1d198fa546714dd0c7e443835e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplicaion of the underlying unsigned integer representations.  <a href="#ad54fd1d198fa546714dd0c7e443835e4">More...</a><br /></td></tr>
+<tr class="memdesc:ad54fd1d198fa546714dd0c7e443835e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplication of the underlying unsigned integer representations.  <a href="#ad54fd1d198fa546714dd0c7e443835e4">More...</a><br /></td></tr>
 <tr class="separator:ad54fd1d198fa546714dd0c7e443835e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dcd2e7b490d385015f23143090b14cc"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a1dcd2e7b490d385015f23143090b14cc">__stdfix_smul_ulr</a> (uint32_t x, uint32_t y)</td></tr>
-<tr class="memdesc:a1dcd2e7b490d385015f23143090b14cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplicaion of the underlying unsigned integer representations.  <a href="#a1dcd2e7b490d385015f23143090b14cc">More...</a><br /></td></tr>
+<tr class="memdesc:a1dcd2e7b490d385015f23143090b14cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplication of the underlying unsigned integer representations.  <a href="#a1dcd2e7b490d385015f23143090b14cc">More...</a><br /></td></tr>
 <tr class="separator:a1dcd2e7b490d385015f23143090b14cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a1af0c3ec6a23f6dc7a973d3d1b7a9e"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a7a1af0c3ec6a23f6dc7a973d3d1b7a9e">__stdfix_smul_uhk</a> (uint32_t x, uint32_t y)</td></tr>
-<tr class="memdesc:a7a1af0c3ec6a23f6dc7a973d3d1b7a9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplicaion of the underlying unsigned integer representations.  <a href="#a7a1af0c3ec6a23f6dc7a973d3d1b7a9e">More...</a><br /></td></tr>
+<tr class="memdesc:a7a1af0c3ec6a23f6dc7a973d3d1b7a9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplication of the underlying unsigned integer representations.  <a href="#a7a1af0c3ec6a23f6dc7a973d3d1b7a9e">More...</a><br /></td></tr>
 <tr class="separator:a7a1af0c3ec6a23f6dc7a973d3d1b7a9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc1e5afa5e3f7d6727fd4686f9db9827"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#afc1e5afa5e3f7d6727fd4686f9db9827">__stdfix_smul_uk</a> (uint32_t x, uint32_t y)</td></tr>
-<tr class="memdesc:afc1e5afa5e3f7d6727fd4686f9db9827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplicaion of the underlying unsigned integer representations.  <a href="#afc1e5afa5e3f7d6727fd4686f9db9827">More...</a><br /></td></tr>
+<tr class="memdesc:afc1e5afa5e3f7d6727fd4686f9db9827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplication of the underlying unsigned integer representations.  <a href="#afc1e5afa5e3f7d6727fd4686f9db9827">More...</a><br /></td></tr>
 <tr class="separator:afc1e5afa5e3f7d6727fd4686f9db9827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58563deb070d1648b8271920735506b7"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a58563deb070d1648b8271920735506b7">__stdfix_smul_ulk</a> (uint64_t x, uint64_t y)</td></tr>
-<tr class="memdesc:a58563deb070d1648b8271920735506b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplicaion of the underlying unsigned integer representations.  <a href="#a58563deb070d1648b8271920735506b7">More...</a><br /></td></tr>
+<tr class="memdesc:a58563deb070d1648b8271920735506b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saturated multiplication of the underlying unsigned integer representations.  <a href="#a58563deb070d1648b8271920735506b7">More...</a><br /></td></tr>
 <tr class="separator:a58563deb070d1648b8271920735506b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">7.18a.6.5</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>The bitwise fixed-point to integer conversion functions </p>
@@ -460,7 +460,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac824f41bf0904de3201420ddf133b65f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a short accum into an integer.  <a href="#ac824f41bf0904de3201420ddf133b65f">More...</a><br /></td></tr>
 <tr class="separator:ac824f41bf0904de3201420ddf133b65f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d2af755dc7279a32ef78e21e0e78c8b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#aa6f1a7b628aaa7c5c09bd1b4f228b4ab">int_k_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a5d2af755dc7279a32ef78e21e0e78c8b">bitsk</a> (const <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> f)</td></tr>
-<tr class="memdesc:a5d2af755dc7279a32ef78e21e0e78c8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a accum into an integer.  <a href="#a5d2af755dc7279a32ef78e21e0e78c8b">More...</a><br /></td></tr>
+<tr class="memdesc:a5d2af755dc7279a32ef78e21e0e78c8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an accum into an integer.  <a href="#a5d2af755dc7279a32ef78e21e0e78c8b">More...</a><br /></td></tr>
 <tr class="separator:a5d2af755dc7279a32ef78e21e0e78c8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae89c41fa3e82e499c2819c616ae186ea"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a8c7dd0417f049b053ccf5d317fce072a">int_lk_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#ae89c41fa3e82e499c2819c616ae186ea">bitslk</a> (const <a class="el" href="stdfix-full-iso_8h.html#a38a5d16d5132d4281e5ab78df54e219a">s3231</a> f)</td></tr>
 <tr class="memdesc:ae89c41fa3e82e499c2819c616ae186ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a long accum into an integer.  <a href="#ae89c41fa3e82e499c2819c616ae186ea">More...</a><br /></td></tr>
@@ -469,7 +469,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5c4e2c255c88d34690ae3a185c8613d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an unsigned short fract into an integer.  <a href="#a5c4e2c255c88d34690ae3a185c8613d5">More...</a><br /></td></tr>
 <tr class="separator:a5c4e2c255c88d34690ae3a185c8613d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a931442a6a6df607b0e41687fde908df9"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a3572ef0cc56c26e642e2a296709bf86f">uint_ur_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a931442a6a6df607b0e41687fde908df9">bitsur</a> (const <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a> f)</td></tr>
-<tr class="memdesc:a931442a6a6df607b0e41687fde908df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a unsigned fract into an integer.  <a href="#a931442a6a6df607b0e41687fde908df9">More...</a><br /></td></tr>
+<tr class="memdesc:a931442a6a6df607b0e41687fde908df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an unsigned fract into an integer.  <a href="#a931442a6a6df607b0e41687fde908df9">More...</a><br /></td></tr>
 <tr class="separator:a931442a6a6df607b0e41687fde908df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c13f016111529ad1bd7b9e450b4c5e4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a1196ec750a3f9eed8b9eeb80261b9504">uint_ulr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a9c13f016111529ad1bd7b9e450b4c5e4">bitsulr</a> (const <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a> f)</td></tr>
 <tr class="memdesc:a9c13f016111529ad1bd7b9e450b4c5e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an unsigned long fract into an integer.  <a href="#a9c13f016111529ad1bd7b9e450b4c5e4">More...</a><br /></td></tr>
@@ -487,22 +487,22 @@ Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>The bitwise integer to fixed-point conversion functions </p>
 </div></td></tr>
 <tr class="memitem:ad8b66064ede60fe2d88452ac8da8816e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a03a75727483f91757c1d0ab1021e06ca">s07</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#ad8b66064ede60fe2d88452ac8da8816e">hrbits</a> (const <a class="el" href="stdfix-full-iso_8h.html#a482c51975d91a2e665a0ad1d877be627">int_hr_t</a> n)</td></tr>
-<tr class="memdesc:ad8b66064ede60fe2d88452ac8da8816e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an signed integer into an signed short fract.  <a href="#ad8b66064ede60fe2d88452ac8da8816e">More...</a><br /></td></tr>
+<tr class="memdesc:ad8b66064ede60fe2d88452ac8da8816e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a signed integer into a signed short fract.  <a href="#ad8b66064ede60fe2d88452ac8da8816e">More...</a><br /></td></tr>
 <tr class="separator:ad8b66064ede60fe2d88452ac8da8816e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2e2df190c6bedb46e18d72c22118c04"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#ac2e2df190c6bedb46e18d72c22118c04">rbits</a> (const <a class="el" href="stdfix-full-iso_8h.html#a05b6583522c3cfc4723cdf08687b6ee9">int_r_t</a> n)</td></tr>
-<tr class="memdesc:ac2e2df190c6bedb46e18d72c22118c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an signed integer into an signed fract.  <a href="#ac2e2df190c6bedb46e18d72c22118c04">More...</a><br /></td></tr>
+<tr class="memdesc:ac2e2df190c6bedb46e18d72c22118c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a signed integer into a signed fract.  <a href="#ac2e2df190c6bedb46e18d72c22118c04">More...</a><br /></td></tr>
 <tr class="separator:ac2e2df190c6bedb46e18d72c22118c04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b3eadd7347ff290c2196d8bd8aefebe"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a1b3eadd7347ff290c2196d8bd8aefebe">lrbits</a> (const <a class="el" href="stdfix-full-iso_8h.html#a6743ecf2091b1031cbe676d402cd8fd3">int_lr_t</a> n)</td></tr>
-<tr class="memdesc:a1b3eadd7347ff290c2196d8bd8aefebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an signed integer into an signed long fract.  <a href="#a1b3eadd7347ff290c2196d8bd8aefebe">More...</a><br /></td></tr>
+<tr class="memdesc:a1b3eadd7347ff290c2196d8bd8aefebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a signed integer into a signed long fract.  <a href="#a1b3eadd7347ff290c2196d8bd8aefebe">More...</a><br /></td></tr>
 <tr class="separator:a1b3eadd7347ff290c2196d8bd8aefebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad99330bb56cff183b759858eec39b5b4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#ad99330bb56cff183b759858eec39b5b4">hkbits</a> (const <a class="el" href="stdfix-full-iso_8h.html#a3a76bc0e67a59caf39ecc2a799f9be99">int_hk_t</a> n)</td></tr>
-<tr class="memdesc:ad99330bb56cff183b759858eec39b5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an signed integer into an signed short accum.  <a href="#ad99330bb56cff183b759858eec39b5b4">More...</a><br /></td></tr>
+<tr class="memdesc:ad99330bb56cff183b759858eec39b5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a signed integer into a signed short accum.  <a href="#ad99330bb56cff183b759858eec39b5b4">More...</a><br /></td></tr>
 <tr class="separator:ad99330bb56cff183b759858eec39b5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeeb0c38ba8b13b1cffeae14261563fa0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#aeeb0c38ba8b13b1cffeae14261563fa0">kbits</a> (const <a class="el" href="stdfix-full-iso_8h.html#aa6f1a7b628aaa7c5c09bd1b4f228b4ab">int_k_t</a> n)</td></tr>
-<tr class="memdesc:aeeb0c38ba8b13b1cffeae14261563fa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an signed integer into an signed accum.  <a href="#aeeb0c38ba8b13b1cffeae14261563fa0">More...</a><br /></td></tr>
+<tr class="memdesc:aeeb0c38ba8b13b1cffeae14261563fa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a signed integer into a signed accum.  <a href="#aeeb0c38ba8b13b1cffeae14261563fa0">More...</a><br /></td></tr>
 <tr class="separator:aeeb0c38ba8b13b1cffeae14261563fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07b3c7217d721b3d3af43a7f19afdd6c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a38a5d16d5132d4281e5ab78df54e219a">s3231</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a07b3c7217d721b3d3af43a7f19afdd6c">lkbits</a> (const <a class="el" href="stdfix-full-iso_8h.html#a8c7dd0417f049b053ccf5d317fce072a">int_lk_t</a> n)</td></tr>
-<tr class="memdesc:a07b3c7217d721b3d3af43a7f19afdd6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an signed integer into an signed long accum.  <a href="#a07b3c7217d721b3d3af43a7f19afdd6c">More...</a><br /></td></tr>
+<tr class="memdesc:a07b3c7217d721b3d3af43a7f19afdd6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a signed integer into a signed long accum.  <a href="#a07b3c7217d721b3d3af43a7f19afdd6c">More...</a><br /></td></tr>
 <tr class="separator:a07b3c7217d721b3d3af43a7f19afdd6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f4eaefdfddacdc48aba39d0cc0155f3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a6cbffe5d7e12d2bf8d3150d0982d9008">u08</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a4f4eaefdfddacdc48aba39d0cc0155f3">uhrbits</a> (const <a class="el" href="stdfix-full-iso_8h.html#a3067c24977563a175261454e9d925f3d">uint_uhr_t</a> n)</td></tr>
 <tr class="memdesc:a4f4eaefdfddacdc48aba39d0cc0155f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an unsigned integer into an unsigned short fract.  <a href="#a4f4eaefdfddacdc48aba39d0cc0155f3">More...</a><br /></td></tr>
@@ -658,7 +658,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a64508c4143d1069ac3821db0b555ccae"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input unsigned 16-bit integer to a number of bits, returning a 16-bit integer.  <a href="#a64508c4143d1069ac3821db0b555ccae">More...</a><br /></td></tr>
 <tr class="separator:a64508c4143d1069ac3821db0b555ccae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8236c6af074969f9cf035e3e8b45df9e"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a8236c6af074969f9cf035e3e8b45df9e">__stdfix_round_u32</a> (uint32_t x, int n)</td></tr>
-<tr class="memdesc:a8236c6af074969f9cf035e3e8b45df9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input unsigned 32-bit integer to a number of bits, returning an 32-bit integer.  <a href="#a8236c6af074969f9cf035e3e8b45df9e">More...</a><br /></td></tr>
+<tr class="memdesc:a8236c6af074969f9cf035e3e8b45df9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input unsigned 32-bit integer to a number of bits, returning a 32-bit integer.  <a href="#a8236c6af074969f9cf035e3e8b45df9e">More...</a><br /></td></tr>
 <tr class="separator:a8236c6af074969f9cf035e3e8b45df9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1cca879d4f0672218599ec2fcb7718b"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#aa1cca879d4f0672218599ec2fcb7718b">__stdfix_round_u64</a> (uint64_t x, int n)</td></tr>
 <tr class="memdesc:aa1cca879d4f0672218599ec2fcb7718b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input unsigned 64-bit integer to a number of bits, returning a 64-bit integer.  <a href="#aa1cca879d4f0672218599ec2fcb7718b">More...</a><br /></td></tr>
@@ -670,7 +670,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a67e5a8c56ed845c678853839ab190f2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input signed 16-bit integer to a number of bits, returning a 16-bit integer.  <a href="#a67e5a8c56ed845c678853839ab190f2d">More...</a><br /></td></tr>
 <tr class="separator:a67e5a8c56ed845c678853839ab190f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae583ed217cbc624f96dd1d5421ef55d9"><td class="memItemLeft" align="right" valign="top">static int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#ae583ed217cbc624f96dd1d5421ef55d9">__stdfix_round_s32</a> (int32_t x, int n)</td></tr>
-<tr class="memdesc:ae583ed217cbc624f96dd1d5421ef55d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input signed 32-bit integer to a number of bits, returning an 32-bit integer.  <a href="#ae583ed217cbc624f96dd1d5421ef55d9">More...</a><br /></td></tr>
+<tr class="memdesc:ae583ed217cbc624f96dd1d5421ef55d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input signed 32-bit integer to a number of bits, returning a 32-bit integer.  <a href="#ae583ed217cbc624f96dd1d5421ef55d9">More...</a><br /></td></tr>
 <tr class="separator:ae583ed217cbc624f96dd1d5421ef55d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbc03b5b888c128e3aae4fad9424a5cb"><td class="memItemLeft" align="right" valign="top">static int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#abbc03b5b888c128e3aae4fad9424a5cb">__stdfix_round_s64</a> (int64_t x, int n)</td></tr>
 <tr class="memdesc:abbc03b5b888c128e3aae4fad9424a5cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input signed 64-bit integer to a number of bits, returning a 64-bit integer.  <a href="#abbc03b5b888c128e3aae4fad9424a5cb">More...</a><br /></td></tr>
@@ -688,7 +688,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab2fbd43896073bc1abb82b690190510a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input short accum to a number of bits, returning a short accum.  <a href="#ab2fbd43896073bc1abb82b690190510a">More...</a><br /></td></tr>
 <tr class="separator:ab2fbd43896073bc1abb82b690190510a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff76d6d0ba630d3bd4ccf3b50dceaca5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#aff76d6d0ba630d3bd4ccf3b50dceaca5">roundk</a> (<a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a> f, int n)</td></tr>
-<tr class="memdesc:aff76d6d0ba630d3bd4ccf3b50dceaca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input accum to a number of bits, returning a accum.  <a href="#aff76d6d0ba630d3bd4ccf3b50dceaca5">More...</a><br /></td></tr>
+<tr class="memdesc:aff76d6d0ba630d3bd4ccf3b50dceaca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input accum to a number of bits, returning an accum.  <a href="#aff76d6d0ba630d3bd4ccf3b50dceaca5">More...</a><br /></td></tr>
 <tr class="separator:aff76d6d0ba630d3bd4ccf3b50dceaca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67b57ab1eac513158ae71628f1b4a3b9"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a38a5d16d5132d4281e5ab78df54e219a">s3231</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a67b57ab1eac513158ae71628f1b4a3b9">roundlk</a> (<a class="el" href="stdfix-full-iso_8h.html#a38a5d16d5132d4281e5ab78df54e219a">s3231</a> f, int n)</td></tr>
 <tr class="memdesc:a67b57ab1eac513158ae71628f1b4a3b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input long accum to a number of bits, returning a long accum.  <a href="#a67b57ab1eac513158ae71628f1b4a3b9">More...</a><br /></td></tr>
@@ -706,7 +706,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa6accc4091130e076a5e1ac6169f8fef"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input unsigned short accum to a number of bits, returning an unsigned short accum.  <a href="#aa6accc4091130e076a5e1ac6169f8fef">More...</a><br /></td></tr>
 <tr class="separator:aa6accc4091130e076a5e1ac6169f8fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8c9dea1d0bf7a3f853e96e8366fd1f6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#a22ff547489880812f8f5c0f0649575f1">u1616</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#ab8c9dea1d0bf7a3f853e96e8366fd1f6">rounduk</a> (<a class="el" href="stdfix-full-iso_8h.html#a22ff547489880812f8f5c0f0649575f1">u1616</a> f, int n)</td></tr>
-<tr class="memdesc:ab8c9dea1d0bf7a3f853e96e8366fd1f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input unsigned accum to a number of bits, returning a unsigned accum.  <a href="#ab8c9dea1d0bf7a3f853e96e8366fd1f6">More...</a><br /></td></tr>
+<tr class="memdesc:ab8c9dea1d0bf7a3f853e96e8366fd1f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input unsigned accum to a number of bits, returning an unsigned accum.  <a href="#ab8c9dea1d0bf7a3f853e96e8366fd1f6">More...</a><br /></td></tr>
 <tr class="separator:ab8c9dea1d0bf7a3f853e96e8366fd1f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e3025e38fe3054c412d6d062f9e2b40"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#ae73ff811eb8fd00d95f41447b416f3fe">u3232</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-full-iso_8h.html#a0e3025e38fe3054c412d6d062f9e2b40">roundulk</a> (<a class="el" href="stdfix-full-iso_8h.html#ae73ff811eb8fd00d95f41447b416f3fe">u3232</a> f, int n)</td></tr>
 <tr class="memdesc:a0e3025e38fe3054c412d6d062f9e2b40"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function rounds the input unsigned long accum to a number of bits, returning an unsigned long accum.  <a href="#a0e3025e38fe3054c412d6d062f9e2b40">More...</a><br /></td></tr>
@@ -795,7 +795,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The minimum of a and b. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The minimum of <code>a</code> and <code>b</code>. </dd></dl>
 
 </div>
 </div>
@@ -831,7 +831,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The maximum of a and b. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The maximum of <code>a</code> and <code>b</code>. </dd></dl>
 
 </div>
 </div>
@@ -849,10 +849,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>An macro definition which pretends to use variable a. </p>
+<p>A macro definition which pretends to use variable <code>a</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>First argument </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>First argument (<em>must not</em> be floating point!) </td></tr>
   </table>
   </dd>
 </dl>
@@ -880,7 +880,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The absolute value of a. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The absolute value of <code>a</code>. </dd></dl>
 
 </div>
 </div>
@@ -905,7 +905,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The most significant 32-bits of x. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The most significant 32-bits of <code>x</code>. </dd></dl>
 
 </div>
 </div>
@@ -930,7 +930,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The least significant 32-bits of x. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The least significant 32-bits of <code>x</code>. </dd></dl>
 
 </div>
 </div>
@@ -948,17 +948,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">_Generic((f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a03a75727483f91757c1d0ab1021e06ca">s07</a>:   <a class="code" href="stdfix-full-iso_8h.html#afbb218363bd188cb122a560d91e885f1">abshr</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>:  <a class="code" href="stdfix-full-iso_8h.html#ad8b6efdd5f3b9fcbc0b1aa51ee7a6e4b">absr</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>:  <a class="code" href="stdfix-full-iso_8h.html#aa1a3a3da26b36bc6b0e85e227f355baf">abslr</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>:   <a class="code" href="stdfix-full-iso_8h.html#a7e653b7aa314b5e3c1f030a68c477bec">abshk</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>: <a class="code" href="stdfix-full-iso_8h.html#a759b79056304d1ee7b8d2d526bd69d04">absk</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a38a5d16d5132d4281e5ab78df54e219a">s3231</a>: <a class="code" href="stdfix-full-iso_8h.html#a7ca1d6277c124953afd1f5ca4b8a6097">abslk</a>(f), \</div><div class="line">    <span class="keywordflow">default</span>: <a class="code" href="assert_8h.html#ac8524c0729a978ab0eeaf92c318c30e0">abort</a>() \</div><div class="line">    )</div><div class="ttc" id="stdfix-full-iso_8h_html_a03a75727483f91757c1d0ab1021e06ca"><div class="ttname"><a href="stdfix-full-iso_8h.html#a03a75727483f91757c1d0ab1021e06ca">s07</a></div><div class="ttdeci">short fract s07</div><div class="ttdoc">An alternative name for the signed short fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:173</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_aa1a3a3da26b36bc6b0e85e227f355baf"><div class="ttname"><a href="stdfix-full-iso_8h.html#aa1a3a3da26b36bc6b0e85e227f355baf">abslr</a></div><div class="ttdeci">static s031 abslr(s031 f)</div><div class="ttdoc">This function returns the absolute value of a long fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1677</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_aa1a3a3da26b36bc6b0e85e227f355baf"><div class="ttname"><a href="stdfix-full-iso_8h.html#aa1a3a3da26b36bc6b0e85e227f355baf">abslr</a></div><div class="ttdeci">static s031 abslr(s031 f)</div><div class="ttdoc">This function returns the absolute value of a long fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1710</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_abbf2a7d70e066ea6d5c2b7d88cfcd1e6"><div class="ttname"><a href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a></div><div class="ttdeci">accum s1615</div><div class="ttdoc">An alternative name for the signed accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:185</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_ad8b6efdd5f3b9fcbc0b1aa51ee7a6e4b"><div class="ttname"><a href="stdfix-full-iso_8h.html#ad8b6efdd5f3b9fcbc0b1aa51ee7a6e4b">absr</a></div><div class="ttdeci">static s015 absr(s015 f)</div><div class="ttdoc">This function returns the absolute value of a fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1661</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_ad8b6efdd5f3b9fcbc0b1aa51ee7a6e4b"><div class="ttname"><a href="stdfix-full-iso_8h.html#ad8b6efdd5f3b9fcbc0b1aa51ee7a6e4b">absr</a></div><div class="ttdeci">static s015 absr(s015 f)</div><div class="ttdoc">This function returns the absolute value of a fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1694</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a38a5d16d5132d4281e5ab78df54e219a"><div class="ttname"><a href="stdfix-full-iso_8h.html#a38a5d16d5132d4281e5ab78df54e219a">s3231</a></div><div class="ttdeci">long accum s3231</div><div class="ttdoc">An alternative name for the signed long accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:188</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_ab3014189364376615e40a500ef62a6a6"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a></div><div class="ttdeci">long fract s031</div><div class="ttdoc">An alternative name for the signed long fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:179</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a4fadd479a1079adf515de71c03f7dbea"><div class="ttname"><a href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a></div><div class="ttdeci">fract s015</div><div class="ttdoc">An alternative name for the signed fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:176</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a7ca1d6277c124953afd1f5ca4b8a6097"><div class="ttname"><a href="stdfix-full-iso_8h.html#a7ca1d6277c124953afd1f5ca4b8a6097">abslk</a></div><div class="ttdeci">static s3231 abslk(s3231 f)</div><div class="ttdoc">This function returns the absolute value of a long accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1725</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a7ca1d6277c124953afd1f5ca4b8a6097"><div class="ttname"><a href="stdfix-full-iso_8h.html#a7ca1d6277c124953afd1f5ca4b8a6097">abslk</a></div><div class="ttdeci">static s3231 abslk(s3231 f)</div><div class="ttdoc">This function returns the absolute value of a long accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1758</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_ab8d16513eb9220452b64a0e53b22aa5e"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a></div><div class="ttdeci">short accum s87</div><div class="ttdoc">An alternative name for the signed short accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:182</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a7e653b7aa314b5e3c1f030a68c477bec"><div class="ttname"><a href="stdfix-full-iso_8h.html#a7e653b7aa314b5e3c1f030a68c477bec">abshk</a></div><div class="ttdeci">static s87 abshk(s87 f)</div><div class="ttdoc">This function returns the absolute value of a short accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1693</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a759b79056304d1ee7b8d2d526bd69d04"><div class="ttname"><a href="stdfix-full-iso_8h.html#a759b79056304d1ee7b8d2d526bd69d04">absk</a></div><div class="ttdeci">static s1615 absk(s1615 f)</div><div class="ttdoc">This function returns the absolute value of an accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1709</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_afbb218363bd188cb122a560d91e885f1"><div class="ttname"><a href="stdfix-full-iso_8h.html#afbb218363bd188cb122a560d91e885f1">abshr</a></div><div class="ttdeci">static s07 abshr(s07 f)</div><div class="ttdoc">This function returns the absolute value of a short fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1645</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a7e653b7aa314b5e3c1f030a68c477bec"><div class="ttname"><a href="stdfix-full-iso_8h.html#a7e653b7aa314b5e3c1f030a68c477bec">abshk</a></div><div class="ttdeci">static s87 abshk(s87 f)</div><div class="ttdoc">This function returns the absolute value of a short accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1726</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a759b79056304d1ee7b8d2d526bd69d04"><div class="ttname"><a href="stdfix-full-iso_8h.html#a759b79056304d1ee7b8d2d526bd69d04">absk</a></div><div class="ttdeci">static s1615 absk(s1615 f)</div><div class="ttdoc">This function returns the absolute value of an accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1742</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_afbb218363bd188cb122a560d91e885f1"><div class="ttname"><a href="stdfix-full-iso_8h.html#afbb218363bd188cb122a560d91e885f1">abshr</a></div><div class="ttdeci">static s07 abshr(s07 f)</div><div class="ttdoc">This function returns the absolute value of a short fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1678</div></div>
 <div class="ttc" id="assert_8h_html_ac8524c0729a978ab0eeaf92c318c30e0"><div class="ttname"><a href="assert_8h.html#ac8524c0729a978ab0eeaf92c318c30e0">abort</a></div><div class="ttdeci">#define abort(n)</div><div class="ttdoc">This macro is intended to mimic the behaviour of &amp;#39;C&amp;#39;s exit system call. </div><div class="ttdef"><b>Definition:</b> assert.h:99</div></div>
 </div><!-- fragment -->
 <p>This macro provides type-generic access to the absolute value functions. </p>
@@ -997,29 +997,29 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">_Generic((f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a03a75727483f91757c1d0ab1021e06ca">s07</a>:   <a class="code" href="stdfix-full-iso_8h.html#a21626ebd891955a999fbfbedb04560a1">roundhr</a>(f, n), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>:  <a class="code" href="stdfix-full-iso_8h.html#a47bd2eba9f1bc6376524f18cc611dad9">roundr</a>(f, n), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>:  <a class="code" href="stdfix-full-iso_8h.html#a7c5bb2eaa26d79f65eda7587ed0f7e1a">roundlr</a>(f, n), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>:   <a class="code" href="stdfix-full-iso_8h.html#ab2fbd43896073bc1abb82b690190510a">roundhk</a>(f, n), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>: <a class="code" href="stdfix-full-iso_8h.html#aff76d6d0ba630d3bd4ccf3b50dceaca5">roundk</a>(f, n), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a38a5d16d5132d4281e5ab78df54e219a">s3231</a>: <a class="code" href="stdfix-full-iso_8h.html#a67b57ab1eac513158ae71628f1b4a3b9">roundlk</a>(f, n), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a6cbffe5d7e12d2bf8d3150d0982d9008">u08</a>:   <a class="code" href="stdfix-full-iso_8h.html#a5a299dc576dcddb27d8d4b31b3a535bd">rounduhr</a>(f, n), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a>:  <a class="code" href="stdfix-full-iso_8h.html#a3a825ac1493cba8f683ebd626dcf5477">roundur</a>(f, n), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a>:  <a class="code" href="stdfix-full-iso_8h.html#ab150592b82445acc0e7fc1386fcfe3fc">roundulr</a>(f, n), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#abad4c3c7cb3f6589e59aaddaba1fdb51">u88</a>:   <a class="code" href="stdfix-full-iso_8h.html#aa6accc4091130e076a5e1ac6169f8fef">rounduhk</a>(f, n), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a22ff547489880812f8f5c0f0649575f1">u1616</a>: <a class="code" href="stdfix-full-iso_8h.html#ab8c9dea1d0bf7a3f853e96e8366fd1f6">rounduk</a>(f, n), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#ae73ff811eb8fd00d95f41447b416f3fe">u3232</a>: <a class="code" href="stdfix-full-iso_8h.html#a0e3025e38fe3054c412d6d062f9e2b40">roundulk</a>(f, n), \</div><div class="line">    <span class="keywordflow">default</span>: <a class="code" href="assert_8h.html#ac8524c0729a978ab0eeaf92c318c30e0">abort</a>() \</div><div class="line">    )</div><div class="ttc" id="stdfix-full-iso_8h_html_a03a75727483f91757c1d0ab1021e06ca"><div class="ttname"><a href="stdfix-full-iso_8h.html#a03a75727483f91757c1d0ab1021e06ca">s07</a></div><div class="ttdeci">short fract s07</div><div class="ttdoc">An alternative name for the signed short fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:173</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_abbf2a7d70e066ea6d5c2b7d88cfcd1e6"><div class="ttname"><a href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a></div><div class="ttdeci">accum s1615</div><div class="ttdoc">An alternative name for the signed accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:185</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a7c5bb2eaa26d79f65eda7587ed0f7e1a"><div class="ttname"><a href="stdfix-full-iso_8h.html#a7c5bb2eaa26d79f65eda7587ed0f7e1a">roundlr</a></div><div class="ttdeci">static s031 roundlr(s031 f, int n)</div><div class="ttdoc">This function rounds the input long fract to a number of bits, returning a long fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1938</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a7c5bb2eaa26d79f65eda7587ed0f7e1a"><div class="ttname"><a href="stdfix-full-iso_8h.html#a7c5bb2eaa26d79f65eda7587ed0f7e1a">roundlr</a></div><div class="ttdeci">static s031 roundlr(s031 f, int n)</div><div class="ttdoc">This function rounds the input long fract to a number of bits, returning a long fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1971</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_adc46aae99ac690ac82792832f3764c8f"><div class="ttname"><a href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a></div><div class="ttdeci">unsigned long fract u032</div><div class="ttdoc">An alternative name for the unsigned long fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:197</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_aa6accc4091130e076a5e1ac6169f8fef"><div class="ttname"><a href="stdfix-full-iso_8h.html#aa6accc4091130e076a5e1ac6169f8fef">rounduhk</a></div><div class="ttdeci">static u88 rounduhk(u88 f, int n)</div><div class="ttdoc">This function rounds the input unsigned short accum to a number of bits, returning an unsigned short ...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2029</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a21626ebd891955a999fbfbedb04560a1"><div class="ttname"><a href="stdfix-full-iso_8h.html#a21626ebd891955a999fbfbedb04560a1">roundhr</a></div><div class="ttdeci">static s07 roundhr(s07 f, int n)</div><div class="ttdoc">This function rounds the input short fract to a number of bits, returning a short fract...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1912</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_aa6accc4091130e076a5e1ac6169f8fef"><div class="ttname"><a href="stdfix-full-iso_8h.html#aa6accc4091130e076a5e1ac6169f8fef">rounduhk</a></div><div class="ttdeci">static u88 rounduhk(u88 f, int n)</div><div class="ttdoc">This function rounds the input unsigned short accum to a number of bits, returning an unsigned short ...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2062</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a21626ebd891955a999fbfbedb04560a1"><div class="ttname"><a href="stdfix-full-iso_8h.html#a21626ebd891955a999fbfbedb04560a1">roundhr</a></div><div class="ttdeci">static s07 roundhr(s07 f, int n)</div><div class="ttdoc">This function rounds the input short fract to a number of bits, returning a short fract...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1945</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a38a5d16d5132d4281e5ab78df54e219a"><div class="ttname"><a href="stdfix-full-iso_8h.html#a38a5d16d5132d4281e5ab78df54e219a">s3231</a></div><div class="ttdeci">long accum s3231</div><div class="ttdoc">An alternative name for the signed long accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:188</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_ab3014189364376615e40a500ef62a6a6"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a></div><div class="ttdeci">long fract s031</div><div class="ttdoc">An alternative name for the signed long fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:179</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a67b57ab1eac513158ae71628f1b4a3b9"><div class="ttname"><a href="stdfix-full-iso_8h.html#a67b57ab1eac513158ae71628f1b4a3b9">roundlk</a></div><div class="ttdeci">static s3231 roundlk(s3231 f, int n)</div><div class="ttdoc">This function rounds the input long accum to a number of bits, returning a long accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1977</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_ab8c9dea1d0bf7a3f853e96e8366fd1f6"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab8c9dea1d0bf7a3f853e96e8366fd1f6">rounduk</a></div><div class="ttdeci">static u1616 rounduk(u1616 f, int n)</div><div class="ttdoc">This function rounds the input unsigned accum to a number of bits, returning a unsigned accum...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2042</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a47bd2eba9f1bc6376524f18cc611dad9"><div class="ttname"><a href="stdfix-full-iso_8h.html#a47bd2eba9f1bc6376524f18cc611dad9">roundr</a></div><div class="ttdeci">static s015 roundr(s015 f, int n)</div><div class="ttdoc">This function rounds the input fract to a number of bits, returning a fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1925</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a67b57ab1eac513158ae71628f1b4a3b9"><div class="ttname"><a href="stdfix-full-iso_8h.html#a67b57ab1eac513158ae71628f1b4a3b9">roundlk</a></div><div class="ttdeci">static s3231 roundlk(s3231 f, int n)</div><div class="ttdoc">This function rounds the input long accum to a number of bits, returning a long accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2010</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_ab8c9dea1d0bf7a3f853e96e8366fd1f6"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab8c9dea1d0bf7a3f853e96e8366fd1f6">rounduk</a></div><div class="ttdeci">static u1616 rounduk(u1616 f, int n)</div><div class="ttdoc">This function rounds the input unsigned accum to a number of bits, returning an unsigned accum...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2075</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a47bd2eba9f1bc6376524f18cc611dad9"><div class="ttname"><a href="stdfix-full-iso_8h.html#a47bd2eba9f1bc6376524f18cc611dad9">roundr</a></div><div class="ttdeci">static s015 roundr(s015 f, int n)</div><div class="ttdoc">This function rounds the input fract to a number of bits, returning a fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1958</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a4fadd479a1079adf515de71c03f7dbea"><div class="ttname"><a href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a></div><div class="ttdeci">fract s015</div><div class="ttdoc">An alternative name for the signed fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:176</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_abad4c3c7cb3f6589e59aaddaba1fdb51"><div class="ttname"><a href="stdfix-full-iso_8h.html#abad4c3c7cb3f6589e59aaddaba1fdb51">u88</a></div><div class="ttdeci">unsigned short accum u88</div><div class="ttdoc">An alternative name for the unsigned short accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:200</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a22ff547489880812f8f5c0f0649575f1"><div class="ttname"><a href="stdfix-full-iso_8h.html#a22ff547489880812f8f5c0f0649575f1">u1616</a></div><div class="ttdeci">unsigned accum u1616</div><div class="ttdoc">An alternative name for the unsigned accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:203</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a0e3025e38fe3054c412d6d062f9e2b40"><div class="ttname"><a href="stdfix-full-iso_8h.html#a0e3025e38fe3054c412d6d062f9e2b40">roundulk</a></div><div class="ttdeci">static u3232 roundulk(u3232 f, int n)</div><div class="ttdoc">This function rounds the input unsigned long accum to a number of bits, returning an unsigned long ac...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2055</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a5a299dc576dcddb27d8d4b31b3a535bd"><div class="ttname"><a href="stdfix-full-iso_8h.html#a5a299dc576dcddb27d8d4b31b3a535bd">rounduhr</a></div><div class="ttdeci">static u08 rounduhr(u08 f, int n)</div><div class="ttdoc">This function rounds the input unsigned short fract to a number of bits, returning an unsigned short ...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1990</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a0e3025e38fe3054c412d6d062f9e2b40"><div class="ttname"><a href="stdfix-full-iso_8h.html#a0e3025e38fe3054c412d6d062f9e2b40">roundulk</a></div><div class="ttdeci">static u3232 roundulk(u3232 f, int n)</div><div class="ttdoc">This function rounds the input unsigned long accum to a number of bits, returning an unsigned long ac...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2088</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a5a299dc576dcddb27d8d4b31b3a535bd"><div class="ttname"><a href="stdfix-full-iso_8h.html#a5a299dc576dcddb27d8d4b31b3a535bd">rounduhr</a></div><div class="ttdeci">static u08 rounduhr(u08 f, int n)</div><div class="ttdoc">This function rounds the input unsigned short fract to a number of bits, returning an unsigned short ...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2023</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_ae73ff811eb8fd00d95f41447b416f3fe"><div class="ttname"><a href="stdfix-full-iso_8h.html#ae73ff811eb8fd00d95f41447b416f3fe">u3232</a></div><div class="ttdeci">unsigned long accum u3232</div><div class="ttdoc">An alternative name for the unsigned long accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:206</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a3a825ac1493cba8f683ebd626dcf5477"><div class="ttname"><a href="stdfix-full-iso_8h.html#a3a825ac1493cba8f683ebd626dcf5477">roundur</a></div><div class="ttdeci">static u016 roundur(u016 f, int n)</div><div class="ttdoc">This function rounds the input unsigned fract to a number of bits, returning an unsigned fract...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2003</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a3a825ac1493cba8f683ebd626dcf5477"><div class="ttname"><a href="stdfix-full-iso_8h.html#a3a825ac1493cba8f683ebd626dcf5477">roundur</a></div><div class="ttdeci">static u016 roundur(u016 f, int n)</div><div class="ttdoc">This function rounds the input unsigned fract to a number of bits, returning an unsigned fract...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2036</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a216d8e98d588f652c069993f3ecb7f86"><div class="ttname"><a href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a></div><div class="ttdeci">unsigned fract u016</div><div class="ttdoc">An alternative name for the unsigned fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:194</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_ab8d16513eb9220452b64a0e53b22aa5e"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a></div><div class="ttdeci">short accum s87</div><div class="ttdoc">An alternative name for the signed short accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:182</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_ab2fbd43896073bc1abb82b690190510a"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab2fbd43896073bc1abb82b690190510a">roundhk</a></div><div class="ttdeci">static s87 roundhk(s87 f, int n)</div><div class="ttdoc">This function rounds the input short accum to a number of bits, returning a short accum...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1951</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_ab2fbd43896073bc1abb82b690190510a"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab2fbd43896073bc1abb82b690190510a">roundhk</a></div><div class="ttdeci">static s87 roundhk(s87 f, int n)</div><div class="ttdoc">This function rounds the input short accum to a number of bits, returning a short accum...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1984</div></div>
 <div class="ttc" id="assert_8h_html_ac8524c0729a978ab0eeaf92c318c30e0"><div class="ttname"><a href="assert_8h.html#ac8524c0729a978ab0eeaf92c318c30e0">abort</a></div><div class="ttdeci">#define abort(n)</div><div class="ttdoc">This macro is intended to mimic the behaviour of &amp;#39;C&amp;#39;s exit system call. </div><div class="ttdef"><b>Definition:</b> assert.h:99</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a6cbffe5d7e12d2bf8d3150d0982d9008"><div class="ttname"><a href="stdfix-full-iso_8h.html#a6cbffe5d7e12d2bf8d3150d0982d9008">u08</a></div><div class="ttdeci">unsigned short fract u08</div><div class="ttdoc">An alternative name for the unsigned short fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:191</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_aff76d6d0ba630d3bd4ccf3b50dceaca5"><div class="ttname"><a href="stdfix-full-iso_8h.html#aff76d6d0ba630d3bd4ccf3b50dceaca5">roundk</a></div><div class="ttdeci">static s1615 roundk(s1615 f, int n)</div><div class="ttdoc">This function rounds the input accum to a number of bits, returning a accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1964</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_ab150592b82445acc0e7fc1386fcfe3fc"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab150592b82445acc0e7fc1386fcfe3fc">roundulr</a></div><div class="ttdeci">static u032 roundulr(u032 f, int n)</div><div class="ttdoc">This function rounds the input unsigned long fract to a number of bits, returning an unsigned long fr...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2016</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_aff76d6d0ba630d3bd4ccf3b50dceaca5"><div class="ttname"><a href="stdfix-full-iso_8h.html#aff76d6d0ba630d3bd4ccf3b50dceaca5">roundk</a></div><div class="ttdeci">static s1615 roundk(s1615 f, int n)</div><div class="ttdoc">This function rounds the input accum to a number of bits, returning an accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:1997</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_ab150592b82445acc0e7fc1386fcfe3fc"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab150592b82445acc0e7fc1386fcfe3fc">roundulr</a></div><div class="ttdeci">static u032 roundulr(u032 f, int n)</div><div class="ttdoc">This function rounds the input unsigned long fract to a number of bits, returning an unsigned long fr...</div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2049</div></div>
 </div><!-- fragment -->
 <p>This macro provides type-generic access to the rounding functions. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1029,7 +1029,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The rounded value of f(with the same type as f). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The rounded value of f (with the same type as f). </dd></dl>
 
 </div>
 </div>
@@ -1047,30 +1047,30 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">_Generic((f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a03a75727483f91757c1d0ab1021e06ca">s07</a>:   <a class="code" href="stdfix-full-iso_8h.html#a30fa5d27b071883a71fc686deb374b6d">countlshr</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a>:  <a class="code" href="stdfix-full-iso_8h.html#a2e5722b020789dbd242fa3773faf63a8">countlsr</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a>:  <a class="code" href="stdfix-full-iso_8h.html#a30fced44db741032112ac610bb2cb881">countlslr</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a>:   <a class="code" href="stdfix-full-iso_8h.html#a8d4e96c1753d97baec6f7b069aff7b76">countlshk</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>: <a class="code" href="stdfix-full-iso_8h.html#a174482c49b117f5654a72a1d55bd1d7d">countlsk</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a38a5d16d5132d4281e5ab78df54e219a">s3231</a>: <a class="code" href="stdfix-full-iso_8h.html#aead76570cd71fc7bbc8ac44ae38f5be7">countlslk</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a6cbffe5d7e12d2bf8d3150d0982d9008">u08</a>:   <a class="code" href="stdfix-full-iso_8h.html#a1145ca7a252c99a7af2213b1e8436659">countlsuhr</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a>:  <a class="code" href="stdfix-full-iso_8h.html#a2a234b2e60f6bb6b7d6ea2e14931f16b">countlsur</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a>:  <a class="code" href="stdfix-full-iso_8h.html#a11c849c7e7ea5683a9b860561302d684">countlsulr</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#abad4c3c7cb3f6589e59aaddaba1fdb51">u88</a>:   <a class="code" href="stdfix-full-iso_8h.html#ad7b2e504aed57dc0f90e0e117d4740b8">countlsuhk</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a22ff547489880812f8f5c0f0649575f1">u1616</a>: <a class="code" href="stdfix-full-iso_8h.html#a14e646814845f5c7e38ef195c4d1ee1a">countlsuk</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#ae73ff811eb8fd00d95f41447b416f3fe">u3232</a>: <a class="code" href="stdfix-full-iso_8h.html#a944ec5d1a462a246e73458fe30f19fe9">countlsulk</a>(f), \</div><div class="line">    <span class="keywordflow">default</span>: <a class="code" href="assert_8h.html#ac8524c0729a978ab0eeaf92c318c30e0">abort</a>() \</div><div class="line">    )</div><div class="ttc" id="stdfix-full-iso_8h_html_a03a75727483f91757c1d0ab1021e06ca"><div class="ttname"><a href="stdfix-full-iso_8h.html#a03a75727483f91757c1d0ab1021e06ca">s07</a></div><div class="ttdeci">short fract s07</div><div class="ttdoc">An alternative name for the signed short fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:173</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a14e646814845f5c7e38ef195c4d1ee1a"><div class="ttname"><a href="stdfix-full-iso_8h.html#a14e646814845f5c7e38ef195c4d1ee1a">countlsuk</a></div><div class="ttdeci">static int countlsuk(u1616 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2252</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a14e646814845f5c7e38ef195c4d1ee1a"><div class="ttname"><a href="stdfix-full-iso_8h.html#a14e646814845f5c7e38ef195c4d1ee1a">countlsuk</a></div><div class="ttdeci">static int countlsuk(u1616 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2285</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_abbf2a7d70e066ea6d5c2b7d88cfcd1e6"><div class="ttname"><a href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a></div><div class="ttdeci">accum s1615</div><div class="ttdoc">An alternative name for the signed accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:185</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_adc46aae99ac690ac82792832f3764c8f"><div class="ttname"><a href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a></div><div class="ttdeci">unsigned long fract u032</div><div class="ttdoc">An alternative name for the unsigned long fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:197</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a38a5d16d5132d4281e5ab78df54e219a"><div class="ttname"><a href="stdfix-full-iso_8h.html#a38a5d16d5132d4281e5ab78df54e219a">s3231</a></div><div class="ttdeci">long accum s3231</div><div class="ttdoc">An alternative name for the signed long accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:188</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_ab3014189364376615e40a500ef62a6a6"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab3014189364376615e40a500ef62a6a6">s031</a></div><div class="ttdeci">long fract s031</div><div class="ttdoc">An alternative name for the signed long fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:179</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a2a234b2e60f6bb6b7d6ea2e14931f16b"><div class="ttname"><a href="stdfix-full-iso_8h.html#a2a234b2e60f6bb6b7d6ea2e14931f16b">countlsur</a></div><div class="ttdeci">static int countlsur(u016 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2201</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a944ec5d1a462a246e73458fe30f19fe9"><div class="ttname"><a href="stdfix-full-iso_8h.html#a944ec5d1a462a246e73458fe30f19fe9">countlsulk</a></div><div class="ttdeci">static int countlsulk(u3232 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned long accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2269</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a2a234b2e60f6bb6b7d6ea2e14931f16b"><div class="ttname"><a href="stdfix-full-iso_8h.html#a2a234b2e60f6bb6b7d6ea2e14931f16b">countlsur</a></div><div class="ttdeci">static int countlsur(u016 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2234</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a944ec5d1a462a246e73458fe30f19fe9"><div class="ttname"><a href="stdfix-full-iso_8h.html#a944ec5d1a462a246e73458fe30f19fe9">countlsulk</a></div><div class="ttdeci">static int countlsulk(u3232 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned long accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2302</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a4fadd479a1079adf515de71c03f7dbea"><div class="ttname"><a href="stdfix-full-iso_8h.html#a4fadd479a1079adf515de71c03f7dbea">s015</a></div><div class="ttdeci">fract s015</div><div class="ttdoc">An alternative name for the signed fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:176</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_abad4c3c7cb3f6589e59aaddaba1fdb51"><div class="ttname"><a href="stdfix-full-iso_8h.html#abad4c3c7cb3f6589e59aaddaba1fdb51">u88</a></div><div class="ttdeci">unsigned short accum u88</div><div class="ttdoc">An alternative name for the unsigned short accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:200</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a22ff547489880812f8f5c0f0649575f1"><div class="ttname"><a href="stdfix-full-iso_8h.html#a22ff547489880812f8f5c0f0649575f1">u1616</a></div><div class="ttdeci">unsigned accum u1616</div><div class="ttdoc">An alternative name for the unsigned accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:203</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_ad7b2e504aed57dc0f90e0e117d4740b8"><div class="ttname"><a href="stdfix-full-iso_8h.html#ad7b2e504aed57dc0f90e0e117d4740b8">countlsuhk</a></div><div class="ttdeci">static int countlsuhk(u88 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned short accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2235</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a11c849c7e7ea5683a9b860561302d684"><div class="ttname"><a href="stdfix-full-iso_8h.html#a11c849c7e7ea5683a9b860561302d684">countlsulr</a></div><div class="ttdeci">static int countlsulr(u032 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned long fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2218</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a8d4e96c1753d97baec6f7b069aff7b76"><div class="ttname"><a href="stdfix-full-iso_8h.html#a8d4e96c1753d97baec6f7b069aff7b76">countlshk</a></div><div class="ttdeci">static int countlshk(s87 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of a short accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2134</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_ad7b2e504aed57dc0f90e0e117d4740b8"><div class="ttname"><a href="stdfix-full-iso_8h.html#ad7b2e504aed57dc0f90e0e117d4740b8">countlsuhk</a></div><div class="ttdeci">static int countlsuhk(u88 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned short accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2268</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a11c849c7e7ea5683a9b860561302d684"><div class="ttname"><a href="stdfix-full-iso_8h.html#a11c849c7e7ea5683a9b860561302d684">countlsulr</a></div><div class="ttdeci">static int countlsulr(u032 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned long fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2251</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a8d4e96c1753d97baec6f7b069aff7b76"><div class="ttname"><a href="stdfix-full-iso_8h.html#a8d4e96c1753d97baec6f7b069aff7b76">countlshk</a></div><div class="ttdeci">static int countlshk(s87 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of a short accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2167</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_ae73ff811eb8fd00d95f41447b416f3fe"><div class="ttname"><a href="stdfix-full-iso_8h.html#ae73ff811eb8fd00d95f41447b416f3fe">u3232</a></div><div class="ttdeci">unsigned long accum u3232</div><div class="ttdoc">An alternative name for the unsigned long accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:206</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a174482c49b117f5654a72a1d55bd1d7d"><div class="ttname"><a href="stdfix-full-iso_8h.html#a174482c49b117f5654a72a1d55bd1d7d">countlsk</a></div><div class="ttdeci">static int countlsk(s1615 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of an accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2150</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a174482c49b117f5654a72a1d55bd1d7d"><div class="ttname"><a href="stdfix-full-iso_8h.html#a174482c49b117f5654a72a1d55bd1d7d">countlsk</a></div><div class="ttdeci">static int countlsk(s1615 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of an accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2183</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a216d8e98d588f652c069993f3ecb7f86"><div class="ttname"><a href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a></div><div class="ttdeci">unsigned fract u016</div><div class="ttdoc">An alternative name for the unsigned fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:194</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_ab8d16513eb9220452b64a0e53b22aa5e"><div class="ttname"><a href="stdfix-full-iso_8h.html#ab8d16513eb9220452b64a0e53b22aa5e">s87</a></div><div class="ttdeci">short accum s87</div><div class="ttdoc">An alternative name for the signed short accum type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:182</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a30fa5d27b071883a71fc686deb374b6d"><div class="ttname"><a href="stdfix-full-iso_8h.html#a30fa5d27b071883a71fc686deb374b6d">countlshr</a></div><div class="ttdeci">static int countlshr(s07 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of a short fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2084</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a30fa5d27b071883a71fc686deb374b6d"><div class="ttname"><a href="stdfix-full-iso_8h.html#a30fa5d27b071883a71fc686deb374b6d">countlshr</a></div><div class="ttdeci">static int countlshr(s07 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of a short fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2117</div></div>
 <div class="ttc" id="assert_8h_html_ac8524c0729a978ab0eeaf92c318c30e0"><div class="ttname"><a href="assert_8h.html#ac8524c0729a978ab0eeaf92c318c30e0">abort</a></div><div class="ttdeci">#define abort(n)</div><div class="ttdoc">This macro is intended to mimic the behaviour of &amp;#39;C&amp;#39;s exit system call. </div><div class="ttdef"><b>Definition:</b> assert.h:99</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_aead76570cd71fc7bbc8ac44ae38f5be7"><div class="ttname"><a href="stdfix-full-iso_8h.html#aead76570cd71fc7bbc8ac44ae38f5be7">countlslk</a></div><div class="ttdeci">static int countlslk(s3231 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of a long accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2167</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_aead76570cd71fc7bbc8ac44ae38f5be7"><div class="ttname"><a href="stdfix-full-iso_8h.html#aead76570cd71fc7bbc8ac44ae38f5be7">countlslk</a></div><div class="ttdeci">static int countlslk(s3231 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of a long accum. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2200</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a6cbffe5d7e12d2bf8d3150d0982d9008"><div class="ttname"><a href="stdfix-full-iso_8h.html#a6cbffe5d7e12d2bf8d3150d0982d9008">u08</a></div><div class="ttdeci">unsigned short fract u08</div><div class="ttdoc">An alternative name for the unsigned short fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:191</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a1145ca7a252c99a7af2213b1e8436659"><div class="ttname"><a href="stdfix-full-iso_8h.html#a1145ca7a252c99a7af2213b1e8436659">countlsuhr</a></div><div class="ttdeci">static int countlsuhr(u08 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned short fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2184</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a30fced44db741032112ac610bb2cb881"><div class="ttname"><a href="stdfix-full-iso_8h.html#a30fced44db741032112ac610bb2cb881">countlslr</a></div><div class="ttdeci">static int countlslr(s031 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of a long fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2117</div></div>
-<div class="ttc" id="stdfix-full-iso_8h_html_a2e5722b020789dbd242fa3773faf63a8"><div class="ttname"><a href="stdfix-full-iso_8h.html#a2e5722b020789dbd242fa3773faf63a8">countlsr</a></div><div class="ttdeci">static int countlsr(s015 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of a fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2100</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a1145ca7a252c99a7af2213b1e8436659"><div class="ttname"><a href="stdfix-full-iso_8h.html#a1145ca7a252c99a7af2213b1e8436659">countlsuhr</a></div><div class="ttdeci">static int countlsuhr(u08 f)</div><div class="ttdoc">This function counts the number of leading zeros of an unsigned short fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2217</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a30fced44db741032112ac610bb2cb881"><div class="ttname"><a href="stdfix-full-iso_8h.html#a30fced44db741032112ac610bb2cb881">countlslr</a></div><div class="ttdeci">static int countlslr(s031 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of a long fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2150</div></div>
+<div class="ttc" id="stdfix-full-iso_8h_html_a2e5722b020789dbd242fa3773faf63a8"><div class="ttname"><a href="stdfix-full-iso_8h.html#a2e5722b020789dbd242fa3773faf63a8">countlsr</a></div><div class="ttdeci">static int countlsr(s015 f)</div><div class="ttdoc">This function counts the number of leading sign-bits of a fract. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:2133</div></div>
 </div><!-- fragment -->
 <p>This macro provides type-generic access to the functions for counting leading sign-bits. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1287,10 +1287,10 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Converts a accum into an integer. </p>
+<p>Converts an accum into an integer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>A accum </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>An accum </td></tr>
   </table>
   </dd>
 </dl>
@@ -1386,7 +1386,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Converts a unsigned fract into an integer. </p>
+<p>Converts an unsigned fract into an integer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>An unsigned fract </td></tr>
@@ -1551,14 +1551,14 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Converts an signed integer into an signed short fract. </p>
+<p>Converts a signed integer into a signed short fract. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>An signed integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>A signed integer </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The signed short fract represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The signed short fract represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -1584,14 +1584,14 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Converts an signed integer into an signed fract. </p>
+<p>Converts a signed integer into a signed fract. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>An signed integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>A signed integer </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The signed fract represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The signed fract represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -1617,14 +1617,14 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Converts an signed integer into an signed long fract. </p>
+<p>Converts a signed integer into a signed long fract. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>An signed integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>A signed integer </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The signed long fract represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The signed long fract represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -1650,14 +1650,14 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Converts an signed integer into an signed short accum. </p>
+<p>Converts a signed integer into a signed short accum. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>An signed integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>A signed integer </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The signed short accum represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The signed short accum represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -1683,14 +1683,14 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Converts an signed integer into an signed accum. </p>
+<p>Converts a signed integer into a signed accum. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>An signed integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>A signed integer </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The signed accum represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The signed accum represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -1716,14 +1716,14 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Converts an signed integer into an signed long accum. </p>
+<p>Converts a signed integer into a signed long accum. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>An signed integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>A signed integer </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The signed long accum represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The signed long accum represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -1756,7 +1756,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The unsigned short fract represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The unsigned short fract represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -1789,7 +1789,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The unsigned fract represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The unsigned fract represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -1822,7 +1822,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The unsigned long fract represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The unsigned long fract represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -1855,7 +1855,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The unsigned short accum represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The unsigned short accum represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -1888,7 +1888,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The unsigned accum represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The unsigned accum represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -1921,7 +1921,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The unsigned long accum represented by n. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The unsigned long accum represented by <code>n</code>. </dd></dl>
 
 </div>
 </div>
@@ -2411,8 +2411,8 @@ Functions</h2></td></tr>
 <p>Saturated addition of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 16-bit integer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>An 16-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 16-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 16-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2455,8 +2455,8 @@ Functions</h2></td></tr>
 <p>Saturated subtraction of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 16-bit integer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>An 16-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 16-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 16-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2489,7 +2489,7 @@ Functions</h2></td></tr>
 <p>Saturated negation of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 16-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 16-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2532,8 +2532,8 @@ Functions</h2></td></tr>
 <p>Saturated addition of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 32-bit integer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>An 32-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 32-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2576,8 +2576,8 @@ Functions</h2></td></tr>
 <p>Saturated subtraction of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 32-bit integer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>An 32-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 32-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2610,7 +2610,7 @@ Functions</h2></td></tr>
 <p>Saturated negation of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 32-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2653,8 +2653,8 @@ Functions</h2></td></tr>
 <p>Saturated addition of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 16-bit integer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>An 16-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 16-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 16-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2697,8 +2697,8 @@ Functions</h2></td></tr>
 <p>Saturated subtraction of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 16-bit integer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>An 16-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 16-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 16-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2731,7 +2731,7 @@ Functions</h2></td></tr>
 <p>Saturated negation of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 16-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 16-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2774,8 +2774,8 @@ Functions</h2></td></tr>
 <p>Saturated addition of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 32-bit integer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>An 32-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 32-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2818,8 +2818,8 @@ Functions</h2></td></tr>
 <p>Saturated subtraction of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 32-bit integer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>An 32-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 32-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2852,7 +2852,7 @@ Functions</h2></td></tr>
 <p>Saturated negation of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 32-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2887,8 +2887,8 @@ Functions</h2></td></tr>
 <p>Saturated addition of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 64-bit integer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>An 64-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 64-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 64-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2923,8 +2923,8 @@ Functions</h2></td></tr>
 <p>Saturated subtraction of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 64-bit integer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>An 64-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 64-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 64-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -2949,7 +2949,7 @@ Functions</h2></td></tr>
 <p>Saturated negation of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 64-bit integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 64-bit integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -3165,15 +3165,15 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Saturated multiplicaion of the underlying integer representations. </p>
+<p>Saturated multiplication of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit integer representing of a accum. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 32-bit integer representing of a accum. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit integer representing of an accum. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 32-bit integer representing of an accum. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The value of x*y saturated to 32 bits representing of a accum. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The value of x*y saturated to 32 bits representing of an accum. </dd></dl>
 
 </div>
 </div>
@@ -3201,7 +3201,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Saturated multiplicaion of the underlying integer representations. </p>
+<p>Saturated multiplication of the underlying integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 64-bit integer representing of a long accum. </td></tr>
@@ -3292,8 +3292,8 @@ Functions</h2></td></tr>
 <p>Saturated subtraction of the underlying unsigned integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 32-bit unsigned integer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>An 32-bit unsigned integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit unsigned integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>A 32-bit unsigned integer </td></tr>
   </table>
   </dd>
 </dl>
@@ -3801,7 +3801,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Saturated multiplicaion of the underlying unsigned integer representations. </p>
+<p>Saturated multiplication of the underlying unsigned integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit unsigned integer representing of an unsigned fract. </td></tr>
@@ -3845,7 +3845,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Saturated multiplicaion of the underlying unsigned integer representations. </p>
+<p>Saturated multiplication of the underlying unsigned integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit unsigned integer representing of an unsigned long fract. </td></tr>
@@ -3889,7 +3889,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Saturated multiplicaion of the underlying unsigned integer representations. </p>
+<p>Saturated multiplication of the underlying unsigned integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit unsigned integer representing of an unsigned short accum. </td></tr>
@@ -3933,7 +3933,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Saturated multiplicaion of the underlying unsigned integer representations. </p>
+<p>Saturated multiplication of the underlying unsigned integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit unsigned integer representing of an unsigned accum. </td></tr>
@@ -3969,7 +3969,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Saturated multiplicaion of the underlying unsigned integer representations. </p>
+<p>Saturated multiplication of the underlying unsigned integer representations. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 64-bit unsigned integer representing of an unsigned long accum. </td></tr>
@@ -5666,7 +5666,7 @@ Functions</h2></td></tr>
 <p>This function rounds the input unsigned 16-bit integer to a number of bits, returning a 16-bit integer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 16-bit number to be rounded. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 16-bit number to be rounded. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>An int. </td></tr>
   </table>
   </dd>
@@ -5707,10 +5707,10 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This function rounds the input unsigned 32-bit integer to a number of bits, returning an 32-bit integer. </p>
+<p>This function rounds the input unsigned 32-bit integer to a number of bits, returning a 32-bit integer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 32-bit number to be rounded. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit number to be rounded. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>An int. </td></tr>
   </table>
   </dd>
@@ -5842,7 +5842,7 @@ Functions</h2></td></tr>
 <p>This function rounds the input signed 16-bit integer to a number of bits, returning a 16-bit integer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 16-bit number to be rounded. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 16-bit number to be rounded. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>An int. </td></tr>
   </table>
   </dd>
@@ -5883,10 +5883,10 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This function rounds the input signed 32-bit integer to a number of bits, returning an 32-bit integer. </p>
+<p>This function rounds the input signed 32-bit integer to a number of bits, returning a 32-bit integer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>An 32-bit number to be rounded. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A 32-bit number to be rounded. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>An int. </td></tr>
   </table>
   </dd>
@@ -6147,10 +6147,10 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This function rounds the input accum to a number of bits, returning a accum. </p>
+<p>This function rounds the input accum to a number of bits, returning an accum. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>A accum. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>An accum. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>An int. </td></tr>
   </table>
   </dd>
@@ -6411,7 +6411,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This function rounds the input unsigned accum to a number of bits, returning a unsigned accum. </p>
+<p>This function rounds the input unsigned accum to a number of bits, returning an unsigned accum. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>An unsigned accum. </td></tr>
@@ -6866,7 +6866,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2020 16:14:37 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 18 2020 12:05:35 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

@@ -120,13 +120,13 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aff6b2faebf125a379d9beee74d9dc6ae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="normal_8h.html#aff6b2faebf125a379d9beee74d9dc6ae">__norminv_rbits</a> (int x)</td></tr>
-<tr class="memdesc:aff6b2faebf125a379d9beee74d9dc6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed s16.15.  <a href="#aff6b2faebf125a379d9beee74d9dc6ae">More...</a><br /></td></tr>
+<tr class="memdesc:aff6b2faebf125a379d9beee74d9dc6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed s16.15 in <code>int</code> representation.  <a href="#aff6b2faebf125a379d9beee74d9dc6ae">More...</a><br /></td></tr>
 <tr class="separator:aff6b2faebf125a379d9beee74d9dc6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a282355300dc35869af63e412c7682b1f"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="normal_8h.html#a282355300dc35869af63e412c7682b1f">__norminv_t_bits</a> (int x)</td></tr>
-<tr class="memdesc:a282355300dc35869af63e412c7682b1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed 16-bit PRNG.  <a href="#a282355300dc35869af63e412c7682b1f">More...</a><br /></td></tr>
+<tr class="memdesc:a282355300dc35869af63e412c7682b1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed 16-bit PRNG in <code>int</code> representation.  <a href="#a282355300dc35869af63e412c7682b1f">More...</a><br /></td></tr>
 <tr class="separator:a282355300dc35869af63e412c7682b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a894ba8cd010f2fddd4db8a0befb21f50"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="normal_8h.html#a894ba8cd010f2fddd4db8a0befb21f50">__norminv_b_bits</a> (int x)</td></tr>
-<tr class="memdesc:a894ba8cd010f2fddd4db8a0befb21f50"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed 16-bit PRNG.  <a href="#a894ba8cd010f2fddd4db8a0befb21f50">More...</a><br /></td></tr>
+<tr class="memdesc:a894ba8cd010f2fddd4db8a0befb21f50"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed 16-bit PRNG in <code>int</code> representation.  <a href="#a894ba8cd010f2fddd4db8a0befb21f50">More...</a><br /></td></tr>
 <tr class="separator:a894ba8cd010f2fddd4db8a0befb21f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af795c1010c5ca22b59931faa527c34c6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="normal_8h.html#af795c1010c5ca22b59931faa527c34c6">norminv_urb</a> (unsigned int x)</td></tr>
 <tr class="memdesc:af795c1010c5ca22b59931faa527c34c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> PRNG.  <a href="#af795c1010c5ca22b59931faa527c34c6">More...</a><br /></td></tr>
@@ -158,14 +158,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">_Generic((f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a>:     <a class="code" href="normal_8h.html#af9a4d03022b4b5173add37b9e1a17b49">norminv_ur</a>(f), \</div><div class="line">    <a class="code" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a>:     <a class="code" href="normal_8h.html#a1da4b70b13db036144c4595e74666364">norminv_ulr</a>(f), \</div><div class="line">    <span class="keywordflow">default</span>:  __builtin_trap() \</div><div class="line">    )</div><div class="ttc" id="stdfix-full-iso_8h_html_adc46aae99ac690ac82792832f3764c8f"><div class="ttname"><a href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f">u032</a></div><div class="ttdeci">unsigned long fract u032</div><div class="ttdoc">An alternative name for the unsigned long fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:197</div></div>
-<div class="ttc" id="normal_8h_html_af9a4d03022b4b5173add37b9e1a17b49"><div class="ttname"><a href="normal_8h.html#af9a4d03022b4b5173add37b9e1a17b49">norminv_ur</a></div><div class="ttdeci">static s1615 norminv_ur(u016 x)</div><div class="ttdoc">This function takes a uniformly distributed 16-bit PRNG value, x, and returns a normally distributed ...</div><div class="ttdef"><b>Definition:</b> normal.h:89</div></div>
+<div class="ttc" id="normal_8h_html_af9a4d03022b4b5173add37b9e1a17b49"><div class="ttname"><a href="normal_8h.html#af9a4d03022b4b5173add37b9e1a17b49">norminv_ur</a></div><div class="ttdeci">static s1615 norminv_ur(u016 x)</div><div class="ttdoc">This function takes a uniformly distributed 16-bit PRNG value, x, and returns a normally distributed ...</div><div class="ttdef"><b>Definition:</b> normal.h:92</div></div>
 <div class="ttc" id="stdfix-full-iso_8h_html_a216d8e98d588f652c069993f3ecb7f86"><div class="ttname"><a href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86">u016</a></div><div class="ttdeci">unsigned fract u016</div><div class="ttdoc">An alternative name for the unsigned fract type. </div><div class="ttdef"><b>Definition:</b> stdfix-full-iso.h:194</div></div>
 <div class="ttc" id="normal_8h_html_a1da4b70b13db036144c4595e74666364"><div class="ttname"><a href="normal_8h.html#a1da4b70b13db036144c4595e74666364">norminv_ulr</a></div><div class="ttdeci">s1615 norminv_ulr(u032 x)</div><div class="ttdoc">This function takes a uniformly distributed 16-bit PRNG value, x, and returns a normally distributed ...</div></div>
 </div><!-- fragment -->
 <p>This function takes a uniformly distributed PRNG value, <code>f</code>, and returns a normally distributed <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> PRNG. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>A uniformly distributed unsigned fract. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>A uniformly distributed unsigned <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a> or <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -188,7 +188,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed s16.15. </p>
+<p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed s16.15 in <code>int</code> representation. </p>
 <p>Given an 16-bit signed integer value, representing p - 0.5, return the cumulative normal value associated with that probability. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A uniformly distributed 16-bit PRNG, in the bottom 16 bits of <code>x</code>. </td></tr>
@@ -221,7 +221,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed 16-bit PRNG. </p>
+<p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed 16-bit PRNG in <code>int</code> representation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A uniformly distributed 16-bit PRNG, in the top 16 bits of <code>x</code>. </td></tr>
@@ -254,7 +254,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed 16-bit PRNG. </p>
+<p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed 16-bit PRNG in <code>int</code> representation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A uniformly distributed 16-bit PRNG, in the bottom 16 bits of <code>x</code>. </td></tr>
@@ -356,7 +356,7 @@ Functions</h2></td></tr>
 <p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> PRNG. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A uniformly distributed unsigned fract. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A uniformly distributed unsigned <a class="el" href="stdfix-full-iso_8h.html#a216d8e98d588f652c069993f3ecb7f86" title="An alternative name for the unsigned fract type. ">u016</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -381,7 +381,7 @@ Functions</h2></td></tr>
 <p>This function takes a uniformly distributed 16-bit PRNG value, <code>x</code>, and returns a normally distributed <a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6" title="An alternative name for the signed accum type. ">s1615</a> PRNG. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A uniformly distributed unsigned fract. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>A uniformly distributed unsigned <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type. ">u032</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -392,7 +392,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 8 2020 16:14:37 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 18 2020 12:05:35 for spinn_common by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>
