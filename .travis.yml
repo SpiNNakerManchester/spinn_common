@@ -65,6 +65,5 @@ deploy:
     # We also limit deployment to the named branches; others are not to be 
     # deployed by policy anyway.
     branch:
-      - doxygen
       - master
     condition: -n "$GITHUB_TOKEN"
