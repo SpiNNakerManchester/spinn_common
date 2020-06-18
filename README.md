@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/SpiNNakerManchester/spinn_common.svg?branch=master)](https://travis-ci.com/SpiNNakerManchester/spinn_common)
+
 SpiNN Common
 ============
 
@@ -7,3 +9,7 @@ Building
 --------
 
 Make sure you have the `SPINN_DIRS` environment variable set to the root of an installation of `spinnaker_tools`, that you have the relevant ARM GCC cross-compilation toolchain installed, and then do `make` followed by `make install`.
+
+Documentation
+=============
+[spinn_common documentation](http://spinnakermanchester.github.io/spinn_common/) (doxygen)
