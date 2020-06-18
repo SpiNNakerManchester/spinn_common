@@ -66,8 +66,8 @@
 //! chosen above. These are the highest level of macros that the users
 //! should use.
 //!
-//! #FX_MUL returns a ::s1615, #FX_MUL_SHORT_ACCUM returns a ::s87,
-//! #FX_MUL_FRACT32 returns a ::s031, and #FX_MUL_FRACT16 returns a ::s015.
+//! #FX_MUL returns an ::s1615, #FX_MUL_SHORT_ACCUM returns an ::s87,
+//! #FX_MUL_FRACT32 returns an ::s031, and #FX_MUL_FRACT16 returns an ::s015.
 //! \{
 #ifdef ROUNDING_NONE_GCC
     #define FX_MUL(x, y)                MULT_NO_ROUND_GCC(x, y)
@@ -672,8 +672,9 @@ static inline uint16_t __stdfix_stochastic_round_u16(uint16_t x, int n)
  * \{
  */
 
-//! \brief Multiply two integer representations of ::s1615 and return an integer
-//! representation of an ::s1615 answer, rounded to nearest ::s1615.
+//! \brief Multiply two integer representations of ::s1615 and return an
+//!     integer representation of an ::s1615 answer, rounded to the nearest
+//!     ::s1615.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -687,9 +688,9 @@ static inline int32_t __stdfix_smul_k_round_nearest(int32_t x, int32_t y)
             (__I64(x) * __I64(y)), 15) >> 15);
 }
 
-//! \brief Multiply two integer representations of ::s1615 and return an integer
-//! representation of an ::s1615 answer, rounded to a neighbouring ::s1615
-//! stochastically.
+//! \brief Multiply two integer representations of ::s1615 and return an
+//!     integer representation of an ::s1615 answer, rounded to a neighbouring
+//!     ::s1615 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -704,8 +705,8 @@ static inline int32_t __stdfix_smul_k_round_stochastic(int32_t x, int32_t y)
 }
 
 //! \brief Multiply two integer representations of ::u032 and
-//! return an integer representation of a ::s031 answer, rounded to
-//! nearest ::s1615.
+//!     return an integer representation of an ::s031 answer, rounded to the
+//!     nearest ::s1615.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -716,8 +717,8 @@ static inline uint32_t __stdfix_smul_ulr_round_nearest(uint32_t x, uint32_t y)
 }
 
 //! \brief Multiply two integer representations of ::u032 and
-//! return an integer representation of a ::s031 answer, rounded to
-//! a neighbouring ::s031 stochastically.
+//!     return an integer representation of an ::s031 answer, rounded to
+//!     a neighbouring ::s031 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -736,7 +737,8 @@ static inline uint32_t __stdfix_smul_ulr_round_stochastic(
  */
 
 //! \brief Multiply two integer representations of ::s87 and return an
-//! integer representation of a ::s87 answer, rounded to a nearest ::s87.
+//!     integer representation of an ::s87 answer, rounded to the nearest
+//!     ::s87.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -750,8 +752,8 @@ static inline int32_t __stdfix_smul_hk_round_nearest(int32_t x, int32_t y)
 }
 
 //! \brief Multiply two integer representations of ::s87 and return an
-//! integer representation of a ::s87 answer, rounded to a neighbouring
-//! ::s87 stochastically.
+//!     integer representation of an ::s87 answer, rounded to a neighbouring
+//!     ::s87 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -766,7 +768,8 @@ static inline int32_t __stdfix_smul_hk_round_stochastic(int32_t x, int32_t y)
 }
 
 //! \brief Multiply two integer representations of ::u016 and return an
-//! integer representation of a ::s015 answer, rounded to a nearest ::s015.
+//!     integer representation of an ::s015 answer, rounded to the nearest
+//!     ::s015.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -777,8 +780,8 @@ static inline uint32_t __stdfix_smul_ur_round_nearest(uint32_t x, uint32_t y)
 }
 
 //! \brief Multiply two integer representations of ::u016 and return an
-//! integer representation of a ::s015 answer, rounded to a neighbouring
-//! ::s015 stochastically.
+//!     integer representation of an ::s015 answer, rounded to a neighbouring
+//!     ::s015 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -804,8 +807,8 @@ static inline uint32_t __stdfix_smul_ur_round_stochastic(
  * \{
  */
 
-//! \brief Multiply a ::s1615 and a ::s031 and return a ::s1615
-//! answer, without rounding.
+//! \brief Multiply an ::s1615 and an ::s031 and return an ::s1615
+//!     answer, without rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -818,8 +821,8 @@ static inline s1615 accum_times_long_fract(s1615 x, s031 y)
     return (kbits (((int32_t)(r >> 31))));
 }
 
-//! \brief Multiply a ::s1615 and a ::s031 and return a ::s1615
-//! answer rounded to the nearest ::s1615.
+//! \brief Multiply an ::s1615 and an ::s031 and return an ::s1615
+//!     answer rounded to the nearest ::s1615.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -832,8 +835,8 @@ static inline s1615 accum_times_long_fract_nearest(s1615 x, s031 y)
     return (kbits (((int32_t)(r >> 31) + ((int32_t)(r >> 30) & 1))));
 }
 
-//! \brief Multiply ::s1615 and a ::s031 and return a ::s1615 answer
-//! rounded to a neighbouring ::s1615 stochastically.
+//! \brief Multiply ::s1615 and an ::s031 and return an ::s1615 answer
+//!     rounded to a neighbouring ::s1615 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -847,8 +850,8 @@ static inline s1615 accum_times_long_fract_stochastic(s1615 x, s031 y)
     return (kbits (((int32_t)(r >> 31))));
 }
 
-//! \brief Multiply ::s1615 and an ::u032 and return a ::s1615
-//! answer, without rounding.
+//! \brief Multiply ::s1615 and an ::u032 and return an ::s1615
+//!     answer, without rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -861,8 +864,8 @@ static inline s1615 accum_times_u_long_fract(s1615 x, u032 y)
     return (kbits (((int32_t)(r >> 32))));
 }
 
-//! \brief Multiply ::s1615 and an ::u032 and return a ::s1615
-//! answer rounded to the nearest ::s1615.
+//! \brief Multiply ::s1615 and an ::u032 and return an ::s1615
+//!     answer rounded to the nearest ::s1615.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -875,8 +878,8 @@ static inline s1615 accum_times_u_long_fract_nearest(s1615 x, u032 y)
     return (kbits (((int32_t)(r >> 32) + ((int32_t)(r >> 31) & 1))));
 }
 
-//! \brief Multiply ::s1615 and an ::u032 and return a ::s1615
-//! answer rounded to a neighbouring ::s1615 stochastically.
+//! \brief Multiply ::s1615 and an ::u032 and return an ::s1615
+//!     answer rounded to a neighbouring ::s1615 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -890,8 +893,8 @@ static inline s1615 accum_times_u_long_fract_stochastic(s1615 x, u032 y)
     return kbits((int32_t) (r >> 32));
 }
 
-//! \brief Multiply a ::s031 and an ::u032 and return a
-//! ::s031 answer, without rounding.
+//! \brief Multiply an ::s031 and an ::u032 and return a
+//!     ::s031 answer, without rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -904,8 +907,8 @@ static inline s031 long_fract_times_u_long_fract(s031 x, u032 y)
     return lrbits((int32_t) (r >> 32));
 }
 
-//! \brief Multiply a ::s031 and an ::u032 and return a
-//! ::s031 answer rounded to the nearest ::s031.
+//! \brief Multiply an ::s031 and an ::u032 and return a
+//!     ::s031 answer rounded to the nearest ::s031.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -918,8 +921,8 @@ static inline s031 long_fract_times_u_long_fract_nearest(s031 x, u032 y)
     return lrbits(((int32_t)(r >> 32) + ((int32_t)(r >> 31) & 1)));
 }
 
-//! \brief Multiply a ::s031 and an ::u032 and return a
-//! ::s031 answer rounded to a ::s031 stochastically.
+//! \brief Multiply an ::s031 and an ::u032 and return a
+//!     ::s031 answer rounded to a neighbouring ::s031 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -937,8 +940,8 @@ static inline s031 long_fract_times_u_long_fract_stochastic(s031 x, u032 y)
  * 16-bit multiplies
  */
 
-//! \brief Multiply two ::s87 numbers and return a ::s87 answer without
-//! rounding.
+//! \brief Multiply two ::s87 numbers and return an ::s87 answer without
+//!     rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -951,8 +954,8 @@ static inline s87 short_accum_times_fract(s87 x, s015 y)
     return hkbits((int32_t) (r >> 15));
 }
 
-//! \brief Multiply two ::s87 values and return a ::s87 answer rounded to
-//! the nearest ::s87.
+//! \brief Multiply two ::s87 values and return an ::s87 answer rounded to
+//!     the nearest ::s87.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -965,8 +968,8 @@ static inline s87 short_accum_times_fract_nearest(s87 x, s015 y)
     return hkbits((int32_t) (r >> 15) + ((int32_t) (r >> 14) & 1));
 }
 
-//! \brief Multiply two ::s87 values and return a ::s87 answer rounded to
-//! a neighbouring ::s87 stochastically.
+//! \brief Multiply two ::s87 values and return an ::s87 answer rounded to
+//!     a neighbouring ::s87 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -980,8 +983,8 @@ static inline s87 short_accum_times_fract_stochastic(s87 x, s015 y)
     return hkbits((int32_t) (r >> 15));
 }
 
-//! \brief Multiply a ::s87 and an ::u016 and return a ::s87 answer
-//! without rounding.
+//! \brief Multiply an ::s87 and an ::u016 and return an ::s87 answer
+//!     without rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -994,8 +997,8 @@ static inline s87 short_accum_times_u_fract(s87 x, u016 y)
     return hkbits((int32_t) (r >> 16));
 }
 
-//! \brief Multiply a ::s87 and an ::u016 and return a ::s87 answer
-//! rounded to the nearest ::s87.
+//! \brief Multiply an ::s87 and an ::u016 and return an ::s87 answer
+//!     rounded to the nearest ::s87.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -1008,8 +1011,8 @@ static inline s87 short_accum_times_u_fract_nearest(s87 x, u016 y)
     return hkbits((int32_t) (r >> 16) + ((int32_t) (r >> 15) & 1));
 }
 
-//! \brief Multiply a ::s87 and an ::u016 and return a ::s87 answer
-//! rounded to a neighbouring ::s87 stochastically.
+//! \brief Multiply an ::s87 and an ::u016 and return an ::s87 answer
+//!     rounded to a neighbouring ::s87 stochastically.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -1023,8 +1026,8 @@ static inline s87 short_accum_times_u_fract_stochastic(s87 x, u016 y)
     return hkbits((int32_t) (r >> 16));
 }
 
-//! \brief Multiply an ::u016 and a ::s015 and return a ::s015
-//! answer without rounding.
+//! \brief Multiply an ::u016 and an ::s015 and return an ::s015
+//!     answer without rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -1037,8 +1040,8 @@ static inline s015 fract_times_u_fract(s015 x, u016 y)
     return rbits((int32_t) (r >> 16));
 }
 
-//! \brief Multiply an ::u016 and a ::s015 and return a ::s015
-//! answer rounded to a nearest ::s015.
+//! \brief Multiply an ::u016 and an ::s015 and return an ::s015
+//!     answer rounded to the nearest ::s015.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.
@@ -1051,8 +1054,8 @@ static inline s015 fract_times_u_fract_nearest(s015 x, u016 y)
     return rbits((int32_t) (r >> 16) + ((int32_t) (r >> 15) & 1));
 }
 
-//! \brief Multiply an ::u016 and a ::s015 and return a ::s015 answer
-//! with stochastic rounding.
+//! \brief Multiply an ::u016 and an ::s015 and return an ::s015 answer
+//!     with stochastic rounding.
 //! \param[in] x: The first value
 //! \param[in] y: The second value
 //! \return The product.

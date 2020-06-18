@@ -142,9 +142,10 @@ static int polynomials[11][5] = {
 };
 
 //! \brief Access to the tail approximation polynomial table evaluation
-//! \param[in] approx: The number of the approximation.
+//! \param[in] approx: The number of the approximation
+//!     (this selects the polynomial patch).
 //! \param[in] x: The point at which the function is approximated.
-//! \return ???
+//! \return The corrected value of the polynomial at \p x
 static int lo_approx(
 	unsigned int approx,
 	int x)
@@ -161,9 +162,10 @@ static int lo_approx(
 }
 
 //! \brief Access to the central approximation polynomial table evaluation
-//! \param[in] approx: The number of the approximation.
+//! \param[in] approx: The number of the approximation
+//!     (this selects the polynomial patch).
 //! \param[in] x: The point at which the function is approximated.
-//! \return ???
+//! \return The corrected value of the polynomial at \p x
 static int mid_approx(
 	unsigned int approx,
 	int x)
@@ -173,7 +175,7 @@ static int mid_approx(
     assert(approx <= 5);
     assert(0 <= x);
 
-    r = __horner_int_b(polynomials[approx+5], x, 4);
+    r = __horner_int_b(polynomials[approx + 5], x, 4);
     r += x << 14; // DRL Mod for overflow prevention
     return r;
 }
@@ -189,7 +191,7 @@ static int mid_approx(
 #endif
 
 //! \brief Access to the tail approximation functions
-//! \param[in] approx: The number of the approximation.
+//! \param[in] approx: The number of the approximation
 //! \param[in] p: The point at which the function is approximated.
 //! \return Normal value (using algorithm relevant for tail regions)
 static int tail_approx(
@@ -222,8 +224,8 @@ static int central_approx(
     z = p;
     z = __smulbb(z, z) >> 17;		// DRL HACK rounding???
 
-    z -= offset[5-approx];
-    z *= multiplier[5-approx];
+    z -= offset[5 - approx];
+    z *= multiplier[5 - approx];
     z <<= 1;				//DRL HACK!!
 
     assert(0 <= z);
@@ -262,7 +264,7 @@ int NO_INLINE __norminv_rbits(
         if (shift > 4) {
             r = tail_approx(shift, (INT16_MAX + 1) - x);
         } else {
-            r = central_approx(shift+1, x);
+            r = central_approx(shift + 1, x);
         }
     }
 

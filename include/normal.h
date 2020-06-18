@@ -32,7 +32,8 @@
 #endif
 
 //! \brief This function takes a uniformly distributed 16-bit
-//!     PRNG value, \p x, and returns a normally distributed s16.15.
+//!     PRNG value, \p x, and returns a normally distributed s16.15 in `int`
+//!     representation.
 //! \details Given an 16-bit signed integer value, representing p - 0.5,
 //!     return the cumulative normal value associated with that probability.
 //! \param[in] x: A uniformly distributed 16-bit PRNG, in the bottom
@@ -41,7 +42,8 @@
 int __norminv_rbits(int x);
 
 //! \brief This function takes a uniformly distributed 16-bit
-//!     PRNG value, \p x, and returns a normally distributed 16-bit PRNG.
+//!     PRNG value, \p x, and returns a normally distributed 16-bit PRNG in
+//!     `int` representation.
 //! \param[in] x A uniformly distributed 16-bit PRNG, in the top
 //!     16 bits of \p x.
 //! \return A normally distributed int representation of an s16.15 PRNG.
@@ -50,7 +52,8 @@ static inline int __norminv_t_bits(int x) {
 }
 
 //! \brief This function takes a uniformly distributed 16-bit
-//!     PRNG value, \p x, and returns a normally distributed 16-bit PRNG.
+//!     PRNG value, \p x, and returns a normally distributed 16-bit PRNG in
+//!     `int` representation.
 //! \param[in] x: A uniformly distributed 16-bit PRNG, in the bottom
 //!     16 bits of \p x.
 //! \return A normally distributed int representation of an s16.15 PRNG.
@@ -84,7 +87,7 @@ static inline s1615 norminv_urt(unsigned int x) {
 
 //! \brief This function takes a uniformly distributed 16-bit
 //!     PRNG value, \p x, and returns a normally distributed ::s1615 PRNG.
-//! \param[in] x: A uniformly distributed unsigned fract.
+//! \param[in] x: A uniformly distributed unsigned ::u016.
 //! \return A normally distributed ::s1615 PRNG.
 static inline s1615 norminv_ur(u016 x) {
     union { unsigned int u; int s; } tmp;
@@ -95,13 +98,13 @@ static inline s1615 norminv_ur(u016 x) {
 
 //! \brief This function takes a uniformly distributed 16-bit
 //!     PRNG value, \p x, and returns a normally distributed ::s1615 PRNG.
-//! \param[in] x: A uniformly distributed unsigned fract.
+//! \param[in] x: A uniformly distributed unsigned ::u032.
 //! \return A normally distributed ::s1615 PRNG.
 UNIMPLEMENTED s1615 norminv_ulr(u032 x);
 
 //! \brief This function takes a uniformly distributed
 //!     PRNG value, \p f, and returns a normally distributed ::s1615 PRNG.
-//! \param[in] f: A uniformly distributed unsigned fract.
+//! \param[in] f: A uniformly distributed unsigned ::u016 or ::u032.
 //! \return A normally distributed ::s1615 PRNG.
 #define norminv_fx(f) \
     _Generic((f), \

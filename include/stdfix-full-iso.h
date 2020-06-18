@@ -53,23 +53,23 @@
 #include "arm_acle.h"
 
 //! \brief Returns the minimum of two arguments.
-//! \param[in] a First argument
-//! \param[in] b Second argument
-//! \return The minimum of a and b.
+//! \param[in] a: First argument
+//! \param[in] b: Second argument
+//! \return The minimum of \p a and \p b.
 #ifndef min
 #define min(a, b)	(((a)<(b)) ? (a) : (b))
 #endif
 
 //! \brief Returns the maximum of two arguments.
-//! \param[in] a First argument
-//! \param[in] b Second argument
-//! \return The maximum of a and b.
+//! \param[in] a: First argument
+//! \param[in] b: Second argument
+//! \return The maximum of \p a and \p b.
 
 #define __stdfix_max(a, b) \
     (((a)<(b)) ? (b) : (a))
 
-//! \brief An macro definition which pretends to use variable a.
-//! \param[in] a First argument
+//! \brief A macro definition which pretends to use variable \p a.
+//! \param[in] a: First argument (_must not_ be floating point!)
 
 // note that this is a use of the semicolon swallowing as defined in:
 // https://gcc.gnu.org/onlinedocs/cpp/Swallowing-the-Semicolon.html
@@ -77,22 +77,22 @@
     do {} while ((a)!=(a))
 
 //! \brief Returns the absolute value of its argument.
-//! \param[in] a First argument.
-//! \return The absolute value of a.
+//! \param[in] a: First argument.
+//! \return The absolute value of \p a.
 
 #define __stdfix_abs(a) \
     (((a)<0) ? -(a) : (a))
 
 //! \brief Returns the most significant 32-bits of a 64-bit argument.
 //! \param[in] x: A 64-bit value.
-//! \return The most significant 32-bits of x.
+//! \return The most significant 32-bits of \p x.
 
 #define __stdfix_ms_u32(x) \
     ((x) >> 32)
 
 //! \brief Returns the least significant 32-bits of a 64-bit argument.
 //! \param[in] x: A 64-bit value.
-//! \return The least significant 32-bits of x.
+//! \return The least significant 32-bits of \p x.
 
 #define __stdfix_ls_u32(x) \
     ((x) & UINT32_MAX)
@@ -111,49 +111,49 @@ void __stdfix_64x64_128(uint64_t *hi, uint64_t *lo, uint64_t x, uint64_t y);
 //! \{
 
 //! \brief This is the integer type into which `signed short fract` can be
-//! converted.
+//!     converted.
 typedef int8_t  int_hr_t;
 
 //! \brief This is the integer type into which `signed fract` can be converted.
 typedef int16_t int_r_t;
 
 //! \brief This is the integer type into which `signed long fract` can be
-//! converted.
+//!     converted.
 typedef int32_t int_lr_t;
 
 //! \brief This is the integer type into which `signed short accum` can be
-//! converted.
+//!     converted.
 typedef int16_t int_hk_t;
 
 //! \brief This is the integer type into which `signed accum` can be converted.
 typedef int32_t int_k_t;
 
 //! \brief This is the integer type into which `signed long accum` can be
-//! converted.
+//!     converted.
 typedef int64_t int_lk_t;
 
 //! \brief This is the unsigned integer type into which `unsigned short accum`
-//! can be converted.
+//!     can be converted.
 typedef uint8_t  uint_uhr_t;
 
 //! \brief This is the unsigned integer type into which `unsigned fract` can be
-//! converted.
+//!     converted.
 typedef uint16_t uint_ur_t;
 
 //! \brief This is the unsigned integer type into which `unsigned long fract`
-//! can be converted.
+//!     can be converted.
 typedef uint32_t uint_ulr_t;
 
 //! \brief This is the unsigned integer type into which `unsigned short accum`
-//! can be converted.
+//!     can be converted.
 typedef uint16_t uint_uhk_t;
 
 //! \brief This is the unsigned integer type into which `unsigned accum` can be
-//! converted.
+//!     converted.
 typedef uint32_t uint_uk_t;
 
 //! \brief This is the unsigned integer type into which `unsigned long accum`
-//! can be converted.
+//!     can be converted.
 typedef uint64_t uint_ulk_t;
 //! \}
 
@@ -279,8 +279,8 @@ static inline int_hk_t bitshk(
     return x.r;
 }
 
-//! \brief Converts a accum into an integer.
-//! \param[in] f: A accum
+//! \brief Converts an accum into an integer.
+//! \param[in] f: An accum
 //! \return The integer representation.
 
 static inline int_k_t bitsk(
@@ -318,7 +318,7 @@ static inline uint_uhr_t bitsuhr(
     return x.r;
 }
 
-//! \brief Converts a unsigned fract into an integer.
+//! \brief Converts an unsigned fract into an integer.
 //! \param[in] f: An unsigned fract
 //! \return The integer representation.
 
@@ -357,7 +357,7 @@ static inline uint_uhk_t bitsuhk(
     return x.r;
 }
 
-//! \brief Converts an unsigned accum  into an integer.
+//! \brief Converts an unsigned accum into an integer.
 //! \param[in] f: An unsigned accum
 //! \return The integer representation.
 
@@ -388,9 +388,9 @@ static inline uint_ulk_t bitsulk(
 //! \brief The bitwise integer to fixed-point conversion functions
 //! \{
 
-//! \brief Converts an signed integer into an signed short fract.
-//! \param[in] n: An signed integer
-//! \return The signed short fract represented by n.
+//! \brief Converts a signed integer into a signed short fract.
+//! \param[in] n: A signed integer
+//! \return The signed short fract represented by \p n.
 
 static inline s07 hrbits(
 	const int_hr_t n)
@@ -401,9 +401,9 @@ static inline s07 hrbits(
     return x.fx;
 }
 
-//! \brief Converts an signed integer into an signed fract.
-//! \param[in] n: An signed integer
-//! \return The signed fract represented by n.
+//! \brief Converts a signed integer into a signed fract.
+//! \param[in] n: A signed integer
+//! \return The signed fract represented by \p n.
 
 static inline s015 rbits(
 	const int_r_t n)
@@ -414,9 +414,9 @@ static inline s015 rbits(
     return x.fx;
 }
 
-//! \brief Converts an signed integer into an signed long fract.
-//! \param[in] n: An signed integer
-//! \return The signed long fract represented by n.
+//! \brief Converts a signed integer into a signed long fract.
+//! \param[in] n: A signed integer
+//! \return The signed long fract represented by \p n.
 
 static inline s031 lrbits(
 	const int_lr_t n)
@@ -427,9 +427,9 @@ static inline s031 lrbits(
     return x.fx;
 }
 
-//! \brief Converts an signed integer into an signed short accum.
-//! \param[in] n: An signed integer
-//! \return The signed short accum represented by n.
+//! \brief Converts a signed integer into a signed short accum.
+//! \param[in] n: A signed integer
+//! \return The signed short accum represented by \p n.
 
 static inline s87 hkbits(
 	const int_hk_t n)
@@ -440,9 +440,9 @@ static inline s87 hkbits(
     return x.fx;
 }
 
-//! \brief Converts an signed integer into an signed accum.
-//! \param[in] n: An signed integer
-//! \return The signed accum represented by n.
+//! \brief Converts a signed integer into a signed accum.
+//! \param[in] n: A signed integer
+//! \return The signed accum represented by \p n.
 
 static inline s1615 kbits(
 	const int_k_t n)
@@ -453,9 +453,9 @@ static inline s1615 kbits(
     return x.fx;
 }
 
-//! \brief Converts an signed integer into an signed long accum.
-//! \param[in] n: An signed integer
-//! \return The signed long accum represented by n.
+//! \brief Converts a signed integer into a signed long accum.
+//! \param[in] n: A signed integer
+//! \return The signed long accum represented by \p n.
 
 static inline s3231 lkbits(
 	const int_lk_t n)
@@ -468,7 +468,7 @@ static inline s3231 lkbits(
 
 //! \brief Converts an unsigned integer into an unsigned short fract.
 //! \param[in] n: An unsigned integer
-//! \return The unsigned short fract represented by n.
+//! \return The unsigned short fract represented by \p n.
 
 static inline u08 uhrbits(
 	const uint_uhr_t n)
@@ -481,7 +481,7 @@ static inline u08 uhrbits(
 
 //! \brief Converts an unsigned integer into an unsigned fract.
 //! \param[in] n: An unsigned integer
-//! \return The unsigned fract represented by n.
+//! \return The unsigned fract represented by \p n.
 
 static inline u016 urbits(
 	const uint_ur_t n)
@@ -494,7 +494,7 @@ static inline u016 urbits(
 
 //! \brief Converts an unsigned integer into an unsigned long fract.
 //! \param[in] n: An unsigned integer
-//! \return The unsigned long fract represented by n.
+//! \return The unsigned long fract represented by \p n.
 
 static inline u032 ulrbits(
 	const uint_ulr_t n)
@@ -507,7 +507,7 @@ static inline u032 ulrbits(
 
 //! \brief Converts an unsigned integer into an unsigned short accum.
 //! \param[in] n: An unsigned integer
-//! \return The unsigned short accum represented by n.
+//! \return The unsigned short accum represented by \p n.
 
 static inline u88 uhkbits(
 	const uint_uhk_t n)
@@ -520,7 +520,7 @@ static inline u88 uhkbits(
 
 //! \brief Converts an unsigned integer into an unsigned accum.
 //! \param[in] n: An unsigned integer
-//! \return The unsigned accum represented by n.
+//! \return The unsigned accum represented by \p n.
 
 static inline u1616 ukbits(
 	const uint_uk_t  n)
@@ -533,7 +533,7 @@ static inline u1616 ukbits(
 
 //! \brief Converts an unsigned integer into an unsigned long accum.
 //! \param[in] n: An unsigned integer
-//! \return The unsigned long accum represented by n.
+//! \return The unsigned long accum represented by \p n.
 
 static inline u3232 ulkbits(
 	const uint_ulk_t n)
@@ -573,10 +573,10 @@ static inline int32_t __stdfix_sat_hr(
 	const int32_t x)
 {
     if (x > INT8_MAX) {
-	return INT8_MAX;
+        return INT8_MAX;
     }
     if (x < INT8_MIN) {
-	return INT8_MIN;
+        return INT8_MIN;
     }
 
     return x;
@@ -590,10 +590,10 @@ static inline int32_t __stdfix_sat_r(
 	const int32_t x)
 {
     if (x > INT16_MAX) {
-	return INT16_MAX;
+        return INT16_MAX;
     }
     if (x < INT16_MIN) {
-	return INT16_MIN;
+        return INT16_MIN;
     }
 
     return x;
@@ -607,10 +607,10 @@ static inline int32_t __stdfix_sat_lr(
 	const int64_t x)
 {
     if (x > INT32_MAX) {
-	return INT32_MAX;
+        return INT32_MAX;
     }
     if (x < INT32_MIN) {
-	return INT32_MIN;
+        return INT32_MIN;
     }
 
     return __I32(x);
@@ -624,10 +624,10 @@ static inline int32_t __stdfix_sat_hk(
 	const int32_t x)
 {
     if (x > INT16_MAX) {
-	return INT16_MAX;
+        return INT16_MAX;
     }
     if (x < INT16_MIN) {
-	return INT16_MIN;
+        return INT16_MIN;
     }
 
     return x;
@@ -641,10 +641,10 @@ static inline int32_t __stdfix_sat_k(
 	const int64_t x)
 {
     if (x > INT32_MAX) {
-	return INT32_MAX;
+        return INT32_MAX;
     }
     if (x < INT32_MIN) {
-	return INT32_MIN;
+        return INT32_MIN;
     }
 
     return __I32(x);
@@ -658,7 +658,7 @@ static inline uint32_t __stdfix_sat_uhr(
 	const uint32_t x)
 {
     if (x > UINT8_MAX) {
-	return UINT8_MAX;
+        return UINT8_MAX;
     }
 
     return x;
@@ -672,7 +672,7 @@ static inline uint32_t __stdfix_sat_ur(
 	const uint32_t x)
 {
     if (x > UINT16_MAX) {
-	return UINT16_MAX;
+        return UINT16_MAX;
     }
 
     return x;
@@ -686,7 +686,7 @@ static inline uint32_t __stdfix_sat_ulr(
 	const uint64_t x)
 {
     if (x > UINT32_MAX) {
-	return UINT32_MAX;
+        return UINT32_MAX;
     }
 
     return __U32(x);
@@ -700,7 +700,7 @@ static inline uint32_t __stdfix_sat_uhk(
 	const uint32_t x)
 {
     if (x > UINT16_MAX) {
-	return UINT16_MAX;
+        return UINT16_MAX;
     }
 
     return x;
@@ -714,7 +714,7 @@ static inline uint32_t __stdfix_sat_uk(
 	const uint64_t x)
 {
     if (x > UINT32_MAX) {
-	return UINT32_MAX;
+        return UINT32_MAX;
     }
 
     return __U32(x);
@@ -757,8 +757,8 @@ static inline int32_t __stdfix_sneg_hr(
 }
 
 //! \brief Saturated addition of the underlying integer representations
-//! \param[in] x: An 16-bit integer
-//! \param[in] y: An 16-bit integer
+//! \param[in] x: A 16-bit integer
+//! \param[in] y: A 16-bit integer
 //! \return The value of x+y saturated to 16 bits.
 
 static inline int32_t __stdfix_sadd_r(
@@ -769,8 +769,8 @@ static inline int32_t __stdfix_sadd_r(
 }
 
 //! \brief Saturated subtraction of the underlying integer representations
-//! \param[in] x: An 16-bit integer
-//! \param[in] y: An 16-bit integer
+//! \param[in] x: A 16-bit integer
+//! \param[in] y: A 16-bit integer
 //! \return The value of x-y saturated to 16 bits.
 
 static inline int32_t __stdfix_ssub_r(
@@ -781,7 +781,7 @@ static inline int32_t __stdfix_ssub_r(
 }
 
 //! \brief Saturated negation of the underlying integer representations
-//! \param[in] x: An 16-bit integer
+//! \param[in] x: A 16-bit integer
 //! \return The value of -x saturated to 16 bits.
 
 static inline int32_t __stdfix_sneg_r(
@@ -791,8 +791,8 @@ static inline int32_t __stdfix_sneg_r(
 }
 
 //! \brief Saturated addition of the underlying integer representations
-//! \param[in] x: An 32-bit integer
-//! \param[in] y: An 32-bit integer
+//! \param[in] x: A 32-bit integer
+//! \param[in] y: A 32-bit integer
 //! \return The value of x+y saturated to 32 bits.
 
 static inline int32_t __stdfix_sadd_lr(
@@ -803,8 +803,8 @@ static inline int32_t __stdfix_sadd_lr(
 }
 
 //! \brief Saturated subtraction of the underlying integer representations
-//! \param[in] x: An 32-bit integer
-//! \param[in] y: An 32-bit integer
+//! \param[in] x: A 32-bit integer
+//! \param[in] y: A 32-bit integer
 //! \return The value of x-y saturated to 32 bits.
 
 static inline int32_t __stdfix_ssub_lr(
@@ -815,7 +815,7 @@ static inline int32_t __stdfix_ssub_lr(
 }
 
 //! \brief Saturated negation of the underlying integer representations
-//! \param[in] x: An 32-bit integer
+//! \param[in] x: A 32-bit integer
 //! \return The value of -x saturated to 32 bits.
 
 static inline int32_t __stdfix_sneg_lr(
@@ -825,8 +825,8 @@ static inline int32_t __stdfix_sneg_lr(
 }
 
 //! \brief Saturated addition of the underlying integer representations
-//! \param[in] x: An 16-bit integer
-//! \param[in] y: An 16-bit integer
+//! \param[in] x: A 16-bit integer
+//! \param[in] y: A 16-bit integer
 //! \return The value of x+y saturated to 16 bits.
 
 static inline int32_t __stdfix_sadd_hk(
@@ -837,8 +837,8 @@ static inline int32_t __stdfix_sadd_hk(
 }
 
 //! \brief Saturated subtraction of the underlying integer representations
-//! \param[in] x: An 16-bit integer
-//! \param[in] y: An 16-bit integer
+//! \param[in] x: A 16-bit integer
+//! \param[in] y: A 16-bit integer
 //! \return The value of x-y saturated to 16 bits.
 
 static inline int32_t __stdfix_ssub_hk(
@@ -849,7 +849,7 @@ static inline int32_t __stdfix_ssub_hk(
 }
 
 //! \brief Saturated negation of the underlying integer representations
-//! \param[in] x: An 16-bit integer
+//! \param[in] x: A 16-bit integer
 //! \return The value of -x saturated to 16 bits.
 
 static inline int32_t __stdfix_sneg_hk(
@@ -859,8 +859,8 @@ static inline int32_t __stdfix_sneg_hk(
 }
 
 //! \brief Saturated addition of the underlying integer representations
-//! \param[in] x: An 32-bit integer
-//! \param[in] y: An 32-bit integer
+//! \param[in] x: A 32-bit integer
+//! \param[in] y: A 32-bit integer
 //! \return The value of x+y saturated to 32 bits.
 
 static inline int32_t __stdfix_sadd_k(
@@ -875,8 +875,8 @@ static inline int32_t __stdfix_sadd_k(
 }
 
 //! \brief Saturated subtraction of the underlying integer representations
-//! \param[in] x: An 32-bit integer
-//! \param[in] y: An 32-bit integer
+//! \param[in] x: A 32-bit integer
+//! \param[in] y: A 32-bit integer
 //! \return The value of x-y saturated to 32 bits.
 
 static inline int32_t __stdfix_ssub_k(
@@ -891,7 +891,7 @@ static inline int32_t __stdfix_ssub_k(
 }
 
 //! \brief Saturated negation of the underlying integer representations
-//! \param[in] x: An 32-bit integer
+//! \param[in] x: A 32-bit integer
 //! \return The value of -x saturated to 32 bits.
 
 static inline int32_t __stdfix_sneg_k(
@@ -905,21 +905,21 @@ static inline int32_t __stdfix_sneg_k(
 }
 
 //! \brief Saturated addition of the underlying integer representations
-//! \param[in] x: An 64-bit integer
-//! \param[in] y: An 64-bit integer
+//! \param[in] x: A 64-bit integer
+//! \param[in] y: A 64-bit integer
 //! \return The value of x+y saturated to 64 bits.
 
 int64_t __stdfix_sadd_lk(int64_t x, int64_t y);
 
 //! \brief Saturated subtraction of the underlying integer representations
-//! \param[in] x: An 64-bit integer
-//! \param[in] y: An 64-bit integer
+//! \param[in] x: A 64-bit integer
+//! \param[in] y: A 64-bit integer
 //! \return The value of x-y saturated to 64 bits.
 
 int64_t __stdfix_ssub_lk(int64_t x, int64_t y);
 
 //! \brief Saturated negation of the underlying integer representations
-//! \param[in] x: An 64-bit integer
+//! \param[in] x: A 64-bit integer
 //! \return The value of -x saturated to 64 bits.
 
 int64_t __stdfix_sneg_lk(int64_t x);
@@ -988,10 +988,10 @@ static inline int32_t __stdfix_smul_hk(
     return __stdfix_sat_hk((__I32(x) * __I32(y)) >> 7);
 }
 
-//! \brief Saturated multiplicaion of the underlying integer representations
-//! \param[in] x: A 32-bit integer representing of a accum.
-//! \param[in] y: A 32-bit integer representing of a accum.
-//! \return The value of x*y saturated to 32 bits representing of a accum.
+//! \brief Saturated multiplication of the underlying integer representations
+//! \param[in] x: A 32-bit integer representing of an accum.
+//! \param[in] y: A 32-bit integer representing of an accum.
+//! \return The value of x*y saturated to 32 bits representing of an accum.
 
 static inline int32_t __stdfix_smul_k(
 	int32_t x,
@@ -1004,14 +1004,15 @@ static inline int32_t __stdfix_smul_k(
     return __stdfix_sat_k((__I64(x) * __I64(y)) >> 15);
 }
 
-//! \brief Saturated multiplicaion of the underlying integer representations
+//! \brief Saturated multiplication of the underlying integer representations
 //! \param[in] x: A 64-bit integer representing of a long accum.
 //! \param[in] y: A 64-bit integer representing of a long accum.
 //! \return The value of x*y saturated to 64 bits representing of a long accum.
 
 int64_t __stdfix_smul_lk(int64_t x, int64_t y);
 
-//! \brief Saturated addition of the underlying unsigned integer representations
+//! \brief Saturated addition of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 32-bit unsigned integer
 //! \param[in] y: A 32-bit unsigned integer
 //! \return The value of x+y saturated to 8 bits.
@@ -1023,9 +1024,10 @@ static inline uint32_t __stdfix_sadd_uhr(
     return __stdfix_sat_uhr(__U32(x) + __U32(y));
 }
 
-//! \brief Saturated subtraction of the underlying unsigned integer representations
-//! \param[in] x: An 32-bit unsigned integer
-//! \param[in] y: An 32-bit unsigned integer
+//! \brief Saturated subtraction of the underlying unsigned integer
+//!     representations
+//! \param[in] x: A 32-bit unsigned integer
+//! \param[in] y: A 32-bit unsigned integer
 //! \return The value of x-y saturated to 8 bits.
 
 static inline uint32_t __stdfix_ssub_uhr(
@@ -1035,7 +1037,8 @@ static inline uint32_t __stdfix_ssub_uhr(
     return __stdfix_sat_uhr(__U32(x) - __U32(y));
 }
 
-//! \brief Saturated addition of the underlying unsigned integer representations
+//! \brief Saturated addition of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 32-bit unsigned integer
 //! \param[in] y: A 32-bit unsigned integer
 //! \return The value of x+y saturated to 16 bits.
@@ -1047,7 +1050,8 @@ static inline uint32_t __stdfix_sadd_ur(
     return __stdfix_sat_ur(__U32(x) + __U32(y));
 }
 
-//! \brief Saturated subtraction of the underlying unsigned integer representations
+//! \brief Saturated subtraction of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 32-bit unsigned integer
 //! \param[in] y: A 32-bit unsigned integer
 //! \return The value of x-y saturated to 16 bits.
@@ -1059,7 +1063,8 @@ static inline uint32_t __stdfix_ssub_ur(
     return __stdfix_sat_ur(__U32(x) - __U32(y));
 }
 
-//! \brief Saturated addition of the underlying unsigned integer representations
+//! \brief Saturated addition of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 32-bit unsigned integer
 //! \param[in] y: A 32-bit unsigned integer
 //! \return The value of x+y saturated to 32 bits.
@@ -1071,7 +1076,8 @@ static inline uint32_t __stdfix_sadd_ulr(
     return __stdfix_sat_ulr(__U64(x) + __U64(y));
 }
 
-//! \brief Saturated subtraction of the underlying unsigned integer representations
+//! \brief Saturated subtraction of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 32-bit unsigned integer
 //! \param[in] y: A 32-bit unsigned integer
 //! \return The value of x-y saturated to 32 bits.
@@ -1083,7 +1089,8 @@ static inline uint32_t __stdfix_ssub_ulr(
     return __stdfix_sat_ulr(__U64(x) - __U64(y));
 }
 
-//! \brief Saturated addition of the underlying unsigned integer representations
+//! \brief Saturated addition of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 32-bit unsigned integer
 //! \param[in] y: A 32-bit unsigned integer
 //! \return The value of x+y saturated to 16 bits.
@@ -1095,7 +1102,8 @@ static inline uint32_t __stdfix_sadd_uhk(
     return __stdfix_sat_uhk(__U32(x) + __U32(y));
 }
 
-//! \brief Saturated subtraction of the underlying unsigned integer representations
+//! \brief Saturated subtraction of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 32-bit unsigned integer
 //! \param[in] y: A 32-bit unsigned integer
 //! \return The value of x-y saturated to 16 bits.
@@ -1107,7 +1115,8 @@ static inline uint32_t __stdfix_ssub_uhk(
     return __stdfix_sat_uhk(__U32(x) - __U32(y));
 }
 
-//! \brief Saturated addition of the underlying unsigned integer representations
+//! \brief Saturated addition of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 32-bit unsigned integer
 //! \param[in] y: A 32-bit unsigned integer
 //! \return The value of x+y saturated to 32 bits.
@@ -1119,7 +1128,8 @@ static inline uint32_t __stdfix_sadd_uk(
     return __stdfix_sat_uk(__U64(x) + __U64(y));
 }
 
-//! \brief Saturated subtraction of the underlying unsigned integer representations
+//! \brief Saturated subtraction of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 32-bit unsigned integer
 //! \param[in] y: A 32-bit unsigned integer
 //! \return The value of x-y saturated to 32 bits.
@@ -1131,24 +1141,30 @@ static inline uint32_t __stdfix_ssub_uk(
     return __stdfix_sat_uk(__U64(x) - __U64(y));
 }
 
-//! \brief Saturated addition of the underlying unsigned integer representations
+//! \brief Saturated addition of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 64-bit unsigned integer
 //! \param[in] y: A 64-bit unsigned integer
 //! \return The value of x+y saturated to 64 bits.
 
 uint64_t __stdfix_sadd_ulk(uint64_t x, uint64_t y);
 
-//! \brief Saturated subtraction of the underlying unsigned integer representations
+//! \brief Saturated subtraction of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 64-bit unsigned integer
 //! \param[in] y: A 64-bit unsigned integer
 //! \return The value of x-y saturated to 64 bits.
 
 uint64_t __stdfix_ssub_ulk(uint64_t x, uint64_t y);
 
-//! \brief Saturated multiplication of the underlying unsigned integer representations
-//! \param[in] x: A 32-bit unsigned integer representing of an unsigned short fract.
-//! \param[in] y: A 32-bit unsigned integer representing of an unsigned short fract.
-//! \return The value of x*y saturated to 8 bits representing of an unsigned short fract.
+//! \brief Saturated multiplication of the underlying unsigned integer
+//!     representations
+//! \param[in] x: A 32-bit unsigned integer representing of an unsigned short
+//!     fract.
+//! \param[in] y: A 32-bit unsigned integer representing of an unsigned short
+//!     fract.
+//! \return The value of x*y saturated to 8 bits representing of an unsigned
+//!     short fract.
 
 static inline uint32_t __stdfix_smul_uhr(
 	uint32_t x,
@@ -1157,10 +1173,12 @@ static inline uint32_t __stdfix_smul_uhr(
     return __stdfix_sat_uhr((__U32(x) * __U32(y)) >> 8);
 }
 
-//! \brief Saturated multiplicaion of the underlying unsigned integer representations
+//! \brief Saturated multiplication of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 32-bit unsigned integer representing of an unsigned fract.
 //! \param[in] y: A 32-bit unsigned integer representing of an unsigned fract.
-//! \return The value of x*y saturated to 16 bits representing of an unsigned fract.
+//! \return The value of x*y saturated to 16 bits representing of an unsigned
+//!     fract.
 
 static inline uint32_t __stdfix_smul_ur(
 	uint32_t x,
@@ -1169,10 +1187,14 @@ static inline uint32_t __stdfix_smul_ur(
     return __stdfix_sat_ur((__U32(x) * __U32(y)) >> 16);
 }
 
-//! \brief Saturated multiplicaion of the underlying unsigned integer representations
-//! \param[in] x: A 32-bit unsigned integer representing of an unsigned long fract.
-//! \param[in] y: A 32-bit unsigned integer representing of an unsigned long fract.
-//! \return The value of x*y saturated to 32 bits representing of an unsigned long fract.
+//! \brief Saturated multiplication of the underlying unsigned integer
+//!     representations
+//! \param[in] x: A 32-bit unsigned integer representing of an unsigned long
+//!     fract.
+//! \param[in] y: A 32-bit unsigned integer representing of an unsigned long
+//!     fract.
+//! \return The value of x*y saturated to 32 bits representing of an unsigned
+//!     long fract.
 
 static inline uint32_t __stdfix_smul_ulr(
 	uint32_t x,
@@ -1181,10 +1203,14 @@ static inline uint32_t __stdfix_smul_ulr(
     return __stdfix_sat_ulr((__U64(x) * __U64(y)) >> 32);
 }
 
-//! \brief Saturated multiplicaion of the underlying unsigned integer representations
-//! \param[in] x: A 32-bit unsigned integer representing of an unsigned short accum.
-//! \param[in] y: A 32-bit unsigned integer representing of an unsigned short accum.
-//! \return The value of x*y saturated to 16 bits representing of an unsigned short accum.
+//! \brief Saturated multiplication of the underlying unsigned integer
+//!     representations
+//! \param[in] x: A 32-bit unsigned integer representing of an unsigned short
+//!     accum.
+//! \param[in] y: A 32-bit unsigned integer representing of an unsigned short
+//!     accum.
+//! \return The value of x*y saturated to 16 bits representing of an unsigned
+//!     short accum.
 
 static inline uint32_t __stdfix_smul_uhk(
 	uint32_t x,
@@ -1193,10 +1219,12 @@ static inline uint32_t __stdfix_smul_uhk(
     return __stdfix_sat_uhk((__U32(x) * __U32(y)) >> 8);
 }
 
-//! \brief Saturated multiplicaion of the underlying unsigned integer representations
+//! \brief Saturated multiplication of the underlying unsigned integer
+//!     representations
 //! \param[in] x: A 32-bit unsigned integer representing of an unsigned accum.
 //! \param[in] y: A 32-bit unsigned integer representing of an unsigned accum.
-//! \return The value of x*y saturated to 32 bits representing of an unsigned accum.
+//! \return The value of x*y saturated to 32 bits representing of an unsigned
+//!     accum.
 
 static inline uint32_t __stdfix_smul_uk(
 	uint32_t x,
@@ -1205,10 +1233,14 @@ static inline uint32_t __stdfix_smul_uk(
     return __stdfix_sat_uk((__U64(x) * __U64(y)) >> 16);
 }
 
-//! \brief Saturated multiplicaion of the underlying unsigned integer representations
-//! \param[in] x: A 64-bit unsigned integer representing of an unsigned long accum.
-//! \param[in] y: A 64-bit unsigned integer representing of an unsigned long accum.
-//! \return The value of x*y saturated to 64 bits representing of an unsigned long accum.
+//! \brief Saturated multiplication of the underlying unsigned integer
+//!     representations
+//! \param[in] x: A 64-bit unsigned integer representing of an unsigned long
+//!     accum.
+//! \param[in] y: A 64-bit unsigned integer representing of an unsigned long
+//!     accum.
+//! \return The value of x*y saturated to 64 bits representing of an unsigned
+//!     long accum.
 
 uint64_t __stdfix_smul_ulk(uint64_t x, uint64_t y);
 
@@ -1261,7 +1293,8 @@ static inline int mulik(
     return __I((__I64(n) * __I64(bitsk(x))) >> 15);
 }
 
-//! \brief Multiplies a long integer by a long accum giving a long integer answer.
+//! \brief Multiplies a long integer by a long accum giving a long integer
+//!     answer.
 //! \param[in] n: A long integer
 //! \param[in] x: An s32.31 accum
 //! \return The integer part of n*x.
@@ -1422,7 +1455,7 @@ static inline long int idivlk(
 }
 
 //! \brief Multiplies an unsigned integer by an unsigned fract giving an
-//! unsigned integer answer.
+//!     unsigned integer answer.
 //! \param[in] n: An unsigned integer
 //! \param[in] x: An unsigned fract
 //! \return An unsigned integer representing the integer part of n*x.
@@ -1435,7 +1468,7 @@ static inline unsigned int muliur(
 }
 
 //! \brief Multiplies an unsigned long integer by an unsigned long fract giving
-//! an unsigned integer answer.
+//!     an unsigned integer answer.
 //! \param[in] n: An unsigned long integer
 //! \param[in] x: An unsigned long fract
 //! \return An unsigned long integer representing the integer part of n*x.
@@ -1448,7 +1481,7 @@ static inline unsigned long int muliulr(
 }
 
 //! \brief Multiplies an unsigned integer by an unsigned accum giving an
-//! unsigned integer answer.
+//!     unsigned integer answer.
 //! \param[in] n: An unsigned integer
 //! \param[in] x: An unsigned accum
 //! \return An unsigned integer representing the integer part of n*x.
@@ -1461,7 +1494,7 @@ static inline unsigned int muliuk(
 }
 
 //! \brief Multiplies an unsigned long integer by an unsigned long accum giving
-//! an unsigned long integer answer.
+//!     an unsigned long integer answer.
 //! \param[in] n: An unsigned long integer
 //! \param[in] x: An unsigned long accum
 //! \return An unsigned long integer representing the integer part of n*x.
@@ -1478,7 +1511,7 @@ static inline unsigned long int muliulk(
 }
 
 //! \brief Divides an unsigned integer by an unsigned fract giving an unsigned
-//! integer answer.
+//!     integer answer.
 //! \param[in] n: An unsigned integer
 //! \param[in] x: An unsigned fract
 //! \return An unsigned integer representing the integer part of n/x.
@@ -1491,7 +1524,7 @@ static inline unsigned int diviur(
 }
 
 //! \brief Divides a long unsigned integer by a long unsigned fract giving an
-//! unsigned integer answer.
+//!     unsigned integer answer.
 //! \param[in] n: A long unsigned integer
 //! \param[in] x: A long unsigned fract
 //! \return A long unsigned integer representing the integer part of n/x.
@@ -1504,7 +1537,7 @@ static inline unsigned long int diviulr(
 }
 
 //! \brief Divides an unsigned integer by an unsigned accum giving an unsigned
-//! integer answer.
+//!     integer answer.
 //! \param[in] n: An unsigned integer
 //! \param[in] x: An unsigned accum
 //! \return An unsigned integer representing the integer part of n/x.
@@ -1517,7 +1550,7 @@ static inline unsigned int diviuk(
 }
 
 //! \brief Divides a long unsigned integer by a long unsigned accum giving an
-//! unsigned integer answer.
+//!     unsigned integer answer.
 //! \param[in] n: A long unsigned integer
 //! \param[in] x: A long unsigned accum
 //! \return A long unsigned integer representing the integer part of n/x.
@@ -1542,7 +1575,7 @@ static inline u016 urdivi(
 }
 
 //! \brief Divides two unsigned long integers giving an unsigned long fract
-//! answer.
+//!     answer.
 //! \param[in] i An unsigned long integer
 //! \param[in] j An unsigned long integer
 //! \return An unsigned long fract representing i/j.
@@ -1567,7 +1600,7 @@ static inline u1616 ukdivi(
 }
 
 //! \brief Divides two unsigned long integers giving an unsigned long accum
-//! answer.
+//!     answer.
 //! \param[in] i An unsigned long integer
 //! \param[in] j An unsigned long integer
 //! \return An unsigned long accum representing i/j.
@@ -1592,7 +1625,7 @@ static inline unsigned int idivur(
 }
 
 //! \brief Divides two unsigned long fracts giving an unsigned long integer
-//! answer.
+//!     answer.
 //! \param[in] x: An unsigned long fract
 //! \param[in] y: An unsigned long fract
 //! \return An unsigned long integer representing the integer part of x/y.
@@ -1752,7 +1785,7 @@ static inline s3231 abslk(
 //! \{
 
 //! \brief This function rounds the input unsigned 8-bit integer to a number
-//! of bits, returning an 8-bit integer.
+//!     of bits, returning an 8-bit integer.
 //! \param[in] x: An 8-bit number to be rounded.
 //! \param[in] n: An int.
 //! \return The \p f rounded to the nearest n bits.
@@ -1771,8 +1804,8 @@ static inline uint8_t __stdfix_round_u8(
 }
 
 //! \brief This function rounds the input unsigned 16-bit integer to a number
-//! of bits, returning a 16-bit integer.
-//! \param[in] x: An 16-bit number to be rounded.
+//!     of bits, returning a 16-bit integer.
+//! \param[in] x: A 16-bit number to be rounded.
 //! \param[in] n: An int.
 //! \return The \p x rounded to the nearest n bits.
 
@@ -1790,8 +1823,8 @@ static inline uint16_t __stdfix_round_u16(
 }
 
 //! \brief This function rounds the input unsigned 32-bit integer to a number
-//! of bits, returning an 32-bit integer.
-//! \param[in] x: An 32-bit number to be rounded.
+//!     of bits, returning a 32-bit integer.
+//! \param[in] x: A 32-bit number to be rounded.
 //! \param[in] n: An int.
 //! \return The \p x rounded to the nearest n bits.
 
@@ -1809,7 +1842,7 @@ static inline uint32_t __stdfix_round_u32(
 }
 
 //! \brief This function rounds the input unsigned 64-bit integer to a number
-//! of bits, returning a 64-bit integer.
+//!     of bits, returning a 64-bit integer.
 //! \param[in] x: A 64-bit number to be rounded.
 //! \param[in] n: An int.
 //! \return The \p x rounded to the nearest n bits.
@@ -1828,7 +1861,7 @@ static inline uint64_t __stdfix_round_u64(
 }
 
 //! \brief This function rounds the input signed 8-bit integer to a number of
-//! bits, returning an 8-bit integer.
+//!     bits, returning an 8-bit integer.
 //! \param[in] x: An 8-bit number to be rounded.
 //! \param[in] n: An int.
 //! \return The \p x rounded to the nearest n bits.
@@ -1847,8 +1880,8 @@ static inline int8_t __stdfix_round_s8(
 }
 
 //! \brief This function rounds the input signed 16-bit integer to a number
-//! of bits, returning a 16-bit integer.
-//! \param[in] x: An 16-bit number to be rounded.
+//!     of bits, returning a 16-bit integer.
+//! \param[in] x: A 16-bit number to be rounded.
 //! \param[in] n: An int.
 //! \return The \p x rounded to the nearest n bits.
 
@@ -1866,8 +1899,8 @@ static inline int16_t __stdfix_round_s16(
 }
 
 //! \brief This function rounds the input signed 32-bit integer to a number
-//! of bits, returning an 32-bit integer.
-//! \param[in] x: An 32-bit number to be rounded.
+//!     of bits, returning a 32-bit integer.
+//! \param[in] x: A 32-bit number to be rounded.
 //! \param[in] n: An int.
 //! \return The \p x rounded to the nearest n bits.
 
@@ -1885,7 +1918,7 @@ static inline int32_t __stdfix_round_s32(
 }
 
 //! \brief This function rounds the input signed 64-bit integer to a number
-//! of bits, returning a 64-bit integer.
+//!     of bits, returning a 64-bit integer.
 //! \param[in] x: A 64-bit number to be rounded.
 //! \param[in] n: An int.
 //! \return The \p x rounded to the nearest n bits.
@@ -1904,7 +1937,7 @@ static inline int64_t __stdfix_round_s64(
 }
 
 //! \brief This function rounds the input short fract to a number of bits,
-//! returning a short fract.
+//!     returning a short fract.
 //! \param[in] f: A short fract.
 //! \param[in] n: An int.
 //! \return The f rounded to the nearest n bits.
@@ -1917,7 +1950,7 @@ static inline s07 roundhr(
 }
 
 //! \brief This function rounds the input fract to a number of bits,
-//! returning a fract.
+//!     returning a fract.
 //! \param[in] f: A fract.
 //! \param[in] n: An int.
 //! \return The f rounded to the nearest n bits.
@@ -1930,7 +1963,7 @@ static inline s015 roundr(
 }
 
 //! \brief This function rounds the input long fract to a number of bits,
-//! returning a long fract.
+//!     returning a long fract.
 //! \param[in] f: A long fract.
 //! \param[in] n: An int.
 //! \return The f rounded to the nearest n bits.
@@ -1943,7 +1976,7 @@ static inline s031 roundlr(
 }
 
 //! \brief This function rounds the input short accum to a number of bits,
-//! returning a short accum.
+//!     returning a short accum.
 //! \param[in] f: A short accum.
 //! \param[in] n: An int.
 //! \return The f rounded to the nearest n bits.
@@ -1956,8 +1989,8 @@ static inline s87 roundhk(
 }
 
 //! \brief This function rounds the input accum to a number of bits,
-//! returning a accum.
-//! \param[in] f: A accum.
+//!     returning an accum.
+//! \param[in] f: An accum.
 //! \param[in] n: An int.
 //! \return The f rounded to the nearest n bits.
 
@@ -1969,7 +2002,7 @@ static inline s1615 roundk(
 }
 
 //! \brief This function rounds the input long accum to a number of bits,
-//! returning a long accum.
+//!     returning a long accum.
 //! \param[in] f: A long accum.
 //! \param[in] n: An int.
 //! \return The f rounded to the nearest n bits.
@@ -1995,7 +2028,7 @@ static inline u08 rounduhr(
 }
 
 //! \brief This function rounds the input unsigned fract to a number of
-//! bits, returning an unsigned fract.
+//!     bits, returning an unsigned fract.
 //! \param[in] f: An unsigned fract.
 //! \param[in] n: An int.
 //! \return The f rounded to the nearest n bits.
@@ -2008,7 +2041,7 @@ static inline u016 roundur(
 }
 
 //! \brief This function rounds the input unsigned long fract to a number of
-//! bits, returning an unsigned long fract.
+//!     bits, returning an unsigned long fract.
 //! \param[in] f: An unsigned long fract.
 //! \param[in] n: An int.
 //! \return The f rounded to the nearest n bits.
@@ -2021,7 +2054,7 @@ static inline u032 roundulr(
 }
 
 //! \brief This function rounds the input unsigned short accum to a number of
-//! bits, returning an unsigned short accum.
+//!     bits, returning an unsigned short accum.
 //! \param[in] f: An unsigned short accum.
 //! \param[in] n: An int.
 //! \return The f rounded to the nearest n bits.
@@ -2034,7 +2067,7 @@ static inline u88 rounduhk(
 }
 
 //! \brief This function rounds the input unsigned accum to a number of bits,
-//! returning a unsigned accum.
+//!     returning an unsigned accum.
 //! \param[in] f: An unsigned accum.
 //! \param[in] n: An int.
 //! \return The f rounded to the nearest n bits.
@@ -2047,7 +2080,7 @@ static inline u1616 rounduk(
 }
 
 //! \brief This function rounds the input unsigned long accum to a number of
-//! bits, returning an unsigned long accum.
+//!     bits, returning an unsigned long accum.
 //! \param[in] f: An unsigned long accum.
 //! \param[in] n: An int.
 //! \return The f rounded to the nearest n bits.
@@ -2077,7 +2110,7 @@ static inline u3232 roundulk(
 //! \{
 
 //! \brief This function counts the number of leading sign-bits of a
-//! short fract.
+//!     short fract.
 //! \param[in] f: A short fract.
 //! \return The number of leading sign-bits in f.
 
@@ -2110,7 +2143,7 @@ static inline int countlsr(
 }
 
 //! \brief This function counts the number of leading sign-bits of a
-//! long fract.
+//!     long fract.
 //! \param[in] f: A long fract.
 //! \return The number of leading sign-bits in f.
 
@@ -2127,7 +2160,7 @@ static inline int countlslr(
 }
 
 //! \brief This function counts the number of leading sign-bits of a short
-//! accum.
+//!     accum.
 //! \param[in] f: A short accum.
 //! \return The number of leading sign-bits in f.
 
@@ -2160,7 +2193,7 @@ static inline int countlsk(
 }
 
 //! \brief This function counts the number of leading sign-bits of a long
-//! accum.
+//!     accum.
 //! \param[in] f: A long accum.
 //! \return The number of leading sign-bits in f.
 
@@ -2177,7 +2210,7 @@ static inline int countlslk(
 }
 
 //! \brief This function counts the number of leading zeros of an unsigned
-//! short fract.
+//!     short fract.
 //! \param[in] f: An unsigned short fract.
 //! \return The number of leading zeros in f.
 
@@ -2194,7 +2227,7 @@ static inline int countlsuhr(
 }
 
 //! \brief This function counts the number of leading zeros of an unsigned
-//! fract.
+//!     fract.
 //! \param[in] f: An unsigned fract.
 //! \return The number of leading zeros in f.
 
@@ -2211,7 +2244,7 @@ static inline int countlsur(
 }
 
 //! \brief This function counts the number of leading zeros of an unsigned
-//! long fract.
+//!     long fract.
 //! \param[in] f: An unsigned long fract.
 //! \return The number of leading zeros in f.
 
@@ -2228,7 +2261,7 @@ static inline int countlsulr(
 }
 
 //! \brief This function counts the number of leading zeros of an unsigned
-//! short accum.
+//!     short accum.
 //! \param[in] f: An unsigned short accum.
 //! \return The number of leading zeros in f.
 
@@ -2245,7 +2278,7 @@ static inline int countlsuhk(
 }
 
 //! \brief This function counts the number of leading zeros of an unsigned
-//! accum.
+//!     accum.
 //! \param[in] f: An unsigned accum.
 //! \return The number of leading zeros in f.
 
@@ -2262,7 +2295,7 @@ static inline int countlsuk(
 }
 
 //! \brief This function counts the number of leading zeros of an unsigned long
-//! accum.
+//!     accum.
 //! \param[in] f: An unsigned long accum.
 //! \return The number of leading zeros in f.
 
@@ -2298,7 +2331,7 @@ static inline int countlsulk(
 //! \{
 
 //! \brief This macro provides type-generic access to the absolute value
-//! functions.
+//!     functions.
 //! \param[in] f: A signed fixed-point value.
 //! \return The absolute value of f (with the same type as f).
 
@@ -2314,10 +2347,10 @@ static inline int countlsulk(
     )
 
 //! \brief This macro provides type-generic access to the rounding
-//! functions.
+//!     functions.
 //! \param[in] f: A fixed-point value.
 //! \param[in] n: The number of bits to be rounded off.
-//! \return The rounded value of f(with the same type as f).
+//! \return The rounded value of f (with the same type as f).
 
 #define roundfx(f, n) \
     _Generic((f), \
@@ -2337,7 +2370,7 @@ static inline int countlsulk(
     )
 
 //! \brief This macro provides type-generic access to the functions for
-//! counting leading sign-bits.
+//!     counting leading sign-bits.
 //! \param[in] f: A fixed-point value.
 //! \return The number of leading sign-bits in f.
 
