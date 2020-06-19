@@ -15,21 +15,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//! \file
+//! \brief Fast circular buffer
 #ifndef _CIRCULAR_BUFFER_H_
 #define _CIRCULAR_BUFFER_H_
 
 #include <stdint.h>
 #include <stdbool.h>
 
+//! Implementation of a circular buffer
 typedef struct _circular_buffer {
+    //! The size of the buffer. One less than a power of two.
     uint32_t buffer_size;
+    //! The index of the next position in the buffer to read from.
     uint32_t output;
+    //! The index of the next position in the buffer to write to.
     uint32_t input;
+    //! \brief The number of times an insertion has failed due to the buffer
+    //!     being full.
     uint32_t overflows;
+    //! The buffer itself.
     uint32_t buffer[];
-} _circular_buffer, *circular_buffer;
+} _circular_buffer;
+//! The public interface type is a pointer to the implementation
+typedef _circular_buffer *circular_buffer;
 
-// Returns the index of the next position in the buffer from the given value
+//! \brief Get the index of the next position in the buffer from the given
+//!     value.
+//! \param[in] buffer: The buffer.
+//! \param[in] current: The index to get the next one after.
+//! \return The next index after the given one.
 static inline uint32_t _circular_buffer_next(
         circular_buffer buffer,
 	uint32_t current)
@@ -37,30 +52,34 @@ static inline uint32_t _circular_buffer_next(
     return (current + 1) & buffer->buffer_size;
 }
 
-// Returns true if the buffer is not empty
+//! \brief Get whether the buffer is not empty.
+//! \param[in] buffer: The buffer.
+//! \return Whether the buffer has anything in it.
 static inline bool _circular_buffer_not_empty(
 	circular_buffer buffer)
 {
     return buffer->input != buffer->output;
 }
 
-// Returns true if the buffer is not full
+//! \brief Get whether the buffer is able to accept more values
+//! \param[in] buffer: The buffer.
+//! \return Whether the buffer has room to take another value.
 static inline bool _circular_buffer_not_full(
 	circular_buffer buffer)
 {
     return _circular_buffer_next(buffer, buffer->input) != buffer->output;
 }
 
-//! \brief Creates a new FIFO circular buffer of at least the given size.  For
-//!        efficiency, the buffer can be bigger than requested
-//! \param[in] size The minimum number of elements in the buffer to be created
-//! \return A struct representing the created buffer
+//! \brief Create a new FIFO circular buffer of at least the given size. For
+//!     efficiency, the buffer can be bigger than requested.
+//! \param[in] size: The minimum number of elements in the buffer to be created
+//! \return A reference to the created buffer.
 circular_buffer circular_buffer_initialize(uint32_t size);
 
-//! \brief Adds an item to an existing buffer
-//! \param[in] buffer The buffer struct to add to
-//! \param[in] item The item to add
-//! \return True if the item was added, False if the buffer was full
+//! \brief Add an item to an existing buffer.
+//! \param[in] buffer: The buffer struct to add to
+//! \param[in] item: The item to add.
+//! \return Whether the item was added (it fails if the buffer is full).
 static inline bool circular_buffer_add(
 	circular_buffer buffer,
 	uint32_t item)
@@ -77,10 +96,10 @@ static inline bool circular_buffer_add(
     return success;
 }
 
-//! \brief Get the next item from an existing buffer
-//! \param[in] buffer The buffer to get the next item from
-//! \param[out] item  A pointer to receive the next item
-//! \return True if an item was retrieved, False if the buffer was empty
+//! \brief Get the next item from an existing buffer.
+//! \param[in] buffer: The buffer to get the next item from.
+//! \param[out] item: The retrieved item.
+//! \return Whether an item was retrieved.
 static inline bool circular_buffer_get_next(
 	circular_buffer buffer,
 	uint32_t *item)
@@ -95,10 +114,10 @@ static inline bool circular_buffer_get_next(
     return success;
 }
 
-//! \brief Advances the buffer if the next item is equal to the given value
-//! \param[in] buffer The buffer to advance
-//! \param[in] The item to check
-//! \return True if the buffer was advanced, False otherwise
+//! \brief Advance the buffer if the next item is equal to the given value.
+//! \param[in] buffer: The buffer to advance
+//! \param[in] item: The item to check
+//! \return Whether the buffer was advanced.
 static inline bool circular_buffer_advance_if_next_equals(
         circular_buffer buffer,
 	uint32_t item)
@@ -113,8 +132,8 @@ static inline bool circular_buffer_advance_if_next_equals(
     return success;
 }
 
-//! \brief Gets the size of the buffer
-//! \param[in] buffer The buffer to get the size of
+//! \brief Get the size of the buffer.
+//! \param[in] buffer: The buffer to get the size of
 //! \return The number of elements currently in the buffer
 static inline uint32_t circular_buffer_size(
 	circular_buffer buffer)
@@ -124,9 +143,9 @@ static inline uint32_t circular_buffer_size(
 	    : (buffer->input + buffer->buffer_size + 1) - buffer->output;
 }
 
-//! \brief Gets the number of overflows that have occurred when adding to
-//!        the buffer
-//! \param[in] buffer The buffer to check for overflows
+//! \brief Get the number of overflows that have occurred when adding to
+//!     the buffer.
+//! \param[in] buffer: The buffer to check for overflows
 //! \return The number of times add was called and returned False
 static inline uint32_t circular_buffer_get_n_buffer_overflows(
 	circular_buffer buffer)
@@ -134,8 +153,8 @@ static inline uint32_t circular_buffer_get_n_buffer_overflows(
     return buffer->overflows;
 }
 
-//! \brief clears the circular buffer
-//! \param[in] buffer The buffer to clear
+//! \brief Clear the circular buffer.
+//! \param[in] buffer: The buffer to clear
 static inline void circular_buffer_clear(
 	circular_buffer buffer)
 {
@@ -143,32 +162,48 @@ static inline void circular_buffer_clear(
     buffer->output = 0;
 }
 
-//! \brief Prints the contents of the buffer.
-//! Do not use if the sark IO_BUF is being used for binary data.
-//! \param[in] The buffer to print
+//! \brief Print the contents of the buffer.
+//! \details Do not use if the sark `IO_BUF` is being used for binary data.
+//! \param[in] buffer: The buffer to print
 void circular_buffer_print_buffer(circular_buffer buffer);
 
 //---------------------------------------
 // Synaptic rewiring support functions
 //---------------------------------------
+//! \brief Get the input index.
+//! \param[in] buffer: The buffer.
+//! \return The index that the next value to be put into the buffer will be
+//!     placed at.
 static inline uint32_t circular_buffer_input(
 	circular_buffer buffer)
 {
     return buffer->input;
 }
 
+//! \brief Get the output index.
+//! \param[in] buffer: The buffer.
+//! \return The index that the next value to be removed from the buffer
+//!     is/will be at.
 static inline uint32_t circular_buffer_output(
 	circular_buffer buffer)
 {
     return buffer->output;
 }
 
+//! \brief Get the buffer size.
+//! \param[in] buffer: The buffer.
+//! \return The real size of the buffer.
 static inline uint32_t circular_buffer_real_size(
 	circular_buffer buffer)
 {
     return buffer->buffer_size;
 }
 
+//! \brief Get the buffer contents at a particular index.
+//! \param[in] buffer: The buffer.
+//! \param[in] index: The index to use. Note that the index is not limited to
+//!     the size of the buffer.
+//! \return The contents of the buffer at a particular index.
 static inline uint32_t circular_buffer_value_at_index(
 	circular_buffer buffer,
 	uint32_t index)

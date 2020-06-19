@@ -15,16 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* stdfix-exp.c
+/*! \file stdfix-exp.c
  *
- *  SUMMARY
- *   An implementation of exponential for fixpoint accum
+ * \brief
+ *    An implementation of exponential for fixpoint accum
  *
- *  AUTHOR
+ * \author
  *    Dave Lester (david.r.lester@manchester.ac.uk)
  *
- *  COPYRIGHT
- *    Copyright (c) Dave Lester and The University of Manchester, 2013.
+ * \copyright
+ *    &copy; Dave Lester and The University of Manchester, 2013.
  *    All rights reserved.
  *    SpiNNaker Project
  *    Advanced Processor Technologies Group
@@ -32,18 +32,8 @@
  *    The University of Manchester
  *    Manchester M13 9PL, UK
  *
- *  DESCRIPTION
- *
- *  CREATION DATE
+ * \date
  *    20 February, 2014
- *
- *  HISTORY
- * *  DETAILS
- *    Created on       : 20 February 2014
- *    Version          : $Revision$
- *    Last modified on : $Date$
- *    Last modified by : $Author$
- *    $Id$
  */
 
 #include "stdfix-exp.h"
@@ -52,9 +42,12 @@
 //#include "stdfix-exp-impl.h"
 //#include "debug.h"
 
+#ifndef NO_INLINE
 #define NO_INLINE	__attribute__((noinline))
+#endif
 
 // The following array has entry [n]
+//! Series to support exponential: upper coefficients
 static uint64_t __exp_hi[26] = {
    9708,  26389,          71733,         194991,          530041,         1440801,
         3916503,       10646160,       28939262,        78665070,       213833830,
@@ -63,6 +56,7 @@ static uint64_t __exp_hi[26] = {
  12803117065094, 34802480465680, 94602950235157, 257157480542844, 699026506411923
 };
 
+//! Series to support exponential: middle coefficients
 static uint32_t __expm1_mid[16] = {
 	    0,  260218914,  504671961,  734314346,
     950043403, 1152702096, 1343082321, 1521927990,
@@ -70,11 +64,17 @@ static uint32_t __expm1_mid[16] = {
    2266168400, 2389087112, 2504558555, 2613033936
 };
 
+//! Series to support exponential: lower coefficients
 static uint32_t __exp_series[3] = { 5294, 4293434720, 2081624032 };
 
 // the following calculates a series expansion
 // for 1 - exp(-x/2^15) for x in [0..2^11 - 1]
 
+//! \brief Multiplies a coefficient and the variable term correctly and
+//! 	efficiently, implementing multiplication of `accum` values.
+//! \param[in] c: a bit-cast `accum`
+//! \param[in] x: a bit-cast `accum`
+//! \return The product, \p c &times; \p x, a bit-cast `accum`
 static inline uint32_t coef_mult(
 	uint32_t c,
 	uint32_t x)
@@ -84,9 +84,10 @@ static inline uint32_t coef_mult(
     return (uint32_t) tmp;
 }
 
-NO_INLINE uint32_t exp_series(
-	uint32_t x)
-{
+//! \brief Exponential series, part of implementation of expk()
+//! \param[in] x: The argument
+//! \return the result
+static inline uint32_t exp_series(uint32_t x) {
     uint32_t tmp;
 
     //log_info("x = %u", x);

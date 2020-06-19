@@ -44,11 +44,13 @@
 #include "assert.h"
 #include "arm_acle.h"
 
+#ifndef NO_INLINE
 #define NO_INLINE	__attribute__((noinline))
+#endif
 
-// ck = 1 + k/64
-//
-// Thus log_ck[k] = log(1 + k/64) + 12 in u5.27
+//! \f$ ck = 1 + k/64 \f$
+//!
+//! Thus \f$ log_ck[k] = log(1 + k/64) + 12 \f$ in u5.27
 
 static uint32_t log_ck[] = {
       1610612736, 1612693673, 1614742838, 1616761188,
@@ -70,6 +72,7 @@ static uint32_t log_ck[] = {
       1703645376
 };
 
+//! Reciprocal table
 static int16_t recip_table[] = {
 	  0,  -1008,  -1986,  -2934,  -3855,  -4749,  -5617,  -6461,
       -7282,  -8080,  -8856,  -9612, -10348, -11065, -11763, -12444,
@@ -83,8 +86,8 @@ static int16_t recip_table[] = {
 };
 
 //! \brief This function divides x by k/64.
-//! \param[in] x input value
-//! \param[in] k the `breakpoint' index.
+//! \param[in] x: input value
+//! \param[in] k: the `breakpoint' index.
 //! \return x/(k/64)
 static inline int32_t divide_ck(
 	int32_t x,
@@ -103,6 +106,11 @@ static inline int32_t divide_ck(
 #endif /*__ARM_FEATURE_DSP*/
 }
 
+//! \brief Shift away a given number of bits, _with rounding._
+//! \param[in] r: The number to be rounded.
+//! \param[in] n: The number of least-significant bits to remove.
+//!     Should be a constant for efficiency.
+//! \return the rounded number
 static inline uint32_t uint32_round(
 	uint32_t r,
 	uint32_t n)
@@ -111,9 +119,9 @@ static inline uint32_t uint32_round(
 }
 
 //! \brief This function performs a multiply-accumulate
-//! \param[in] r accumulator value
-//! \param[in] x one of the factors
-//! \return r := r - x * log(2).
+//! \param[in] r: accumulator value
+//! \param[in] x: one of the factors
+//! \return \f$ r - x * log(2) \f$
 static inline int32_t subtract_mult_log2(
 	int32_t r,
 	int32_t x)
@@ -126,10 +134,13 @@ static inline int32_t subtract_mult_log2(
 #endif /*__ARM_FEATURE_DSP*/
 }
 
+//! \brief Computes the cubic term for log_1_2()
+//! \param[in] r: an s0.31 representation of the x/ck
+//! \return \f$ 44739601/2^{29} * r^3 \f$
 static inline int32_t cubic_term(
 	int32_t r)
 {
-#define CUBIC_TERM_CONSTANT 178958404
+    static const int32_t CUBIC_TERM_CONSTANT = 178958404;
 
 #ifdef __ARM_FEATURE_DSP
     register int32_t t = __smultt(r, r);
@@ -147,7 +158,7 @@ static inline int32_t cubic_term(
 }
 
 //! \brief This function calculates a range-reduced log function.
-//! \param[in] x is a u0.31 fraction.
+//! \param[in] x: a u0.31 fraction.
 //! \return A value representing log(1+x) in u5.27 (or s4.27) format.
 
 static inline uint32_t log_1_2(
@@ -190,8 +201,8 @@ static inline uint32_t log_1_2(
 
 //! \brief This function calculates the internal representation of
 //! the log function.
-//! \param[in] x is a positive signed accum.
-//! \return A value representing log(x).
+//! \param[in] x: a positive `signed accum`, in integer form.
+//! \return A value representing log(x) (in integer form of `signed accum`).
 static inline int32_t logkbits(
 	int32_t x)
 {
@@ -219,11 +230,6 @@ static inline int32_t logkbits(
     assert(-340696 <= r && r <= 363409);
     return r;
 }
-
-//! \brief This function calculates the log function for the
-//! accum type (s16.15).
-//! \param[in] x is positive value represented as an accum.
-//! \return A value representing log(x) in accum format.
 
 NO_INLINE accum logk(
 	accum x)

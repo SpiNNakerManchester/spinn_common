@@ -28,12 +28,12 @@
  *  \author Dave Lester (david.r.lester@manchester.ac.uk)
  *
  *   \copyright
- *    Copyright (c) Dave Lester and The University of Manchester, 2014.
- *    All rights reserved.
- *    SpiNNaker Project
- *    Advanced Processor Technologies Group
- *    School of Computer Science
- *    The University of Manchester
+ *    Copyright &copy; Dave Lester and The University of Manchester, 2014.
+ *    All rights reserved. <br>
+ *    SpiNNaker Project <br>
+ *    Advanced Processor Technologies Group <br>
+ *    School of Computer Science <br>
+ *    The University of Manchester <br>
  *    Manchester M13 9PL, UK
  *
  *  \date
@@ -47,14 +47,18 @@
 #include "stdint.h"
 
 //! \brief Give a useful name to the return type, indicating it's use.
-
 typedef uint64_t pair_t;
+
+//! The implementation of a pair
 typedef union {
-    pair_t r1;
+    //! The paired value
+    pair_t pair;
     struct {
-	void* lo;
-	void* hi;
-    } r2;
+	//! Low word of the pair
+	void *lo;
+	//! High word of the pair
+	void *hi;
+    };
 } pair_union_t;
 
 //! \brief Create a pair from two generic 32-bit objects.
@@ -67,9 +71,9 @@ static inline pair_t __pair(
 {
     register pair_union_t tmp;
 
-    tmp.r2.lo = x;
-    tmp.r2.hi = y;
-    return tmp.r1;
+    tmp.lo = x;
+    tmp.hi = y;
+    return tmp.pair;
 }
 
 //! \brief Return the first component of a pair.
@@ -80,8 +84,8 @@ static inline void *fst(
 {
     register pair_union_t tmp;
 
-    tmp.r1 = p;
-    return tmp.r2.lo;
+    tmp.pair = p;
+    return tmp.lo;
 }
 
 //! \brief Return the second component of a pair.
@@ -92,8 +96,8 @@ static inline void *snd(
 {
     register pair_union_t tmp;
 
-    tmp.r1 = p;
-    return tmp.r2.hi;
+    tmp.pair = p;
+    return tmp.hi;
 }
 
 //! \brief Create a pair, with automatic casting.

@@ -17,11 +17,10 @@
 
 /*! \file
  *
- *  \brief Implementation of exp for the unsigned accum type, returning a
- *  u0.12 result.
+ *  \brief Implementation of sqrt for the signed `accum` type.
  *
  *  \details The details of the algorithm are from
- *     "Elementary Functions: Algorithms and Implemenation", 2nd edn,
+ *     <em>"Elementary Functions: Algorithms and Implementation",</em> 2nd edn,
  *     Jean-Michel Muller, Birkhauser, 2006.
  *
  *  \author
@@ -47,26 +46,34 @@
 #include "arm_acle.h"
 #include "arm.h"
 
+#ifndef NO_INLINE
 #define NO_INLINE	__attribute__((noinline))
+#endif
+#ifndef UNIMPLEMENTED
 #define UNIMPLEMENTED	__attribute__((deprecated("Not implemented")))
+#endif
 
+//! Square root of half, in integral form of unsigned long fract
 #define __SQRT_HALF	UINT32_C(3037000500)
 
-static inline int even(
-	int x) {
+//! \brief Test: is \p x even?
+//! \param[in] x: the value to test
+//! \return True if the test passes
+static inline int even(int x) {
     return (x & 1) == 0;
 }
 
-static inline int odd(
-	int x) {
+//! \brief Test: is \p x odd?
+//! \param[in] x: the value to test
+//! \return True if the test passes
+static inline int odd(int x) {
     return (x & 1) == 1;
 }
 
 //! \brief This function multiplies a 64 bit unsigned quantity, by a u0.32.
-//! \param[in] x A 64-bit unsigned quantity.
-//! \param[in] y A 32-bit int representing an unsigned long fract (u0.32)
-//! \return x * y >> 32
-
+//! \param[in] x: A 64-bit unsigned quantity.
+//! \param[in] y: A 32-bit int representing an unsigned long fract (u0.32)
+//! \return (\p x &times; \p y) >> 32
 //static inline
 uint64_t __x_u64_ulr(
 	uint64_t x,
@@ -105,10 +112,10 @@ uint64_t __x_u64_ulr(
 //   R^2   = 1 - r + (r/2)^2
 //-----------------------------------------------------------------------
 
-//! \brief This function calculates a the square of r.
-//! \param[in] r The value to be squared (where r represents the
-//! number R = 1-r/2^33, i.e. 2^31 represents 0.75.
-//! \return A 64-bit representation of 1 - R^2
+//! \brief This function calculates the square of \p r.
+//! \param[in] r: The value to be squared (where r represents the
+//!     number R = 1-r/2<sup>33</sup>, i.e. 2<sup>31</sup> represents 0.75.
+//! \return A 64-bit representation of 1 - R<sup>2</sup>
 static inline uint64_t r_squared(
 	uint32_t r)
 {
@@ -118,10 +125,10 @@ static inline uint64_t r_squared(
     return t;
 }
 
-//! \brief This function calculates an improved value of r, the reciprocal
-//! square-root.
-//! \param[in] x The number to be square-rooted, in u1.31 format
-//! \param[in] r The current approximation R = 1 - r/2 (r is in u0.32)
+//! \brief This function calculates an improved value of \p r, the reciprocal
+//!     square-root.
+//! \param[in] x: The number to be square-rooted, in u1.31 format
+//! \param[in] r: The current approximation R = 1 - r/2 (r is in u0.32)
 //! \return x * r in u1.63 format
 static inline uint64_t newton_xr(
 	uint32_t x,
@@ -133,10 +140,10 @@ static inline uint64_t newton_xr(
     return t;
 }
 
-//! \brief This function calculates an improved value of r, the reciprocal
-//! square-root.
-//! \param[in] x The number to be square-rooted, in u1.31 format
-//! \param[in] r The current approximation R = 1 - r/2 (r is in u0.32)
+//! \brief This function calculates an improved value of \p r, the reciprocal
+//!     square-root.
+//! \param[in] x: The number to be square-rooted, in u1.31 format
+//! \param[in] r: The current approximation R = 1 - r/2 (r is in u0.32)
 //! \return x * r in u1.63 format
 static inline uint64_t newton_xlr(
 	uint32_t x,
@@ -148,20 +155,24 @@ static inline uint64_t newton_xlr(
     return t;
 }
 
-//! \brief This function calculates an improved value of r, the reciprocal
-//! square-root.
-//! \param[in] x The number to be square-rooted, in u1.63 format
-//! \param[in] r The current approximation R = 1 - r/2 (r is in u0.32)
+//! \brief This function calculates an improved value of \p r, the reciprocal
+//!     square-root.
+//! \param[in] x: The number to be square-rooted, in u1.63 format
+//! \param[in] r: The current approximation R = 1 - r/2 (r is in u0.32)
 //! \return x * R in u1.63 format
-
 //static inline
-uint64_t newton_lxr(
+static uint64_t newton_lxr(
 	uint64_t x,
 	uint32_t r)
 {
     return x - __x_u64_ulr(x, r >> 1);
 }
 
+//! \brief This function calculates an improved value of \p r, the reciprocal
+//!     square-root.
+//! \param[in] x: The number to be square-rooted
+//! \param[in] r: The current approximation R
+//! \return The new approximation
 uint64_t newton_lxlr(
 	uint64_t x,
 	uint64_t r)
@@ -172,21 +183,21 @@ uint64_t newton_lxlr(
     result = (x & UINT64_C(0xFFFFFFFF)) * (r & UINT64_C(0xFFFFFFFF));
                                        // least significant multiplication.
     result = (x >> 32) * (r & UINT64_C(0xFFFFFFFF)) +
-	    ((result & UINT64_C(0x80000000)) >> 31);
+            ((result & UINT64_C(0x80000000)) >> 31);
                                        // rounding of least significant bit
     tmp = (x & UINT64_C(0xFFFFFFFF)) * (r >> 32) +
-	    (result & UINT64_C(0xFFFFFFFF));
+            (result & UINT64_C(0xFFFFFFFF));
     result = (result >> 32) + (tmp >> 32) +
-	    ((tmp & UINT64_C(0x80000000)) >> 31);
+            ((tmp & UINT64_C(0x80000000)) >> 31);
     result += (x >> 32) * (r >> 32);
     return x - result;
 }
 
 //! \brief This function calculates an improved value of r, the reciprocal
-//! square-root.
-//! \param[in] x The number to be square-rooted, in u1.31 format
-//! \param[in] r The current approximation R = 1 - r/2 (r is in u0.32)
-//! \return (x * R^2 - 1) in u1.63 format
+//!     square-root.
+//! \param[in] x: The number to be square-rooted, in u1.31 format
+//! \param[in] r: The current approximation R = 1 - r/2 (r is in u0.32)
+//! \return (x * R<sup>2</sup> - 1) in u1.63 format
 uint64_t newton_xr2(
 	uint32_t x,
 	uint32_t r)
@@ -199,6 +210,11 @@ uint64_t newton_xr2(
     return t;
 }
 
+//! \brief This function calculates an improved value of \p r, the reciprocal
+//!     square-root.
+//! \param[in] x: The number to be square-rooted
+//! \param[in] r: The current approximation R
+//! \return The new approximation
 uint64_t newton_xlr2(
 	uint32_t x,
 	uint64_t r)
@@ -227,6 +243,11 @@ uint64_t newton_xlr2(
 //    = r + Z - Z * r/2
 //-----------------------------------------------------------------------
 
+//! \brief A single stage of recip_normalized_root();
+//!     handles coarse approximation
+//! \param[in] x: The value to have its square root calculated
+//! \param[in] r: The current approximation
+//! \return The improved approximation
 uint64_t NO_INLINE square_root_improve(
 	uint32_t x,
 	uint32_t r)
@@ -239,20 +260,24 @@ uint64_t NO_INLINE square_root_improve(
 
     neg = tmp.s < 0;
     if (neg) {
-	tmp.s = -tmp.s;
+        tmp.s = -tmp.s;
     }
 
     t = __x_u64_ulr(tmp.u, r >> 1);	// t has |Z|*r/2 in s0.63 format
     tmp.u -= t;
 
     if (neg) {
-	tmp.s = -tmp.s;
+        tmp.s = -tmp.s;
     }
     tmp.s <<= 1;
     tmp.u += ((uint64_t) r) << 32;
     return tmp.u;
 }
 
+//! \brief A single stage of recip_normalized_root(); refines approximation
+//! \param[in] x: The value to have its square root calculated
+//! \param[in] r: The current approximation
+//! \return The improved approximation
 uint64_t NO_INLINE square_root_ximprove(
 	uint32_t x,
 	uint64_t r)
@@ -270,7 +295,7 @@ uint64_t NO_INLINE square_root_ximprove(
 
     neg = tmp.s < 0;
     if (neg) {
-	tmp.s = -tmp.s;
+        tmp.s = -tmp.s;
     }
 
     t  = __x_u64_ulr(tmp.u, (uint32_t) (r >> 33));
@@ -279,7 +304,7 @@ uint64_t NO_INLINE square_root_ximprove(
     tmp.u -= t;
 
     if (neg) {
-	tmp.s = -tmp.s;
+        tmp.s = -tmp.s;
     }
     tmp.s <<= 1;
 
@@ -291,11 +316,12 @@ uint64_t NO_INLINE square_root_ximprove(
     return tmp.u;
 }
 
-//! This function calculates the reciprocal square-root of the argument
-//! \param[in] x An unsigned integer, representing a u1.31. Leading bit is 1.
+//! \brief Calculates the reciprocal square-root of the argument
+//! \param[in] x: An unsigned integer, representing a u1.31. Leading bit is 1.
 //! \return An unsigned 64-bit integer representing the reciprocal square-root
-//! of x, as a u0.64. INCORRECT FORMAT DOCUMENTATION. FIX THIS!
-uint64_t NO_INLINE recip_normalized_root(
+//!     of x, as a u0.64.
+//! \todo INCORRECT FORMAT DOCUMENTATION. FIX THIS!
+static inline uint64_t recip_normalized_root(
 	uint32_t x)
 {
     uint64_t result;
@@ -328,12 +354,10 @@ uint64_t NO_INLINE recip_normalized_root(
     return result;
 }
 
-//! This function calculates the square-root of the argument
-//! \param[in] x A signed integer, representing an s16.15 accum.
+//! \brief Calculates the square-root of the argument
+//! \param[in] x: A signed integer, representing an s16.15 accum.
 //! \return A signed integer representing the square-root of x, as an s16.15.
-int32_t sqrtk_bits(
-	int32_t x)
-{
+static inline int32_t sqrtk_bits(int32_t x) {
     uint64_t tmp;
     int32_t n;
     union { uint32_t u; int32_t s; } r;
@@ -341,7 +365,7 @@ int32_t sqrtk_bits(
     assert(x >= 0);
 
     if ((x == 0) || x == 32768) {
-	return x;	// x is zero or one.
+        return x;	// x is zero or one.
     }
 
     n = __builtin_clz(x);
@@ -369,13 +393,11 @@ int32_t sqrtk_bits(
     return (int32_t) (tmp >> 32);
 }
 
-accum sqrtk(
-	accum x)
-{
+accum sqrtk(accum x) {
     int32_t rx = bitsk(x);
 
     if (rx < 0) {
-    	rx = 0;
+        rx = 0;
     }
 
     return kbits(sqrtk_bits(rx));

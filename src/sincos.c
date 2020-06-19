@@ -20,7 +20,7 @@
  *  \brief Implementation of log for the accum type.
  *
  *  \details The details of the algorithm are from
- *     "Elementary Functions: Algorithms and Implemenation", 2nd edn,
+ *     "Elementary Functions: Algorithms and Implementation", 2nd edn,
  *     Jean-Michel Muller, Birkhauser, 2006.
  *
  *  \author
@@ -46,27 +46,23 @@
 #include "pair.h"
 
 //! \brief This function calculates the sin function approximation.
-//! \param[in] x is an s0.31 representing a number in the interval
-//! [-1/32, 1/32); i.e. INT32_MIN represents -1/32
+//! \param[in] x: an s0.31 representing a number in the interval
+//!     [-1/32, 1/32); i.e. INT32_MIN represents -1/32
 //! \return A value representing sin(x) in s0.31 format.
-static inline int32_t sin_approx(
-	int32_t x)
-{
+static inline int32_t sin_approx(int32_t x) {
     return x >> 5;
 }
 
 //! \brief This function calculates the cos function approximation.
-//! \param[in] x is an s0.31 representing a number in the interval
-//! [-1/32, 1/32); i.e. INT32_MIN represents -1/32
+//! \param[in] x: an s0.31 representing a number in the interval
+//!     [-1/32, 1/32); i.e. INT32_MIN represents -1/32
 //! \return A value representing (1 - cos(x)) in s0.31 format.
-static inline int32_t cos_approx(
-	int32_t x)
-{
+static inline int32_t cos_approx(int32_t x) {
     return __smultt(x, x) >> 10;
 }
 
 //! \brief sin_table[k] = sin(k/16) * 2^31
-static int32_t sin_table[16] = {
+static const int32_t sin_table[16] = {
               0,  134130364,  267736951,  400298032,
       531295957,  660219183,  786564267,  909837834,
      1029558505, 1145258771, 1256486826, 1362808327,
@@ -74,18 +70,18 @@ static int32_t sin_table[16] = {
 };
 
 //! \brief cos_table[k] = (cos(k/16) - 1) * 2^31
-static int32_t cos_table[16] = {
+static const int32_t cos_table[16] = {
                0,   -4192939,  -16755382,  -37638274,
        -66760066, -104007040, -149233746, -202263575,
       -262889447, -330874618, -405953610, -487833239,
       -576193767, -670690148, -770953377, -876591926
 };
 
-//! This function calculates the sin function for the interval [0, pi/4)
+//! \brief This function calculates the sin function for the interval [0, &pi;/4)
 //! \param [in] x An s0.31 representing a value in the range [-1/32,1/32),
-//! with INT32_MIN representing -1/32.
+//!     with INT32_MIN representing -1/32.
 //! \param [in] cos_x The value of cos_x (= (1 - cos(x)) * 2^31)
-//! represented as an s0.31
+//!     represented as an s0.31
 //! \param [in] break_point A value in the range 0..13
 //! \return sin(x + break_point / 16) as s0.31
 static inline int32_t sin_pi4(
@@ -103,28 +99,28 @@ static inline int32_t sin_pi4(
     return r;
 }
 
-//! This function calculates the cos function for the interval [0, pi/4)
+//! \brief This function calculates the cos function for the interval [0, &pi;/4)
 //! \param [in] x An s0.31 representing a value in the range [-1/32,1/32),
-//! with INT32_MIN representing -1/32.
+//!     with INT32_MIN representing -1/32.
 //! \param [in] cos_x The value of cos_x (= (1 - cos(x)) * 2^31)
-//! represented as an s0.31
+//!     represented as an s0.31
 //! \param [in] break_point A value in the range 0..13
 //! \return 1 - cos(x + break_point / 16) as s0.31
-
+//!
 //------------------------------------------------------------------------
-// Implementation notes
-//
-// We are using the identity: cos(x+b) = cos(x)*cos(b) - sin(x)*sin(b)
-//
-// However, we return 1-cos(x+b)
-//         = 1 - cos(x)*cos(b) + sin(x)*sin(b)
-//
-// Let cx = 1-cos(x), and cb = 1-cos(b)
-//
-// Then cx * cb = 1 + cos(x)*cos(b) - cos(x) - cos(b)
-//
-// Thus 1 - cos(x)*cos(b)
-//    = -(cx*cb) + cx + cb
+//! \details Implementation notes
+//!
+//! We are using the identity: cos(x+b) = cos(x)*cos(b) - sin(x)*sin(b)
+//!
+//! However, we return 1-cos(x+b)
+//!         = 1 - cos(x)*cos(b) + sin(x)*sin(b)
+//!
+//! Let cx = 1-cos(x), and cb = 1-cos(b)
+//!
+//! Then cx * cb = 1 + cos(x)*cos(b) - cos(x) - cos(b)
+//!
+//! Thus 1 - cos(x)*cos(b)
+//!    = -(cx*cb) + cx + cb
 //------------------------------------------------------------------------
 static inline int32_t cos_pi4(
 	int32_t x,
@@ -151,79 +147,75 @@ static inline int32_t cos_pi4(
 //! \brief This function multiplies it's signed argument by sqrt(0.5).
 //! \param[in] x is a signed 32-bit quantity.
 //! \return x * sqrt(0.5) in the same format as x.
-
+//!
 //------------------------------------------------------------------------
-// Implementation notes
+//! \details Implementation notes
+//!
+//! Consider experimenting with smlawt/b instructions.
 //
-// Consider experimenting with smlawt/b instructions.
-//
-// The calculation
-//
-//   r = (x * 1518500250) >> 31;
-//
-// is equivalent to:
-//
-//   r = smulwt(x, 23170);
-//   r = smlawb(x, 31130, r) << 1; // n.b. two constants in same register
-//
+//! The calculation
+//!
+//!     r = (x * 1518500250) >> 31;
+//!
+//! is equivalent to:
+//!
+//!     r = smulwt(x, 23170);
+//!     r = smlawb(x, 31130, r) << 1; // n.b. two constants in same register
+//!
 //------------------------------------------------------------------------
-int32_t mul_sqrt_half(
-	int32_t x)
-{
+int32_t mul_sqrt_half(int32_t x) {
     register int64_t tmp = (int64_t) x;
 
     tmp = (tmp * 1518500250) >> 31;
     return (int32_t) tmp;
 }
 
-//! This function calculates the sin function for the interval [0, pi/4)
-//! divided by sqrt(0.5).
+//! \brief This function calculates the sin function for the interval [0, &pi;/4)
+//!     divided by sqrt(0.5).
 //! \param [in] s An s0.31 representing the value of sin(x).
 //! \return An s0.31 representing sin(x) * sqrt(0.5).
-static inline int32_t sin_pi4_x_sqrt_half(
-	int32_t s)
-{
+static inline int32_t sin_pi4_x_sqrt_half(int32_t s) {
     return mul_sqrt_half(s);
 }
 
-//! This function calculates the cos function for the interval [0, pi/4)
-//! divided by sqrt(0.5).
+//! \brief This function calculates the cos function for the interval [0, &pi;/4)
+//!     divided by sqrt(0.5).
 //! \param [in] c An s0.31 representing the value of 1 - cos(x).
 //! \return An s0.31 representing cos(x) * sqrt(0.5).
-
+//!
 //------------------------------------------------------------------------
-// Implementation notes
-//
-// Note that we have taken the opportunity to fold the subtraction back into
-// the calculation. The reason is that we no longer have to represent 1.0000
-// as an s0.31.
+//! \details Implementation notes
+//!
+//! Note that we have taken the opportunity to fold the subtraction back into
+//! the calculation. The reason is that we no longer have to represent 1.0000
+//! as an s0.31.
 //------------------------------------------------------------------------
-static inline int32_t cos_pi4_x_sqrt_half(
-	int32_t c)
-{
+static inline int32_t cos_pi4_x_sqrt_half(int32_t c) {
     return 1518500250 - mul_sqrt_half(c);
+}
+
+//! \brief Get the reduced range value out of the result of
+//! 	sincos_range_reduction()
+//! \param[in] p: The pair
+//! \return the reduced range value (range [0,&pi;/4] if fixed point)
+static inline int reduced(pair_t p) {
+    return (int) fst(p);
+}
+
+//! \brief Get the octant out of the result of sincos_range_reduction()
+//! \param[in] p: The pair
+//! \return the octant (range [0,7])
+static inline int quadrant(pair_t p) {
+    return (int) snd(p);
 }
 
 //! \brief This function returns the range-reduced argument and the quadrant.
 //! \param[in] x is an s16.15.
-//! \return A pair of values (accessible by use of fst and snd).
-//! The first component is the range reduced value of x represented by
-//! an s0.31 in the range [0,pi/4). The second is a quadrant, in the range 0..7
-static inline int reduced(
-	pair_t p)
-{
-    return (int) fst(p);
-}
-
-static inline int quadrant(
-	pair_t p)
-{
-    return (int) snd(p);
-}
-
-pair_t sincos_range_reduction(
-	int32_t x)
-{
+//! \return A pair of values (accessible by use of fst() and snd()).
+//!     The first component is the range reduced value of x represented by
+//!     an s0.31 in the range [0,&pi;/4). The second is a quadrant, in the
+//!     range 0..7
+pair_t sincos_range_reduction(int32_t x) {
     register int n = __smulwb(x, 20861) >> 13;
     register int q = n & 7;
     register int d;
@@ -234,13 +226,13 @@ pair_t sincos_range_reduction(
 
     // At this point n = floor(x * 4/pi)
 
-    // We now need to _accurately_ subtract n * (pi/4) from x, and we will have range
-    // reduced to [0, pi/4).
+    // We now need to _accurately_ subtract n * (pi/4) from x, and we will
+    // have range reduced to [0, pi/4).
 
-    // We use Cody & Waites' "accurate constant" method, by subtracting multiples of
-    // 7358 from n. This has the effect of subtracting 189364951 from x. 189364951/2^15
-    // is extremely close to 7358 * pi/4. In fact the approximation is a mere 0.87e-9
-    // away from the correct value.
+    // We use Cody & Waites' "accurate constant" method, by subtracting
+    // multiples of 7358 from n. This has the effect of subtracting 189364951
+    // from x. 189364951/2^15 is extremely close to 7358 * pi/4. In fact the
+    // approximation is a mere 0.87e-9 away from the correct value.
 
     while (n < 0) {
         n += 7358;
@@ -304,15 +296,18 @@ pair_t sincos_range_reduction(
     return pair(x, q);
 }
 
-static inline bool even(
-	int x)
-{
+//! \brief Is an integer value even?
+//! \param[in] x: The value to test
+//! \return True if \p x is even
+static inline bool even(int x) {
     return (x & 1) == 0;
 }
 
-static inline int32_t sinkbits(
-	int32_t x)
-{
+//! \brief Implementation of sink() on the bit-representation of fixed point
+//! 	values
+//! \param[in] x: the value to get the sine of
+//! \return the sine of the value
+static inline int32_t sinkbits(int32_t x) {
     register pair_t p = sincos_range_reduction(x);
     register int break_point;
     register int32_t r, cos_x, q;
@@ -381,9 +376,11 @@ static inline int32_t sinkbits(
     return r;
 }
 
-static inline int32_t coskbits(
-	int32_t x)
-{
+//! \brief Implementation of cosk() on the bit-representation of fixed point
+//! 	values
+//! \param[in] x: the value to get the cosine of
+//! \return the cosine of the value
+static inline int32_t coskbits(int32_t x) {
     register pair_t p = sincos_range_reduction(x);
     register int break_point;
     register int32_t r, cos_x, q;
@@ -460,20 +457,10 @@ static inline int32_t coskbits(
     return r;
 }
 
-//! \brief This function calculates the sin function for the accum type (s16.15).
-//! \param[in] x is positive value represented as an accum.
-//! \return A value representing sin(x) in accum format.
-accum sink(
-	accum x)
-{
+accum sink(accum x) {
     return kbits(sinkbits(bitsk(x)));
 }
 
-//! \brief This function calculates the cos function for the accum type (s16.15).
-//! \param[in] x is positive value represented as an accum.
-//! \return A value representing cos(x) in accum format.
-accum cosk(
-	accum x)
-{
+accum cosk(accum x) {
     return kbits(coskbits(bitsk(x)));
 }
