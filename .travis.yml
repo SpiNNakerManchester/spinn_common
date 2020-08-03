@@ -34,12 +34,13 @@ before_install:
   - git clone https://github.com/SpiNNakerManchester/SupportScripts.git support
   - python support/travis_blocking_stdout.py
   - support/rat.sh download
+  - export SPINN_DIRS=`pwd`/spinnaker_tools GNU=1
 
 install:
   - support/gitclone.sh https://github.com/SpiNNakerManchester/spinnaker_tools.git
-  - export SPINN_DIRS=`pwd`/spinnaker_tools GNU=1
   - make -C spinnaker_tools/sark
   - make -C spinnaker_tools/spin1_api
+  - make sllt.tag
 
 script:
   - CFLAGS=-fdiagnostics-color make
@@ -50,7 +51,7 @@ script:
   # Copyright check
   - support/rat.sh run
   # Documentation build
-  - doxygen
+  - make doxygen
 
 deploy:
   provider: pages
