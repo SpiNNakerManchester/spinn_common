@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['pair_831',['pair',['../pair_8h.html#a4b08f2c7c153308132ad8316d324749a',1,'pair_union_t']]],
-  ['polynomials_832',['polynomials',['../normal_8c.html#aee9356542afe3e2b541d337122079a06',1,'normal.c']]]
+  ['gidr_5fid_1335',['gidr_id',['http://spinnakermanchester.github.io/spinnaker_tools/scamp-nn_8c.html#ab0220b89bc365b6e1ef669bb54e06833',1,'nn_desc_t']]],
+  ['gw_5faddr_1336',['gw_addr',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#ae1bc2b1ef29d382549a3210bf998d7f7',1,'srom_data']]]
 ];
