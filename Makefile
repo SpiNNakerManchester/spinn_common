@@ -47,7 +47,13 @@ HEADERS = arm_acle_gcc.h arm_acle.h arm.h assert.h bit_field.h \
 	stdfix-full-iso.h utils.h round.h
 INSTALL_HEADERS = $(HEADERS:%.h=$(SPINN_INC_DIR)/%.h)
 
+# Locations of tag files
+TAGFILES=sllt.tag
+SLLT_TAG=http://spinnakermanchester.github.io/spinnaker_tools/sllt.tag
+
 INSTALL ?= install
+DOXYGEN ?= doxygen
+WGET ?= wget
 
 $(SPINN_COMMON_BUILD)/%.o: src/%.c $(SPINN_COMMON_BUILD)
 	$(CC) $(CFLAGS) -o $@ $<
@@ -62,9 +68,19 @@ install: $(SPINN_COMMON_BUILD)/libspinn_common.a
 
 clean:
 	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS) \
-	$(SPINN_DIRS)/logs.sqlite3 $(INSTALL_HEADERS)
+	$(SPINN_DIRS)/logs.sqlite3 $(SPINN_LIB_DIR)/*.dict $(SPINN_LIB_DIR)/*.ranges $(INSTALL_HEADERS)
+	-$(RM) $(TAGFILES)
 
 install-clean:
 	$(RM) $(INSTALL_HEADERS)
 
-.PHONY: all install clean install-clean
+sllt.tag: .sllt_template.tag
+	cp .sllt_template.tag sllt.tag
+ifneq (, $(shell which $(WGET)))
+	-$(WGET) -q -O sllt.tag $(SLLT_TAG)
+endif 
+
+doxygen: $(TAGFILES)
+	$(DOXYGEN)
+
+.PHONY: all install clean install-clean doxygen
