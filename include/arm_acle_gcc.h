@@ -64,8 +64,8 @@ static_assert(false,
 	"Attempt to compile arm_acle_gcc.h for non-arm architecture");
 #endif
 
-#ifndef use
-#define use(x)      do {} while ((x)!=(x))
+#ifndef UNUSED
+#define UNUSED      __attribute__((__unused__))
 #endif
 
 // Following are all pre-defined at this stage, either above, or by GCC
@@ -553,9 +553,8 @@ static inline void __yield(void)
 //! This function implements the ARM dbg instruction.
 
 static inline void __dbg(
-	/*constant*/ unsigned int n)
+        UNUSED /*constant*/ unsigned int n)
 {
-    use(n);
     __ARM_ACLE_nop();
 }
 

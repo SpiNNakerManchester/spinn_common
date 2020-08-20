@@ -1596,7 +1596,8 @@ PREDEFINED             = DOXYGEN=1 \
                          __arm__ \
                          __GNUC__ \
                          __ARM_ARCH_5TE__ \
-                         __ARM_FEATURE_DSP
+                         __ARM_FEATURE_DSP \
+                         UNUSED=
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The
@@ -1634,7 +1635,7 @@ SKIP_FUNCTION_MACROS   = YES
 # the path). If a tag file is not located in the directory in which doxygen is
 # run, you must also specify the path to the tagfile here.
 
-TAGFILES               = sllt.tag=http://spinnakermanchester.github.io/spinnaker_tools/ 
+TAGFILES               = sllt.tag=http://spinnakermanchester.github.io/spinnaker_tools/
 
 # When a file name is specified after GENERATE_TAGFILE, doxygen will create a
 # tag file that is based on the input files it reads. See section "Linking to
