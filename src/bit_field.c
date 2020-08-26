@@ -65,17 +65,24 @@
 #include "bit_field.h"
 #include "sark.h"
 
+//! \brief The use macro allows us to "pretend" to use a variable in a
+//!     function; this is useful if we run with -Wextra set for extra
+//!     warnings.
+//! \param x: The name of the argument to mark as used
+
+#ifndef __use
+#define __use(x)      ((void) (x))
+#endif
+
 //! \brief This function prints out an individual word of a bit_field,
 //!     as a sequence of ones and zeros.
 //! \param[in] e The word of a bit_field to be printed.
 static inline void print_bit_field_entry(
         uint32_t e)
 {
-    counter_t i = 32;
-
-    for ( ; i > 0; i--) {
-	io_printf(IO_BUF, "%c", ((e & 0x1) == 0) ? ' ' : '1');
-	e >>= 1;
+    for (counter_t i = 32 ; i > 0; i--) {
+        io_printf(IO_BUF, "%c", ((e & 0x1) == 0) ? ' ' : '1');
+        e >>= 1;
     }
 
     io_printf(IO_BUF, "\n");
@@ -85,13 +92,11 @@ void print_bit_field_bits(
         const bit_field_t restrict b,
         size_t s)
 {
-    use(b);
-    use(s);
+    __use(b);
+    __use(s);
 #if LOG_LEVEL >= LOG_DEBUG
-    index_t i; // For indexing through the bit field
-
-    for (i = 0; i < s; i++) {
-	print_bit_field_entry(b[i]);
+    for (index_t i = 0; i < s; i++) {
+        print_bit_field_entry(b[i]);
     }
 #endif // LOG_LEVEL >= LOG_DEBUG
 }
@@ -100,13 +105,11 @@ void print_bit_field(
         const bit_field_t restrict b,
         size_t s)
 {
-    use(b);
-    use(s);
+    __use(b);
+    __use(s);
 #if LOG_LEVEL >= LOG_DEBUG
-    index_t i; // For indexing through the bit field
-
-    for (i = 0; i < s; i++) {
-	    io_printf(IO_BUF, "%08x\n", b[i]);
+    for (index_t i = 0; i < s; i++) {
+        io_printf(IO_BUF, "%08x\n", b[i]);
     }
 #endif // LOG_LEVEL >= LOG_DEBUG
 }
@@ -115,13 +118,11 @@ void random_bit_field(
         bit_field_t restrict b,
         size_t s)
 {
-    use(b);
-    use(s);
+    __use(b);
+    __use(s);
 #if LOG_LEVEL >= LOG_DEBUG
-    index_t i; // For indexing through the bit field
-
-    for (i = 0; i < s; i++) {
-	b[i] = sark_rand();
+    for (index_t i = 0; i < s; i++) {
+        b[i] = sark_rand();
     }
 #endif // LOG_LEVEL >= LOG_DEBUG
 }
