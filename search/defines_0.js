@@ -14,5 +14,6 @@ var searchData=
   ['_5f_5fu32_1596',['__U32',['../stdfix-full-iso_8h.html#a4bf809dc92b296bb5e2356a6e63cba6b',1,'stdfix-full-iso.h']]],
   ['_5f_5fu64_1597',['__U64',['../stdfix-full-iso_8h.html#a54db77dc0a628f4257cc83dd404ae3bb',1,'stdfix-full-iso.h']]],
   ['_5f_5fui_1598',['__UI',['../stdfix-full-iso_8h.html#a17152564bd0058c17d0bf660beaf2395',1,'stdfix-full-iso.h']]],
-  ['_5f_5fuli_1599',['__ULI',['../stdfix-full-iso_8h.html#aafba28573265427f9c1d1606ca93e357',1,'stdfix-full-iso.h']]]
+  ['_5f_5fuli_1599',['__ULI',['../stdfix-full-iso_8h.html#aafba28573265427f9c1d1606ca93e357',1,'stdfix-full-iso.h']]],
+  ['_5f_5fuse_1600',['__use',['../bit__field_8c.html#a38a0d860c423d3db81e865e0c57b93d7',1,'bit_field.c']]]
 ];

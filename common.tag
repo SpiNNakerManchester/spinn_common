@@ -212,13 +212,6 @@
     <name>bit_field.h</name>
     <path>/home/travis/build/SpiNNakerManchester/spinn_common/include/</path>
     <filename>bit__field_8h.html</filename>
-    <member kind="define">
-      <type>#define</type>
-      <name>use</name>
-      <anchorfile>bit__field_8h.html</anchorfile>
-      <anchor>a93ae0dd742360abbf161f1d34f5e2831</anchor>
-      <arglist>(x)</arglist>
-    </member>
     <member kind="typedef">
       <type>uint32_t *</type>
       <name>bit_field_t</name>
@@ -3926,6 +3919,13 @@
     <path>/home/travis/build/SpiNNakerManchester/spinn_common/src/</path>
     <filename>bit__field_8c.html</filename>
     <includes id="bit__field_8h" name="bit_field.h" local="yes" imported="no">bit_field.h</includes>
+    <member kind="define">
+      <type>#define</type>
+      <name>__use</name>
+      <anchorfile>bit__field_8c.html</anchorfile>
+      <anchor>a38a0d860c423d3db81e865e0c57b93d7</anchor>
+      <arglist>(x)</arglist>
+    </member>
     <member kind="function" static="yes">
       <type>static void</type>
       <name>print_bit_field_entry</name>
