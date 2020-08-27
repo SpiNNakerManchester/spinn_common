@@ -68,15 +68,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-//! \brief The use macro allows us to "pretend" to use a variable in a
-//!     function; this is useful if we run with -Wextra set for extra
-//!     warnings.
-//! \note This macro would be unsafe with floating point arguments
-
-#ifndef use
-#define use(x)		do {} while ((x)!=(x))
-#endif
-
 //! \brief bit_field_t is an arbitrary length bit field (vector of bits)
 //!     which is used to compactly represent a large number of boolean
 //!     operations.
@@ -139,7 +130,7 @@ static inline void not_bit_field(
 	size_t s)
 {
     for ( ; s > 0; s--) {
-	b[s-1] = ~ b[s-1];
+        b[s-1] = ~ b[s-1];
     }
 }
 
@@ -154,7 +145,7 @@ static inline void and_bit_fields(
 	size_t s)
 {
     for ( ; s > 0; s--) {
-	b1[s-1] &= b2[s-1];
+        b1[s-1] &= b2[s-1];
     }
 }
 
@@ -169,7 +160,7 @@ static inline void or_bit_fields(
 	size_t s)
 {
     for ( ; s > 0; s--) {
-	b1[s-1] |= b2[s-1];
+        b1[s-1] |= b2[s-1];
     }
 }
 
@@ -181,7 +172,7 @@ static inline void clear_bit_field(
 	size_t s)
 {
     for ( ; s > 0; s--) {
-	b[s-1] = 0;
+        b[s-1] = 0;
     }
 }
 
@@ -193,7 +184,7 @@ static inline void set_bit_field(
 	size_t s)
 {
     for ( ; s > 0; s--) {
-	b[s-1] = 0xFFFFFFFF;
+        b[s-1] = 0xFFFFFFFF;
     }
 }
 
@@ -215,8 +206,8 @@ static inline bool empty_bit_field(
 
 //! \brief Testing whether a bit_field is non-empty, _i.e._ if there is at
 //!     least one bit set.
-//! \param[in] b The sequence of words representing a bit_field.
-//! \param[in] s The size of the bit_field.
+//! \param[in] b: The sequence of words representing a bit_field.
+//! \param[in] s: The size of the bit_field.
 //! \return The function returns true if at least one bit is set; otherwise false.
 static inline bool nonempty_bit_field(
 	const bit_field_t restrict b,
@@ -227,7 +218,7 @@ static inline bool nonempty_bit_field(
 
 //! \brief A function that calculates the size of a bit_field to hold 'bits'
 //!     bits.
-//! \param[in] bits The number of bits required for this bit_field.
+//! \param[in] bits: The number of bits required for this bit_field.
 //! \return The size (or number of words) in the bit_field.
 static inline size_t get_bit_field_size(
 	size_t bits)
@@ -247,8 +238,8 @@ static inline size_t get_bit_field_size(
 }
 
 //! \brief Computes the number of set bits in a bit_field
-//! \param[in] b The sequence of words representing a bit_field.
-//! \param[in] s The size of the bit_field.
+//! \param[in] b: The sequence of words representing a bit_field.
+//! \param[in] s: The size of the bit_field.
 //! \return The function returns the number of bits set to 1.
 static inline int count_bit_field(
 	const bit_field_t restrict b,
@@ -257,7 +248,7 @@ static inline int count_bit_field(
     int sum = 0;
 
     for ( ; s > 0; s--) {
-	sum += __builtin_popcount(b[s - 1]);
+        sum += __builtin_popcount(b[s - 1]);
     }
     return sum;
 }
