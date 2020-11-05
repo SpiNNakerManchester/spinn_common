@@ -42,7 +42,7 @@ jobs:
         
     - name: Set SPINN_DIRS
       run: |
-        echo "SPINN_DIRS=$PWD" >> $GITHUB_ENV
+        echo "SPINN_DIRS=$PWD/spinnaker_tools" >> $GITHUB_ENV
         
     - name: Checkout SpiNNaker Dependencies
       run: support/gitclone2.sh https://github.com/SpiNNakerManchester/spinnaker_tools.git
