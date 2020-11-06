@@ -22,10 +22,13 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
+    - name: Condition the VM
+      run: |
+        sudo apt-get update
+    
     - name: Checkout
       uses: actions/checkout@v2
 
@@ -34,47 +37,49 @@ jobs:
       with:
         repository: SpiNNakerManchester/SupportScripts
         path: support
-        
-    - name: Set GITHUB_BRANCH
+
+    - name: Set dynamic environment variables
       # This step can not be merged with Checkout Spinnaker Dependencies
-      run: |
-        echo "GITHUB_BRANCH=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
-        
-    - name: Set SPINN_DIRS
       run: |
         echo "Set SPINN_DIRS to $PWD/spinnaker_tools"
         echo "SPINN_DIRS=$PWD/spinnaker_tools" >> $GITHUB_ENV
-        
+        echo "GITHUB_BRANCH=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+
     - name: Checkout SpiNNaker Dependencies
       run: support/gitclone2.sh https://github.com/SpiNNakerManchester/spinnaker_tools.git
-        
+
     - name: Install arm-none-eabi-gcc
       uses: fiam/arm-none-eabi-gcc@v1.0.2
       with:
         release: '9-2019-q4' # The arm-none-eabi-gcc release to use.
-            
-    - name: Install vera++, doxygen and openjdk
-      run: sudo apt-get update && sudo apt-get install vera++ doxygen openjdk-8-jre-headless --fix-missing
-    
-    - name: Build C code
+
+    - name: Install misc tooling dependencies
+      run: |
+        sudo apt-get install vera++ doxygen openjdk-8-jre-headless --fix-missing
+
+    - name: Build dependency libraries
       run: |
         make -C spinnaker_tools/sark
         make -C spinnaker_tools/spin1_api
         make sllt.tag
+
+    - name: Build C code
+      run: |
         CFLAGS=-fdiagnostics-color make
         make install
-        
+      env:
+        GCC_COLORS: error=01;31:warning=01;35:note=01;36:range1=32:range2=34:locus=01:quote=01:fixit-insert=32:fixit-delete=31:diff-filename=01:diff-hunk=32:diff-delete=31:diff-insert=32" >> $GITHUB_ENV
+
     - name: Lint C code using Vera++
       run: |
         support/run-vera.sh include -P max-line-length=2500
         support/run-vera.sh src
-        
+
     - name: Run rat copyright enforcement
       run: |
         support/rat.sh download
         support/rat.sh run
-       
+
     - name: Build documentation using doxygen
       run: |
         make doxygen
-        
