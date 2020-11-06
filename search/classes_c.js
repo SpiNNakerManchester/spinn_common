@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['rtr_5fentry_857',['rtr_entry',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html',1,'']]],
-  ['rx_5fdesc_858',['rx_desc',['http://spinnakermanchester.github.io/spinnaker_tools/scamp-p2p_8c.html',1,'']]]
+  ['rtr_5fentry_5ft_863',['rtr_entry_t',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html',1,'']]],
+  ['rx_5fdesc_5ft_864',['rx_desc_t',['http://spinnakermanchester.github.io/spinnaker_tools/scamp-p2p_8c.html',1,'']]]
 ];
