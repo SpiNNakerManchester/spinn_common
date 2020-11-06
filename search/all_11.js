@@ -2,7 +2,7 @@ var searchData=
 [
   ['r_555',['r',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a97e729cd2f3d945954f3c4941bbbb09d',1,'vcpu::r()'],['../random_8c.html#a5c71a5e59a53413cd6c270266d63b031',1,'R():&#160;random.c']]],
   ['r_5fsquared_556',['r_squared',['../sqrt_8c.html#a3f24b284cc7fa3d9ae6631f1a1fd7ca1',1,'sqrt.c']]],
-  ['random_557',['random',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#af3f3c4796479c02d2300bc7728f21621',1,'sark_data::random()'],['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#ab510344b65d109408def24853ae6b62f',1,'sv::random()'],['../round_8h.html#a69f1bba01cab6b4ca24a6f755e9a1980',1,'RANDOM():&#160;round.h'],['../spin-print_8h.html#aaac7e8b42546e8a2fd07b71fd5b12ba0',1,'random():&#160;spin-print.h']]],
+  ['random_557',['random',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#af3f3c4796479c02d2300bc7728f21621',1,'sark_data::random()'],['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#ab510344b65d109408def24853ae6b62f',1,'sv::random()'],['../spin-print_8h.html#aaac7e8b42546e8a2fd07b71fd5b12ba0',1,'random():&#160;spin-print.h'],['../round_8h.html#a69f1bba01cab6b4ca24a6f755e9a1980',1,'RANDOM():&#160;round.h']]],
   ['random_2ec_558',['random.c',['../random_8c.html',1,'']]],
   ['random_2eh_559',['random.h',['../random_8h.html',1,'']]],
   ['random_5fbit_5ffield_560',['random_bit_field',['../bit__field_8h.html#a9e722fd2aa1dfa5adc655bea080a7650',1,'random_bit_field(bit_field_t restrict b, size_t s):&#160;bit_field.c'],['../bit__field_8c.html#a9e722fd2aa1dfa5adc655bea080a7650',1,'random_bit_field(bit_field_t restrict b, size_t s):&#160;bit_field.c']]],
