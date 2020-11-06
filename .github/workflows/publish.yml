@@ -47,3 +47,9 @@ jobs:
         with:
           doxyfile-path: ./Doxyfile
           working-directory: .
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: html
