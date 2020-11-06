@@ -1,4 +1,4 @@
-![C Actions](https://github.com/SpiNNakerManchester/spinn_common/workflows/C%20Actions/badge.svg)
+[![C Actions](https://github.com/SpiNNakerManchester/spinn_common/workflows/C%20Actions/badge.svg)](https://github.com/SpiNNakerManchester/spinn_common/actions?query=workflow%3A%22C+Actions%22)
 
 SpiNN Common
 ============
