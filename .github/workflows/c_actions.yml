@@ -47,14 +47,9 @@ jobs:
     - name: Checkout SpiNNaker Dependencies
       run: support/gitclone2.sh https://github.com/SpiNNakerManchester/spinnaker_tools.git
 
-    - name: Install arm-none-eabi-gcc
-      uses: fiam/arm-none-eabi-gcc@v1.0.2
-      with:
-        release: '9-2019-q4' # The arm-none-eabi-gcc release to use.
-
-    - name: Install misc tooling dependencies
+    - name: Install Ubuntu dependencies
       run: |
-        sudo apt-get install vera++ doxygen openjdk-8-jre-headless --fix-missing
+        sudo apt-get install vera++ doxygen openjdk-8-jre-headless gcc-arm-none-eabi --fix-missing
 
     - name: Build dependency libraries
       run: |
