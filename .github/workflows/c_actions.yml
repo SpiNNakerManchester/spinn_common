@@ -25,55 +25,51 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Condition the VM
+    - name: Install cross-compiler
       run: |
-        sudo apt-get update
-    
+        sudo apt-get install doxygen gcc-arm-none-eabi --fix-missing
     - name: Checkout
       uses: actions/checkout@v2
-
     - name: Checkout SupportScripts
       uses: actions/checkout@v2
       with:
         repository: SpiNNakerManchester/SupportScripts
         path: support
 
-    - name: Set dynamic environment variables
-      # This step can not be merged with Checkout Spinnaker Dependencies
-      run: |
-        echo "Set SPINN_DIRS to $PWD/spinnaker_tools"
-        echo "SPINN_DIRS=$PWD/spinnaker_tools" >> $GITHUB_ENV
-
     - name: Checkout SpiNNaker Dependencies
-      run: support/gitclone2.sh https://github.com/SpiNNakerManchester/spinnaker_tools.git
-
-    - name: Install Ubuntu dependencies
-      run: |
-        sudo apt-get install vera++ doxygen openjdk-8-jre-headless gcc-arm-none-eabi --fix-missing
+      uses: ./support/actions/checkout-spinn-deps
+      with:
+        repositories: spinnaker_tools
 
     - name: Build dependency libraries
       run: |
         make -C spinnaker_tools/sark
         make -C spinnaker_tools/spin1_api
         make sllt.tag
+      env:
+        SPINN_DIRS: ${{ github.workspace }}/spinnaker_tools
 
     - name: Build C code
-      run: |
-        CFLAGS=-fdiagnostics-color make
-        make install
+      run: make all install
       env:
-        GCC_COLORS: error=01;31:warning=01;35:note=01;36:range1=32:range2=34:locus=01:quote=01:fixit-insert=32:fixit-delete=31:diff-filename=01:diff-hunk=32:diff-delete=31:diff-insert=32" >> $GITHUB_ENV
+        GCC_COLORS: error=01;31:warning=01;35:note=01;36:range1=32:range2=34:locus=01:quote=01:fixit-insert=32:fixit-delete=31:diff-filename=01:diff-hunk=32:diff-delete=31:diff-insert=32
+        CFLAGS: -fdiagnistics-color
+        SPINN_DIRS: ${{ github.workspace }}/spinnaker_tools
 
-    - name: Lint C code using Vera++
-      run: |
-        support/run-vera.sh include -P max-line-length=2500
-        support/run-vera.sh src
+    - name: "Check: Lint include code using Vera++"
+      uses: ./support/actions/vera
+      with:
+        base-dir: include
+        options: -P max-line-length=2500
+    - name: "Check: Lint include code using Vera++"
+      uses: ./support/actions/vera
+      with:
+        base-dir: src
 
     - name: Run rat copyright enforcement
-      run: |
-        support/rat.sh download
-        support/rat.sh run
+      uses: ./support/actions/check-copyrights
 
     - name: Build documentation using doxygen
-      run: |
-        make doxygen
+      run: make doxygen
+      env:
+        SPINN_DIRS: ${{ github.workspace }}/spinnaker_tools
