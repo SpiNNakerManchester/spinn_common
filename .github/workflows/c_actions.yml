@@ -27,7 +27,7 @@ jobs:
     steps:
     - name: Install cross-compiler
       run: |
-        sudo apt-get install doxygen gcc-arm-none-eabi --fix-missing
+        sudo apt-get -q install doxygen gcc-arm-none-eabi --fix-missing
     - name: Checkout
       uses: actions/checkout@v2
     - name: Checkout SupportScripts
@@ -61,7 +61,7 @@ jobs:
       with:
         base-dir: include
         options: -P max-line-length=2500
-    - name: "Check: Lint include code using Vera++"
+    - name: "Check: Lint source code using Vera++"
       uses: ./support/actions/vera
       with:
         base-dir: src
