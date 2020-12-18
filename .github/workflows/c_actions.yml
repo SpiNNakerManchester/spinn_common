@@ -25,9 +25,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install cross-compiler
-      run: |
-        sudo apt-get -q install doxygen gcc-arm-none-eabi --fix-missing
     - name: Checkout
       uses: actions/checkout@v2
     - name: Checkout SupportScripts
@@ -36,6 +33,10 @@ jobs:
         repository: SpiNNakerManchester/SupportScripts
         path: support
 
+    - name: Install cross-compiler
+      uses: ./support/actions/apt-get-install
+      with:
+        packages: doxygen gcc-arm-none-eabi
     - name: Checkout SpiNNaker Dependencies
       uses: ./support/actions/checkout-spinn-deps
       with:
