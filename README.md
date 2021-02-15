@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/SpiNNakerManchester/spinn_common.svg?branch=master)](https://travis-ci.com/SpiNNakerManchester/spinn_common)
+[![C Actions](https://github.com/SpiNNakerManchester/spinn_common/workflows/C%20Actions/badge.svg?branch=master)](https://github.com/SpiNNakerManchester/spinn_common/actions?query=workflow%3A%22C+Actions%22+branch%3Amaster)
 
 SpiNN Common
 ============
