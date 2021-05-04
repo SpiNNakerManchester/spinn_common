@@ -3,7 +3,7 @@ var searchData=
   ['biff_5fid_5fset_163',['biff_id_set',['http://spinnakermanchester.github.io/spinnaker_tools/scamp-nn_8c.html#ab082317572856bf1d509d559034942af',1,'nn_desc_t']]],
   ['bit_5ffield_2ec_164',['bit_field.c',['../bit__field_8c.html',1,'']]],
   ['bit_5ffield_2eh_165',['bit_field.h',['../bit__field_8h.html',1,'']]],
-  ['bit_5ffield_5falloc_166',['bit_field_alloc',['../bit__field_8h.html#ac97e10c9844576bd65fc2457e0567075',1,'bit_field_alloc(uint32_t n_atoms):&#160;bit_field.c'],['../bit__field_8c.html#ac97e10c9844576bd65fc2457e0567075',1,'bit_field_alloc(uint32_t n_atoms):&#160;bit_field.c']]],
+  ['bit_5ffield_5falloc_166',['bit_field_alloc',['../bit__field_8c.html#ac97e10c9844576bd65fc2457e0567075',1,'bit_field_alloc(uint32_t n_atoms):&#160;bit_field.c'],['../bit__field_8h.html#ac97e10c9844576bd65fc2457e0567075',1,'bit_field_alloc(uint32_t n_atoms):&#160;bit_field.c']]],
   ['bit_5ffield_5fclear_167',['bit_field_clear',['../bit__field_8h.html#a770177ef25044f7cd1a88074fc3a5b56',1,'bit_field.h']]],
   ['bit_5ffield_5fset_168',['bit_field_set',['../bit__field_8h.html#a7a8c89076c800795555e1f7d5d500c7b',1,'bit_field.h']]],
   ['bit_5ffield_5ft_169',['bit_field_t',['../bit__field_8h.html#a70e667669dab5c870f1f8f97d96b4abd',1,'bit_field.h']]],
@@ -30,6 +30,6 @@ var searchData=
   ['boot_5fsig_190',['boot_sig',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a771f3829db59beef21b3b9bb9d58497b',1,'sv_t']]],
   ['bt_5fflags_191',['bt_flags',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a6f8795390b516e736bc6c0ad35c7bc76',1,'sv_t']]],
   ['buf_192',['buf',['http://spinnakermanchester.github.io/spinnaker_tools/scamp-nn_8c.html#a7d1b9601d7c9921d611b7eaf920b23ea',1,'nn_desc_t']]],
-  ['buffer_193',['buffer',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a20d2f0218feb16fbe0b301dfec56fe49',1,'heap_t::buffer()'],['../circular__buffer_8h.html#ab574fcc8415092e203d323b85353a59b',1,'_circular_buffer::buffer()']]],
+  ['buffer_193',['buffer',['../circular__buffer_8h.html#ab574fcc8415092e203d323b85353a59b',1,'_circular_buffer::buffer()'],['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a20d2f0218feb16fbe0b301dfec56fe49',1,'heap_t::buffer()']]],
   ['buffer_5fsize_194',['buffer_size',['../circular__buffer_8h.html#a6d1bf4f20c1c5a4775a958cb5d481aa4',1,'_circular_buffer']]]
 ];

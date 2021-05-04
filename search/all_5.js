@@ -6,7 +6,7 @@ var searchData=
   ['errors_292',['errors',['http://spinnakermanchester.github.io/spinnaker_tools/scamp-nn_8c.html#aaf8f96a157194484df1f963b2049f275',1,'nn_desc_t']]],
   ['eth_5faddr_293',['eth_addr',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a77a393b2853088dcbc9e9d5f4942bfb6',1,'sv_t']]],
   ['eth_5fup_294',['eth_up',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#af6e2c8a4c6e4b6ee7e9ee50f835607fe',1,'sv_t']]],
-  ['even_295',['even',['../sincos_8c.html#abbe9f7e20f3b796396fc31016a614a15',1,'even(int x):&#160;sincos.c'],['../sqrt_8c.html#a6b29db2d00527d86d9022e485029c4e7',1,'even(int x):&#160;sqrt.c']]],
+  ['even_295',['even',['../sqrt_8c.html#a6b29db2d00527d86d9022e485029c4e7',1,'even(int x):&#160;sqrt.c'],['../sincos_8c.html#abbe9f7e20f3b796396fc31016a614a15',1,'even(int x):&#160;sincos.c']]],
   ['event_296',['event',['http://spinnakermanchester.github.io/spinnaker_tools/scamp-p2p_8c.html#a73cfc77547831117e3c98c04b6256015',1,'rx_desc_t::event()'],['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#af954334861ba33a64cc575232461ddeb',1,'sark_vec_t::event()'],['http://spinnakermanchester.github.io/spinnaker_tools/scamp-p2p_8c.html#a8e96dcb18e9e215c19263cfc0f854818',1,'tx_desc_t::event()']]],
   ['event_5fdata_5ft_297',['event_data_t',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html',1,'']]],
   ['event_5ft_298',['event_t',['http://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html',1,'']]],

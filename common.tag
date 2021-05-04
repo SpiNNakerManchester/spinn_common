@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<tagfile doxygen_version="1.8.20">
+<tagfile doxygen_version="1.9.1">
   <compound kind="file">
     <name>arm.h</name>
     <path>/github/workspace/include/</path>
@@ -578,7 +578,7 @@
     <path>/github/workspace/include/</path>
     <filename>pair_8h.html</filename>
     <class kind="union">pair_union_t</class>
-    <class kind="struct">pair_union_t.__unnamed__</class>
+    <class kind="struct">pair_union_t.__unnamed1__</class>
     <member kind="define">
       <type>#define</type>
       <name>pair</name>
@@ -1651,6 +1651,13 @@
       <anchorfile>sqrt_8h.html</anchorfile>
       <anchor>acea5515d5b7ebe927853ce5e97f30500</anchor>
       <arglist>(f)</arglist>
+    </member>
+    <member kind="function">
+      <type>uint64_t</type>
+      <name>recip_normalized_root</name>
+      <anchorfile>sqrt_8h.html</anchorfile>
+      <anchor>a2c7dd30a7872443b4a5ce450d7b8a3d1</anchor>
+      <arglist>(uint32_t x)</arglist>
     </member>
     <member kind="function">
       <type>s1615</type>
@@ -3082,6 +3089,27 @@
       <anchor>a944ec5d1a462a246e73458fe30f19fe9</anchor>
       <arglist>(u3232 f)</arglist>
     </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>absfx</name>
+      <anchorfile>stdfix-full-iso_8h.html</anchorfile>
+      <anchor>a8cd37e2e4eb708dc79ba931dc24287ba</anchor>
+      <arglist>(f)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>roundfx</name>
+      <anchorfile>stdfix-full-iso_8h.html</anchorfile>
+      <anchor>ace52ebdbaf21c275192d26dc67a6085b</anchor>
+      <arglist>(f, n)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>countlsfx</name>
+      <anchorfile>stdfix-full-iso_8h.html</anchorfile>
+      <anchor>ab49b873e47fb14b087cbbe40ce907339</anchor>
+      <arglist>(f)</arglist>
+    </member>
     <member kind="typedef">
       <type>int8_t</type>
       <name>int_hr_t</name>
@@ -3824,27 +3852,6 @@
       <anchor>a944ec5d1a462a246e73458fe30f19fe9</anchor>
       <arglist>(u3232 f)</arglist>
     </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>absfx</name>
-      <anchorfile>stdfix-full-iso_8h.html</anchorfile>
-      <anchor>a8cd37e2e4eb708dc79ba931dc24287ba</anchor>
-      <arglist>(f)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>roundfx</name>
-      <anchorfile>stdfix-full-iso_8h.html</anchorfile>
-      <anchor>ace52ebdbaf21c275192d26dc67a6085b</anchor>
-      <arglist>(f, n)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>countlsfx</name>
-      <anchorfile>stdfix-full-iso_8h.html</anchorfile>
-      <anchor>ab49b873e47fb14b087cbbe40ce907339</anchor>
-      <arglist>(f)</arglist>
-    </member>
   </compound>
   <compound kind="file">
     <name>utils.h</name>
@@ -4478,11 +4485,11 @@
       <anchor>a1b246aeb8f115dfc09380fcdfcd8ec80</anchor>
       <arglist>(uint32_t x, uint64_t r)</arglist>
     </member>
-    <member kind="function" static="yes">
-      <type>static uint64_t</type>
+    <member kind="function">
+      <type>uint64_t</type>
       <name>recip_normalized_root</name>
       <anchorfile>sqrt_8c.html</anchorfile>
-      <anchor>a2be8970b31124dbdba156c576488354f</anchor>
+      <anchor>a2c7dd30a7872443b4a5ce450d7b8a3d1</anchor>
       <arglist>(uint32_t x)</arglist>
     </member>
     <member kind="function" static="yes">
@@ -4602,9 +4609,9 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>pair_union_t.__unnamed__</name>
+    <name>pair_union_t.__unnamed1__</name>
     <filename>pair_8h.html</filename>
-    <anchor>structpair__union__t_8____unnamed____</anchor>
+    <anchor>structpair__union__t_8____unnamed1____</anchor>
     <member kind="variable">
       <type>void *</type>
       <name>lo</name>
