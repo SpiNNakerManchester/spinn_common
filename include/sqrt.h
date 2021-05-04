@@ -49,6 +49,12 @@
 #define UNIMPLEMENTED extern __attribute__((deprecated("Not implemented")))
 #endif
 
+//! \brief Calculates the reciprocal square-root of the argument
+//! \param[in] x: An unsigned integer, representing a u1.31. Leading bit is 1.
+//! \return An unsigned 64-bit integer representing the reciprocal square-root
+//!     of x, as a u0.64.
+extern uint64_t             recip_normalized_root(uint32_t x);
+
 //! \brief Square root.
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x

@@ -321,7 +321,7 @@ uint64_t NO_INLINE square_root_ximprove(
 //! \return An unsigned 64-bit integer representing the reciprocal square-root
 //!     of x, as a u0.64.
 //! \todo INCORRECT FORMAT DOCUMENTATION. FIX THIS!
-static inline uint64_t recip_normalized_root(
+uint64_t recip_normalized_root(
 	uint32_t x)
 {
     uint64_t result;
