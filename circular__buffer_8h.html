@@ -111,9 +111,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aa6121fa2f0dcfe0b175f36162c620fc3"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="circular__buffer_8h.html#aa6121fa2f0dcfe0b175f36162c620fc3">_circular_buffer_not_empty</a> (<a class="el" href="circular__buffer_8h.html#a549d5bcaed4164249aee6a6828a51e6f">circular_buffer</a> buffer)</td></tr>
 <tr class="memdesc:aa6121fa2f0dcfe0b175f36162c620fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get whether the buffer is not empty.  <a href="circular__buffer_8h.html#aa6121fa2f0dcfe0b175f36162c620fc3">More...</a><br /></td></tr>
 <tr class="separator:aa6121fa2f0dcfe0b175f36162c620fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a709eaf23577622b3e7c917864452aa22"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="circular__buffer_8h.html#a709eaf23577622b3e7c917864452aa22">_circular_buffer_not_full</a> (<a class="el" href="circular__buffer_8h.html#a549d5bcaed4164249aee6a6828a51e6f">circular_buffer</a> buffer)</td></tr>
-<tr class="memdesc:a709eaf23577622b3e7c917864452aa22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get whether the buffer is able to accept more values.  <a href="circular__buffer_8h.html#a709eaf23577622b3e7c917864452aa22">More...</a><br /></td></tr>
-<tr class="separator:a709eaf23577622b3e7c917864452aa22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5722fa61143b32facc92447006c801c"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="circular__buffer_8h.html#ae5722fa61143b32facc92447006c801c">_circular_buffer_not_full</a> (<a class="el" href="circular__buffer_8h.html#a549d5bcaed4164249aee6a6828a51e6f">circular_buffer</a> buffer, uint32_t next)</td></tr>
+<tr class="memdesc:ae5722fa61143b32facc92447006c801c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get whether the buffer is able to accept more values.  <a href="circular__buffer_8h.html#ae5722fa61143b32facc92447006c801c">More...</a><br /></td></tr>
+<tr class="separator:ae5722fa61143b32facc92447006c801c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac085d58956375e327c27d2c79734c77b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="circular__buffer_8h.html#a549d5bcaed4164249aee6a6828a51e6f">circular_buffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="circular__buffer_8h.html#ac085d58956375e327c27d2c79734c77b">circular_buffer_initialize</a> (uint32_t size)</td></tr>
 <tr class="memdesc:ac085d58956375e327c27d2c79734c77b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new FIFO circular buffer of at least the given size. For efficiency, the buffer can be bigger than requested.  <a href="circular__buffer_8h.html#ac085d58956375e327c27d2c79734c77b">More...</a><br /></td></tr>
 <tr class="separator:ac085d58956375e327c27d2c79734c77b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -284,8 +284,8 @@ The buffer itself. </td></tr>
 
 </div>
 </div>
-<a id="a709eaf23577622b3e7c917864452aa22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a709eaf23577622b3e7c917864452aa22">&#9670;&nbsp;</a></span>_circular_buffer_not_full()</h2>
+<a id="ae5722fa61143b32facc92447006c801c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5722fa61143b32facc92447006c801c">&#9670;&nbsp;</a></span>_circular_buffer_not_full()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -297,8 +297,18 @@ The buffer itself. </td></tr>
           <td class="memname">static bool _circular_buffer_not_full </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="circular__buffer_8h.html#a549d5bcaed4164249aee6a6828a51e6f">circular_buffer</a>&#160;</td>
-          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>next</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -312,6 +322,7 @@ The buffer itself. </td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">buffer</td><td>The buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">next</td><td>The next position in the buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -768,7 +779,7 @@ The buffer itself. </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 4 2021 13:38:38 for spinn_common by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+Generated on Wed Jun 30 2021 08:44:33 for spinn_common by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
 </small></address>
 </body>
 </html>

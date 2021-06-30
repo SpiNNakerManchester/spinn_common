@@ -383,8 +383,8 @@
       <type>static bool</type>
       <name>_circular_buffer_not_full</name>
       <anchorfile>circular__buffer_8h.html</anchorfile>
-      <anchor>a709eaf23577622b3e7c917864452aa22</anchor>
-      <arglist>(circular_buffer buffer)</arglist>
+      <anchor>ae5722fa61143b32facc92447006c801c</anchor>
+      <arglist>(circular_buffer buffer, uint32_t next)</arglist>
     </member>
     <member kind="function">
       <type>circular_buffer</type>
