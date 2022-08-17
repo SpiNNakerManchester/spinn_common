@@ -103,20 +103,11 @@ static inline uint32_t exp_series(uint32_t x) {
     return tmp;
 }
 
-NO_INLINE accum expk(
-	accum x)
-{
-    int_k_t n = bitsk(x);
-    int_k_t r;
+NO_INLINE uint64_t __expi64(int_k_t n) {
     int32_t z, f;
     uint32_t y;
     uint64_t tmp1;
 
-    if (363408 < n) {			// overflow saturation
-	r = INT32_MAX;
-    } else if (n < -340695) {		// overflow saturation
-	r = 0;
-    } else {
 	z = (int32_t)(n) >> 15;		// truncated integer part.
 	f = (int32_t)(n) - (z << 15);	// fractional remainder
 
@@ -134,9 +125,39 @@ NO_INLINE accum expk(
 	    tmp1 = __exp_hi[13 + z];
 	}
 
-	r += 1 << 16;
-	r = (int_k_t) (tmp1 >> 17);
+	return tmp1;
+}
+
+accum expk(accum x) {
+	int_k_t n = bitsk(x);
+	int_k_t r;
+
+    if (363408 < n) {			// overflow saturation
+	    r = INT32_MAX;
+    } else if (n < -340695) {		// overflow saturation
+	    r = 0;
+    } else {
+    	uint64_t tmp1 = __expi64(n);
+    	r += 1 << 16;
+    	r = (int_k_t) (tmp1 >> 17);
     }
 
     return kbits(r);
+}
+
+unsigned long fract expulr(accum x) {
+	int_k_t n = bitsk(x);
+	uint_ulr_t r;
+
+	if (363408 < n) {			// overflow saturation
+		r = INT32_MAX;
+	} else if (n < -340695) {		// overflow saturation
+		r = 0;
+	} else {
+		uint64_t tmp1 = __expi64(n);
+		r += 1 << 16;
+		r = (uint_ulr_t) tmp1;
+	}
+
+	return ulrbits(r);
 }
