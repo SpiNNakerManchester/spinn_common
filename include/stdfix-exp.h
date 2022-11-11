@@ -79,4 +79,6 @@
 //! \return The best approximation to e<sup>\p x</sup> possible in an ::s1615
 s1615 expk(s1615 x);
 
+u032 expulr(s1615 x);
+
 #endif /*__STDFIX_EXP_H__*/
