@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<tagfile doxygen_version="1.9.5">
+<tagfile doxygen_version="1.9.6">
   <compound kind="file">
     <name>arm.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>arm_8h.html</filename>
     <member kind="function" static="yes">
       <type>static uint32_t</type>
@@ -91,7 +91,7 @@
   </compound>
   <compound kind="file">
     <name>assert.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>assert_8h.html</filename>
     <includes id="spin-print_8h" name="spin-print.h" local="yes" imported="no">spin-print.h</includes>
     <member kind="define">
@@ -210,7 +210,7 @@
   </compound>
   <compound kind="file">
     <name>bit_field.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>bit__field_8h.html</filename>
     <member kind="typedef">
       <type>uint32_t *</type>
@@ -355,7 +355,7 @@
   </compound>
   <compound kind="file">
     <name>circular_buffer.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>circular__buffer_8h.html</filename>
     <class kind="struct">_circular_buffer</class>
     <member kind="typedef">
@@ -473,7 +473,7 @@
   </compound>
   <compound kind="file">
     <name>cmsis.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>cmsis_8h.html</filename>
     <member kind="define">
       <type>#define</type>
@@ -499,7 +499,7 @@
   </compound>
   <compound kind="file">
     <name>log.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>log_8h.html</filename>
     <includes id="stdfix-full-iso_8h" name="stdfix-full-iso.h" local="yes" imported="no">stdfix-full-iso.h</includes>
     <member kind="function">
@@ -512,7 +512,7 @@
   </compound>
   <compound kind="file">
     <name>normal.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>normal_8h.html</filename>
     <includes id="stdfix-full-iso_8h" name="stdfix-full-iso.h" local="yes" imported="no">stdfix-full-iso.h</includes>
     <includes id="assert_8h" name="assert.h" local="yes" imported="no">assert.h</includes>
@@ -575,7 +575,7 @@
   </compound>
   <compound kind="file">
     <name>pair.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>pair_8h.html</filename>
     <class kind="union">pair_union_t</class>
     <class kind="struct">pair_union_t.__unnamed1__</class>
@@ -617,7 +617,7 @@
   </compound>
   <compound kind="file">
     <name>polynomial.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>polynomial_8h.html</filename>
     <includes id="assert_8h" name="assert.h" local="yes" imported="no">assert.h</includes>
     <member kind="function" static="yes">
@@ -637,7 +637,7 @@
   </compound>
   <compound kind="file">
     <name>random.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>random_8h.html</filename>
     <includes id="stdfix-full-iso_8h" name="stdfix-full-iso.h" local="no" imported="no">stdfix-full-iso.h</includes>
     <member kind="typedef">
@@ -748,7 +748,7 @@
   </compound>
   <compound kind="file">
     <name>round.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>round_8h.html</filename>
     <includes id="stdfix-full-iso_8h" name="stdfix-full-iso.h" local="no" imported="no">stdfix-full-iso.h</includes>
     <includes id="random_8h" name="random.h" local="no" imported="no">random.h</includes>
@@ -1547,7 +1547,7 @@
   </compound>
   <compound kind="file">
     <name>sincos.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>sincos_8h.html</filename>
     <includes id="stdfix-full-iso_8h" name="stdfix-full-iso.h" local="no" imported="no">stdfix-full-iso.h</includes>
     <member kind="function">
@@ -1567,7 +1567,7 @@
   </compound>
   <compound kind="file">
     <name>spin-print.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>spin-print_8h.html</filename>
     <member kind="define">
       <type>#define</type>
@@ -1642,7 +1642,7 @@
   </compound>
   <compound kind="file">
     <name>sqrt.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>sqrt_8h.html</filename>
     <includes id="stdfix-full-iso_8h" name="stdfix-full-iso.h" local="no" imported="no">stdfix-full-iso.h</includes>
     <member kind="define">
@@ -1746,7 +1746,7 @@
   </compound>
   <compound kind="file">
     <name>static-assert.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>static-assert_8h.html</filename>
     <member kind="define">
       <type>#define</type>
@@ -1758,7 +1758,7 @@
   </compound>
   <compound kind="file">
     <name>stdfix-exp.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>stdfix-exp_8h.html</filename>
     <includes id="stdfix-full-iso_8h" name="stdfix-full-iso.h" local="no" imported="no">stdfix-full-iso.h</includes>
     <member kind="function">
@@ -1771,7 +1771,7 @@
   </compound>
   <compound kind="file">
     <name>stdfix-full-iso.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>stdfix-full-iso_8h.html</filename>
     <member kind="define">
       <type>#define</type>
@@ -3855,7 +3855,7 @@
   </compound>
   <compound kind="file">
     <name>utils.h</name>
-    <path>/github/workspace/include/</path>
+    <path>include/</path>
     <filename>utils_8h.html</filename>
     <member kind="function" static="yes">
       <type>static uint32_t</type>
@@ -3923,7 +3923,7 @@
   </compound>
   <compound kind="file">
     <name>bit_field.c</name>
-    <path>/github/workspace/src/</path>
+    <path>src/</path>
     <filename>bit__field_8c.html</filename>
     <includes id="bit__field_8h" name="bit_field.h" local="yes" imported="no">bit_field.h</includes>
     <member kind="define">
@@ -3971,7 +3971,7 @@
   </compound>
   <compound kind="file">
     <name>circular_buffer.c</name>
-    <path>/github/workspace/src/</path>
+    <path>src/</path>
     <filename>circular__buffer_8c.html</filename>
     <includes id="circular__buffer_8h" name="circular_buffer.h" local="yes" imported="no">circular_buffer.h</includes>
     <includes id="utils_8h" name="utils.h" local="yes" imported="no">utils.h</includes>
@@ -3993,7 +3993,7 @@
   </compound>
   <compound kind="file">
     <name>log.c</name>
-    <path>/github/workspace/src/</path>
+    <path>src/</path>
     <filename>log_8c.html</filename>
     <includes id="stdfix-full-iso_8h" name="stdfix-full-iso.h" local="yes" imported="no">stdfix-full-iso.h</includes>
     <includes id="assert_8h" name="assert.h" local="yes" imported="no">assert.h</includes>
@@ -4063,7 +4063,7 @@
   </compound>
   <compound kind="file">
     <name>normal.c</name>
-    <path>/github/workspace/src/</path>
+    <path>src/</path>
     <filename>normal_8c.html</filename>
     <includes id="stdfix-full-iso_8h" name="stdfix-full-iso.h" local="yes" imported="no">stdfix-full-iso.h</includes>
     <includes id="polynomial_8h" name="polynomial.h" local="yes" imported="no">polynomial.h</includes>
@@ -4154,7 +4154,7 @@
   </compound>
   <compound kind="file">
     <name>random.c</name>
-    <path>/github/workspace/src/</path>
+    <path>src/</path>
     <filename>random_8c.html</filename>
     <includes id="random_8h" name="random.h" local="yes" imported="no">random.h</includes>
     <includes id="normal_8h" name="normal.h" local="yes" imported="no">normal.h</includes>
@@ -4261,7 +4261,7 @@
   </compound>
   <compound kind="file">
     <name>sincos.c</name>
-    <path>/github/workspace/src/</path>
+    <path>src/</path>
     <filename>sincos_8c.html</filename>
     <includes id="stdfix-full-iso_8h" name="stdfix-full-iso.h" local="yes" imported="no">stdfix-full-iso.h</includes>
     <includes id="assert_8h" name="assert.h" local="yes" imported="no">assert.h</includes>
@@ -4388,7 +4388,7 @@
   </compound>
   <compound kind="file">
     <name>sqrt.c</name>
-    <path>/github/workspace/src/</path>
+    <path>src/</path>
     <filename>sqrt_8c.html</filename>
     <includes id="stdfix-full-iso_8h" name="stdfix-full-iso.h" local="yes" imported="no">stdfix-full-iso.h</includes>
     <includes id="polynomial_8h" name="polynomial.h" local="yes" imported="no">polynomial.h</includes>
@@ -4509,7 +4509,7 @@
   </compound>
   <compound kind="file">
     <name>stdfix-exp.c</name>
-    <path>/github/workspace/src/</path>
+    <path>src/</path>
     <filename>stdfix-exp_8c.html</filename>
     <includes id="stdfix-exp_8h" name="stdfix-exp.h" local="yes" imported="no">stdfix-exp.h</includes>
     <includes id="utils_8h" name="utils.h" local="yes" imported="no">utils.h</includes>
