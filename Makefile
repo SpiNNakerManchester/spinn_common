@@ -48,7 +48,7 @@ INSTALL_HEADERS = $(HEADERS:%.h=$(SPINN_INC_DIR)/%.h)
 
 # Locations of tag files
 TAGFILES=sllt.tag
-SLLT_TAG=http://spinnakermanchester.github.io/spinnaker_tools/sllt.tag
+SLLT_TAG=https://spinnakermanchester.github.io/spinnaker_tools/sllt.tag
 
 INSTALL ?= install
 DOXYGEN ?= doxygen

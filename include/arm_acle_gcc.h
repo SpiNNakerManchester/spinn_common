@@ -20,7 +20,7 @@
  *
  * This header file implements the ARM C Language Extension 2.0, available at:
  *
- *  http://infocenter.arm.com/help/topic/com.arm.doc.ihi0053c/IHI0053C_acle_2_0.pdf
+ *  https://infocenter.arm.com/help/topic/com.arm.doc.ihi0053c/IHI0053C_acle_2_0.pdf
  */
 
 
@@ -492,9 +492,9 @@ static inline void __wfi(void)
 }
 
 // MCR p15, 0, <Rd>, c7, c0, 4 also arm11 see
-// http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0360f/I1014942.html
+// https://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0360f/I1014942.html
 
-// http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0360f/CHDGIJFB.html
+// https://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0360f/CHDGIJFB.html
 //
 // Note For compatibility with existing software, the ARM968E-S processor also
 // supports the following instruction for the wait-for-interrupt function:
