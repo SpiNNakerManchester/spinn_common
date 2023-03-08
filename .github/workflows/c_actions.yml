@@ -96,3 +96,6 @@ jobs:
       run: make doxygen
       env:
         SPINN_DIRS: ${{ github.workspace }}/spinnaker_tools
+
+    - name: Validate CITATION.cff
+      uses: dieghernan/cff-validator@main
