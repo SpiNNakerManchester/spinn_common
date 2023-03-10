@@ -160,7 +160,7 @@ typedef uint64_t uint_ulk_t;
 #include <stdfix.h>
 
 // TRULY AWFUL HACK to make the Eclipse CDT not complain like crazy
-// http://fasaxc.blogspot.co.uk/2015/02/working-with-cs-new-fixed-point.html
+// https://fasaxc.blogspot.co.uk/2015/02/working-with-cs-new-fixed-point.html
 // I am so, so sorry...
 #ifdef ECLIPSE_CDT_INDEXER_HACK
 #define _Fract int

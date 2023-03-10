@@ -19,7 +19,7 @@
  *
  * This header file implements the ARM C Language Extension 2.0, available at:
  *
- *      http://infocenter.arm.com/help/topic/com.arm.doc.ihi0053c/IHI0053C_acle_2_0.pdf
+ *      https://infocenter.arm.com/help/topic/com.arm.doc.ihi0053c/IHI0053C_acle_2_0.pdf
  */
 
 #ifndef __ARM_ACLE
