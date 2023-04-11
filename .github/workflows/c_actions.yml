@@ -37,7 +37,7 @@ jobs:
       with:
         packages: gcc-arm-none-eabi
     - name: Checkout SpiNNaker Dependencies
-      uses: ./support/actions/checkout-spinn-deps
+      uses: ./support/actions/install-spinn-deps
       with:
         repositories: spinnaker_tools
 
@@ -73,7 +73,7 @@ jobs:
       with:
         packages: doxygen
     - name: Checkout SpiNNaker Dependencies
-      uses: ./support/actions/checkout-spinn-deps
+      uses: ./support/actions/install-spinn-deps
       with:
         repositories: spinnaker_tools
 
