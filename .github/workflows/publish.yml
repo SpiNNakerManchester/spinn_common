@@ -31,7 +31,7 @@ jobs:
           path: support
       - name: Checkout SpiNNaker Dependencies
         # so we can use our makefile in the next step
-        uses: ./support/actions/run-install
+        uses: ./support/actions/install-spinn-deps
         with:
           repositories: spinnaker_tools
       - name: Read tags
