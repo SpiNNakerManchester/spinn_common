@@ -88,6 +88,4 @@ u1616 expuk(s1615 x);
 //! \return The best approximation to e<sup>\p x</sup> possible in a ::u032
 u032 expulr(s1615 x);
 
-
-
 #endif /*__STDFIX_EXP_H__*/
