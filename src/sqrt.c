@@ -401,3 +401,7 @@ accum sqrtk(accum x) {
 
     return kbits(sqrtk_bits(rx));
 }
+
+unsigned accum sqrtuk(unsigned accum x) {
+	return ukbits(sqrtk_bits(bitsuk(x) >> 1) << 1);
+}

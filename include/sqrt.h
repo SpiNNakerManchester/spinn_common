@@ -59,6 +59,11 @@ extern uint64_t             recip_normalized_root(uint32_t x);
 //! \return the square root of \p x
 extern s1615                sqrtk(s1615 x);
 
+//! \brief Square root.
+//! \param[in] x: Non-negative value to get the square root of
+//! \return the square root of \p x
+extern u1616                sqrtuk(u1616 x);
+
 /*
  * All these functions have no implementation in this library. They will
  * generate a compile-time warning if used, and a link-time error.
@@ -109,11 +114,6 @@ UNIMPLEMENTED u032          sqrtulr(u032 x);
 //! \param[in] x: Non-negative value to get the square root of
 //! \return the square root of \p x
 UNIMPLEMENTED u88           sqrtuhk(u88 x);
-//! \brief Square root.
-//! \warning Unimplemented
-//! \param[in] x: Non-negative value to get the square root of
-//! \return the square root of \p x
-UNIMPLEMENTED u1616         sqrtuk(u1616 x);
 //! \brief Square root.
 //! \warning Unimplemented
 //! \param[in] x: Non-negative value to get the square root of

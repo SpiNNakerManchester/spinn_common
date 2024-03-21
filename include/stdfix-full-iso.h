@@ -220,6 +220,10 @@ typedef uint16_t u88;
 typedef uint32_t u1616;
 typedef uint64_t u3232;
 
+#define _Fract int
+#define _Accum int
+#define _Sat
+
 #endif /* __arm__ */
 
 //! \name 7.18a.6.5
