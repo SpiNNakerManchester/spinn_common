@@ -40,12 +40,12 @@ jobs:
         env:
           SPINN_DIRS: ${{ github.workspace }}/spinnaker_tools
       - name: Doxygen
-        uses: mattnotmitt/doxygen-action@v1.9.5
+        uses: mattnotmitt/doxygen-action@v1.9.8
         with:
           doxyfile-path: ./Doxyfile
           working-directory: .
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.4.2
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           branch: gh-pages
           folder: html
