@@ -10,6 +10,6 @@ var searchData=
   ['boot_5fsig_7',['boot_sig',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a771f3829db59beef21b3b9bb9d58497b',1,'sv_t']]],
   ['bt_5fflags_8',['bt_flags',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a6f8795390b516e736bc6c0ad35c7bc76',1,'sv_t']]],
   ['buf_9',['buf',['https://spinnakermanchester.github.io/spinnaker_tools/scamp-nn_8c.html#a7d1b9601d7c9921d611b7eaf920b23ea',1,'nn_desc_t']]],
-  ['buffer_10',['buffer',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a20d2f0218feb16fbe0b301dfec56fe49',1,'heap_t::buffer()'],['../circular__buffer_8h.html#ab574fcc8415092e203d323b85353a59b',1,'_circular_buffer::buffer()']]],
+  ['buffer_10',['buffer',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a20d2f0218feb16fbe0b301dfec56fe49',1,'heap_t::buffer'],['../circular__buffer_8h.html#ab574fcc8415092e203d323b85353a59b',1,'_circular_buffer::buffer']]],
   ['buffer_5fsize_11',['buffer_size',['../circular__buffer_8h.html#a6d1bf4f20c1c5a4775a958cb5d481aa4',1,'_circular_buffer']]]
 ];

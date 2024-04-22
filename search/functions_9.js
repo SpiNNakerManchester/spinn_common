@@ -9,6 +9,6 @@ var searchData=
   ['idivulr_6',['idivulr',['../stdfix-full-iso_8h.html#a4e4d066f1f8826eb5e9acd27785bc82f',1,'stdfix-full-iso.h']]],
   ['idivur_7',['idivur',['../stdfix-full-iso_8h.html#ac29149793ade62dd3951ee9881e6971b',1,'stdfix-full-iso.h']]],
   ['ilog_5f2_8',['ilog_2',['../utils_8h.html#ac46ba0748ba5e752de4b683d5944a239',1,'utils.h']]],
-  ['init_5fwell1024a_5fsimp_9',['init_WELL1024a_simp',['../random_8h.html#a0ab39550307738d8d3e919939a04e5a9',1,'init_WELL1024a_simp(void):&#160;random.c'],['../random_8c.html#a0ab39550307738d8d3e919939a04e5a9',1,'init_WELL1024a_simp(void):&#160;random.c']]],
+  ['init_5fwell1024a_5fsimp_9',['init_well1024a_simp',['../random_8h.html#a0ab39550307738d8d3e919939a04e5a9',1,'init_WELL1024a_simp(void):&#160;random.c'],['../random_8c.html#a0ab39550307738d8d3e919939a04e5a9',1,'init_WELL1024a_simp(void):&#160;random.c']]],
   ['is_5fpower_5fof_5f2_10',['is_power_of_2',['../utils_8h.html#abc4bb2fd87aed5f8f3e208efd7704479',1,'utils.h']]]
 ];

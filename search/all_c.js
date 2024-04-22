@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['mac_0',['mac',['https://spinnakermanchester.github.io/spinnaker_tools/spinn__net_8c.html#a33747074efe4bb7daf7c3cf1422a9492',1,'arp_entry::mac()'],['https://spinnakermanchester.github.io/spinnaker_tools/scamp_8h.html#a6b869362bb4857c40b62a62c88bdc69d',1,'iptag_t::mac()']]],
+  ['mac_0',['mac',['https://spinnakermanchester.github.io/spinnaker_tools/spinn__net_8c.html#a33747074efe4bb7daf7c3cf1422a9492',1,'arp_entry::mac'],['https://spinnakermanchester.github.io/spinnaker_tools/scamp_8h.html#a6b869362bb4857c40b62a62c88bdc69d',1,'iptag_t::mac']]],
   ['mac_5faddr_1',['mac_addr',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a8c5781c98f7fd310009a4432fde1a0c3',1,'srom_data_t']]],
   ['mac_5fhdr_5ft_2',['mac_hdr_t',['https://spinnakermanchester.github.io/spinnaker_tools/spinn__net_8h.html',1,'']]],
   ['malloc_3',['malloc',['../spin-print_8h.html#acf143577800376dd931c059ecc61ba06',1,'spin-print.h']]],
@@ -8,8 +8,8 @@ var searchData=
   ['mars_5fkiss64_5fseed_5',['mars_kiss64_seed',['../random_8c.html#a5ff5ed3094e34b85104b603f69f15d33',1,'mars_kiss64_seed(mars_kiss64_seed_t seed):&#160;random.c'],['../random_8h.html#a5ff5ed3094e34b85104b603f69f15d33',1,'mars_kiss64_seed(mars_kiss64_seed_t seed):&#160;random.c']]],
   ['mars_5fkiss64_5fseed_5ft_6',['mars_kiss64_seed_t',['../random_8h.html#ad0b387766bfa2af618fb636ed7bcba6e',1,'random.h']]],
   ['mars_5fkiss64_5fsimp_7',['mars_kiss64_simp',['../random_8c.html#a49c246966a64b45f12a9add39aca811a',1,'mars_kiss64_simp(void):&#160;random.c'],['../random_8h.html#a49c246966a64b45f12a9add39aca811a',1,'mars_kiss64_simp(void):&#160;random.c']]],
-  ['mask_8',['mask',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a3777df706a1c18ea3edbf248309afe7b',1,'app_data_t::mask()'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a5a88c2676178963e8278d982c596e58a',1,'rtr_entry_t::mask()']]],
-  ['max_9',['max',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#aba5495b9d60e19b06a07400e3f67b2a7',1,'event_data_t::max()'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a228a8c62f082390087cb7e5f5546cefc',1,'mem_block_t::max()']]],
+  ['mask_8',['mask',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a3777df706a1c18ea3edbf248309afe7b',1,'app_data_t::mask'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a5a88c2676178963e8278d982c596e58a',1,'rtr_entry_t::mask']]],
+  ['max_9',['max',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#aba5495b9d60e19b06a07400e3f67b2a7',1,'event_data_t::max'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a228a8c62f082390087cb7e5f5546cefc',1,'mem_block_t::max']]],
   ['mbox_5fap_5fcmd_10',['mbox_ap_cmd',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a506bed99e8f266f2ef765613f24c0b64',1,'vcpu_t']]],
   ['mbox_5fap_5fmsg_11',['mbox_ap_msg',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a50165c37c992b524f4664b3f50b8f6fe',1,'vcpu_t']]],
   ['mbox_5fflags_12',['mbox_flags',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#af18e0c8263a8b3d7ed4ea70c5c5c130c',1,'sv_t']]],

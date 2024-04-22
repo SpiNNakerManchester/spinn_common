@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['mac_0',['mac',['https://spinnakermanchester.github.io/spinnaker_tools/scamp_8h.html#a6b869362bb4857c40b62a62c88bdc69d',1,'iptag_t::mac()'],['https://spinnakermanchester.github.io/spinnaker_tools/spinn__net_8c.html#a33747074efe4bb7daf7c3cf1422a9492',1,'arp_entry::mac()']]],
+  ['mac_0',['mac',['https://spinnakermanchester.github.io/spinnaker_tools/scamp_8h.html#a6b869362bb4857c40b62a62c88bdc69d',1,'iptag_t::mac'],['https://spinnakermanchester.github.io/spinnaker_tools/spinn__net_8c.html#a33747074efe4bb7daf7c3cf1422a9492',1,'arp_entry::mac']]],
   ['mac_5faddr_1',['mac_addr',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a8c5781c98f7fd310009a4432fde1a0c3',1,'srom_data_t']]],
-  ['mask_2',['mask',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a3777df706a1c18ea3edbf248309afe7b',1,'app_data_t::mask()'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a5a88c2676178963e8278d982c596e58a',1,'rtr_entry_t::mask()']]],
-  ['max_3',['max',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#aba5495b9d60e19b06a07400e3f67b2a7',1,'event_data_t::max()'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a228a8c62f082390087cb7e5f5546cefc',1,'mem_block_t::max()']]],
+  ['mask_2',['mask',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a3777df706a1c18ea3edbf248309afe7b',1,'app_data_t::mask'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a5a88c2676178963e8278d982c596e58a',1,'rtr_entry_t::mask']]],
+  ['max_3',['max',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#aba5495b9d60e19b06a07400e3f67b2a7',1,'event_data_t::max'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a228a8c62f082390087cb7e5f5546cefc',1,'mem_block_t::max']]],
   ['mbox_5fap_5fcmd_4',['mbox_ap_cmd',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a506bed99e8f266f2ef765613f24c0b64',1,'vcpu_t']]],
   ['mbox_5fap_5fmsg_5',['mbox_ap_msg',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a50165c37c992b524f4664b3f50b8f6fe',1,'vcpu_t']]],
   ['mbox_5fflags_6',['mbox_flags',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#af18e0c8263a8b3d7ed4ea70c5c5c130c',1,'sv_t']]],

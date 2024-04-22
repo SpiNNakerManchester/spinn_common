@@ -1,14 +1,14 @@
 var searchData=
 [
   ['r_0',['r',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a2235ccee39f7f922d3cd59a9f9854d8b',1,'vcpu_t']]],
-  ['random_1',['random',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#aefcbe56944d42fc97fc6cd936529f008',1,'sark_data_t::random()'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#ab2c7b4f5f622c5a397833ba72fd58b2a',1,'sv_t::random()']]],
+  ['random_1',['random',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#aefcbe56944d42fc97fc6cd936529f008',1,'sark_data_t::random'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#ab2c7b4f5f622c5a397833ba72fd58b2a',1,'sv_t::random']]],
   ['rc_2',['rc',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a100de1cfa85f23be5edc19f35f887b61',1,'event_data_t']]],
   ['rcvd_3',['rcvd',['https://spinnakermanchester.github.io/spinnaker_tools/scamp_8h.html#aaa914dcd40a087110282b3b37478a252',1,'level_t']]],
   ['recip_5ftable_4',['recip_table',['../log_8c.html#a593da745e133d41b43f5b9be6f044bd9',1,'log.c']]],
   ['remove_5',['remove',['https://spinnakermanchester.github.io/spinnaker_tools/scamp_8h.html#a922e0e5aba05036e7845ee7039f5612f',1,'pkt_queue_t']]],
   ['reset_5fvec_6',['reset_vec',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#aa29203dddfcdd8da8a7e3860425cbd3c',1,'sark_vec_t']]],
   ['result_7',['result',['https://spinnakermanchester.github.io/spinnaker_tools/scamp_8h.html#ac2ddca5e48d8e327852f9e132e214a70',1,'level_t']]],
-  ['retry_8',['retry',['https://spinnakermanchester.github.io/spinnaker_tools/scamp-nn_8c.html#ab78d04c7024a9ee6aeb833caaf4f3168',1,'nn_desc_t::retry()'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#aa954cc9eb9a2d3ae457bacc6af4493ba',1,'sv_t::retry()']]],
+  ['retry_8',['retry',['https://spinnakermanchester.github.io/spinnaker_tools/scamp-nn_8c.html#ab78d04c7024a9ee6aeb833caaf4f3168',1,'nn_desc_t::retry'],['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#aa954cc9eb9a2d3ae457bacc6af4493ba',1,'sv_t::retry']]],
   ['reuse_9',['reuse',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#ad5dd4e4b68fd55b52aa48aa83d1a4243',1,'event_t']]],
   ['rom_5fcpus_10',['rom_cpus',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a8ab30e407732091aa326b74d5865a12a',1,'sv_t']]],
   ['root_5fchip_11',['root_chip',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a469192663673043167174d3a65746ffb',1,'sv_t']]],
