@@ -1489,7 +1489,7 @@ static inline unsigned int muliuk(
 	unsigned int n,
 	u1616 x)
 {
-    return __UI((__U64(n) << 16) / bitsuk(x));
+    return __UI(__U64(n) * __U64(bitsuk(x)) >> 16);
 }
 
 //! \brief Multiplies an unsigned long integer by an unsigned long accum giving
