@@ -96,7 +96,7 @@ var searchData=
   ['sqrtr_93',['sqrtr',['../sqrt_8h.html#afe96335e2e8ceaf8be23e32e5d7342f7',1,'sqrt.h']]],
   ['sqrtuhk_94',['sqrtuhk',['../sqrt_8h.html#aa6b0054f2877eacaa5aa9aae79344878',1,'sqrt.h']]],
   ['sqrtuhr_95',['sqrtuhr',['../sqrt_8h.html#adef7cc6f70b58d4bd77fd9c26f1c10ec',1,'sqrt.h']]],
-  ['sqrtuk_96',['sqrtuk',['../sqrt_8h.html#a649cbf76b30478bf553c0091fe12672a',1,'sqrt.h']]],
+  ['sqrtuk_96',['sqrtuk',['../sqrt_8h.html#a649cbf76b30478bf553c0091fe12672a',1,'sqrtuk(u1616 x):&#160;sqrt.c'],['../sqrt_8c.html#a231bb84d753232fd7a9befec0ad78186',1,'sqrtuk(unsigned accum x):&#160;sqrt.c']]],
   ['sqrtulk_97',['sqrtulk',['../sqrt_8h.html#a39542f048c4069758b67eaee8360ffc2',1,'sqrt.h']]],
   ['sqrtulr_98',['sqrtulr',['../sqrt_8h.html#a73be04318e0ad8a43721373ff8b51e0c',1,'sqrt.h']]],
   ['sqrtur_99',['sqrtur',['../sqrt_8h.html#af58a779dd9d74b96b40c5f83530f2c03',1,'sqrt.h']]],

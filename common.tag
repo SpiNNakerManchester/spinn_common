@@ -1667,6 +1667,13 @@
       <arglist>(s1615 x)</arglist>
     </member>
     <member kind="function">
+      <type>u1616</type>
+      <name>sqrtuk</name>
+      <anchorfile>sqrt_8h.html</anchorfile>
+      <anchor>a649cbf76b30478bf553c0091fe12672a</anchor>
+      <arglist>(u1616 x)</arglist>
+    </member>
+    <member kind="function">
       <type>s07</type>
       <name>sqrthr</name>
       <anchorfile>sqrt_8h.html</anchorfile>
@@ -1730,13 +1737,6 @@
       <arglist>(u88 x)</arglist>
     </member>
     <member kind="function">
-      <type>u1616</type>
-      <name>sqrtuk</name>
-      <anchorfile>sqrt_8h.html</anchorfile>
-      <anchor>a649cbf76b30478bf553c0091fe12672a</anchor>
-      <arglist>(u1616 x)</arglist>
-    </member>
-    <member kind="function">
       <type>u3232</type>
       <name>sqrtulk</name>
       <anchorfile>sqrt_8h.html</anchorfile>
@@ -1766,6 +1766,20 @@
       <name>expk</name>
       <anchorfile>stdfix-exp_8h.html</anchorfile>
       <anchor>aef2320eb3aad460f387661caa5334397</anchor>
+      <arglist>(s1615 x)</arglist>
+    </member>
+    <member kind="function">
+      <type>u1616</type>
+      <name>expuk</name>
+      <anchorfile>stdfix-exp_8h.html</anchorfile>
+      <anchor>ab85d649f6b8d2db93562cd658de82008</anchor>
+      <arglist>(s1615 x)</arglist>
+    </member>
+    <member kind="function">
+      <type>u032</type>
+      <name>expulr</name>
+      <anchorfile>stdfix-exp_8h.html</anchorfile>
+      <anchor>a1e9b8eef8fd4397e14f3ac9cc91bc3c5</anchor>
       <arglist>(s1615 x)</arglist>
     </member>
   </compound>
@@ -4506,6 +4520,13 @@
       <anchor>a347df8440f9b3d52ccdfacfc32f319eb</anchor>
       <arglist>(accum x)</arglist>
     </member>
+    <member kind="function">
+      <type>unsigned accum</type>
+      <name>sqrtuk</name>
+      <anchorfile>sqrt_8c.html</anchorfile>
+      <anchor>a231bb84d753232fd7a9befec0ad78186</anchor>
+      <arglist>(unsigned accum x)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>stdfix-exp.c</name>
@@ -4532,6 +4553,20 @@
       <name>expk</name>
       <anchorfile>stdfix-exp_8c.html</anchorfile>
       <anchor>ae3876945bcf9be81eb585aad4902190c</anchor>
+      <arglist>(accum x)</arglist>
+    </member>
+    <member kind="function">
+      <type>unsigned accum</type>
+      <name>expuk</name>
+      <anchorfile>stdfix-exp_8c.html</anchorfile>
+      <anchor>aedb7e0b4773dfab05bebd9ed461862f7</anchor>
+      <arglist>(accum x)</arglist>
+    </member>
+    <member kind="function">
+      <type>unsigned long fract</type>
+      <name>expulr</name>
+      <anchorfile>stdfix-exp_8c.html</anchorfile>
+      <anchor>a1170aaf2cc8db11306e61253ef4d961d</anchor>
       <arglist>(accum x)</arglist>
     </member>
     <member kind="variable" static="yes">

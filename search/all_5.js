@@ -16,5 +16,7 @@ var searchData=
   ['exit_5frc_13',['exit_rc',['https://spinnakermanchester.github.io/spinnaker_tools/sark_8h.html#a3377207343698969ab6102377449f170',1,'event_data_t']]],
   ['exp_5fseries_14',['exp_series',['../stdfix-exp_8c.html#a3acd9fc8090aa16ed29495f13343a1ca',1,'stdfix-exp.c']]],
   ['expk_15',['expk',['../stdfix-exp_8h.html#aef2320eb3aad460f387661caa5334397',1,'expk(s1615 x):&#160;stdfix-exp.c'],['../stdfix-exp_8c.html#ae3876945bcf9be81eb585aad4902190c',1,'expk(accum x):&#160;stdfix-exp.c']]],
-  ['exponential_5fdist_5fvariate_16',['exponential_dist_variate',['../random_8h.html#afcdc0d5b02715e225d469c8194395978',1,'exponential_dist_variate(uniform_rng uni_rng, uint32_t *seed_arg):&#160;random.c'],['../random_8c.html#afcdc0d5b02715e225d469c8194395978',1,'exponential_dist_variate(uniform_rng uni_rng, uint32_t *seed_arg):&#160;random.c']]]
+  ['exponential_5fdist_5fvariate_16',['exponential_dist_variate',['../random_8h.html#afcdc0d5b02715e225d469c8194395978',1,'exponential_dist_variate(uniform_rng uni_rng, uint32_t *seed_arg):&#160;random.c'],['../random_8c.html#afcdc0d5b02715e225d469c8194395978',1,'exponential_dist_variate(uniform_rng uni_rng, uint32_t *seed_arg):&#160;random.c']]],
+  ['expuk_17',['expuk',['../stdfix-exp_8h.html#ab85d649f6b8d2db93562cd658de82008',1,'expuk(s1615 x):&#160;stdfix-exp.c'],['../stdfix-exp_8c.html#aedb7e0b4773dfab05bebd9ed461862f7',1,'expuk(accum x):&#160;stdfix-exp.c']]],
+  ['expulr_18',['expulr',['../stdfix-exp_8h.html#a1e9b8eef8fd4397e14f3ac9cc91bc3c5',1,'expulr(s1615 x):&#160;stdfix-exp.c'],['../stdfix-exp_8c.html#a1170aaf2cc8db11306e61253ef4d961d',1,'expulr(accum x):&#160;stdfix-exp.c']]]
 ];

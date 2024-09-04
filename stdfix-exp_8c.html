@@ -107,8 +107,11 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>__expi64</b> (<a 
 <tr class="memitem:ae3876945bcf9be81eb585aad4902190c" id="r_ae3876945bcf9be81eb585aad4902190c"><td class="memItemLeft" align="right" valign="top">accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-exp_8c.html#ae3876945bcf9be81eb585aad4902190c">expk</a> (accum <a class="elRef" href="https://spinnakermanchester.github.io/spinnaker_tools/scamp-3_8c.html#a7ce14bf4029a6d24e8c67abd1019dc49">x</a>)</td></tr>
 <tr class="memdesc:ae3876945bcf9be81eb585aad4902190c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed point exponential.  <br /></td></tr>
 <tr class="separator:ae3876945bcf9be81eb585aad4902190c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1170aaf2cc8db11306e61253ef4d961d" id="r_a1170aaf2cc8db11306e61253ef4d961d"><td class="memItemLeft" align="right" valign="top"><a id="a1170aaf2cc8db11306e61253ef4d961d" name="a1170aaf2cc8db11306e61253ef4d961d"></a>
-unsigned long fract&#160;</td><td class="memItemRight" valign="bottom"><b>expulr</b> (accum <a class="elRef" href="https://spinnakermanchester.github.io/spinnaker_tools/scamp-3_8c.html#a7ce14bf4029a6d24e8c67abd1019dc49">x</a>)</td></tr>
+<tr class="memitem:aedb7e0b4773dfab05bebd9ed461862f7" id="r_aedb7e0b4773dfab05bebd9ed461862f7"><td class="memItemLeft" align="right" valign="top">unsigned accum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-exp_8c.html#aedb7e0b4773dfab05bebd9ed461862f7">expuk</a> (accum <a class="elRef" href="https://spinnakermanchester.github.io/spinnaker_tools/scamp-3_8c.html#a7ce14bf4029a6d24e8c67abd1019dc49">x</a>)</td></tr>
+<tr class="memdesc:aedb7e0b4773dfab05bebd9ed461862f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed point exponential.  <br /></td></tr>
+<tr class="separator:aedb7e0b4773dfab05bebd9ed461862f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1170aaf2cc8db11306e61253ef4d961d" id="r_a1170aaf2cc8db11306e61253ef4d961d"><td class="memItemLeft" align="right" valign="top">unsigned long fract&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdfix-exp_8c.html#a1170aaf2cc8db11306e61253ef4d961d">expulr</a> (accum <a class="elRef" href="https://spinnakermanchester.github.io/spinnaker_tools/scamp-3_8c.html#a7ce14bf4029a6d24e8c67abd1019dc49">x</a>)</td></tr>
+<tr class="memdesc:a1170aaf2cc8db11306e61253ef4d961d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed point exponential.  <br /></td></tr>
 <tr class="separator:a1170aaf2cc8db11306e61253ef4d961d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -238,6 +241,60 @@ static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>__exp_seri
 
 </div>
 </div>
+<a id="aedb7e0b4773dfab05bebd9ed461862f7" name="aedb7e0b4773dfab05bebd9ed461862f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedb7e0b4773dfab05bebd9ed461862f7">&#9670;&#160;</a></span>expuk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned accum expuk </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fixed point exponential. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>Value to compute the exponential of. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The best approximation to e<sup><code>x</sup></code> possible in a <a class="el" href="stdfix-full-iso_8h.html#a22ff547489880812f8f5c0f0649575f1" title="An alternative name for the unsigned accum type.">u1616</a> </dd></dl>
+
+</div>
+</div>
+<a id="a1170aaf2cc8db11306e61253ef4d961d" name="a1170aaf2cc8db11306e61253ef4d961d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1170aaf2cc8db11306e61253ef4d961d">&#9670;&#160;</a></span>expulr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long fract expulr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="stdfix-full-iso_8h.html#abbf2a7d70e066ea6d5c2b7d88cfcd1e6">s1615</a>&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fixed point exponential. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>Value to compute the exponential of. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The best approximation to e<sup><code>x</sup></code> possible in a <a class="el" href="stdfix-full-iso_8h.html#adc46aae99ac690ac82792832f3764c8f" title="An alternative name for the unsigned long fract type.">u032</a> </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="a388ee74425a8f329e7cca6b9d3f0962b" name="a388ee74425a8f329e7cca6b9d3f0962b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a388ee74425a8f329e7cca6b9d3f0962b">&#9670;&#160;</a></span>__exp_hi</h2>
@@ -303,7 +360,7 @@ static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>__exp_seri
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Aug 13 2024 13:53:54 for spinn_common by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Wed Sep 4 2024 15:54:23 for spinn_common by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>
