@@ -144,6 +144,24 @@ accum expk(accum x) {
     return kbits(r);
 }
 
+unsigned accum expuk(accum x) {
+	int_k_t n = bitsk(x);
+	uint_uk_t r;
+
+	if (363408 < n) {			// overflow saturation
+		r = UINT32_MAX;
+	} else if (n == 0) {		// overflow saturation
+		r = 0;
+	} else {
+		// Shift back to U1616, rather than S1615
+		uint64_t tmp1 = __expi64(n);
+		r += 1 << 15;
+		r = (uint_uk_t) (tmp1 >> 16);
+	}
+
+	return ukbits(r);
+}
+
 unsigned long fract expulr(accum x) {
 	int_k_t n = bitsk(x);
 	uint_ulr_t r;

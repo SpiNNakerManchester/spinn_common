@@ -78,6 +78,14 @@
 //! \return The best approximation to e<sup>\p x</sup> possible in an ::s1615
 s1615 expk(s1615 x);
 
+//! \brief Fixed point exponential
+//! \param[in] x: Value to compute the exponential of.
+//! \return The best approximation to e<sup>\p x</sup> possible in a ::u1616
+u1616 expuk(s1615 x);
+
+//! \brief Fixed point exponential
+//! \param[in] x: Value to compute the exponential of.
+//! \return The best approximation to e<sup>\p x</sup> possible in a ::u032
 u032 expulr(s1615 x);
 
 #endif /*__STDFIX_EXP_H__*/
