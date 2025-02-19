@@ -80,12 +80,12 @@ jobs:
         repositories: spinnaker_tools
 
     - name: "Check: Lint include code using Vera++"
-      uses: ./support/actions/vera
+      uses: SpiNNakerManchester/SupportScripts/actions/vera@main
       with:
         base-dir: include
         options: -P max-line-length=2500
     - name: "Check: Lint source code using Vera++"
-      uses: ./support/actions/vera
+      uses: SpiNNakerManchester/SupportScripts/actions/vera@main
       with:
         base-dir: src
 
