@@ -34,7 +34,7 @@ jobs:
         path: support
 
     - name: Install cross-compiler
-      uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@action-dash
+      uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@main
       with:
         packages: gcc-arm-none-eabi
     - name: Checkout SpiNNaker Dependencies
@@ -71,7 +71,7 @@ jobs:
         path: support
 
     - name: Install cross-compiler
-      uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@action-dash
+      uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@main
       with:
         packages: doxygen
     - name: Checkout SpiNNaker Dependencies
