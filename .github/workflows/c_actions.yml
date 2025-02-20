@@ -34,11 +34,11 @@ jobs:
         path: support
 
     - name: Install cross-compiler
-      uses: ./support/actions/apt-get-install
+      uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@main
       with:
         packages: gcc-arm-none-eabi
     - name: Checkout SpiNNaker Dependencies
-      uses: ./support/actions/install-spinn-deps
+      uses: SpiNNakerManchester/SupportScripts/actions/install-spinn-deps@main
       with:
         repositories: spinnaker_tools
 
@@ -71,28 +71,28 @@ jobs:
         path: support
 
     - name: Install cross-compiler
-      uses: ./support/actions/apt-get-install
+      uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@main
       with:
         packages: doxygen
     - name: Checkout SpiNNaker Dependencies
-      uses: ./support/actions/install-spinn-deps
+      uses: SpiNNakerManchester/SupportScripts/actions/install-spinn-deps@main
       with:
         repositories: spinnaker_tools
 
     - name: "Check: Lint include code using Vera++"
-      uses: ./support/actions/vera
+      uses: SpiNNakerManchester/SupportScripts/actions/vera@main
       with:
         base-dir: include
         options: -P max-line-length=2500
     - name: "Check: Lint source code using Vera++"
-      uses: ./support/actions/vera
+      uses: SpiNNakerManchester/SupportScripts/actions/vera@main
       with:
         base-dir: src
 
     - name: Run rat copyright enforcement
-      uses: ./support/actions/check-copyrights
+      uses: SpiNNakerManchester/SupportScripts/actions/check-copyrights@main
       with:
-        config_file: rat_asl20.xml
+        config-file: rat_asl20.xml
 
     - name: Build documentation using doxygen
       run: make doxygen
