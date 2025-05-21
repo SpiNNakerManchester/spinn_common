@@ -1,4 +1,5 @@
 [![C Actions](https://github.com/SpiNNakerManchester/spinn_common/workflows/C%20Actions/badge.svg?branch=master)](https://github.com/SpiNNakerManchester/spinn_common/actions?query=workflow%3A%22C+Actions%22+branch%3Amaster)
+[![Documentation Status](https://readthedocs.org/projects/spinn-common/badge/?version=latest)](https://spinn-common.readthedocs.io/en/latest/?badge=latest)
 
 SpiNN Common
 ============
@@ -12,4 +13,4 @@ Make sure you have the `SPINN_DIRS` environment variable set to the root of an i
 
 Documentation
 =============
-[spinn_common documentation](http://spinnakermanchester.github.io/spinn_common/) (doxygen)
+[SpiNN Common C documentation](http://spinn-common.readthedocs.io)
