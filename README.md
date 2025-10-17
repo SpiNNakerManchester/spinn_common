@@ -1,4 +1,4 @@
-[![C Actions](https://github.com/SpiNNakerManchester/spinn_common/workflows/C%20Actions/badge.svg?branch=master)](https://github.com/SpiNNakerManchester/spinn_common/actions?query=workflow%3A%22C+Actions%22+branch%3Amaster)
+[[![C Actions](https://github.com/SpiNNakerManchester/spinn_common/actions/workflows/c_actions.yml/badge.svg)](https://github.com/SpiNNakerManchester/spinn_common/actions/workflows/c_actions.yml)
 [![Documentation Status](https://readthedocs.org/projects/spinn-common/badge/?version=latest)](https://spinn-common.readthedocs.io/en/latest)
 
 SpiNN Common
