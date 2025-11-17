@@ -31,7 +31,7 @@ BUILD_OBJS = $(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o)
 SPINN_COMMON_DEBUG := PRODUCTION_CODE
 
 # Include our own include directory
-CFLAGS += -I include $(OTIME) -D$(SPINN_COMMON_DEBUG)
+CFLAGS += -I $(SPINN_COMMON_DIR)/include $(OTIME) -D$(SPINN_COMMON_DEBUG)
 
 # Headers
 HEADERS = arm_acle_gcc.h arm_acle.h arm.h assert.h bit_field.h \
