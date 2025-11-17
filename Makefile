@@ -13,26 +13,20 @@
 # limitations under the License.
 
 # If SPINN_DIRS is not defined, this is an error!
-ifndef SPINN_DIRS
-    $(error SPINN_DIRS is not set.  Please define SPINN_DIRS (possibly by running "source setup" in the spinnaker tools folder))
+ifndef SPINN_INSTALL_DIR
+	$(error SPINN_INSTALL_DIR is not set.  Please define SPINN_INSTALL_DIR to the location where the tools are installed)
 endif
 
-SPINN_COMMON_BUILD = build
+SPINN_COMMON_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+SPINN_COMMON_BUILD = $(SPINN_COMMON_DIR)/build
+
+override LIB = 1
+include $(SPINN_INSTALL_DIR)/make/spinnaker_tools.mk
 
 # Objects
 OBJS = bit_field.o circular_buffer.o normal.o random.o stdfix-exp.o log.o \
 	sincos.o sqrt.o
 BUILD_OBJS = $(OBJS:%.o=$(SPINN_COMMON_BUILD)/%.o)
-
-# Build rules (default)
-all: $(SPINN_COMMON_BUILD)/libspinn_common.a
-
-$(SPINN_COMMON_BUILD)/libspinn_common.a: $(BUILD_OBJS)
-	$(RM) $@
-	$(AR) $@ $(BUILD_OBJS)
-
-override LIB = 1
-include $(SPINN_DIRS)/make/spinnaker_tools.mk
 
 SPINN_COMMON_DEBUG := PRODUCTION_CODE
 
@@ -44,7 +38,6 @@ HEADERS = arm_acle_gcc.h arm_acle.h arm.h assert.h bit_field.h \
     circular_buffer.h cmsis.h core_v5te.h log.h normal.h pair.h polynomial.h \
     random.h sincos.h spin-print.h sqrt.h static-assert.h stdfix-exp.h \
 	stdfix-full-iso.h utils.h round.h
-INSTALL_HEADERS = $(HEADERS:%.h=$(SPINN_INC_DIR)/%.h)
 
 # Locations of tag files
 TAGFILES=sllt.tag
@@ -54,32 +47,40 @@ INSTALL ?= install
 DOXYGEN ?= doxygen
 WGET ?= wget
 
-$(SPINN_COMMON_BUILD)/%.o: src/%.c $(SPINN_COMMON_BUILD)
-	$(CC) $(CFLAGS) -o $@ $<
+# Build rules (default)
+all: $(SPINN_COMMON_BUILD)/libspinn_common.a
 
-$(SPINN_COMMON_BUILD):
-	$(MKDIR) $@
+$(SPINN_COMMON_BUILD)/libspinn_common.a: $(BUILD_OBJS)
+	$(MKDIR) $(SPINN_COMMON_BUILD)
+	$(RM) $@
+	$(AR) $@ $(BUILD_OBJS)
+
+$(SPINN_COMMON_BUILD)/%.o: src/%.c
+	$(CC) $(CFLAGS) -o $@ $<
 
 # Installing rules
 install: $(SPINN_COMMON_BUILD)/libspinn_common.a
-	$(INSTALL) -c -m644 $< $(SPINN_LIB_DIR)
-	$(INSTALL) -c -m644 $(HEADERS:%.h=include/%.h) $(SPINN_INC_DIR)
+ifndef SPINN_COMMON_INSTALL_DIR
+	$(error SPINN_COMMON_INSTALL_DIR is not set.  Please define SPINN_COMMON_INSTALL_DIR to the location where spinn_common is to be installed)
+endif
+	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/lib
+	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/include
+	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/make
+	$(INSTALL) -c -m644 $< $(SPINN_COMMON_INSTALL_DIR)/lib
+	$(INSTALL) -c -m644 $(HEADERS:%=$(SPINN_COMMON_DIR)/include/%) $(SPINN_COMMON_INSTALL_DIR)/include
+	$(INSTALL) -c -m644 $(SPINN_COMMON_DIR)/make/spinn_common.mk $(SPINN_COMMON_INSTALL_DIR)/make
 
 clean:
-	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS) \
-	$(SPINN_LIB_DIR)/*.dict $(SPINN_LIB_DIR)/*.ranges $(INSTALL_HEADERS)
+	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS)
 	-$(RM) $(TAGFILES)
-
-install-clean:
-	$(RM) $(INSTALL_HEADERS)
 
 sllt.tag: .sllt_template.tag
 	cp .sllt_template.tag sllt.tag
 ifneq (, $(shell which $(WGET)))
 	-$(WGET) -q -O sllt.tag $(SLLT_TAG)
-endif 
+endif
 
 doxygen: $(TAGFILES)
 	$(DOXYGEN)
 
-.PHONY: all install clean install-clean doxygen
+.PHONY: all clean doxygen
