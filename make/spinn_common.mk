@@ -16,8 +16,9 @@ ifndef SPINN_INSTALL_DIR
 	$(error SPINN_INSTALL_DIR is not set.  Please define SPINN_INSTALL_DIR to the location where the tools are installed)
 endif
 
-CURRENT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+SPINN_COMMON_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../)
 
-CFLAGS += -I $(CURRENT_DIR)/include
-LFLAGS += -L$(CURRENT_DIR)/lib -lspinn_common
-import $(SPINN_INSTALL_DIR)/make/spinnaker_tools.mk
+CFLAGS += -I $(SPINN_COMMON_DIR)/include
+LFLAGS += -L$(SPINN_COMMON_DIR)/lib -lspinn_common
+
+include $(SPINN_INSTALL_DIR)/make/spinnaker_tools.mk
