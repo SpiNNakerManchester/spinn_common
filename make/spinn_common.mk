@@ -19,6 +19,7 @@ endif
 SPINN_COMMON_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../)
 
 CFLAGS += -I $(SPINN_COMMON_DIR)/include
-LFLAGS += -L$(SPINN_COMMON_DIR)/lib -lspinn_common
+LFLAGS += -L$(SPINN_COMMON_DIR)/lib
+LIBS += -lspinn_common
 
 include $(SPINN_INSTALL_DIR)/make/spinnaker_tools.mk
