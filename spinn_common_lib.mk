@@ -13,9 +13,7 @@
 # limitations under the License.
 
 # If SPINN_DIRS is not defined, this is an error!
-ifndef SPINN_INSTALL_DIR
-	$(error SPINN_INSTALL_DIR is not set.  Please define SPINN_INSTALL_DIR to the location where the tools are installed)
-endif
+SPINN_INSTALL_DIR := $(strip $(if $(SPINN_INSTALL_DIR), $(SPINN_INSTALL_DIR), $(if $(SPINN_DIRS), $(SPINN_DIRS)/spinnaker_tools_install, $(error SPINN_INSTALL_DIR or SPINN_DIRS is not set.  Please define SPINN_INSTALL_DIR or SPINN_DIRS))))
 
 SPINN_COMMON_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 SPINN_COMMON_BUILD = $(SPINN_COMMON_DIR)/build
@@ -54,9 +52,7 @@ $(SPINN_COMMON_BUILD)/%.o: src/%.c
 
 # Installing rules
 install: $(SPINN_COMMON_BUILD)/libspinn_common.a
-ifndef SPINN_COMMON_INSTALL_DIR
-	$(error SPINN_COMMON_INSTALL_DIR is not set.  Please define SPINN_COMMON_INSTALL_DIR to the location where spinn_common is to be installed)
-endif
+	$(eval SPINN_COMMON_INSTALL_DIR := $(strip $(if $(SPINN_COMMON_INSTALL_DIR), $(SPINN_COMMON_INSTALL_DIR), $(if $(SPINN_DIRS), $(SPINN_DIRS)/spinn_common_install, $(error SPINN_COMMON_INSTALL_DIR or SPINN_DIRS is not set.  Please define SPINN_COMMON_INSTALL_DIR or SPINN_DIRS)))))
 	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/lib
 	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/include
 	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/make
