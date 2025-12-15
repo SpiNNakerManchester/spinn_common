@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# If SPINN_DIRS is not defined, this is an error!
-SPINN_INSTALL_DIR := $(strip $(if $(SPINN_INSTALL_DIR), $(SPINN_INSTALL_DIR), $(if $(SPINN_DIRS), $(SPINN_DIRS)/spinnaker_tools_install, $(error SPINN_INSTALL_DIR or SPINN_DIRS is not set.  Please define SPINN_INSTALL_DIR or SPINN_DIRS))))
-
 SPINN_COMMON_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 SPINN_COMMON_BUILD = $(SPINN_COMMON_DIR)/build
+
+ifndef SPINN_INSTALL_DIR:
+    # assume parallel clone
+    SPINN_INSTALL_DIR = $(SPINN_COMMON_DIR)/../spinnaker_tools
+endif
 
 override LIB = 1
 include $(SPINN_INSTALL_DIR)/make/spinnaker_tools.mk
