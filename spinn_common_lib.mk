@@ -14,6 +14,7 @@
 
 SPINN_COMMON_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 SPINN_COMMON_BUILD = $(SPINN_COMMON_DIR)/build
+SPINN_COMMON_LIB = $(SPINN_COMMON_DIR)/lib
 
 ifndef SPINN_INSTALL_DIR:
     # assume parallel clone
@@ -42,9 +43,9 @@ HEADERS = arm_acle_gcc.h arm_acle.h arm.h assert.h bit_field.h \
 INSTALL ?= install
 
 # Build rules (default)
-all: $(SPINN_COMMON_BUILD)/libspinn_common.a
+all: $(SPINN_COMMON_LIB)/libspinn_common.a
 
-$(SPINN_COMMON_BUILD)/libspinn_common.a: $(BUILD_OBJS)
+$(SPINN_COMMON_LIB)/libspinn_common.a: $(BUILD_OBJS)
 	$(MKDIR) $(SPINN_COMMON_BUILD)
 	$(RM) $@
 	$(AR) $@ $(BUILD_OBJS)
