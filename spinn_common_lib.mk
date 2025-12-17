@@ -53,9 +53,13 @@ $(SPINN_COMMON_LIB)/libspinn_common.a: $(BUILD_OBJS)
 $(SPINN_COMMON_BUILD)/%.o: src/%.c
 	$(CC) $(CFLAGS) -o $@ $<
 
+INSTALL_ERROR := spinn_common install is only required if you are building in a temporary location.
+INSTALL_ERROR += In which case you must set the environment variable SPINN_COMMON_INSTALL_DIR to where the install should go.
+INSTALL_ERROR += This environment variable must also exist for all higher level makes.
+
 # Installing rules
-install: $(SPINN_COMMON_BUILD)/libspinn_common.a
-	$(eval SPINN_COMMON_INSTALL_DIR := $(strip $(if $(SPINN_COMMON_INSTALL_DIR), $(SPINN_COMMON_INSTALL_DIR), $(if $(SPINN_DIRS), $(SPINN_DIRS)/spinn_common_install, $(error SPINN_COMMON_INSTALL_DIR or SPINN_DIRS is not set.  Please define SPINN_COMMON_INSTALL_DIR or SPINN_DIRS)))))
+install: $(SPINN_COMMON_LIB)/libspinn_common.a
+	$(eval SPINN_COMMON_INSTALL_DIR := $(strip $(if $(SPINN_COMMON_INSTALL_DIR), $(SPINN_COMMON_INSTALL_DIR), $(error $(INSTALL_ERROR)))))
 	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/lib
 	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/include
 	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/make
