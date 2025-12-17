@@ -45,7 +45,6 @@ jobs:
     - name: Build dependency libraries
       run: |
         make -C spinnaker_tools
-        make -C spinnaker_tools install
         make sllt.tag
       env:
         SPINN_INSTALL_DIR: ${{ github.workspace }}/spinnaker_tools_install
@@ -75,6 +74,7 @@ jobs:
       uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@main
       with:
         packages: doxygen
+
     - name: Checkout SpiNNaker Dependencies
       uses: SpiNNakerManchester/SupportScripts/actions/install-spinn-deps@main
       with:
@@ -85,6 +85,7 @@ jobs:
       with:
         base-dir: include
         options: -P max-line-length=2500
+
     - name: "Check: Lint source code using Vera++"
       uses: SpiNNakerManchester/SupportScripts/actions/vera@main
       with:
