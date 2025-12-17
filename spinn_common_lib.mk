@@ -16,8 +16,6 @@ SPINN_COMMON_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 SPINN_COMMON_BUILD = $(SPINN_COMMON_DIR)/build
 SPINN_COMMON_LIB = $(SPINN_COMMON_DIR)/lib
 
-$(error SPINN_INSTALL_DIR is $(SPINN_INSTALL_DIR))
-
 ifndef SPINN_INSTALL_DIR:
     $(error SPINN_INSTALL_DIR is $(SPINN_INSTALL_DIR))
     # assume parallel clone
