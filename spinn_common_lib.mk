@@ -18,8 +18,6 @@ SPINN_COMMON_LIB = $(SPINN_COMMON_DIR)/lib
 
 SPINN_INSTALL_DIR := $(strip $(if $(SPINN_INSTALL_DIR), $(SPINN_INSTALL_DIR), $(abspath $(SPINN_COMMON_DIR)/../spinnaker_tools)))
 
-$(error SPINN_INSTALL_DIR is $(SPINN_INSTALL_DIR))
-
 override LIB = 1
 include $(SPINN_INSTALL_DIR)/make/spinnaker_tools.mk
 
