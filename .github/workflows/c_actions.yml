@@ -45,6 +45,7 @@ jobs:
     - name: Build dependency libraries
       run: |
         make -C spinnaker_tools
+        make -C spinnaker_tools install
         make sllt.tag
       env:
         SPINN_INSTALL_DIR: ${{ github.workspace }}/spinnaker_tools_install
