@@ -18,7 +18,8 @@ SPINN_COMMON_LIB = $(SPINN_COMMON_DIR)/lib
 
 ifndef SPINN_INSTALL_DIR:
     # assume parallel clone
-    SPINN_INSTALL_DIR = $(SPINN_COMMON_DIR)/../spinnaker_tools
+    SPINN_INSTALL_DIR = $(abspath $(SPINN_COMMON_DIR)/../spinnaker_tools)
+    $(error SPINN_INSTALL_DIR set $(SPINN_INSTALL_DIR))
 endif
 
 override LIB = 1
