@@ -39,8 +39,6 @@ jobs:
           repositories: spinnaker_tools
       - name: Read tags
         run: make sllt.tag
-        env:
-          SPINN_DIRS: ${{ github.workspace }}/spinnaker_tools
       - name: Doxygen
         uses: mattnotmitt/doxygen-action@v1.9.8
         with:
