@@ -18,9 +18,6 @@ CFLAGS += -I $(SPINN_COMMON_DIR)/include
 LFLAGS += -L$(SPINN_COMMON_DIR)/lib
 LIBS += -lspinn_common
 
-ifndef SPINN_INSTALL_DIR:
-    # assume parallel clone
-    SPINN_INSTALL_DIR = $(SPINN_COMMON_DIR)/../spinnaker_tools
-endif
+SPINN_INSTALL_DIR := $(strip $(if $(SPINN_INSTALL_DIR), $(SPINN_INSTALL_DIR), $(abspath $(SPINN_COMMON_DIR)/../spinnaker_tools)))
 
 include $(SPINN_INSTALL_DIR)/make/spinnaker_tools.mk
