@@ -65,6 +65,6 @@ install: $(SPINN_COMMON_LIB)/libspinn_common.a
 	$(INSTALL) -m644 $(SPINN_COMMON_DIR)/make/spinn_common.mk $(SPINN_COMMON_INSTALL_DIR)/make
 
 clean:
-	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS)
+	$(RM) $(SPINN_COMMON_LIB)/libspinn_common.a $(BUILD_OBJS)
 
 .PHONY: all clean
