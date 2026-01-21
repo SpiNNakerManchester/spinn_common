@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SPINN_INSTALL_DIR := $(strip $(if $(SPINN_INSTALL_DIR), $(SPINN_INSTALL_DIR), $(if $(SPINN_DIRS), $(SPINN_DIRS)/spinnaker_tools_install, $(error SPINN_INSTALL_DIR or SPINN_DIRS is not set.  Please define SPINN_INSTALL_DIR or SPINN_DIRS))))
-
 SPINN_COMMON_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../)
 
 CFLAGS += -I $(SPINN_COMMON_DIR)/include
 LFLAGS += -L$(SPINN_COMMON_DIR)/lib
 LIBS += -lspinn_common
+
+SPINN_INSTALL_DIR := $(strip $(if $(SPINN_INSTALL_DIR), $(SPINN_INSTALL_DIR), $(abspath $(SPINN_COMMON_DIR)/../spinnaker_tools)))
 
 include $(SPINN_INSTALL_DIR)/make/spinnaker_tools.mk

@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# If SPINN_DIRS is not defined, this is an error!
-SPINN_INSTALL_DIR := $(strip $(if $(SPINN_INSTALL_DIR), $(SPINN_INSTALL_DIR), $(if $(SPINN_DIRS), $(SPINN_DIRS)/spinnaker_tools_install, $(error SPINN_INSTALL_DIR or SPINN_DIRS is not set.  Please define SPINN_INSTALL_DIR or SPINN_DIRS))))
-
 SPINN_COMMON_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 SPINN_COMMON_BUILD = $(SPINN_COMMON_DIR)/build
+SPINN_COMMON_LIB = $(SPINN_COMMON_DIR)/lib
+
+SPINN_INSTALL_DIR := $(strip $(if $(SPINN_INSTALL_DIR), $(SPINN_INSTALL_DIR), $(abspath $(SPINN_COMMON_DIR)/../spinnaker_tools)))
 
 override LIB = 1
 include $(SPINN_INSTALL_DIR)/make/spinnaker_tools.mk
@@ -40,9 +40,9 @@ HEADERS = arm_acle_gcc.h arm_acle.h arm.h assert.h bit_field.h \
 INSTALL ?= install
 
 # Build rules (default)
-all: $(SPINN_COMMON_BUILD)/libspinn_common.a
+all: $(SPINN_COMMON_LIB)/libspinn_common.a
 
-$(SPINN_COMMON_BUILD)/libspinn_common.a: $(BUILD_OBJS)
+$(SPINN_COMMON_LIB)/libspinn_common.a: $(BUILD_OBJS)
 	$(MKDIR) $(SPINN_COMMON_BUILD)
 	$(RM) $@
 	$(AR) $@ $(BUILD_OBJS)
@@ -50,9 +50,13 @@ $(SPINN_COMMON_BUILD)/libspinn_common.a: $(BUILD_OBJS)
 $(SPINN_COMMON_BUILD)/%.o: src/%.c
 	$(CC) $(CFLAGS) -o $@ $<
 
+INSTALL_ERROR := spinn_common install is only required if you are building in a temporary location.
+INSTALL_ERROR += In which case you must set the environment variable SPINN_COMMON_INSTALL_DIR to where the install should go.
+INSTALL_ERROR += This environment variable must also exist for all higher level makes.
+
 # Installing rules
-install: $(SPINN_COMMON_BUILD)/libspinn_common.a
-	$(eval SPINN_COMMON_INSTALL_DIR := $(strip $(if $(SPINN_COMMON_INSTALL_DIR), $(SPINN_COMMON_INSTALL_DIR), $(if $(SPINN_DIRS), $(SPINN_DIRS)/spinn_common_install, $(error SPINN_COMMON_INSTALL_DIR or SPINN_DIRS is not set.  Please define SPINN_COMMON_INSTALL_DIR or SPINN_DIRS)))))
+install: $(SPINN_COMMON_LIB)/libspinn_common.a
+	$(eval SPINN_COMMON_INSTALL_DIR := $(strip $(if $(SPINN_COMMON_INSTALL_DIR), $(SPINN_COMMON_INSTALL_DIR), $(error $(INSTALL_ERROR)))))
 	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/lib
 	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/include
 	$(MKDIR) $(SPINN_COMMON_INSTALL_DIR)/make
@@ -61,6 +65,6 @@ install: $(SPINN_COMMON_BUILD)/libspinn_common.a
 	$(INSTALL) -m644 $(SPINN_COMMON_DIR)/make/spinn_common.mk $(SPINN_COMMON_INSTALL_DIR)/make
 
 clean:
-	$(RM) $(SPINN_COMMON_BUILD)/libspinn_common.a $(BUILD_OBJS)
+	$(RM) $(SPINN_COMMON_LIB)/libspinn_common.a $(BUILD_OBJS)
 
 .PHONY: all clean
