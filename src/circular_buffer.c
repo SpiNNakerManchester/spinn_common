@@ -45,17 +45,17 @@
 #include "spin-print.h"
 
 circular_buffer circular_buffer_initialize(
-	uint32_t size)
+    uint32_t size)
 {
     uint32_t real_size = size;
     if (!is_power_of_2(real_size)) {
-	real_size = next_power_of_2(size);
+    real_size = next_power_of_2(size);
     }
 
     circular_buffer buffer = sark_alloc(1,
-	    sizeof(_circular_buffer) + real_size * sizeof(uint32_t));
+        sizeof(_circular_buffer) + real_size * sizeof(uint32_t));
     if (buffer == NULL) {
-	return NULL;
+    return NULL;
     }
 
     buffer->buffer_size = real_size - 1;
@@ -65,18 +65,29 @@ circular_buffer circular_buffer_initialize(
     return buffer;
 }
 
+bool circular_buffer_prealloc(circular_buffer buffer, uint32_t size) {
+    if (!is_power_of_2(size)) {
+        return false;
+    }
+    buffer->buffer_size = size - 1;
+    buffer->input = 0;
+    buffer->output = 0;
+    buffer->overflows = 0;
+    return true;
+}
+
 void circular_buffer_print_buffer(
-	circular_buffer buffer)
+    circular_buffer buffer)
 {
     uint32_t i = buffer->output;
 
     io_printf(IO_BUF, "[");
     while (i != buffer->input) {
-	io_printf(IO_BUF, "%u", buffer->buffer[i]);
-	i = (i + 1) & buffer->buffer_size;
-	if (i != buffer->input) {
-	    io_printf(IO_BUF, ", ");
-	}
+    io_printf(IO_BUF, "%u", buffer->buffer[i]);
+    i = (i + 1) & buffer->buffer_size;
+    if (i != buffer->input) {
+        io_printf(IO_BUF, ", ");
+    }
     }
     io_printf(IO_BUF, "]\n");
 }

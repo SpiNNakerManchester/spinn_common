@@ -72,6 +72,11 @@ static inline bool _circular_buffer_not_full(
 //! \return A reference to the created buffer.
 circular_buffer circular_buffer_initialize(uint32_t size);
 
+//! \brief Create a circular buffer in an existing memory block. The buffer
+//! must be at least the size of the buffer struct plus the buffer size (which
+//! must be a power of 2) times the size of an element.
+bool circular_buffer_prealloc(circular_buffer buffer, uint32_t size);
+
 //! \brief Add an item to an existing buffer.
 //! \param[in] buffer: The buffer struct to add to
 //! \param[in] item: The item to add.
@@ -81,10 +86,10 @@ static inline bool circular_buffer_add(circular_buffer buffer, uint32_t item) {
     bool success = _circular_buffer_not_full(buffer, next);
 
     if (success) {
-	    buffer->buffer[buffer->input] = item;
-	    buffer->input = next;
+        buffer->buffer[buffer->input] = item;
+        buffer->input = next;
     } else {
-	    buffer->overflows++;
+        buffer->overflows++;
     }
 
     return success;
@@ -99,8 +104,8 @@ static inline bool circular_buffer_get_next(
     bool success = _circular_buffer_not_empty(buffer);
 
     if (success) {
-	    *item = buffer->buffer[buffer->output];
-	    buffer->output = _circular_buffer_next(buffer, buffer->output);
+        *item = buffer->buffer[buffer->output];
+        buffer->output = _circular_buffer_next(buffer, buffer->output);
     }
 
     return success;
@@ -114,10 +119,10 @@ static inline bool circular_buffer_advance_if_next_equals(
         circular_buffer buffer, uint32_t item) {
     bool success = _circular_buffer_not_empty(buffer);
     if (success) {
-	    success = (buffer->buffer[buffer->output] == item);
-	    if (success) {
-	        buffer->output = _circular_buffer_next(buffer, buffer->output);
-	    }
+        success = (buffer->buffer[buffer->output] == item);
+        if (success) {
+            buffer->output = _circular_buffer_next(buffer, buffer->output);
+        }
     }
     return success;
 }
@@ -127,8 +132,8 @@ static inline bool circular_buffer_advance_if_next_equals(
 //! \return The number of elements currently in the buffer
 static inline uint32_t circular_buffer_size(circular_buffer buffer) {
     return buffer->input >= buffer->output
-	    ? buffer->input - buffer->output
-	    : (buffer->input + buffer->buffer_size + 1) - buffer->output;
+        ? buffer->input - buffer->output
+        : (buffer->input + buffer->buffer_size + 1) - buffer->output;
 }
 
 //! \brief Get the number of overflows that have occurred when adding to
@@ -136,7 +141,7 @@ static inline uint32_t circular_buffer_size(circular_buffer buffer) {
 //! \param[in] buffer: The buffer to check for overflows
 //! \return The number of times add was called and returned False
 static inline uint32_t circular_buffer_get_n_buffer_overflows(
-	    circular_buffer buffer) {
+        circular_buffer buffer) {
     return buffer->overflows;
 }
 
